@@ -122,8 +122,8 @@ function TrafficSystem({ R }: { R: number }) {
   return (
     <points ref={pointsRef}>
       <bufferGeometry>
-        <bufferAttribute attach="attributes-position" count={count} array={positions} itemSize={3} />
-        <bufferAttribute attach="attributes-phase" count={count} array={phases} itemSize={1} />
+        <bufferAttribute attach="attributes-position" args={[positions, 3]} />
+        <bufferAttribute attach="attributes-phase" args={[phases, 1]} />
       </bufferGeometry>
       <shaderMaterial args={[shaderArgs]} />
     </points>
@@ -309,9 +309,9 @@ function FloatingParticles({ R }: { R: number }) {
   return (
     <points ref={pointsRef}>
       <bufferGeometry>
-        <bufferAttribute attach="attributes-position" count={count} array={positions} itemSize={3} />
-        <bufferAttribute attach="attributes-params1" count={count} array={params1} itemSize={4} />
-        <bufferAttribute attach="attributes-params2" count={count} array={params2} itemSize={4} />
+        <bufferAttribute attach="attributes-position" args={[positions, 3]} />
+        <bufferAttribute attach="attributes-params1" args={[params1, 4]} />
+        <bufferAttribute attach="attributes-params2" args={[params2, 4]} />
       </bufferGeometry>
       <shaderMaterial args={[shaderArgs]} />
     </points>
