@@ -2,12 +2,12 @@ import Link from "next/link";
 
 const footerLinks = {
   "The Index™": [
-    { name: "Corporate Elite", href: "/index" },
-    { name: "Litigation Masters", href: "/index" },
-    { name: "Arbitration Leaders", href: "/index" },
-    { name: "Law Firm Rankings", href: "/index" },
-    { name: "GC Power List", href: "/index" },
-    { name: "Global Influencers", href: "/index" },
+    { name: "Corporate Elite", href: "/juris-index" },
+    { name: "Litigation Masters", href: "/juris-index" },
+    { name: "Arbitration Leaders", href: "/juris-index" },
+    { name: "Law Firm Rankings", href: "/juris-index" },
+    { name: "GC Power List", href: "/juris-index" },
+    { name: "Global Influencers", href: "/juris-index" },
   ],
   Intelligence: [
     { name: "Market Reports", href: "/intelligence" },

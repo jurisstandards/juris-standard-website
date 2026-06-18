@@ -87,7 +87,7 @@ export default function Home() {
                   transition={{ duration: 0.8, ease: "easeOut", delay: 0.8 }}
                   className="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-6"
                 >
-                  <CTAButton href="/index" variant="primary">Enter the Index</CTAButton>
+                  <CTAButton href="/juris-index" variant="primary">Enter the Index</CTAButton>
                   <CTAButton href="/methodology" variant="outline">View Methodology</CTAButton>
                 </motion.div>
                 
@@ -157,17 +157,17 @@ export default function Home() {
             title="The Juris Standard Index™" 
             subtitle="A research-driven institutional record of legal excellence."
             actionText="View All Indexes"
-            actionHref="/index"
+            actionHref="/juris-index"
             icon={<div className="w-4 h-4 border border-gold-400 flex items-center justify-center shadow-[0_0_10px_rgba(197,160,89,0.5)]"><div className="w-2 h-2 bg-gold-400" /></div>}
           />
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-6">
-            <IndexCard delay={0} category="Corporate" title="Elite" href="/index" icon={<Gem size={44} strokeWidth={1} stroke="url(#gold-gradient)" />} />
-            <IndexCard delay={100} category="Litigation" title="Masters" href="/index" icon={<Scale size={44} strokeWidth={1} stroke="url(#gold-gradient)" />} />
-            <IndexCard delay={200} category="Arbitration" title="Leaders" href="/index" icon={<Users size={44} strokeWidth={1} stroke="url(#gold-gradient)" />} />
-            <IndexCard delay={300} category="Law Firm" title="Rankings" href="/index" icon={<TrendingUp size={44} strokeWidth={1} stroke="url(#gold-gradient)" />} />
-            <IndexCard delay={400} category="General Counsel" title="Power List" href="/index" icon={<Zap size={44} strokeWidth={1} stroke="url(#gold-gradient)" />} />
-            <IndexCard delay={500} category="Global" title="Influencers" href="/index" icon={<Megaphone size={44} strokeWidth={1} stroke="url(#gold-gradient)" />} />
+            <IndexCard delay={0} category="Corporate" title="Elite" href="/juris-index" icon={<Gem size={44} strokeWidth={1} stroke="url(#gold-gradient)" />} />
+            <IndexCard delay={100} category="Litigation" title="Masters" href="/juris-index" icon={<Scale size={44} strokeWidth={1} stroke="url(#gold-gradient)" />} />
+            <IndexCard delay={200} category="Arbitration" title="Leaders" href="/juris-index" icon={<Users size={44} strokeWidth={1} stroke="url(#gold-gradient)" />} />
+            <IndexCard delay={300} category="Law Firm" title="Rankings" href="/juris-index" icon={<TrendingUp size={44} strokeWidth={1} stroke="url(#gold-gradient)" />} />
+            <IndexCard delay={400} category="General Counsel" title="Power List" href="/juris-index" icon={<Zap size={44} strokeWidth={1} stroke="url(#gold-gradient)" />} />
+            <IndexCard delay={500} category="Global" title="Influencers" href="/juris-index" icon={<Megaphone size={44} strokeWidth={1} stroke="url(#gold-gradient)" />} />
           </div>
         </div>
       </section>
