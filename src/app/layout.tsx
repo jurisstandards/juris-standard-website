@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Montserrat, Outfit } from "next/font/google";
 import "./globals.css";
+import { AnalystConcierge } from "@/components/ui/AnalystConcierge";
+import { IntelligenceAlert } from "@/components/ui/IntelligenceAlert";
 
 const montserrat = Montserrat({
   variable: "--font-montserrat",
@@ -30,6 +32,8 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col font-sans bg-background text-foreground overflow-x-hidden selection:bg-gold-500/30">
         {children}
+        <IntelligenceAlert />
+        <AnalystConcierge />
       </body>
     </html>
   );

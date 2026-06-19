@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
+import { LiveTicker } from "@/components/ui/LiveTicker";
 import { CTAButton } from "@/components/ui/CTAButton";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { IndexCard } from "@/components/ui/IndexCard";
@@ -425,6 +426,7 @@ export default function Home() {
       </section>
 
       <Footer />
+      <LiveTicker />
     </main>
   );
 }
