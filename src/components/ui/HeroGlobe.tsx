@@ -553,7 +553,7 @@ export function HeroGlobe() {
           <Earth />
 
           {/* Post Processing for the Glowing City Lights (Satellite Effect) */}
-          <EffectComposer disableNormalPass multisampling={0}>
+          <EffectComposer multisampling={0}>
             <Bloom 
               luminanceThreshold={0.1} 
               intensity={4.0} 
