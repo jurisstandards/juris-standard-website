@@ -49,7 +49,7 @@ function getPosFromLatLon(lat: number, lon: number, radius: number) {
 // --------------------------------------------------------
 function TrafficSystem({ R }: { R: number }) {
   const pointsRef = useRef<THREE.Points>(null);
-  const count = 8000; // Massively increased count for global data nodes
+  const count = 4000; // Optimized: 4000 particles is visually identical but halves GPU vertex load
   
   const [positions, phases] = useMemo(() => {
     const pos = new Float32Array(count * 3);
@@ -334,7 +334,7 @@ function SatelliteRing({ radius, tiltX, tiltZ, speed, color }: any) {
     }
   });
 
-  const ringGeo = useMemo(() => new THREE.RingGeometry(radius, radius + 0.015, 64), [radius]);
+  const ringGeo = useMemo(() => new THREE.RingGeometry(radius, radius + 0.015, 32), [radius]);
   
   return (
     <group rotation={[tiltX, 0, tiltZ]}>
@@ -343,7 +343,7 @@ function SatelliteRing({ radius, tiltX, tiltZ, speed, color }: any) {
       </mesh>
       <group ref={groupRef}>
         <mesh position={[radius, 0, 0]}>
-          <sphereGeometry args={[0.06, 16, 16]} />
+          <sphereGeometry args={[0.06, 8, 8]} />
           <meshBasicMaterial color={color} toneMapped={false} />
         </mesh>
       </group>
@@ -358,23 +358,34 @@ function CityMarker({ city, R }: { city: any; R: number }) {
   const groupRef = useRef<THREE.Group>(null);
   const [hasActivated, setHasActivated] = useState(false);
   const [visible, setVisible] = useState(false);
+  const frameCount = useRef(0);
 
   const pos = getPosFromLatLon(city.lat, city.lon, R);
   const labelPos = getPosFromLatLon(city.lat, city.lon, R * 1.15);
 
+  // Reusable objects to avoid per-frame allocations
+  const _normal = useMemo(() => new THREE.Vector3(), []);
+  const _cameraDir = useMemo(() => new THREE.Vector3(), []);
+  const _normalMatrix = useMemo(() => new THREE.Matrix3(), []);
+  const _posNorm = useMemo(() => pos.clone().normalize(), [pos]);
+
   useFrame(({ camera, clock }) => {
     if (!groupRef.current) return;
-    const normal = pos.clone().normalize().applyMatrix3(new THREE.Matrix3().getNormalMatrix(groupRef.current.matrixWorld));
-    const cameraDir = camera.position.clone().sub(groupRef.current.position).normalize();
-    const dot = normal.dot(cameraDir);
-    
-    setVisible(dot > 0.0); // Only render DOM when somewhat facing
+    frameCount.current++;
 
-    if (!hasActivated && dot > 0.5) {
-      setHasActivated(true);
-    }
-    if (hasActivated && dot < 0.1) {
-      setHasActivated(false);
+    // Only check visibility/activation every 3 frames to reduce React setState thrashing
+    if (frameCount.current % 3 === 0) {
+      _normal.copy(_posNorm).applyMatrix3(_normalMatrix.getNormalMatrix(groupRef.current.matrixWorld));
+      _cameraDir.copy(camera.position).sub(groupRef.current.position).normalize();
+      const dot = _normal.dot(_cameraDir);
+
+      const shouldBeVisible = dot > 0.0;
+      const shouldBeActivated = dot > 0.5;
+      const shouldDeactivate = dot < 0.1;
+
+      if (shouldBeVisible !== visible) setVisible(shouldBeVisible);
+      if (!hasActivated && shouldBeActivated) setHasActivated(true);
+      if (hasActivated && shouldDeactivate) setHasActivated(false);
     }
     
     // Premium, minimal slow-breathing animation at the city endpoints
@@ -398,13 +409,13 @@ function CityMarker({ city, R }: { city: any; R: number }) {
     <group ref={groupRef} visible={visible}>
       {/* Glowing base dot & Aura */}
       <mesh position={pos}>
-        <sphereGeometry args={[0.08, 16, 16]} />
+        <sphereGeometry args={[0.08, 8, 8]} />
         <meshBasicMaterial color="#FFD700" transparent opacity={hasActivated ? 1.0 : 0.3} toneMapped={false} />
       </mesh>
       
       {/* Outer Pulse Ring */}
       <mesh position={pos}>
-        <sphereGeometry args={[0.15, 16, 16]} />
+        <sphereGeometry args={[0.15, 8, 8]} />
         <meshBasicMaterial color="#FFC040" transparent opacity={hasActivated ? 0.4 : 0} blending={THREE.AdditiveBlending} toneMapped={false} />
       </mesh>
 
@@ -469,7 +480,7 @@ function Earth() {
     }
     if (cloudsRef.current) {
       // Clouds drift independently to maintain atmospheric realism
-      cloudsRef.current.rotation.y += 0.016;
+      cloudsRef.current.rotation.y += 0.0002;
     }
   });
 
@@ -482,16 +493,15 @@ function Earth() {
         {/* Reduce geometry segments from 64x64 to 48x48 (40% fewer vertices) — visually identical but much faster */}
         <sphereGeometry args={[R, 48, 48]} />
         <meshPhongMaterial
-          color="#001838" // Stronger, richer deep blue base to completely kill any underlying green tint
-          map={nightMap} 
+          color="#06102a" // Clean deep navy blue — no green texture to fight against
           emissiveMap={nightMap}
           emissive={new THREE.Color("#FFD700")} // Restored the golden detailing for the city lights!
           emissiveIntensity={3.5} // High enough to make the gold lights pop over the blue base
           bumpMap={bumpMap}
-          bumpScale={3.0} // Increased bump scale to create stronger black/shadow detailing
+          bumpScale={4.0} // Higher bump gives visible terrain detail since we removed the diffuse texture
           specularMap={specularMap}
-          specular={new THREE.Color("#112233")} // Subtle specular reflection for water realism
-          shininess={10} 
+          specular={new THREE.Color("#1a3060")} // Blue specular for ocean glint
+          shininess={15} 
         />
       </mesh>
 
@@ -520,21 +530,22 @@ function Earth() {
 export function HeroGlobe() {
   return (
     // Fixed layout: right half of screen
-    <div className="absolute top-0 left-0 w-[140vw] h-full flex items-center justify-center pointer-events-none">
+    <div className="absolute top-0 left-0 w-[140vw] h-full flex items-center justify-center pointer-events-none" style={{ willChange: 'transform' }}>
       {/* Soft white spreading gradient behind the globe to separate it from the background */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_20%,rgba(255,255,255,0.08)_0%,transparent_60%)] pointer-events-none -z-10" />
       
-      <div className="absolute inset-0 w-full h-full pointer-events-none">
+      <div className="absolute inset-0 w-full h-full pointer-events-none" style={{ willChange: 'transform' }}>
         <Canvas
           camera={{ position: [0, 0, 23], fov: 45 }}
           dpr={[1, 1.2]} // Extremely strict cap on pixel density. Prevents high-res monitors from tanking the framerate
           // Disable antialias: MSAA is incredibly heavy when combined with EffectComposer and is unnoticeable here
           gl={{ antialias: false, alpha: true, powerPreference: "high-performance" }}
+          performance={{ min: 0.5 }} // Adaptive performance: auto-lowers DPR when framerate drops
         >
           <GlobeLoader />
           
-          {/* Increased ambient light for better overall visibility of countries */}
-          <ambientLight intensity={0.6} />
+          {/* Ambient light with strong blue tint to suppress green from texture */}
+          <ambientLight intensity={0.35} color="#7088e0" />
           
           {/* Rim light perfectly positioned behind and above to create the circular lining effect */}
           <directionalLight
@@ -543,11 +554,11 @@ export function HeroGlobe() {
             color="#ffffff" 
           />
 
-          {/* Subtle front light to ensure details are visible without blowing out the globe in white */}
+          {/* Front light — strong blue to overpower the green tint from the NASA texture */}
           <directionalLight
             position={[0, 0, 20]}
-            intensity={0.6}
-            color="#a0c0ff"
+            intensity={0.4}
+            color="#5070c0"
           />
 
           <Earth />
@@ -555,9 +566,9 @@ export function HeroGlobe() {
           {/* Post Processing for the Glowing City Lights (Satellite Effect) */}
           <EffectComposer multisampling={0}>
             <Bloom 
-              luminanceThreshold={0.1} 
-              intensity={4.0} 
-              radius={0.6} // Use standard blur radius instead of the massive GPU-crushing mipmapBlur
+              luminanceThreshold={0.15} 
+              intensity={3.0} 
+              radius={0.4} // Reduced blur radius to cut GPU fill-rate cost
             />
           </EffectComposer>
 
@@ -571,6 +582,9 @@ export function HeroGlobe() {
           />
         </Canvas>
       </div>
+
+      {/* Edge Obscuring Gradient (Vignette) to hide the sharp spherical boundaries */}
+      <div className="absolute inset-0 pointer-events-none z-10 bg-[radial-gradient(circle_at_50%_50%,transparent_30%,rgba(0,0,0,0.7)_45%,rgba(0,0,0,1)_55%)]" />
     </div>
   );
 }

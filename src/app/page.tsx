@@ -12,7 +12,7 @@ import { AwardCard } from "@/components/ui/AwardCard";
 import { InsightCard } from "@/components/ui/InsightCard";
 import { MembershipCard } from "@/components/ui/MembershipCard";
 import { HeroGlobe } from "@/components/ui/HeroGlobe";
-import { Play, Globe, Gem, Scale, Users, TrendingUp, Zap, Megaphone, ArrowRight } from "lucide-react";
+import { Play, Globe, Gem, Scale, Crown, TrendingUp, Zap, Megaphone, ArrowRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useAppStore } from "@/lib/store";
 
@@ -34,10 +34,15 @@ export default function Home() {
       {/* 1. Hero Section */}
       <section className="relative min-h-[100vh] flex items-center pt-40 pb-32 z-10">
         
-        {/* Photorealistic 3D Globe - Expanded width to prevent hard clipping */}
-        <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+        {/* Photorealistic 3D Globe - fades in gracefully once loaded */}
+        <motion.div 
+          className="absolute inset-0 z-0 overflow-hidden pointer-events-none"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: isGlobeLoaded ? 1 : 0 }}
+          transition={{ duration: 2, ease: "easeOut" }}
+        >
           <HeroGlobe />
-        </div>
+        </motion.div>
         
         {/* Deep, premium shadow restricted strictly to the left half of the screen behind the text */}
         <div className="absolute top-0 left-0 w-[60%] h-full flex flex-col justify-center pointer-events-none z-0">
@@ -47,8 +52,6 @@ export default function Home() {
 
         <div className="w-full px-8 md:px-16 lg:px-24 xl:px-32 relative z-10">
           <div className="max-w-3xl">
-            {isGlobeLoaded && (
-              <>
                 <motion.div 
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
@@ -69,7 +72,7 @@ export default function Home() {
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 1, ease: "easeOut", delay: 0.4 }}
-                  className="font-serif text-5xl md:text-7xl lg:text-8xl font-medium leading-[1.05] mb-8 tracking-tight drop-shadow-2xl"
+                  className="font-serif text-5xl md:text-7xl lg:text-8xl font-light leading-[1.05] mb-8 tracking-tight drop-shadow-2xl"
                 >
                   <span className="text-transparent bg-clip-text bg-gradient-to-br from-white via-neutral-100 to-neutral-400 drop-shadow-sm">
                     Excellence is Measured.
@@ -127,8 +130,6 @@ export default function Home() {
                     </div>
                   </div>
                 </motion.div>
-              </>
-            )}
           </div>
         </div>
       </section>
@@ -177,14 +178,43 @@ export default function Home() {
             actionHref="/juris-index"
             icon={<div className="w-4 h-4 border border-gold-400 flex items-center justify-center shadow-[0_0_10px_rgba(197,160,89,0.5)]"><div className="w-2 h-2 bg-gold-400" /></div>}
           />
-          
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-6">
-            <IndexCard delay={0} category="Corporate" title="Elite" href="/juris-index" icon={<img src="/icons/icon_diamond.png" alt="Diamond" className="w-[5.5rem] h-[5.5rem] object-cover mix-blend-lighten" style={{ WebkitMaskImage: 'radial-gradient(circle, black 50%, transparent 80%)', maskImage: 'radial-gradient(circle, black 50%, transparent 80%)' }} />} />
-            <IndexCard delay={100} category="Litigation" title="Masters" href="/juris-index" icon={<img src="/icons/icon_scales.png" alt="Scales" className="w-[5.5rem] h-[5.5rem] object-cover mix-blend-lighten" style={{ WebkitMaskImage: 'radial-gradient(circle, black 50%, transparent 80%)', maskImage: 'radial-gradient(circle, black 50%, transparent 80%)' }} />} />
-            <IndexCard delay={200} category="Arbitration" title="Leaders" href="/juris-index" icon={<img src="/icons/icon_leaders.png" alt="Leaders" className="w-[5.5rem] h-[5.5rem] object-cover mix-blend-lighten" style={{ WebkitMaskImage: 'radial-gradient(circle, black 50%, transparent 80%)', maskImage: 'radial-gradient(circle, black 50%, transparent 80%)' }} />} />
-            <IndexCard delay={300} category="Law Firm" title="Rankings" href="/juris-index" icon={<img src="/icons/icon_trending.png" alt="Trending" className="w-[5.5rem] h-[5.5rem] object-cover mix-blend-lighten" style={{ WebkitMaskImage: 'radial-gradient(circle, black 50%, transparent 80%)', maskImage: 'radial-gradient(circle, black 50%, transparent 80%)' }} />} />
-            <IndexCard delay={400} category="General Counsel" title="Power List" href="/juris-index" icon={<img src="/icons/icon_lightning.png" alt="Lightning" className="w-[5.5rem] h-[5.5rem] object-cover mix-blend-lighten" style={{ WebkitMaskImage: 'radial-gradient(circle, black 50%, transparent 80%)', maskImage: 'radial-gradient(circle, black 50%, transparent 80%)' }} />} />
-            <IndexCard delay={500} category="Global" title="Influencers" href="/juris-index" icon={<img src="/icons/icon_megaphone.png" alt="Megaphone" className="w-[5.5rem] h-[5.5rem] object-cover mix-blend-lighten" style={{ WebkitMaskImage: 'radial-gradient(circle, black 50%, transparent 80%)', maskImage: 'radial-gradient(circle, black 50%, transparent 80%)' }} />} />
+            <IndexCard delay={0} category="Corporate" title="Elite" href="/juris-index" icon={
+              <div className="relative flex items-center justify-center w-20 h-20">
+                <div className="absolute inset-0 bg-gold-500/5 rounded-full blur-xl group-hover:bg-gold-400/15 transition-colors duration-700" />
+                <Gem className="w-10 h-10 text-gold-400/90 drop-shadow-[0_0_10px_rgba(212,175,55,0.2)] stroke-[1.5px] group-hover:text-gold-300 group-hover:drop-shadow-[0_0_15px_rgba(212,175,55,0.4)] transition-all duration-700" />
+              </div>
+            } />
+            <IndexCard delay={100} category="Litigation" title="Masters" href="/juris-index" icon={
+              <div className="relative flex items-center justify-center w-20 h-20">
+                <div className="absolute inset-0 bg-gold-500/5 rounded-full blur-xl group-hover:bg-gold-400/15 transition-colors duration-700" />
+                <Scale className="w-10 h-10 text-gold-400/90 drop-shadow-[0_0_10px_rgba(212,175,55,0.2)] stroke-[1.5px] group-hover:text-gold-300 group-hover:drop-shadow-[0_0_15px_rgba(212,175,55,0.4)] transition-all duration-700" />
+              </div>
+            } />
+            <IndexCard delay={200} category="Arbitration" title="Leaders" href="/juris-index" icon={
+              <div className="relative flex items-center justify-center w-20 h-20">
+                <div className="absolute inset-0 bg-gold-500/5 rounded-full blur-xl group-hover:bg-gold-400/15 transition-colors duration-700" />
+                <Crown className="w-10 h-10 text-gold-400/90 drop-shadow-[0_0_10px_rgba(212,175,55,0.2)] stroke-[1.5px] group-hover:text-gold-300 group-hover:drop-shadow-[0_0_15px_rgba(212,175,55,0.4)] transition-all duration-700" />
+              </div>
+            } />
+            <IndexCard delay={300} category="Law Firm" title="Rankings" href="/juris-index" icon={
+              <div className="relative flex items-center justify-center w-20 h-20">
+                <div className="absolute inset-0 bg-gold-500/5 rounded-full blur-xl group-hover:bg-gold-400/15 transition-colors duration-700" />
+                <TrendingUp className="w-10 h-10 text-gold-400/90 drop-shadow-[0_0_10px_rgba(212,175,55,0.2)] stroke-[1.5px] group-hover:text-gold-300 group-hover:drop-shadow-[0_0_15px_rgba(212,175,55,0.4)] transition-all duration-700" />
+              </div>
+            } />
+            <IndexCard delay={400} category="General Counsel" title="Power List" href="/juris-index" icon={
+              <div className="relative flex items-center justify-center w-20 h-20">
+                <div className="absolute inset-0 bg-gold-500/5 rounded-full blur-xl group-hover:bg-gold-400/15 transition-colors duration-700" />
+                <Zap className="w-10 h-10 text-gold-400/90 drop-shadow-[0_0_10px_rgba(212,175,55,0.2)] stroke-[1.5px] group-hover:text-gold-300 group-hover:drop-shadow-[0_0_15px_rgba(212,175,55,0.4)] transition-all duration-700" />
+              </div>
+            } />
+            <IndexCard delay={500} category="Global" title="Influencers" href="/juris-index" icon={
+              <div className="relative flex items-center justify-center w-20 h-20">
+                <div className="absolute inset-0 bg-gold-500/5 rounded-full blur-xl group-hover:bg-gold-400/15 transition-colors duration-700" />
+                <Megaphone className="w-10 h-10 text-gold-400/90 drop-shadow-[0_0_10px_rgba(212,175,55,0.2)] stroke-[1.5px] group-hover:text-gold-300 group-hover:drop-shadow-[0_0_15px_rgba(212,175,55,0.4)] transition-all duration-700" />
+              </div>
+            } />
           </div>
         </div>
       </section>
@@ -203,22 +233,38 @@ export default function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
             <div className="lg:col-span-6 p-10 md:p-14 rounded-xl bg-[#0f0f0f]/90 backdrop-blur-3xl border border-white/[0.05] shadow-[inset_0_1px_0_rgba(255,255,255,0.1),0_20px_50px_rgba(0,0,0,0.8)] transition-all duration-700 relative overflow-hidden group hover:border-gold-500/30 flex flex-col justify-between">
                
-               {/* Elegant sweeping background graph */}
-               <div className="absolute bottom-0 right-0 w-[110%] h-[70%] opacity-30 group-hover:opacity-60 transition-all duration-1000 pointer-events-none z-0 translate-x-[5%] translate-y-[10%] group-hover:translate-y-[5%]">
-                  <svg className="w-full h-full" viewBox="0 0 200 100" fill="none" preserveAspectRatio="none">
+               {/* Premium Financial Terminal Background Graph */}
+               <div className="absolute bottom-0 right-0 w-[110%] h-[80%] opacity-60 group-hover:opacity-100 transition-all duration-1000 pointer-events-none z-0 translate-x-[2%] translate-y-[5%] group-hover:translate-y-[2%]">
+                  <svg className="w-full h-full" viewBox="0 0 200 100" preserveAspectRatio="none">
                      <defs>
-                       <linearGradient id="large-graph-area" x1="0" y1="0" x2="0" y2="100" gradientUnits="userSpaceOnUse">
-                         <stop stopColor="#D4AF37" stopOpacity="0.15" />
-                         <stop offset="1" stopColor="#D4AF37" stopOpacity="0" />
+                       <linearGradient id="large-graph-area" x1="0" y1="0" x2="0" y2="1">
+                         <stop offset="0%" stopColor="#D4AF37" stopOpacity="0.3" />
+                         <stop offset="100%" stopColor="#D4AF37" stopOpacity="0.0" />
                        </linearGradient>
-                       <linearGradient id="large-graph-line" x1="0" y1="0" x2="200" y2="0" gradientUnits="userSpaceOnUse">
-                         <stop stopColor="#D4AF37" stopOpacity="0" />
-                         <stop offset="0.3" stopColor="#D4AF37" stopOpacity="0.4" />
-                         <stop offset="1" stopColor="#FFDF73" stopOpacity="0.8" />
+                       <linearGradient id="large-graph-line" x1="0" y1="0" x2="1" y2="0">
+                         <stop offset="0%" stopColor="#D4AF37" stopOpacity="0.1" />
+                         <stop offset="50%" stopColor="#D4AF37" stopOpacity="0.8" />
+                         <stop offset="100%" stopColor="#FFDF73" stopOpacity="1" />
                        </linearGradient>
+                       <filter id="glow-large" x="-20%" y="-20%" width="140%" height="140%">
+                         <feGaussianBlur stdDeviation="2" result="blur" />
+                         <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                       </filter>
                      </defs>
-                     <path d="M0 100 L0 80 C 40 80, 60 90, 100 60 C 140 30, 160 40, 200 10 L 200 100 Z" fill="url(#large-graph-area)" />
-                     <path d="M0 80 C 40 80, 60 90, 100 60 C 140 30, 160 40, 200 10" stroke="url(#large-graph-line)" strokeWidth="1.5" strokeLinecap="round" className="drop-shadow-[0_4px_12px_rgba(212,175,55,0.4)]" />
+                     
+                     {/* Strict Terminal X/Y Grid Background */}
+                     <path d="M0 20 L200 20 M0 40 L200 40 M0 60 L200 60 M0 80 L200 80" stroke="rgba(255,255,255,0.06)" strokeWidth="0.5" />
+                     <path d="M40 0 L40 100 M80 0 L80 100 M120 0 L120 100 M160 0 L160 100" stroke="rgba(255,255,255,0.03)" strokeWidth="0.5" />
+
+                     {/* Filled Gradient Area */}
+                     <path d="M0 100 L0 80 C 40 75, 60 85, 100 60 C 140 35, 160 40, 200 10 L 200 100 Z" fill="url(#large-graph-area)" />
+                     
+                     {/* Glowing Main Solid Line */}
+                     <path d="M0 80 C 40 75, 60 85, 100 60 C 140 35, 160 40, 200 10" stroke="url(#large-graph-line)" strokeWidth="1.5" fill="none" filter="url(#glow-large)" />
+                     
+                     {/* Pulsing End Node */}
+                     <circle cx="200" cy="10" r="3" fill="#FFDF73" filter="url(#glow-large)" />
+                     <circle cx="200" cy="10" r="8" fill="none" stroke="#FFDF73" strokeWidth="1" strokeOpacity="0.5" className="animate-pulse" />
                   </svg>
                </div>
                
@@ -240,9 +286,9 @@ export default function Home() {
                    </p>
                  </div>
                  
-                 <Link href="/intelligence" className="group/btn inline-flex items-center justify-center self-start px-8 py-3.5 rounded-full bg-white text-black text-xs font-semibold uppercase tracking-[0.2em] hover:bg-gold-400 transition-colors duration-500 shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:shadow-[0_0_30px_rgba(212,175,55,0.3)]">
+                 <Link href="/intelligence" className="group/btn inline-flex items-center justify-center self-start px-8 py-3.5 rounded-full bg-[#111]/80 backdrop-blur-md border border-gold-500/30 text-gold-300 text-xs font-semibold uppercase tracking-[0.2em] hover:bg-gold-500/10 hover:text-gold-200 transition-all duration-500 shadow-[0_0_20px_rgba(212,175,55,0.05)] hover:shadow-[0_0_30px_rgba(212,175,55,0.2)] hover:border-gold-500/60">
                     View Full Report
-                    <ArrowRight className="ml-3 w-4 h-4 text-black/70 group-hover/btn:text-black group-hover/btn:translate-x-1 transition-all" />
+                    <ArrowRight className="ml-3 w-4 h-4 text-gold-500/70 group-hover/btn:text-gold-300 group-hover/btn:translate-x-1 transition-all" />
                  </Link>
                </div>
             </div>
