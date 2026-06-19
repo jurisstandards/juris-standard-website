@@ -49,7 +49,7 @@ export function Navbar() {
             <Link
               key={link.name}
               href={link.href}
-              className="text-[0.65rem] uppercase tracking-[0.15em] text-white/70 hover:text-gold-400 transition-colors"
+              className="text-[0.65rem] uppercase tracking-[0.15em] font-medium text-white/90 hover:text-gold-400 transition-colors drop-shadow-[0_2px_4px_rgba(0,0,0,1)]"
             >
               {link.name}
             </Link>
@@ -59,13 +59,13 @@ export function Navbar() {
         <div className="hidden lg:flex items-center space-x-6">
           <Link
             href="/login"
-            className="text-[0.65rem] uppercase tracking-[0.15em] text-white/70 hover:text-gold-400 transition-colors"
+            className="text-[0.65rem] uppercase tracking-[0.15em] font-medium text-white/90 hover:text-gold-400 transition-colors drop-shadow-[0_2px_4px_rgba(0,0,0,1)]"
           >
             Login
           </Link>
           <Link
             href="/request-access"
-            className="text-[0.65rem] uppercase tracking-[0.15em] text-gold-400 border border-gold-500/30 px-5 py-2 hover:bg-gold-500/10 hover:border-gold-500 transition-all"
+            className="text-[0.65rem] uppercase tracking-[0.2em] font-medium text-gold-400 border border-gold-500/40 bg-black/60 backdrop-blur-xl px-6 py-2.5 hover:bg-gold-500/20 hover:border-gold-300 hover:text-gold-200 transition-all duration-500 shadow-[0_0_15px_rgba(0,0,0,0.8)]"
           >
             Request Access
           </Link>

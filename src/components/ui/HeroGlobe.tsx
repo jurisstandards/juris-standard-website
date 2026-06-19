@@ -4,6 +4,7 @@ import { useRef, useMemo, useState, useEffect } from "react";
 import { Canvas, useFrame, useLoader } from "@react-three/fiber";
 import { OrbitControls, Html, useProgress, useTexture, QuadraticBezierLine } from "@react-three/drei";
 import * as THREE from "three";
+import { EffectComposer, Bloom } from "@react-three/postprocessing";
 import { useAppStore } from "@/lib/store";
 
 function GlobeLoader() {
@@ -169,8 +170,8 @@ function GlobeGrid({ R }: { R: number }) {
 
   return (
     <lineSegments geometry={lineGeo}>
-      {/* Used AdditiveBlending and bumped opacity so the dark brown color is actually visible against the black ocean */}
-      <lineBasicMaterial color="#a08545" transparent opacity={0.3} depthTest={true} depthWrite={false} blending={THREE.AdditiveBlending} />
+      {/* Grid lines are extremely thin, white, and hardly visible */}
+      <lineBasicMaterial color="#ffffff" transparent opacity={0.03} depthTest={true} depthWrite={false} blending={THREE.AdditiveBlending} />
     </lineSegments>
   );
 }
@@ -205,12 +206,16 @@ function ConnectionLines({ R }: { R: number }) {
           start={l.p1}
           end={l.p2}
           mid={l.ctrl}
-          color="#FFD700" // Sharp golden color
-          lineWidth={1.2} // Slightly thicker for sharpness
+          color="#D4AF37" // A brighter, classic gold (not neon yellow, but more visible than the muted gold)
+          lineWidth={0.85} // Slightly thicker for better presence
           transparent
-          opacity={0.65}
+          opacity={0.28} // Increased from 0.15 to find the perfect middle ground
           depthTest={true}
           blending={THREE.AdditiveBlending}
+          dashed={true} // Elegant dashed lines instead of tiny dots
+          dashScale={1}
+          dashSize={0.3}
+          gapSize={0.15}
         />
       ))}
     </group>
@@ -236,8 +241,8 @@ function FloatingParticles({ R }: { R: number }) {
        const speedTheta = (Math.random() - 0.5) * 0.15;
        const speedPhi = (Math.random() - 0.5) * 0.15;
        const phase = Math.random() * Math.PI * 2;
-       const size = 3.0 + Math.random() * 4.0; // Increased size to 3.0-7.0px
-       const baseAlpha = 0.4 + Math.random() * 0.6; // Increased base alpha to 0.4-1.0
+       const size = 0.6 + Math.random() * 3.0; // 0.3-1.8px radius means 0.6-3.6px diameter
+       const baseAlpha = 0.1 + Math.random() * 0.4; // Base alpha to 0.1-0.5
        
        p1[i*4 + 0] = r;
        p1[i*4 + 1] = theta;
@@ -284,7 +289,7 @@ function FloatingParticles({ R }: { R: number }) {
         pos.z = r * sin(phi) * sin(theta);
         pos.y = r * cos(phi);
         
-        vAlpha = baseAlpha * (0.3 + 0.7 * abs(sin(time + phase))); // Keep a minimum opacity
+        vAlpha = baseAlpha * abs(sin(time + phase)); // Opacity flickers gently using Math.abs(Math.sin(time + phase))
         
         vec4 mvPosition = modelViewMatrix * vec4(pos, 1.0);
         gl_PointSize = size * (40.0 / -mvPosition.z); // Increased perspective scale
@@ -372,10 +377,20 @@ function CityMarker({ city, R }: { city: any; R: number }) {
       setHasActivated(false);
     }
     
-    // Ping scale
+    // Premium, minimal slow-breathing animation at the city endpoints
     if (groupRef.current.children[0]) {
-      const scale = hasActivated ? 1.0 + Math.sin(clock.elapsedTime * 6) * 0.3 : 1;
-      groupRef.current.children[0].scale.setScalar(scale);
+      // Very slow, minimal elegant breathing for the core dot
+      const breathe = 0.85 + Math.sin(clock.elapsedTime * 2) * 0.15; 
+      const material = (groupRef.current.children[0] as THREE.Mesh).material as THREE.MeshBasicMaterial;
+      material.opacity = hasActivated ? breathe : 0.2;
+    }
+    if (groupRef.current.children[1]) {
+      // Extremely slow, minimal expanding aura
+      const scale = hasActivated ? 1.0 + Math.sin(clock.elapsedTime * 1.5) * 0.15 : 1;
+      const opacity = hasActivated ? 0.15 + Math.cos(clock.elapsedTime * 1.5) * 0.1 : 0;
+      groupRef.current.children[1].scale.setScalar(scale);
+      const ringMat = (groupRef.current.children[1] as THREE.Mesh).material as THREE.MeshBasicMaterial;
+      ringMat.opacity = opacity;
     }
   });
 
@@ -406,10 +421,12 @@ function CityMarker({ city, R }: { city: any; R: number }) {
           <div className="w-[1px] h-10 bg-gradient-to-t from-[#FFC040] to-transparent origin-bottom transition-all duration-[1500ms] ease-[cubic-bezier(0.23,1,0.32,1)]"
                style={{ transform: hasActivated ? 'scaleY(1)' : 'scaleY(0)' }} />
           
-          <div className="px-3 py-1 bg-[#050402]/90 border border-gold-500/60 backdrop-blur-sm whitespace-nowrap overflow-hidden">
-            <div className="transition-transform duration-[1500ms] ease-[cubic-bezier(0.23,1,0.32,1)]"
+          {/* Premium Card Design for City Labels */}
+          <div className="flex items-center pl-1 pr-4 py-1.5 bg-gradient-to-r from-black/90 to-[#1a1500]/90 border-y border-r border-gold-500/30 border-l-2 border-l-gold-400 rounded-r-md backdrop-blur-md shadow-[0_4px_20px_rgba(212,175,55,0.15)] whitespace-nowrap overflow-hidden">
+            <div className="transition-transform duration-[1500ms] ease-[cubic-bezier(0.23,1,0.32,1)] flex items-center space-x-2"
                  style={{ transform: hasActivated ? 'translateY(0)' : 'translateY(120%)' }}>
-              <span className="text-[10px] tracking-[0.2em] text-gold-300 drop-shadow-md">
+              <div className="w-1 h-1 rounded-full bg-gold-400 shadow-[0_0_5px_rgba(212,175,55,0.8)]" />
+              <span className="text-[11px] font-medium tracking-[0.25em] text-gold-200 drop-shadow-md">
                 {city.name}
               </span>
             </div>
@@ -426,7 +443,7 @@ function Earth() {
 
   // Load high-res NASA textures
   // We use earth-night for the dark base with baked lights, topology for mountains, water for ocean gloss
-  const [colorMap, bumpMap, specularMap] = useTexture([
+  const [nightMap, bumpMap, specularMap] = useTexture([
     "https://unpkg.com/three-globe/example/img/earth-night.jpg",
     "https://unpkg.com/three-globe/example/img/earth-topology.png",
     "https://unpkg.com/three-globe/example/img/earth-water.png",
@@ -444,7 +461,7 @@ function Earth() {
       const t = state.clock.elapsedTime;
       // Completely even, unpredictable rotation layered onto the random initial longitude.
       // Every country now has an exactly equal probability of appearing in front.
-      earthRef.current.rotation.y = initialRotationY + (t * 0.04);
+      earthRef.current.rotation.y = initialRotationY + (t * 0.032);
       
       // Keep the subtle vertical/tilt organic drift
       earthRef.current.rotation.x = initialRotationX + Math.sin(t * 0.12) * 0.04;
@@ -452,7 +469,7 @@ function Earth() {
     }
     if (cloudsRef.current) {
       // Clouds drift independently to maintain atmospheric realism
-      cloudsRef.current.rotation.y += 0.02;
+      cloudsRef.current.rotation.y += 0.016;
     }
   });
 
@@ -460,33 +477,32 @@ function Earth() {
 
   return (
     <group ref={earthRef} rotation={[12 * DEG2RAD, 0, 0]}>
-      {/* 1. Base Earth Sphere */}
+      {/* 1. Base Earth Sphere — realistic dark globe with subtle blue tint */}
       <mesh>
-        <sphereGeometry args={[R, 64, 64]} />
+        {/* Reduce geometry segments from 64x64 to 48x48 (40% fewer vertices) — visually identical but much faster */}
+        <sphereGeometry args={[R, 48, 48]} />
         <meshPhongMaterial
-          map={colorMap}
-          emissiveMap={colorMap}
-          emissive={new THREE.Color(0xffffff)}
-          emissiveIntensity={1.8} // Boosted visibility
+          color="#001838" // Stronger, richer deep blue base to completely kill any underlying green tint
+          map={nightMap} 
+          emissiveMap={nightMap}
+          emissive={new THREE.Color("#FFD700")} // Restored the golden detailing for the city lights!
+          emissiveIntensity={3.5} // High enough to make the gold lights pop over the blue base
           bumpMap={bumpMap}
-          bumpScale={0.2}
+          bumpScale={3.0} // Increased bump scale to create stronger black/shadow detailing
           specularMap={specularMap}
-          specular={new THREE.Color("rgba(200, 230, 255, 1)")} 
-          shininess={60} // Sharper specular highlight
+          specular={new THREE.Color("#112233")} // Subtle specular reflection for water realism
+          shininess={10} 
         />
       </mesh>
 
-      {/* Dynamic Traffic System */}
-      <TrafficSystem R={R} />
-      
       {/* Globe Graticule Grid */}
       <GlobeGrid R={R} />
       
-      {/* Floating Dust Particles */}
-      <FloatingParticles R={R} />
-      
       {/* City Connections (Web) */}
       <ConnectionLines R={R} />
+      
+      {/* Floating ambient dust particles */}
+      <FloatingParticles R={R} />
       
       {/* Orbital Satellite Rings */}
       <SatelliteRing radius={R * 1.3} tiltX={0.2} tiltZ={0.3} speed={0.15} color="#e0f0ff" />
@@ -504,16 +520,21 @@ function Earth() {
 export function HeroGlobe() {
   return (
     // Fixed layout: right half of screen
-    <div className="absolute top-0 right-0 w-full lg:w-[60%] h-full flex items-center justify-center pointer-events-none">
-      <div className="w-[1000px] h-[1000px] max-w-full max-h-full">
+    <div className="absolute top-0 left-0 w-[140vw] h-full flex items-center justify-center pointer-events-none">
+      {/* Soft white spreading gradient behind the globe to separate it from the background */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_20%,rgba(255,255,255,0.08)_0%,transparent_60%)] pointer-events-none -z-10" />
+      
+      <div className="absolute inset-0 w-full h-full pointer-events-none">
         <Canvas
-          camera={{ position: [0, 0, 22], fov: 45 }}
-          gl={{ antialias: true, alpha: true }}
+          camera={{ position: [0, 0, 23], fov: 45 }}
+          dpr={[1, 1.2]} // Extremely strict cap on pixel density. Prevents high-res monitors from tanking the framerate
+          // Disable antialias: MSAA is incredibly heavy when combined with EffectComposer and is unnoticeable here
+          gl={{ antialias: false, alpha: true, powerPreference: "high-performance" }}
         >
           <GlobeLoader />
           
-          {/* Increased ambient light for better overall visibility */}
-          <ambientLight intensity={0.15} />
+          {/* Increased ambient light for better overall visibility of countries */}
+          <ambientLight intensity={0.6} />
           
           {/* Rim light perfectly positioned behind and above to create the circular lining effect */}
           <directionalLight
@@ -522,14 +543,23 @@ export function HeroGlobe() {
             color="#ffffff" 
           />
 
-          {/* Faint front light to ensure the landmasses are visible */}
+          {/* Subtle front light to ensure details are visible without blowing out the globe in white */}
           <directionalLight
             position={[0, 0, 20]}
-            intensity={0.4}
+            intensity={0.6}
             color="#a0c0ff"
           />
 
           <Earth />
+
+          {/* Post Processing for the Glowing City Lights (Satellite Effect) */}
+          <EffectComposer disableNormalPass multisampling={0}>
+            <Bloom 
+              luminanceThreshold={0.1} 
+              intensity={4.0} 
+              radius={0.6} // Use standard blur radius instead of the massive GPU-crushing mipmapBlur
+            />
+          </EffectComposer>
 
           {/* Allow user to softly rotate the globe manually if desired (optional, disable zoom/pan) */}
           <OrbitControls 
@@ -541,9 +571,6 @@ export function HeroGlobe() {
           />
         </Canvas>
       </div>
-      
-      {/* Massive shadow gradient overlay to hide the bottom right, maintaining the crescent look */}
-      <div className="absolute inset-0 bg-gradient-to-tl from-[#000000] via-[#020305]/80 to-transparent pointer-events-none mix-blend-multiply" />
     </div>
   );
 }

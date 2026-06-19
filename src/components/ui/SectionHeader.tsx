@@ -31,24 +31,26 @@ export function SectionHeader({
               </div>
             </div>
           )}
-          <h2 className="font-serif text-4xl md:text-5xl text-white uppercase tracking-[0.05em] drop-shadow-md">
+          <h2 className="font-serif text-4xl md:text-5xl text-transparent bg-clip-text bg-gradient-to-b from-white via-[#f0f0f0] to-[#888888] uppercase tracking-[0.05em] drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]">
             {title}
           </h2>
         </div>
         {subtitle && (
-          <p className="text-white/50 text-sm md:text-base leading-relaxed tracking-wide max-w-xl pl-[3.25rem]">
-            {subtitle}
-          </p>
+          <div className="pl-[3.25rem]">
+            <p className="text-white/60 text-sm md:text-base leading-relaxed tracking-wide max-w-xl border-l-2 border-gold-500/40 pl-4 py-1">
+              {subtitle}
+            </p>
+          </div>
         )}
       </div>
       
       {actionText && actionHref && (
         <Link
           href={actionHref}
-          className="group inline-flex items-center mt-8 md:mt-0 pb-2 text-xs uppercase tracking-[0.25em] text-gold-400 hover:text-gold-300 transition-colors border-b border-gold-500/30 hover:border-gold-400"
+          className="group inline-flex items-center mt-8 md:mt-0 px-6 py-3 rounded-full text-xs font-semibold uppercase tracking-[0.25em] text-black bg-gradient-to-r from-gold-300 via-gold-400 to-gold-500 hover:from-gold-200 hover:via-gold-300 hover:to-gold-400 transition-all shadow-[0_0_20px_rgba(212,175,55,0.2)] hover:shadow-[0_0_35px_rgba(212,175,55,0.4)] hover:-translate-y-0.5"
         >
           {actionText}
-          <ArrowRight className="ml-3 w-4 h-4 transition-transform group-hover:translate-x-1" />
+          <ArrowRight className="ml-3 w-4 h-4 text-black/70 group-hover:text-black transition-transform group-hover:translate-x-1" />
         </Link>
       )}
     </div>
