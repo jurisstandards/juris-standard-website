@@ -31,13 +31,13 @@ export function SectionHeader({
               </div>
             </div>
           )}
-          <h2 className="font-serif text-4xl md:text-5xl text-transparent bg-clip-text bg-gradient-to-b from-white via-[#f0f0f0] to-[#888888] uppercase tracking-[0.05em] drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]">
+          <h2 className="font-serif text-3xl md:text-4xl text-white tracking-wide drop-shadow-sm font-light">
             {title}
           </h2>
         </div>
         {subtitle && (
-          <div className="pl-[3.25rem]">
-            <p className="text-white/60 text-sm md:text-base leading-relaxed tracking-wide max-w-xl border-l-2 border-gold-500/40 pl-4 py-1">
+          <div className="pl-[3.25rem] mt-2">
+            <p className="text-neutral-400 text-sm md:text-[15px] font-light leading-relaxed tracking-wide max-w-xl">
               {subtitle}
             </p>
           </div>
@@ -47,10 +47,10 @@ export function SectionHeader({
       {actionText && actionHref && (
         <Link
           href={actionHref}
-          className="group inline-flex items-center mt-8 md:mt-0 px-6 py-3 rounded-full text-xs font-semibold uppercase tracking-[0.25em] text-black bg-gradient-to-r from-gold-300 via-gold-400 to-gold-500 hover:from-gold-200 hover:via-gold-300 hover:to-gold-400 transition-all shadow-[0_0_20px_rgba(212,175,55,0.2)] hover:shadow-[0_0_35px_rgba(212,175,55,0.4)] hover:-translate-y-0.5"
+          className="group inline-flex items-center mt-8 md:mt-0 px-5 py-2 text-[14px] font-normal text-gold-300 border border-gold-500/40 bg-transparent hover:bg-gold-500/10 hover:text-gold-200 transition-colors duration-300 rounded-[1px]"
         >
-          {actionText}
-          <ArrowRight className="ml-3 w-4 h-4 text-black/70 group-hover:text-black transition-transform group-hover:translate-x-1" />
+          <span>{actionText}</span>
+          <span className="ml-2 transform transition-transform duration-300 group-hover:translate-x-1 font-light">&rarr;</span>
         </Link>
       )}
     </div>

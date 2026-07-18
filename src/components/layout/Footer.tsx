@@ -44,13 +44,14 @@ export function Footer() {
       <div className="w-full px-8 md:px-16 lg:px-24 xl:px-32">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-12 lg:gap-8 mb-16">
           <div className="lg:col-span-1">
-            <Link href="/" className="flex flex-col items-start group mb-6">
-              <span className="font-serif text-2xl tracking-widest text-gold-400 leading-none">
-                JURIS
-              </span>
-              <span className="font-serif text-[0.65rem] tracking-[0.3em] text-white/70 uppercase leading-tight mt-1">
-                Standard
-              </span>
+            <Link href="/" className="flex items-start group mb-6">
+              <div className="h-[52px] w-auto relative flex-shrink-0 transition-all duration-300 group-hover:opacity-90">
+                <img 
+                  src="/logo/logo-horizontal-stacked.png" 
+                  alt="Juris Standard" 
+                  className="h-full w-auto object-contain brightness-90 group-hover:brightness-100 transition-all"
+                />
+              </div>
             </Link>
             <p className="text-white/40 text-xs leading-relaxed max-w-xs">
               Defining Excellence<br />in the Legal Profession.

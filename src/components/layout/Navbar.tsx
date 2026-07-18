@@ -35,13 +35,15 @@ export function Navbar() {
       )}
     >
       <div className="w-full px-8 md:px-16 lg:px-24 xl:px-32 flex items-center justify-between">
-        <Link href="/" className="flex flex-col items-start group">
-          <span className="font-serif text-2xl tracking-widest text-gold-400 leading-none">
-            JURIS
-          </span>
-          <span className="font-serif text-[0.65rem] tracking-[0.3em] text-white/70 uppercase leading-tight mt-1 transition-colors group-hover:text-gold-200">
-            Standard
-          </span>
+        <Link href="/" className="flex items-center group">
+          {/* Official Horizontal Logo */}
+          <div className="h-[46px] md:h-[52px] w-auto relative flex-shrink-0 transition-all duration-300 group-hover:opacity-90">
+            <img 
+              src="/logo/logo-horizontal-stacked.png" 
+              alt="Juris Standard" 
+              className="h-full w-auto object-contain"
+            />
+          </div>
         </Link>
 
         <div className="hidden lg:flex items-center space-x-8">
@@ -49,25 +51,26 @@ export function Navbar() {
             <Link
               key={link.name}
               href={link.href}
-              className="text-[0.65rem] uppercase tracking-[0.15em] font-medium text-white/90 hover:text-gold-400 transition-colors drop-shadow-[0_2px_4px_rgba(0,0,0,1)]"
+              className="text-[15px] font-normal text-neutral-300 hover:text-white transition-colors tracking-wide"
             >
               {link.name}
             </Link>
           ))}
         </div>
 
-        <div className="hidden lg:flex items-center space-x-6">
+        <div className="hidden lg:flex items-center space-x-8">
           <Link
             href="/login"
-            className="text-[0.65rem] uppercase tracking-[0.15em] font-medium text-white/90 hover:text-gold-400 transition-colors drop-shadow-[0_2px_4px_rgba(0,0,0,1)]"
+            className="text-[15px] font-normal text-neutral-300 hover:text-white transition-colors tracking-wide"
           >
             Login
           </Link>
           <Link
             href="/request-access"
-            className="text-[0.65rem] uppercase tracking-[0.2em] font-medium text-gold-400 border border-gold-500/40 bg-black/60 backdrop-blur-xl px-6 py-2.5 hover:bg-gold-500/20 hover:border-gold-300 hover:text-gold-200 transition-all duration-500 shadow-[0_0_15px_rgba(0,0,0,0.8)]"
+            className="group flex items-center gap-2 text-[15px] font-normal text-gold-300 border border-gold-500/40 bg-transparent px-5 py-2 hover:bg-gold-500/10 hover:border-gold-400 hover:text-gold-200 transition-all duration-300 rounded-[1px]"
           >
-            Request Access
+            <span>Request Access</span>
+            <span className="transform transition-transform duration-300 group-hover:translate-x-1 font-light">&rarr;</span>
           </Link>
         </div>
         

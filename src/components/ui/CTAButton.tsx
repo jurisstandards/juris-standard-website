@@ -11,28 +11,20 @@ export interface CTAButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> 
 
 export const CTAButton = forwardRef<HTMLButtonElement, CTAButtonProps>(
   ({ className, variant = "primary", href, showArrow = false, children, ...props }, ref) => {
-    const baseStyles = ""; // We remove the base styling because the custom CSS provides everything.
+    const baseStyles = "group inline-flex items-center px-6 py-2.5 text-[14px] font-normal transition-colors duration-200 rounded-[1px] cursor-pointer";
 
     const variants = {
-      primary: "btn-primary-ultra",
-      secondary: "bg-charcoal-800 text-gold-400 hover:bg-charcoal-700 px-8 py-4 border border-gold-500/20 hover:border-gold-500/50",
-      outline: "btn-secondary-ultra",
+      primary: "bg-gold-500/10 border border-gold-500/40 text-gold-300 hover:bg-gold-500/20 hover:text-gold-200",
+      secondary: "bg-charcoal-800 text-gold-400 hover:bg-charcoal-700 border border-gold-500/20 hover:border-gold-500/50",
+      outline: "bg-transparent border border-gold-500/40 text-gold-300 hover:bg-gold-500/10 hover:text-gold-200",
       ghost: "bg-transparent text-white/70 hover:text-gold-400 px-4 py-2",
     };
 
     const content = (
       <>
-        <span className="relative z-10 flex items-center">
-          {children}
-          {showArrow && <ArrowRight className="ml-4 w-4 h-4 transform group-hover:translate-x-2 transition-transform duration-[600ms]" />}
-        </span>
-        {variant === "outline" && (
-          <>
-            <span className="btn-corner tl"></span>
-            <span className="btn-corner tr"></span>
-            <span className="btn-corner bl"></span>
-            <span className="btn-corner br"></span>
-          </>
+        <span>{children}</span>
+        {showArrow && (
+          <span className="ml-2 transform transition-transform duration-200 group-hover:translate-x-1 font-light">&rarr;</span>
         )}
       </>
     );

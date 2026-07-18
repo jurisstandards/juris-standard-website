@@ -6,11 +6,11 @@ interface MembershipCardProps {
 
 export function MembershipCard({ className }: MembershipCardProps) {
   return (
-    <div className={cn("relative p-[1px] bg-gradient-to-br from-gold-400 via-gold-600/20 to-black max-w-sm mx-auto shadow-[0_0_50px_rgba(197,160,89,0.3)] rounded-sm group hover:shadow-[0_0_80px_rgba(197,160,89,0.5)] transition-shadow duration-700", className)}>
-      <div className="bg-gradient-to-br from-charcoal-900 to-black h-full p-8 relative overflow-hidden flex flex-col justify-between aspect-[3/4] rounded-sm">
+    <div className={cn("relative p-[1px] bg-gradient-to-br from-gold-400 via-gold-600/20 to-black max-w-[280px] w-full mx-auto shadow-[0_0_30px_rgba(197,160,89,0.15)] rounded-sm group hover:shadow-[0_0_40px_rgba(197,160,89,0.3)] transition-shadow duration-200", className)}>
+      <div className="bg-gradient-to-br from-charcoal-900 to-black h-full p-6 relative overflow-hidden flex flex-col justify-between aspect-[3/4] rounded-sm">
         {/* Subtle background texture and sweeping light effect */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(197,160,89,0.25)_0%,_transparent_60%)] pointer-events-none" />
-        <div className="absolute top-0 -left-[100%] w-[200%] h-full bg-gradient-to-r from-transparent via-white/5 to-transparent skew-x-[-45deg] group-hover:left-[100%] transition-all duration-1000 ease-in-out pointer-events-none" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(197,160,89,0.15)_0%,_transparent_60%)] pointer-events-none" />
+        <div className="absolute top-0 -left-[100%] w-[200%] h-full bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-[-45deg] group-hover:left-[100%] transition-all duration-300 ease-in-out pointer-events-none" />
         
         <div className="relative z-10 flex flex-col items-center pt-14">
           <span className="font-serif text-4xl tracking-widest text-gold-400 leading-none mb-2 text-center drop-shadow-[0_0_8px_rgba(197,160,89,0.6)]">

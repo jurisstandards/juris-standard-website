@@ -12,41 +12,40 @@ export function IntelligenceCard({ category, value, subtitle, className }: Intel
   const gradientId = category.replace(/\s+/g, '');
 
   return (
-    <div className={cn("p-6 md:p-8 rounded-xl bg-gradient-to-b from-[#161616] to-[#0a0a0a] border border-white/[0.08] shadow-[0_10px_40px_rgba(0,0,0,0.8)] relative overflow-hidden group hover:border-gold-500/40 hover:shadow-[0_15px_50px_rgba(212,175,55,0.15)] transition-all duration-700 flex flex-col justify-between h-[280px]", className)}>
+    <div className={cn("p-5 md:p-6 rounded-xl bg-gradient-to-b from-[#161616] to-[#0a0a0a] border border-white/[0.08] shadow-sm relative overflow-hidden group hover:border-gold-500/30 transition-all duration-150 flex flex-col justify-between h-[210px]", className)}>
       
       {/* Background Grid Pattern for terminal feel */}
       <div className="absolute inset-0 bg-[url('/grid-pattern.svg')] bg-repeat opacity-[0.02] pointer-events-none" />
       
-      {/* Ambient Top Glow */}
-      <div className="absolute top-0 inset-x-0 h-[1px] bg-gradient-to-r from-transparent via-gold-500/30 to-transparent opacity-50 group-hover:opacity-100 group-hover:via-gold-400 transition-all duration-700" />
-      <div className="absolute -top-10 inset-x-0 h-20 bg-gold-500/10 blur-[30px] opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+      {/* Ambient Top Glow - Minimized */}
+      <div className="absolute top-0 inset-x-0 h-[1px] bg-gradient-to-r from-transparent via-gold-500/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-150" />
 
       <div className="relative z-10 flex flex-col h-full">
         {/* Header Region */}
-        <div className="flex items-start justify-between mb-6">
+        <div className="flex items-start justify-between mb-4">
           <div>
-            <div className="flex items-center space-x-2 mb-2">
-              <div className="w-1 h-1 rounded-full bg-gold-400 shadow-[0_0_5px_#D4AF37]" />
-              <span className="text-[0.6rem] font-bold uppercase tracking-[0.25em] text-white/60 group-hover:text-gold-200/80 transition-colors duration-500">
+            <div className="flex items-center space-x-2 mb-1.5">
+              <div className="w-1 h-1 rounded-full bg-gold-400/80" />
+              <span className="text-[0.55rem] font-bold uppercase tracking-[0.25em] text-white/60 group-hover:text-gold-300/90 transition-colors duration-150">
                 {category}
               </span>
             </div>
-            <div className="flex items-baseline space-x-2 mt-1">
-              <span className="text-4xl md:text-5xl font-light tracking-tight text-white drop-shadow-md">
+            <div className="flex items-baseline space-x-2">
+              <span className="text-3xl md:text-4xl font-light tracking-tight text-white drop-shadow-sm">
                 {value}
               </span>
-              <span className="text-[0.65rem] font-semibold uppercase tracking-wider text-green-400 bg-green-400/10 px-2 py-0.5 rounded-sm">
+              <span className="text-[0.6rem] font-semibold uppercase tracking-wider text-green-400 bg-green-400/10 px-1.5 py-0.5 rounded-sm">
                 + Trend
               </span>
             </div>
-            <p className="text-white/40 text-xs tracking-wide uppercase font-medium mt-3">
+            <p className="text-white/40 text-[0.65rem] tracking-wide uppercase font-medium mt-2">
               {subtitle}
             </p>
           </div>
         </div>
 
         {/* The Premium Graph */}
-        <div className="absolute bottom-0 left-0 right-0 h-[120px] w-full pt-4 opacity-90 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none">
+        <div className="absolute bottom-0 left-0 right-0 h-[90px] w-full pt-2 opacity-70 group-hover:opacity-100 transition-opacity duration-150 pointer-events-none">
           <svg className="w-full h-full" viewBox="0 0 100 40" preserveAspectRatio="none">
             <defs>
               <linearGradient id={`area-${gradientId}`} x1="0" y1="0" x2="0" y2="1">
@@ -65,17 +64,18 @@ export function IntelligenceCard({ category, value, subtitle, className }: Intel
             </defs>
 
             {/* Premium X/Y Grid Lines */}
-            <path d="M0 10 L100 10 M0 20 L100 20 M0 30 L100 30" stroke="rgba(255,255,255,0.04)" strokeWidth="0.5" />
+            <path d="M0 10 L100 10 M0 20 L100 20 M0 30 L100 30" stroke="rgba(255,255,255,0.03)" strokeWidth="0.5" />
             <path d="M20 0 L20 40 M40 0 L40 40 M60 0 L60 40 M80 0 L80 40" stroke="rgba(255,255,255,0.02)" strokeWidth="0.5" />
 
-            {/* Filled Area */}
-            <path d="M0 40 L0 32 C 15 30, 30 35, 45 25 C 60 15, 75 18, 90 5 L 100 0 L 100 40 Z" fill={`url(#area-${gradientId})`} />
+            {/* Filled Gradient Area */}
+            <path d="M0 40 L0 35 C 20 33, 40 38, 60 25 C 80 12, 90 15, 100 5 L 100 40 Z" fill={`url(#area-${gradientId})`} />
             
-            {/* Glowing Trend Line */}
-            <path d="M0 32 C 15 30, 30 35, 45 25 C 60 15, 75 18, 90 5 L 100 0" stroke={`url(#line-${gradientId})`} strokeWidth="1.2" fill="none" filter={`url(#glow-${gradientId})`} />
+            {/* Glowing Main Solid Line */}
+            <path d="M0 35 C 20 33, 40 38, 60 25 C 80 12, 90 15, 100 5" stroke={`url(#line-${gradientId})`} strokeWidth="1.2" fill="none" filter={`url(#glow-${gradientId})`} />
             
-            {/* Data Point Marker */}
-            <circle cx="100" cy="0" r="2" fill="#FFDF73" filter={`url(#glow-${gradientId})`} />
+            {/* End Point Node */}
+            <circle cx="100" cy="5" r="1.5" fill="#FFDF73" filter={`url(#glow-${gradientId})`} />
+            <circle cx="100" cy="5" r="4" fill="none" stroke="#FFDF73" strokeWidth="0.5" strokeOpacity="0.5" className="animate-pulse" />
           </svg>
         </div>
       </div>

@@ -11,8 +11,8 @@ import { IntelligenceCard } from "@/components/ui/IntelligenceCard";
 import { AwardCard } from "@/components/ui/AwardCard";
 import { InsightCard } from "@/components/ui/InsightCard";
 import { MembershipCard } from "@/components/ui/MembershipCard";
-import { HeroGlobe } from "@/components/ui/HeroGlobe";
-import { Play, Globe, Gem, Scale, Crown, TrendingUp, Zap, Megaphone, ArrowRight } from "lucide-react";
+import { GlowingWorldMap } from "@/components/ui/GlowingWorldMap";
+import { Play, Globe, Gem, Scale, Crown, TrendingUp, Zap, Megaphone, ArrowRight, ShieldCheck, Landmark, Users, Star, Award } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useAppStore } from "@/lib/store";
 
@@ -23,152 +23,162 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-background selection:bg-gold-500/30 overflow-hidden relative">
-      {/* Global Ambient Glows */}
-      <div className="fixed inset-0 pointer-events-none z-0">
-        <div className="absolute top-[-10%] right-[-5%] w-[800px] h-[800px] bg-[radial-gradient(circle_at_center,_rgba(197,160,89,0.08)_0%,_transparent_70%)] animate-pulse" />
-        <div className="absolute bottom-[20%] left-[-10%] w-[1000px] h-[1000px] bg-[radial-gradient(circle_at_center,_rgba(197,160,89,0.05)_0%,_transparent_70%)]" />
-      </div>
+      {/* Global Ambient Glows Removed for Performance */}
 
       <Navbar />
 
-      {/* 1. Hero Section */}
-      <section className="relative min-h-[100vh] flex items-center pt-40 pb-32 z-10">
+      {/* 1. Hero Section & Stats Bar combined for layout precision */}
+      <section className="relative min-h-[100vh] flex flex-col justify-center pt-24 pb-8 z-10 bg-[#050505] overflow-hidden">
         
-        {/* Photorealistic 3D Globe - fades in gracefully once loaded */}
-        <motion.div 
-          className="absolute inset-0 z-0 overflow-hidden pointer-events-none"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: isGlobeLoaded ? 1 : 0 }}
-          transition={{ duration: 2, ease: "easeOut" }}
-        >
-          <HeroGlobe />
-        </motion.div>
-        
-        {/* Deep, premium shadow restricted strictly to the left half of the screen behind the text */}
-        <div className="absolute top-0 left-0 w-[60%] h-full flex flex-col justify-center pointer-events-none z-0">
-          <div className="absolute inset-0 bg-gradient-to-r from-black via-black/90 to-transparent" />
-          <div className="absolute top-1/2 left-0 -translate-y-1/2 w-full h-[150%] bg-[radial-gradient(circle_at_30%_50%,rgba(0,0,0,0.8)_0%,transparent_70%)]" />
+        {/* Background Map Image exactly as originally uploaded */}
+        <div className="absolute right-[-10%] md:right-[-5%] lg:right-[0%] top-1/2 -translate-y-1/2 w-[120%] md:w-[70%] lg:w-[65%] h-full flex items-center justify-center opacity-100 z-0 pointer-events-none">
+          <div className="relative w-full h-full flex items-center justify-center">
+            {/* The Image Wrapper to keep dots aligned */}
+            <div className="relative w-full h-auto max-h-[85vh] flex items-center justify-center">
+              {/* The Image with a strong mask to eliminate ALL borders */}
+              <img 
+                src="/images/final-map.png" 
+                alt="World Map" 
+                className="w-full h-auto object-contain max-h-[85vh] opacity-90"
+                style={{
+                  maskImage: 'radial-gradient(ellipse at center, rgba(0,0,0,1) 45%, rgba(0,0,0,0) 75%)', 
+                  WebkitMaskImage: 'radial-gradient(ellipse at center, rgba(0,0,0,1) 45%, rgba(0,0,0,0) 75%)'
+                }}
+              />
+              
+              {/* Live Blinking Dots Overlay - Pixel Perfect Coordinates */}
+              <div className="absolute inset-0 w-full h-full pointer-events-none">
+                {/* New York */}
+                <div className="absolute top-[44.5%] left-[28.2%] flex items-center justify-center -translate-x-1/2 -translate-y-1/2">
+                  <div className="absolute w-6 h-6 bg-gold-400 rounded-full animate-location-ping opacity-20" style={{ animationDelay: '0s' }}></div>
+                  <div className="w-1.5 h-1.5 bg-gold-300 rounded-full shadow-[0_0_8px_rgba(212,175,55,0.8)]"></div>
+                </div>
+                {/* London */}
+                <div className="absolute top-[33.9%] left-[47.6%] flex items-center justify-center -translate-x-1/2 -translate-y-1/2">
+                  <div className="absolute w-6 h-6 bg-gold-400 rounded-full animate-location-ping opacity-20" style={{ animationDelay: '1.5s' }}></div>
+                  <div className="w-1.5 h-1.5 bg-gold-300 rounded-full shadow-[0_0_8px_rgba(212,175,55,0.8)]"></div>
+                </div>
+                {/* Dubai */}
+                <div className="absolute top-[51.2%] left-[61.5%] flex items-center justify-center -translate-x-1/2 -translate-y-1/2">
+                  <div className="absolute w-6 h-6 bg-gold-400 rounded-full animate-location-ping opacity-20" style={{ animationDelay: '0.8s' }}></div>
+                  <div className="w-1.5 h-1.5 bg-gold-300 rounded-full shadow-[0_0_8px_rgba(212,175,55,0.8)]"></div>
+                </div>
+                {/* Mumbai */}
+                <div className="absolute top-[56.6%] left-[69.6%] flex items-center justify-center -translate-x-1/2 -translate-y-1/2">
+                  <div className="absolute w-6 h-6 bg-gold-400 rounded-full animate-location-ping opacity-20" style={{ animationDelay: '2.1s' }}></div>
+                  <div className="w-1.5 h-1.5 bg-gold-300 rounded-full shadow-[0_0_8px_rgba(212,175,55,0.8)]"></div>
+                </div>
+                {/* Singapore */}
+                <div className="absolute top-[65.6%] left-[76.5%] flex items-center justify-center -translate-x-1/2 -translate-y-1/2">
+                  <div className="absolute w-6 h-6 bg-gold-400 rounded-full animate-location-ping opacity-20" style={{ animationDelay: '0.4s' }}></div>
+                  <div className="w-1.5 h-1.5 bg-gold-300 rounded-full shadow-[0_0_8px_rgba(212,175,55,0.8)]"></div>
+                </div>
+                {/* Sydney */}
+                <div className="absolute top-[83.0%] left-[90.5%] flex items-center justify-center -translate-x-1/2 -translate-y-1/2">
+                  <div className="absolute w-6 h-6 bg-gold-400 rounded-full animate-location-ping opacity-20" style={{ animationDelay: '2.5s' }}></div>
+                  <div className="w-1.5 h-1.5 bg-gold-300 rounded-full shadow-[0_0_8px_rgba(212,175,55,0.8)]"></div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+        
+        {/* Left Side Shadow Gradient for text legibility */}
+        <div className="absolute top-0 left-0 w-full md:w-[60%] h-full bg-gradient-to-r from-[#050505] via-[#050505]/95 to-transparent pointer-events-none z-0" />
 
-        <div className="w-full px-8 md:px-16 lg:px-24 xl:px-32 relative z-10">
-          <div className="max-w-3xl">
-                <motion.div 
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
-                  className="flex items-center space-x-4 mb-8"
-                >
-                  <div className="w-12 h-[1px] bg-gradient-to-r from-gold-500 to-transparent shadow-[0_0_20px_rgba(212,175,55,1)]" />
-                  <div className="relative flex h-1.5 w-1.5 -ml-4 items-center justify-center">
-                    <span className="animate-ping absolute inline-flex h-3 w-3 rounded-full bg-gold-400 opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-gold-400 shadow-[0_0_15px_rgba(212,175,55,1)]"></span>
-                  </div>
-                  <span className="text-[0.7rem] uppercase tracking-[0.45em] text-white/90 font-medium">
-                    The Global Standard For Legal Excellence
+        <div className="w-full px-8 md:px-16 lg:px-24 xl:px-32 relative z-10 mt-10">
+          <div className="max-w-2xl lg:max-w-3xl">
+                <div className="flex items-center space-x-4 mb-4">
+                  <div className="w-8 h-[1px] bg-gold-400" />
+                  <span className="text-[0.60rem] uppercase tracking-[0.2em] text-gold-400 font-medium font-sans">
+                    THE GLOBAL STANDARD FOR LEGAL EXCELLENCE
                   </span>
-                </motion.div>
+                </div>
                 
-                <motion.h1 
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 1, ease: "easeOut", delay: 0.4 }}
-                  className="font-serif text-5xl md:text-7xl lg:text-8xl font-light leading-[1.05] mb-8 tracking-tight drop-shadow-2xl"
-                >
+                <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl font-light leading-[1.05] mb-4 tracking-tight drop-shadow-2xl max-w-[90%]">
                   <span className="text-transparent bg-clip-text bg-gradient-to-br from-white via-neutral-100 to-neutral-400 drop-shadow-sm">
                     Excellence is Measured.
                   </span>
                   <br />
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-gold-300 via-gold-100 to-gold-500 drop-shadow-[0_10px_20px_rgba(0,0,0,0.8)] inline-block mt-2 pb-4 pr-4">
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-gold-300 via-gold-100 to-gold-500 drop-shadow-[0_10px_20px_rgba(0,0,0,0.8)] inline-block pb-4 pr-4">
                     Legacy is Earned.
                   </span>
-                </motion.h1>
+                </h1>
                 
-                <motion.p 
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, ease: "easeOut", delay: 0.6 }}
-                  className="text-neutral-300 text-lg md:text-xl max-w-2xl mb-12 leading-[1.8] font-light tracking-wide border-l border-gold-500/30 pl-6 shadow-sm"
-                >
-                  An independent institution for legal rankings, intelligence, recognition, and global professional influence.
-                </motion.p>
+                <p className="text-neutral-300 text-sm md:text-base max-w-xl mb-8 leading-[1.6] font-light tracking-wide shadow-sm">
+                  An independent institution for legal rankings, intelligence, <br className="hidden md:block" />
+                  recognition, and global professional influence.
+                </p>
                 
-                <motion.div 
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, ease: "easeOut", delay: 0.8 }}
-                  className="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-6"
-                >
-                  <CTAButton href="/juris-index" variant="primary">Enter the Index</CTAButton>
-                  <CTAButton href="/methodology" variant="outline">View Methodology</CTAButton>
-                </motion.div>
+                <div className="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-8 mb-6">
+                  <CTAButton href="/enter-the-index" variant="primary" showArrow>Enter the Index</CTAButton>
+                  <Link href="/methodology" className="flex items-center text-[11px] font-semibold uppercase tracking-[2px] text-neutral-300 hover:text-gold-300 transition-all duration-300 group pb-1 border-b border-transparent hover:border-gold-300/30">
+                    View Methodology 
+                    <ArrowRight className="ml-2 w-3.5 h-3.5 transform group-hover:translate-x-1 transition-transform" />
+                  </Link>
+                </div>
                 
-                <motion.div 
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 1, ease: "easeOut", delay: 1.2 }}
-                  className="mt-16 flex items-center cursor-pointer group"
-                >
-                  <div className="relative w-16 h-16 rounded-full flex items-center justify-center">
-                    {/* Outer spinning dashed ring */}
-                    <div className="absolute inset-[-4px] rounded-full border border-dashed border-gold-500/30 animate-[spin_15s_linear_infinite] group-hover:border-gold-400/60 transition-colors duration-700 pointer-events-none" />
-                    
-                    {/* Core glass button */}
-                    <div className="absolute inset-0 rounded-full border-[0.5px] border-gold-500/40 bg-[#050505]/60 backdrop-blur-md group-hover:border-gold-300 transition-all duration-700 shadow-[0_0_20px_rgba(212,175,55,0.15)] group-hover:shadow-[0_0_40px_rgba(212,175,55,0.4)] group-hover:scale-105 flex items-center justify-center overflow-hidden">
-                      {/* Inner glare sweep */}
-                      <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/10 to-transparent group-hover:animate-shimmer pointer-events-none" />
-                      <Play className="w-5 h-5 ml-1 text-gold-300 fill-gold-300 group-hover:text-gold-100 group-hover:fill-gold-100 relative z-10 transition-colors duration-700" />
+                {/* Watch Film Button moved here, below primary buttons */}
+                <div className="flex items-center cursor-pointer group mb-10 opacity-70 hover:opacity-100 transition-opacity">
+                  <div className="relative w-10 h-10 rounded-full flex items-center justify-center">
+                    <div className="absolute inset-0 rounded-full border border-gold-500/40 bg-[#050505]/60 flex items-center justify-center">
+                      <Play className="w-3 h-3 ml-0.5 text-gold-300 fill-gold-300" />
                     </div>
                   </div>
                   
-                  <div className="ml-8">
-                    <span className="block text-[0.65rem] uppercase tracking-[0.35em] text-transparent bg-clip-text bg-gradient-to-r from-neutral-200 to-neutral-500 group-hover:from-white group-hover:to-gold-200 transition-all duration-700 font-medium drop-shadow-sm">
+                  <div className="ml-4">
+                    <span className="block text-[0.55rem] uppercase tracking-[0.3em] text-neutral-300 font-medium">
                       Watch Juris Standard Film
                     </span>
-                    <div className="flex items-center mt-2.5 space-x-2">
-                      <div className="w-1 h-1 rounded-full bg-gold-400 shadow-[0_0_8px_rgba(212,175,55,0.9)]" />
-                      <span className="block text-[0.6rem] tracking-[0.2em] text-gold-400 group-hover:text-gold-300 transition-colors duration-700 font-medium">1:25 MIN</span>
+                    <div className="flex items-center mt-1 space-x-1.5">
+                      <div className="w-1 h-1 rounded-full bg-gold-400" />
+                      <span className="block text-[0.50rem] tracking-[0.2em] text-gold-400/80 font-medium">1:25 MIN</span>
                     </div>
                   </div>
-                </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* 2. Stats Bar - Premium Floating Glass Cards */}
-      <section className="relative -mt-16 z-20">
-        <div className="w-full px-8 md:px-16 lg:px-24 xl:px-32">
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-4 lg:gap-6">
-            {[
-              { value: "20K+", label: "Lawyers Evaluated" },
-              { value: "5K+", label: "Law Firms Ranked" },
-              { value: "150+", label: "Jurisdictions" },
-              { value: "100+", label: "Practice Areas" },
-              { value: "50M+", label: "Data Points" },
-            ].map((stat, i) => (
-              <div 
-                key={i} 
-                className="flex flex-col items-center justify-center p-8 bg-[#050505]/80 backdrop-blur-xl border border-white/10 hover:border-gold-500/40 rounded-[1px] shadow-2xl relative overflow-hidden group transition-all duration-700 hover:-translate-y-2 hover:bg-[#0a0a0a]/90 cursor-default"
-              >
-                {/* Hover top line glow */}
-                <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-gold-400 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 shadow-[0_0_15px_rgba(212,175,55,1)]" />
+                </div>
                 
-                {/* Subtle corner accent */}
-                <div className="absolute bottom-0 right-0 w-8 h-8 bg-gradient-to-tl from-gold-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-
-                <div className="font-serif text-3xl lg:text-4xl xl:text-5xl text-transparent bg-clip-text bg-gradient-to-b from-white via-[#FBF5B7] to-[#D4AF37] mb-3 group-hover:from-white group-hover:via-[#FBF5B7] group-hover:to-gold-300 transition-all duration-700 drop-shadow-[0_2px_10px_rgba(212,175,55,0.15)] group-hover:drop-shadow-[0_4px_15px_rgba(212,175,55,0.4)]">
-                  {stat.value}
+                <div className="flex items-center space-x-3 mb-6">
+                  <ShieldCheck className="w-4 h-4 text-gold-400" strokeWidth={1.5} />
+                  <span className="text-[0.55rem] uppercase tracking-[0.25em] text-neutral-400 font-medium">
+                    TRUSTED BY LEGAL LEADERS IN 150+ COUNTRIES
+                  </span>
                 </div>
-                <div className="text-[0.6rem] xl:text-[0.65rem] font-medium uppercase tracking-[0.25em] text-neutral-400 group-hover:text-gold-200 transition-colors duration-700 text-center">
-                  {stat.label}
+                
+                {/* Stats Bar moved up under buttons */}
+                <div className="w-full max-w-5xl bg-[#0a0a0a] border border-white/5 rounded-lg flex flex-col md:flex-row items-center justify-between p-5 shadow-2xl relative mb-8">
+                  <div className="absolute inset-0 bg-gradient-to-r from-gold-500/5 to-transparent pointer-events-none rounded-lg" />
+                  {[
+                    { icon: Users, value: "20K+", label: "LAWYERS EVALUATED" },
+                    { icon: Landmark, value: "5K+", label: "LAW FIRMS RANKED" },
+                    { icon: Globe, value: "150+", label: "JURISDICTIONS" },
+                    { icon: Scale, value: "100+", label: "PRACTICE AREAS" },
+                    { icon: Star, value: "50M+", label: "DATA POINTS" },
+                  ].map((stat, i) => (
+                    <div key={i} className="flex items-center space-x-4 py-3 md:py-1 px-4 flex-1 first:pl-2 last:pr-2 border-b md:border-b-0 md:border-r border-white/5 last:border-0 relative z-10 rounded-sm">
+                      <stat.icon className="w-5 h-5 md:w-6 md:h-6 text-gold-400/90 stroke-[1.5px]" />
+                      <div className="flex flex-col">
+                        <span className="font-serif text-[1.2rem] md:text-[1.35rem] text-white leading-none mb-1.5 tracking-tight">{stat.value}</span>
+                        <span className="text-[0.45rem] md:text-[0.50rem] uppercase tracking-[0.12em] text-neutral-400 font-medium leading-none">{stat.label}</span>
+                      </div>
+                    </div>
+                  ))}
                 </div>
-              </div>
-            ))}
+          </div>
+          
+          <div className="flex items-center justify-end mt-8">
+            {/* Concept 3 text bottom right */}
+            <div className="flex items-center space-x-4 opacity-40 pointer-events-none z-10">
+              <div className="w-12 h-[1px] bg-white/50" />
+              <span className="text-[0.65rem] font-sans tracking-wide text-white">
+                Concept 3 • Layered Jurisdictions
+              </span>
+            </div>
           </div>
         </div>
       </section>
 
       {/* 3. The Juris Standard Index™ */}
-      <section className="py-32 relative z-10">
+      <section className="py-20 relative z-10">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(197,160,89,0.05)_0%,_transparent_50%)] pointer-events-none" />
         <div className="w-full px-8 md:px-16 lg:px-24 xl:px-32 relative">
           <SectionHeader 
@@ -176,7 +186,7 @@ export default function Home() {
             subtitle="A research-driven institutional record of legal excellence."
             actionText="View All Indexes"
             actionHref="/juris-index"
-            icon={<div className="w-4 h-4 border border-gold-400 flex items-center justify-center shadow-[0_0_10px_rgba(197,160,89,0.5)]"><div className="w-2 h-2 bg-gold-400" /></div>}
+            icon={<Award className="w-6 h-6 text-gold-400" strokeWidth={1.5} />}
           />
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-6">
             <IndexCard delay={0} category="Corporate" title="Elite" href="/juris-index" icon={
@@ -220,21 +230,21 @@ export default function Home() {
       </section>
 
       {/* 4. Legal Intelligence */}
-      <section className="py-24 relative bg-charcoal-900/40 border-y border-white/5 shadow-[inset_0_0_100px_rgba(0,0,0,0.8)] z-10">
+      <section className="py-20 relative bg-charcoal-900/40 border-y border-white/5 shadow-[inset_0_0_100px_rgba(0,0,0,0.8)] z-10">
         <div className="absolute top-0 right-0 w-1/2 h-full bg-[radial-gradient(ellipse_at_right,_rgba(197,160,89,0.03)_0%,_transparent_70%)] pointer-events-none" />
         <div className="w-full px-8 md:px-16 lg:px-24 xl:px-32 relative">
           <SectionHeader 
             title="Legal Intelligence" 
             actionText="Explore Intelligence"
             actionHref="/intelligence"
-            icon={<Globe className="w-6 h-6 text-gold-400 drop-shadow-[0_0_8px_rgba(197,160,89,0.6)]" />}
+            icon={<Globe className="w-6 h-6 text-gold-400" strokeWidth={1.5} />}
           />
           
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-            <div className="lg:col-span-6 p-10 md:p-14 rounded-xl bg-[#0f0f0f]/90 backdrop-blur-3xl border border-white/[0.05] shadow-[inset_0_1px_0_rgba(255,255,255,0.1),0_20px_50px_rgba(0,0,0,0.8)] transition-all duration-700 relative overflow-hidden group hover:border-gold-500/30 flex flex-col justify-between">
+            <div className="lg:col-span-6 p-10 md:p-14 rounded-xl bg-[#0f0f0f]/90 backdrop-blur-3xl border border-white/[0.05] shadow-lg transition-all duration-200 relative overflow-hidden group hover:border-gold-500/20 flex flex-col justify-between">
                
                {/* Premium Financial Terminal Background Graph */}
-               <div className="absolute bottom-0 right-0 w-[110%] h-[80%] opacity-60 group-hover:opacity-100 transition-all duration-1000 pointer-events-none z-0 translate-x-[2%] translate-y-[5%] group-hover:translate-y-[2%]">
+               <div className="absolute bottom-0 right-0 w-[110%] h-[80%] opacity-60 group-hover:opacity-80 transition-all duration-200 pointer-events-none z-0 translate-x-[2%] translate-y-[5%] group-hover:translate-y-[4%]">
                   <svg className="w-full h-full" viewBox="0 0 200 100" preserveAspectRatio="none">
                      <defs>
                        <linearGradient id="large-graph-area" x1="0" y1="0" x2="0" y2="1">
@@ -271,13 +281,13 @@ export default function Home() {
                <div className="relative z-10 flex flex-col h-full justify-between">
                  <div>
                    <div className="inline-flex items-center space-x-2 px-3 py-1 bg-white/5 border border-white/10 rounded-full mb-10">
-                     <div className="w-1.5 h-1.5 rounded-full bg-gold-400 animate-pulse shadow-[0_0_8px_#D4AF37]" />
+                     <div className="w-1.5 h-1.5 rounded-full bg-gold-400" />
                      <span className="text-[0.6rem] font-semibold uppercase tracking-[0.2em] text-white/70">
                        Global Report
                      </span>
                    </div>
                    
-                   <h3 className="font-light text-4xl md:text-5xl text-white tracking-tight leading-[1.1] mb-6 max-w-md group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-gold-200 transition-all duration-700">
+                   <h3 className="font-light text-4xl md:text-5xl text-white tracking-tight leading-[1.1] mb-6 max-w-md group-hover:text-gold-100 transition-all duration-200">
                      Legal Market <br/>
                      <span className="font-serif italic text-gold-400">Overview 2024</span>
                    </h3>
@@ -286,9 +296,9 @@ export default function Home() {
                    </p>
                  </div>
                  
-                 <Link href="/intelligence" className="group/btn inline-flex items-center justify-center self-start px-8 py-3.5 rounded-full bg-[#111]/80 backdrop-blur-md border border-gold-500/30 text-gold-300 text-xs font-semibold uppercase tracking-[0.2em] hover:bg-gold-500/10 hover:text-gold-200 transition-all duration-500 shadow-[0_0_20px_rgba(212,175,55,0.05)] hover:shadow-[0_0_30px_rgba(212,175,55,0.2)] hover:border-gold-500/60">
-                    View Full Report
-                    <ArrowRight className="ml-3 w-4 h-4 text-gold-500/70 group-hover/btn:text-gold-300 group-hover/btn:translate-x-1 transition-all" />
+                 <Link href="/intelligence" className="group/btn inline-flex items-center mt-8 md:mt-0 px-5 py-2 text-[14px] font-normal text-gold-300 border border-gold-500/40 bg-transparent hover:bg-gold-500/10 hover:text-gold-200 transition-colors duration-200 rounded-[1px] self-start">
+                    <span>View Full Report</span>
+                    <span className="ml-2 transform transition-transform duration-200 group-hover/btn:translate-x-1 font-light">&rarr;</span>
                  </Link>
                </div>
             </div>
@@ -304,59 +314,59 @@ export default function Home() {
       </section>
 
       {/* 5 & 6. Network & Membership */}
-      <section className="py-32 relative z-10">
+      <section className="py-20 relative z-10">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,_rgba(197,160,89,0.06)_0%,_transparent_60%)] pointer-events-none" />
         <div className="w-full px-8 md:px-16 lg:px-24 xl:px-32 relative">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             
             {/* Global Legal Network */}
-            <div className="p-12 md:p-16 bg-gradient-to-br from-charcoal-900 to-black border border-white/10 shadow-2xl relative overflow-hidden flex flex-col justify-between group">
-              <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,_rgba(197,160,89,0.15)_0%,_transparent_70%)] pointer-events-none opacity-50 group-hover:opacity-100 transition-opacity duration-700" />
+            <div className="p-6 md:p-8 bg-gradient-to-br from-charcoal-900 to-black border border-white/10 shadow-xl relative overflow-hidden flex flex-col justify-between group">
+              <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,_rgba(197,160,89,0.15)_0%,_transparent_70%)] pointer-events-none opacity-50 group-hover:opacity-100 transition-opacity duration-200" />
               <div className="relative z-10">
-                <span className="text-[0.65rem] uppercase tracking-[0.2em] text-gold-400 mb-6 block drop-shadow-[0_0_8px_rgba(197,160,89,0.4)]">
+                <span className="text-[0.65rem] uppercase tracking-[0.2em] text-gold-400 mb-3 block drop-shadow-[0_0_8px_rgba(197,160,89,0.4)]">
                   The World's Most
                 </span>
-                <h2 className="font-serif text-4xl md:text-5xl text-white uppercase leading-tight mb-8">
+                <h2 className="font-serif text-3xl md:text-4xl text-white uppercase leading-tight mb-4">
                   Influential Legal<br />Network
                 </h2>
-                <p className="text-white/60 mb-14 max-w-sm text-sm leading-relaxed">
+                <p className="text-white/60 mb-6 max-w-sm text-sm leading-relaxed">
                   Connect, collaborate, and build influence within a verified global legal community.
                 </p>
-                <div className="grid grid-cols-2 gap-y-10 gap-x-6 mb-12">
+                <div className="grid grid-cols-2 gap-y-6 gap-x-6 mb-8">
                   <div>
-                    <div className="font-serif text-3xl text-gold-400 mb-1 drop-shadow-[0_0_10px_rgba(197,160,89,0.3)]">20K+</div>
+                    <div className="font-serif text-2xl md:text-3xl text-gold-400 mb-1 drop-shadow-[0_0_10px_rgba(197,160,89,0.3)]">20K+</div>
                     <div className="text-[0.6rem] uppercase tracking-widest text-white/50">Verified Lawyers</div>
                   </div>
                   <div>
-                    <div className="font-serif text-3xl text-gold-400 mb-1 drop-shadow-[0_0_10px_rgba(197,160,89,0.3)]">5K+</div>
+                    <div className="font-serif text-2xl md:text-3xl text-gold-400 mb-1 drop-shadow-[0_0_10px_rgba(197,160,89,0.3)]">5K+</div>
                     <div className="text-[0.6rem] uppercase tracking-widest text-white/50">Law Firms</div>
                   </div>
                   <div>
-                    <div className="font-serif text-3xl text-gold-400 mb-1 drop-shadow-[0_0_10px_rgba(197,160,89,0.3)]">3K+</div>
+                    <div className="font-serif text-2xl md:text-3xl text-gold-400 mb-1 drop-shadow-[0_0_10px_rgba(197,160,89,0.3)]">3K+</div>
                     <div className="text-[0.6rem] uppercase tracking-widest text-white/50">General Counsel</div>
                   </div>
                   <div>
-                    <div className="font-serif text-3xl text-gold-400 mb-1 drop-shadow-[0_0_10px_rgba(197,160,89,0.3)]">150+</div>
+                    <div className="font-serif text-2xl md:text-3xl text-gold-400 mb-1 drop-shadow-[0_0_10px_rgba(197,160,89,0.3)]">150+</div>
                     <div className="text-[0.6rem] uppercase tracking-widest text-white/50">Countries</div>
                   </div>
                 </div>
               </div>
-              <div className="relative z-10">
+              <div className="relative z-10 mt-auto">
                 <CTAButton href="/network" variant="outline" showArrow>Explore Network</CTAButton>
               </div>
             </div>
 
             {/* Membership */}
-            <div className="p-12 md:p-16 bg-gradient-to-br from-black via-charcoal-900 to-black border border-white/5 shadow-2xl relative overflow-hidden flex flex-col xl:flex-row gap-12 items-center justify-between">
+            <div className="p-6 md:p-8 bg-gradient-to-br from-black via-charcoal-900 to-black border border-white/5 shadow-xl relative overflow-hidden flex flex-col xl:flex-row gap-8 items-center justify-between">
                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(197,160,89,0.08)_0%,_transparent_80%)] pointer-events-none" />
                <div className="flex-1 relative z-10 w-full">
-                 <h2 className="font-serif text-3xl md:text-4xl text-white uppercase leading-tight mb-3">
+                 <h2 className="font-serif text-3xl md:text-4xl text-white uppercase leading-tight mb-2">
                    Juris Standard<br />
                    <span className="text-gold-400 drop-shadow-[0_0_15px_rgba(197,160,89,0.5)] block mt-1">Black™</span>
                  </h2>
-                 <p className="text-[0.65rem] uppercase tracking-[0.25em] text-white/40 mb-10">Private Membership</p>
+                 <p className="text-[0.65rem] uppercase tracking-[0.25em] text-white/40 mb-6">Private Membership</p>
                  
-                 <ul className="space-y-5 mb-12">
+                 <ul className="space-y-3 mb-8">
                    {['Exclusive Rankings Access', 'Private Intelligence Reports', 'Global Events & Summits', 'Members-Only Network', 'VIP Recognition', 'Early Access to Research'].map((feature, i) => (
                      <li key={i} className="flex items-center text-sm text-white/70">
                        <div className="w-1.5 h-1.5 rounded-full bg-gold-400 shadow-[0_0_8px_rgba(197,160,89,0.8)] mr-4" />
@@ -364,7 +374,9 @@ export default function Home() {
                      </li>
                    ))}
                  </ul>
-                 <CTAButton href="/request-access" variant="primary">Request Access</CTAButton>
+                 <div className="relative z-10 mt-auto">
+                   <CTAButton href="/request-access" variant="outline" showArrow>Request Access</CTAButton>
+                 </div>
                </div>
                
                <div className="flex-1 w-full flex justify-center xl:justify-end relative z-10 animate-float">
@@ -376,14 +388,14 @@ export default function Home() {
       </section>
 
       {/* 7. Recognition of Excellence */}
-      <section className="py-24 bg-charcoal-900/50 border-t border-white/5 relative z-10">
+      <section className="py-20 bg-charcoal-900/50 border-t border-white/5 relative z-10">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(197,160,89,0.04)_0%,_transparent_60%)] pointer-events-none" />
         <div className="w-full px-8 md:px-16 lg:px-24 xl:px-32 relative">
           <SectionHeader 
             title="Recognition of Excellence" 
             actionText="View All Awards"
             actionHref="/awards"
-            icon={<div className="w-5 h-5 flex flex-col justify-between shadow-[0_0_10px_rgba(197,160,89,0.4)]"><div className="w-full h-1 bg-gold-400"/><div className="w-full h-1 bg-gold-400"/><div className="w-full h-1 bg-gold-400"/></div>}
+            icon={<Star className="w-6 h-6 text-gold-400" strokeWidth={1.5} />}
           />
           
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
@@ -398,12 +410,13 @@ export default function Home() {
       </section>
 
       {/* 8. Latest Insights */}
-      <section className="py-24 relative z-10">
+      <section className="py-20 relative z-10">
         <div className="w-full px-8 md:px-16 lg:px-24 xl:px-32">
           <SectionHeader 
             title="Latest Insights" 
             actionText="View All Insights"
             actionHref="/insights"
+            icon={<Megaphone className="w-6 h-6 text-gold-400" strokeWidth={1.5} />}
           />
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -440,29 +453,29 @@ export default function Home() {
       </section>
 
       {/* 9. Newsletter Section */}
-      <section className="py-24 border-t border-white/5 relative overflow-hidden z-10">
+      <section className="py-20 border-t border-white/5 relative overflow-hidden z-10">
          <div className="absolute inset-0 bg-gradient-to-br from-charcoal-900 to-black pointer-events-none" />
          <div className="absolute inset-0 bg-[radial-gradient(circle_at_right,_rgba(197,160,89,0.1)_0%,_transparent_60%)] pointer-events-none" />
          
          <div className="w-full px-8 md:px-16 lg:px-24 xl:px-32 relative z-10 flex flex-col lg:flex-row items-center justify-between">
            <div className="max-w-2xl mb-12 lg:mb-0 text-center lg:text-left">
-             <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-gold-400 uppercase tracking-widest mb-6 drop-shadow-[0_0_15px_rgba(197,160,89,0.3)]">
+             <h2 className="font-serif text-4xl md:text-5xl text-white uppercase tracking-wide mb-4 drop-shadow-sm font-light">
                Stay Ahead.<br />Stay Influential.
              </h2>
-             <p className="text-white/60 text-base max-w-md mx-auto lg:mx-0">
+             <p className="text-neutral-400 font-light text-base max-w-md mx-auto lg:mx-0">
                Subscribe to our exclusive intelligence updates and gain the competitive edge.
              </p>
            </div>
            
-           <div className="w-full lg:w-auto flex-1 max-w-lg flex flex-col sm:flex-row gap-0 rounded-sm bg-gradient-to-b from-[#1c1c1c] to-[#0a0a0a] border-t border-t-white/[0.08] border-x border-x-white/[0.03] border-b border-b-black shadow-[0_20px_40px_rgba(0,0,0,0.6)] overflow-hidden transition-all duration-500 hover:shadow-[0_30px_50px_rgba(0,0,0,0.8)] focus-within:border-t-gold-500/40 focus-within:border-x-gold-500/20">
+           <div className="w-full lg:w-auto flex-1 max-w-lg flex flex-col sm:flex-row gap-0 rounded-[1px] bg-transparent border border-white/10 overflow-hidden transition-all duration-200 hover:border-gold-500/30 focus-within:border-gold-500/50">
              <input 
                type="email" 
                placeholder="Enter your email address" 
-               className="flex-1 bg-transparent border-none px-6 py-5 text-sm text-white placeholder-white/40 focus:outline-none focus:bg-white/[0.02] transition-all"
+               className="flex-1 bg-transparent border-none px-4 py-3 text-sm text-white placeholder-white/40 focus:outline-none transition-all"
                suppressHydrationWarning
              />
              <button 
-               className="bg-gold-500 text-charcoal-900 font-bold uppercase tracking-widest text-[0.65rem] px-10 py-5 hover:bg-gold-400 transition-colors border-l border-white/[0.08]"
+               className="bg-gold-500/10 text-gold-300 font-normal text-[13px] px-8 py-3 hover:bg-gold-500/20 hover:text-gold-200 transition-colors border-l border-white/10"
                suppressHydrationWarning
              >
                Subscribe
@@ -472,7 +485,6 @@ export default function Home() {
       </section>
 
       <Footer />
-      <LiveTicker />
     </main>
   );
 }

@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Bell, X, ChevronRight } from "lucide-react";
+import { usePathname } from "next/navigation";
 
 export function IntelligenceAlert() {
   const [isVisible, setIsVisible] = useState(false);
@@ -16,37 +17,46 @@ export function IntelligenceAlert() {
     "Private Equity Exits data visualization is live in the Index."
   ];
 
+  const [isDismissed, setIsDismissed] = useState(false);
+  const pathname = usePathname();
+
   useEffect(() => {
-    // Initial delay before showing the first alert
+    // If dismissed or not on home page, hide immediately
+    if (isDismissed || pathname !== "/") {
+      setIsVisible(false);
+      return;
+    }
+
+    // Initial delay before showing the first alert (12 seconds)
     const initialTimer = setTimeout(() => {
       setIsVisible(true);
-    }, 3000);
+    }, 12000);
 
     return () => clearTimeout(initialTimer);
-  }, []);
+  }, [isDismissed, pathname]);
 
   useEffect(() => {
-    if (!isVisible) return;
+    if (!isVisible || isDismissed || pathname !== "/") return;
 
-    // Auto dismiss after 5 seconds
+    // Auto dismiss after 8 seconds (gives enough time to read)
     const dismissTimer = setTimeout(() => {
       setIsVisible(false);
-    }, 5000);
+    }, 8000);
 
     return () => clearTimeout(dismissTimer);
-  }, [isVisible, currentAlertIndex]);
+  }, [isVisible, isDismissed, pathname, currentAlertIndex]);
 
   useEffect(() => {
-    if (isVisible) return;
+    if (isVisible || isDismissed || pathname !== "/") return;
 
-    // When it becomes hidden, wait 10 seconds then show the next alert
+    // When it becomes hidden, wait 45 seconds then show the next alert (less annoying)
     const nextAlertTimer = setTimeout(() => {
       setCurrentAlertIndex((prev) => (prev + 1) % ALERTS.length);
       setIsVisible(true);
-    }, 10000);
+    }, 45000);
 
     return () => clearTimeout(nextAlertTimer);
-  }, [isVisible]);
+  }, [isVisible, isDismissed, pathname]);
 
   return (
     <AnimatePresence>
@@ -78,6 +88,7 @@ export function IntelligenceAlert() {
                   onClick={(e) => {
                     e.stopPropagation();
                     setIsVisible(false);
+                    setIsDismissed(true);
                   }}
                   className="text-white/30 hover:text-white transition-colors"
                 >
