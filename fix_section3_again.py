@@ -1,4 +1,6 @@
-'use client';
+import os
+
+content = """'use client';
 
 import { Compass, PenTool, Search, Scale, Shield, Library, ChevronDown } from "lucide-react";
 import { useState } from "react";
@@ -192,3 +194,8 @@ export function RecognitionFramework() {
     </section>
   );
 }
+"""
+
+with open(r'd:\jurisstandard\src\components\methodology\RecognitionFramework.tsx', 'w', encoding='utf-8') as f:
+    f.write(content)
+print("Section 3 symmetric fix applied.")

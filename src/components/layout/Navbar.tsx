@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useSubmissionStore } from "@/lib/submissionStore";
 import { cn } from "@/lib/utils";
 
 const navLinks = [
@@ -16,6 +18,8 @@ const navLinks = [
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
+  const { currentStage } = useSubmissionStore();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -25,16 +29,23 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const isSubmissionPage = pathname === "/enter-the-index";
+
   return (
     <nav
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b border-transparent",
         scrolled
-          ? "bg-black/80 backdrop-blur-md border-white/5 py-4"
+          ? "bg-black/95 backdrop-blur-xl border-white/10 py-4 shadow-[0_4px_30px_rgba(0,0,0,0.5)]"
           : "bg-transparent py-6"
       )}
     >
-      <div className="w-full px-8 md:px-16 lg:px-24 xl:px-32 flex items-center justify-between">
+      <div className={cn(
+        "flex items-center justify-between",
+        isSubmissionPage 
+          ? "w-full px-6 lg:pl-[80px] xl:pl-[95px] lg:pr-12" 
+          : "w-full px-8 md:px-16 lg:px-24 xl:px-32"
+      )}>
         <Link href="/" className="flex items-center group">
           {/* Official Horizontal Logo */}
           <div className="h-[46px] md:h-[52px] w-auto relative flex-shrink-0 transition-all duration-300 group-hover:opacity-90">

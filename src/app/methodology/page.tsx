@@ -30,7 +30,41 @@ export default function MethodologyPage() {
         <MethodologyJourney />
       </div>
       
+      
+      {/* Newsletter Section */}
+      <section className="py-20 border-t border-white/5 relative overflow-hidden z-10 w-full">
+         <div className="absolute inset-0 bg-gradient-to-br from-charcoal-900 to-black pointer-events-none" />
+         <div className="absolute inset-0 bg-[radial-gradient(circle_at_right,_rgba(197,160,89,0.1)_0%,_transparent_60%)] pointer-events-none" />
+         
+         <div className="w-full px-8 md:px-16 lg:px-24 xl:px-32 relative z-10 flex flex-col lg:flex-row items-center justify-between">
+           <div className="max-w-2xl mb-12 lg:mb-0 text-center lg:text-left">
+             <h2 className="font-serif text-4xl md:text-5xl text-white uppercase tracking-wide mb-4 drop-shadow-sm font-light">
+               Stay Ahead.<br />Stay Influential.
+             </h2>
+             <p className="text-neutral-400 font-light text-base max-w-md mx-auto lg:mx-0">
+               Subscribe to our exclusive intelligence updates and gain the competitive edge.
+             </p>
+           </div>
+           
+           <div className="w-full lg:w-auto flex-1 max-w-lg flex flex-col sm:flex-row gap-0 rounded-[1px] bg-transparent border border-white/10 overflow-hidden transition-all duration-200 hover:border-gold-500/30 focus-within:border-gold-500/50">
+             <input 
+               type="email" 
+               placeholder="Enter your email address" 
+               className="flex-1 bg-transparent border-none px-4 py-3 text-sm text-white placeholder-white/40 focus:outline-none transition-all"
+               suppressHydrationWarning
+             />
+             <button 
+               className="bg-gold-500/10 text-gold-300 font-normal text-[13px] px-8 py-3 hover:bg-gold-500/20 hover:text-gold-200 transition-colors border-l border-white/10"
+               suppressHydrationWarning
+             >
+               Subscribe
+             </button>
+           </div>
+         </div>
+      </section>
+      
       <Footer />
+
     </main>
   );
 }

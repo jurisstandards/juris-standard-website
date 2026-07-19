@@ -40,8 +40,8 @@ const footerLinks = {
 
 export function Footer() {
   return (
-    <footer className="bg-black border-t border-white/5 pt-24 pb-12">
-      <div className="w-full px-8 md:px-16 lg:px-24 xl:px-32">
+    <footer className="relative z-10 w-full bg-black border-t border-white/5 pt-24 pb-12">
+      <div className="w-full max-w-[1400px] mx-auto px-8 md:px-16 lg:px-24 xl:px-32">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-12 lg:gap-8 mb-16">
           <div className="lg:col-span-1">
             <Link href="/" className="flex items-start group mb-6">

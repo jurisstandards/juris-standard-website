@@ -3,26 +3,32 @@
 import { useSubmissionStore } from "@/lib/submissionStore";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect } from "react";
+import { cn } from "@/lib/utils";
 import { WelcomeExperience } from "./stages/WelcomeExperience";
 import { TrackSelection } from "./stages/TrackSelection";
 import { ProgrammeSelection } from "./stages/ProgrammeSelection";
 import { EditorialProfile } from "./stages/EditorialProfile";
 import { ReviewSubmission } from "./stages/ReviewSubmission";
 import { ConfirmationScreen } from "./stages/ConfirmationScreen";
+import { SidebarStepper } from "./SidebarStepper";
 
 export function EditorialJourney() {
   const { currentStage, reset } = useSubmissionStore();
 
   useEffect(() => {
-    // Reset to start from the beginning when the user arrives on this page fresh
     reset();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const showSidebar = currentStage !== 'welcome' && currentStage !== 'confirmation';
+
   return (
-    <div className="flex-1 w-full flex flex-col relative">
-      {/* Cross-dissolve Stage Renderer */}
-      <div className="flex-1 w-full h-full relative">
+    <div className="flex-1 w-full flex relative min-h-screen">
+      {/* Sidebar Stepper - Left Column (Hidden on Welcome/Confirmation) */}
+      <SidebarStepper />
+
+      {/* Main Content Area - Right Column */}
+      <div className={cn("flex-1 w-full relative", showSidebar ? "lg:ml-[280px] xl:ml-[320px]" : "")}>
         <AnimatePresence mode="wait">
           {currentStage === 'welcome' && (
             <motion.div
@@ -31,7 +37,7 @@ export function EditorialJourney() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.15, ease: "easeInOut" }}
-              className="absolute inset-0 w-full h-full overflow-y-auto overflow-x-hidden"
+              className="w-full min-h-screen"
             >
               <WelcomeExperience />
             </motion.div>
@@ -44,7 +50,7 @@ export function EditorialJourney() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.15, ease: "easeInOut" }}
-              className="absolute inset-0 w-full h-full overflow-y-auto overflow-x-hidden"
+              className="w-full min-h-screen"
             >
               <TrackSelection />
             </motion.div>
@@ -57,7 +63,7 @@ export function EditorialJourney() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.15, ease: "easeInOut" }}
-              className="absolute inset-0 w-full h-full overflow-y-auto overflow-x-hidden"
+              className="w-full min-h-screen"
             >
               <ProgrammeSelection />
             </motion.div>
@@ -70,7 +76,7 @@ export function EditorialJourney() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.15, ease: "easeInOut" }}
-              className="absolute inset-0 w-full h-full overflow-y-auto overflow-x-hidden"
+              className="w-full min-h-screen"
             >
               <EditorialProfile />
             </motion.div>
@@ -83,7 +89,7 @@ export function EditorialJourney() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.15, ease: "easeInOut" }}
-              className="absolute inset-0 w-full h-full overflow-y-auto overflow-x-hidden"
+              className="w-full min-h-screen"
             >
               <ReviewSubmission />
             </motion.div>
@@ -96,7 +102,7 @@ export function EditorialJourney() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.15, ease: "easeInOut" }}
-              className="absolute inset-0 w-full h-full overflow-y-auto overflow-x-hidden"
+              className="w-full min-h-screen"
             >
               <ConfirmationScreen />
             </motion.div>

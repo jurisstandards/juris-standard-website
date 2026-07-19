@@ -2,6 +2,7 @@ import { useSubmissionStore, ProfileData } from "@/lib/submissionStore";
 import { motion, AnimatePresence } from "framer-motion";
 import { CheckCircle2, ChevronRight, UploadCloud, Edit2, ChevronLeft } from "lucide-react";
 import { useState } from "react";
+import { Country, City } from "country-state-city";
 
 type SectionKey = 'identity' | 'practice' | 'biography' | 'presence' | 'documents';
 
@@ -14,7 +15,7 @@ const sections: { id: SectionKey; title: string; subtitle: string }[] = [
 ];
 
 export function EditorialProfile() {
-  const { profileData, updateProfileData, completedSections, markSectionCompleted, setStage, isNavigatingBack } = useSubmissionStore();
+  const { profileData, updateProfileData, completedSections, markSectionCompleted, setStage, isNavigatingBack, selectedTrack, selectedPracticeAreas } = useSubmissionStore();
   const [activeSection, setActiveSection] = useState<SectionKey>('identity');
 
   const handleContinue = (currentId: SectionKey, nextId: SectionKey | 'review') => {
@@ -28,7 +29,25 @@ export function EditorialProfile() {
 
   const renderSectionContent = (id: SectionKey) => {
     switch (id) {
-      case 'identity':
+      case 'identity': {
+        const allCountries = Country.getAllCountries().map(c => c.name);
+        const selectedCountryObj = Country.getAllCountries().find(c => c.name === profileData.identity.country);
+        const cityOptions = selectedCountryObj ? City.getCitiesOfCountry(selectedCountryObj.isoCode)?.map(c => c.name) || [] : [];
+        let uniqueCityOptions = Array.from(new Set(cityOptions)).sort();
+
+        // Cleanup for common Indian city sub-districts
+        if (profileData.identity.country === 'India') {
+            uniqueCityOptions = uniqueCityOptions.filter(city => {
+               if (city.includes('Delhi') && city !== 'Delhi') return false;
+               if (city.includes('Mumbai') && city !== 'Mumbai' && city !== 'Navi Mumbai') return false;
+               return true;
+            });
+            // Ensure Delhi and Mumbai are present
+            if (!uniqueCityOptions.includes('Delhi')) uniqueCityOptions.push('Delhi');
+            if (!uniqueCityOptions.includes('Mumbai')) uniqueCityOptions.push('Mumbai');
+            uniqueCityOptions.sort();
+        }
+
         return (
           <div className="space-y-6">
             <p className="text-white/40 text-sm font-light mb-8">Tell us how you are professionally known.</p>
@@ -37,12 +56,25 @@ export function EditorialProfile() {
               <Input label="Preferred Professional Name (Optional)" value={profileData.identity.preferredName} onChange={(val) => updateProfileData('identity', { preferredName: val })} />
               <Input label="Current Designation" value={profileData.identity.designation} onChange={(val) => updateProfileData('identity', { designation: val })} />
               <Input label="Organisation / Chamber / Firm" value={profileData.identity.organization} onChange={(val) => updateProfileData('identity', { organization: val })} />
-              <Input label="City" value={profileData.identity.city} onChange={(val) => updateProfileData('identity', { city: val })} />
-              <Input label="Country" value={profileData.identity.country} onChange={(val) => updateProfileData('identity', { country: val })} />
+              <SelectInput 
+                label="Country" 
+                value={profileData.identity.country} 
+                onChange={(val) => {
+                  updateProfileData('identity', { country: val, city: '' }); // Reset city when country changes
+                }} 
+                options={allCountries}
+              />
+              <SelectInput 
+                label="City" 
+                value={profileData.identity.city} 
+                onChange={(val) => updateProfileData('identity', { city: val })} 
+                options={uniqueCityOptions.length > 0 ? uniqueCityOptions : ['Please select a country first']}
+              />
             </div>
             <ContinueButton onClick={() => handleContinue('identity', 'practice')} />
           </div>
         );
+      }
       case 'practice':
         return (
           <div className="space-y-6">
@@ -103,7 +135,7 @@ export function EditorialProfile() {
   };
 
   return (
-    <div className="min-h-screen pt-32 pb-24 px-6 lg:px-24 relative z-10 flex flex-col max-w-7xl mx-auto w-full">
+    <div className="min-h-screen pt-32 pb-24 px-6 lg:px-12 relative z-10 flex flex-col w-full">
       {/* Header spanning full width for perfect symmetry */}
       <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
         <div>
@@ -126,62 +158,76 @@ export function EditorialProfile() {
 
       <div className="flex flex-col lg:flex-row gap-12 w-full">
         {/* Main Content Area */}
-        <div className="flex-1 max-w-3xl">
-          <div className="space-y-6">
-          {sections.map((section) => {
-            const isActive = activeSection === section.id;
-            const isCompleted = completedSections.includes(section.id) && !isActive;
-
-            return (
-              <div 
-                key={section.id} 
-                className={`border rounded-2xl overflow-hidden transition-all duration-700 ${
-                  isActive ? 'bg-[#111]/80 border-gold-500/30 shadow-[0_10px_40px_rgba(212,175,55,0.05)]' : 
-                  isCompleted ? 'bg-black/40 border-white/5 hover:border-white/10' : 
-                  'bg-black/20 border-white/5 opacity-50'
-                }`}
-              >
-                {/* Header */}
+        <div className="flex-1 max-w-4xl">
+          {/* Stepper / Progress Tabs */}
+          <div className="flex space-x-3 mb-12">
+            {sections.map((section, idx) => {
+              const isActive = activeSection === section.id;
+              const isCompleted = completedSections.includes(section.id);
+              const isPast = sections.findIndex(s => s.id === activeSection) > idx;
+              
+              return (
                 <div 
-                  className={`px-8 py-6 flex items-center justify-between ${isCompleted ? 'cursor-pointer' : ''}`}
-                  onClick={() => isCompleted && setActiveSection(section.id)}
+                  key={section.id} 
+                  className={`flex-1 flex flex-col gap-3 ${isCompleted || isPast ? 'cursor-pointer group' : ''}`}
+                  onClick={() => (isCompleted || isPast) && setActiveSection(section.id)}
                 >
-                  <div>
-                    <span className="text-[0.6rem] uppercase tracking-[0.2em] text-gold-500/70 block mb-1">
-                      {section.title}
-                    </span>
-                    <h3 className={`text-xl font-serif ${isActive ? 'text-white' : 'text-white/60'}`}>
-                      {section.subtitle}
-                    </h3>
+                  <div className="relative h-[6px] w-full rounded-full bg-white/5 overflow-hidden border border-white/5">
+                    <div className={`absolute inset-0 h-full rounded-full transition-all duration-700 ease-out ${
+                      isActive ? 'bg-gradient-to-r from-gold-600 to-gold-400 shadow-[0_0_15px_rgba(212,175,55,0.8)]' : 
+                      isCompleted || isPast ? 'bg-gold-500/40 group-hover:bg-gold-500/60' : 
+                      'bg-transparent'
+                    }`} />
                   </div>
-                  {isCompleted && (
-                    <button className="flex items-center space-x-2 text-[0.65rem] uppercase tracking-widest text-white/30 hover:text-white/80 transition-colors">
-                      <Edit2 className="w-3 h-3" />
-                      <span>Edit Section</span>
-                    </button>
-                  )}
+                  <div className="flex flex-col pr-2">
+                    <div className="flex items-center space-x-2 mb-1">
+                      <span className={`text-[0.55rem] uppercase tracking-[0.2em] font-bold transition-colors duration-500 ${
+                        isActive ? 'text-gold-500' : 
+                        isCompleted || isPast ? 'text-gold-500/60' : 
+                        'text-white/20'
+                      }`}>
+                        {section.title}
+                      </span>
+                      {(isCompleted || isPast) && !isActive && (
+                        <CheckCircle2 className="w-3 h-3 text-gold-500/50 group-hover:text-gold-500/80 transition-colors duration-300" />
+                      )}
+                    </div>
+                    <span className={`text-xs sm:text-sm font-medium tracking-wide transition-colors duration-500 ${
+                      isActive ? 'text-white drop-shadow-md' : 
+                      isCompleted || isPast ? 'text-white/70 group-hover:text-white' : 
+                      'text-white/30'
+                    }`}>
+                      {section.subtitle}
+                    </span>
+                  </div>
                 </div>
-
-                {/* Body */}
-                <AnimatePresence initial={!isNavigatingBack}>
-                  {isActive && (
-                    <motion.div
-                      initial={isNavigatingBack ? false : { height: 0, opacity: 0 }}
-                      animate={{ height: 'auto', opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.5, ease: "easeInOut" }}
-                    >
-                      <div className="px-8 pb-8 border-t border-white/5 pt-6">
-                        {renderSectionContent(section.id)}
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
+          {/* Active Section Box */}
+          <div className="bg-gradient-to-b from-[#1a1a1a] to-[#0a0a0a] border border-t-white/10 border-x-white/[0.03] border-b-black rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.6)] p-8 lg:p-10 relative overflow-hidden">
+            <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold-500/20 to-transparent" />
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeSection}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.3 }}
+              >
+                <div className="mb-8 border-b border-white/5 pb-6">
+                  <span className="text-[0.6rem] uppercase tracking-[0.2em] text-gold-500/70 block mb-2">
+                    {sections.find(s => s.id === activeSection)?.title}
+                  </span>
+                  <h3 className="text-3xl font-serif text-white drop-shadow-sm">
+                    {sections.find(s => s.id === activeSection)?.subtitle}
+                  </h3>
+                </div>
+                {renderSectionContent(activeSection)}
+              </motion.div>
+            </AnimatePresence>
+          </div>
         </div>
-      </div>
 
       {/* Right Sidebar - Institutional Panel */}
       <div className="w-full lg:w-80 flex-shrink-0">
@@ -194,11 +240,13 @@ export function EditorialProfile() {
             <div className="space-y-4 mb-8">
               <div className="flex justify-between items-center text-sm">
                 <span className="text-white/40 font-light">Track</span>
-                <span className="text-white font-medium capitalize">Legal Professional</span>
+                <span className="text-white font-medium capitalize">{selectedTrack || 'Not Selected'}</span>
               </div>
               <div className="flex justify-between items-center text-sm">
-                <span className="text-white/40 font-light">Programme</span>
-                <span className="text-white font-medium">Corporate Elite</span>
+                <span className="text-white/40 font-light mr-4">Practice Areas</span>
+                <span className="text-white font-medium text-right max-w-[150px] truncate" title={selectedPracticeAreas?.join(', ')}>
+                  {selectedPracticeAreas?.length ? selectedPracticeAreas.join(', ') : 'None'}
+                </span>
               </div>
               <div className="flex justify-between items-center text-sm">
                 <span className="text-white/40 font-light">Sections</span>
@@ -227,28 +275,100 @@ export function EditorialProfile() {
 function Input({ label, value, onChange }: { label: string, value: string, onChange: (val: string) => void }) {
   return (
     <div className="flex flex-col">
-      <label className="text-[0.65rem] uppercase tracking-widest text-white/50 mb-2 pl-2">
+      <label className="text-[0.6rem] uppercase tracking-[0.2em] font-semibold text-gold-500/70 mb-2 pl-1 drop-shadow-sm">
         {label}
       </label>
       <input 
         type="text" 
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-gold-500/50 transition-colors"
+        className="bg-[#111]/80 backdrop-blur-md border border-white/10 rounded-md px-4 py-3 text-white text-sm focus:outline-none focus:border-gold-500/60 focus:ring-1 focus:ring-gold-500/20 transition-all duration-300 shadow-inner"
       />
+    </div>
+  );
+}
+
+function SelectInput({ label, value, onChange, options }: { label: string, value: string, onChange: (val: string) => void, options: string[] }) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [isTyping, setIsTyping] = useState(false);
+
+  // Filter options if the user is typing, otherwise show all options
+  const filteredOptions = (isTyping && value) 
+    ? options.filter(opt => opt.toLowerCase().includes(value.toLowerCase())) 
+    : options;
+
+  const handleSelect = (opt: string) => {
+    onChange(opt);
+    setIsTyping(false);
+    setIsOpen(false);
+  };
+
+  return (
+    <div className="flex flex-col relative">
+      <label className="text-[0.6rem] uppercase tracking-[0.2em] font-semibold text-gold-500/70 mb-2 pl-1 drop-shadow-sm">
+        {label}
+      </label>
+      <div className="relative">
+        <input 
+          type="text"
+          autoComplete="new-password"
+          name={`custom-select-${label.toLowerCase()}`}
+          value={value}
+          onChange={(e) => {
+            onChange(e.target.value);
+            setIsTyping(true);
+            if (!isOpen) setIsOpen(true);
+          }}
+          onFocus={() => {
+            setIsTyping(false);
+            setIsOpen(true);
+          }}
+          onBlur={() => {
+            setTimeout(() => setIsOpen(false), 200);
+          }}
+          placeholder={`Search or type ${label}...`}
+          className="w-full bg-[#111]/80 backdrop-blur-md border border-white/10 rounded-md px-4 py-3 pr-10 text-white text-sm focus:outline-none focus:border-gold-500/60 focus:ring-1 focus:ring-gold-500/20 transition-all duration-300 shadow-inner"
+        />
+        <div className="absolute inset-y-0 right-0 flex items-center px-4 pointer-events-none">
+          <ChevronRight className={`w-4 h-4 text-white/40 transition-transform duration-300 ${isOpen ? 'rotate-90' : 'rotate-0'}`} />
+        </div>
+      </div>
+      
+      <AnimatePresence>
+        {isOpen && filteredOptions.length > 0 && (
+          <motion.div 
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            className="absolute top-[100%] left-0 right-0 mt-2 bg-[#1a1a1a] border border-white/10 rounded-md shadow-[0_10px_40px_rgba(0,0,0,0.8)] z-50 max-h-60 overflow-y-auto overflow-x-hidden [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-white/10 [&::-webkit-scrollbar-thumb]:rounded-full hover:[&::-webkit-scrollbar-thumb]:bg-white/20"
+          >
+            {filteredOptions.map((opt, idx) => (
+              <div 
+                key={idx}
+                className="px-4 py-3 text-sm text-white/80 hover:bg-gold-500/20 hover:text-white cursor-pointer transition-colors border-b border-white/5 last:border-none"
+                onClick={() => handleSelect(opt)}
+              >
+                {opt}
+              </div>
+            ))}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
 
 function ContinueButton({ onClick, text = "Continue Editorial Journey" }: { onClick: () => void, text?: string }) {
   return (
-    <div className="flex justify-end pt-6 mt-6 border-t border-white/5">
+    <div className="flex justify-end pt-8 mt-6 border-t border-white/5">
       <button 
         onClick={onClick}
-        className="group flex items-center space-x-3 bg-white/5 hover:bg-gold-500/10 border border-white/10 hover:border-gold-500/30 px-6 py-3 rounded-full transition-all duration-500 text-xs uppercase tracking-widest font-semibold text-white/70 hover:text-gold-200"
+        className="group relative inline-flex items-center justify-center px-8 py-3.5 bg-transparent border border-gold-500/30 text-white text-[0.65rem] md:text-xs font-semibold uppercase tracking-[0.25em] rounded-sm overflow-hidden transition-colors duration-300 hover:border-gold-400 hover:bg-gold-500/5 shadow-[0_0_15px_rgba(212,175,55,0.05)] hover:shadow-[0_0_25px_rgba(212,175,55,0.15)]"
       >
-        <span>{text}</span>
-        <ChevronRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
+        <span className="relative z-10 flex items-center">
+          {text}
+          <ChevronRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+        </span>
       </button>
     </div>
   );
@@ -268,13 +388,13 @@ function FileUpload({ label, onUpload, uploaded }: { label: string, onUpload: ()
 
   return (
     <div className="flex flex-col">
-      <label className="text-[0.65rem] uppercase tracking-widest text-white/50 mb-2 pl-2">
+      <label className="text-[0.6rem] uppercase tracking-[0.2em] font-semibold text-gold-500/70 mb-2 pl-1 drop-shadow-sm">
         {label}
       </label>
       <div 
         onClick={handleUpload}
-        className={`border border-dashed rounded-xl p-6 flex flex-col items-center justify-center transition-colors duration-500 cursor-pointer ${
-          uploaded ? 'bg-gold-500/10 border-gold-500/30' : 'bg-black/20 border-white/20 hover:border-gold-500/40 hover:bg-black/40'
+        className={`border border-dashed rounded-md p-6 flex flex-col items-center justify-center transition-all duration-300 cursor-pointer ${
+          uploaded ? 'bg-gold-500/10 border-gold-500/40 shadow-[0_0_15px_rgba(212,175,55,0.1)]' : 'bg-[#111]/80 backdrop-blur-md border-white/20 hover:border-gold-500/40 hover:bg-[#161616]'
         }`}
       >
         {isUploading ? (

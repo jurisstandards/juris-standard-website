@@ -3,8 +3,10 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { MessageSquare, X, Send, User, ShieldCheck } from "lucide-react";
+import { usePathname } from "next/navigation";
 
 export function AnalystConcierge() {
+  const pathname = usePathname();
   const [mounted, setMounted] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [message, setMessage] = useState("");
@@ -33,7 +35,7 @@ export function AnalystConcierge() {
     setMounted(true);
   }, []);
 
-  if (!mounted) return null;
+  if (!mounted || pathname !== "/") return null;
 
   return (
     <>

@@ -1,6 +1,5 @@
 'use client';
 
-import { motion, AnimatePresence } from "framer-motion";
 import { Landmark, Scale, Newspaper, Cpu, ChevronDown, ArrowRight } from "lucide-react";
 import { useState } from "react";
 import { CrystalIcon } from "./CrystalIcon";
@@ -57,34 +56,38 @@ export function RecognitionProgrammes() {
   const [openId, setOpenId] = useState<string | null>(null);
 
   return (
-    <section id="programmes" className="py-24 px-8 md:px-16 lg:px-24 xl:px-32 relative z-10 scroll-mt-24 bg-gradient-to-b from-transparent via-[#0a0a0a]/50 to-transparent">
-      <div className="max-w-5xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 1 }}
-          className="text-center mb-16"
-        >
-          <CrystalIcon icon={Landmark} className="mx-auto mb-6" />
-          <span className="text-gold-500 text-[0.65rem] font-bold uppercase tracking-[0.3em] block mb-4">Section 5</span>
-          <h2 className="text-3xl md:text-5xl font-serif text-white font-light tracking-tight mb-6">Recognition Programmes</h2>
-          <p className="text-white/50 text-lg font-light max-w-2xl mx-auto mb-8">
+    <section id="programmes" className="py-10 px-8 md:px-16 lg:px-24 xl:px-32 relative z-10 scroll-mt-24 bg-gradient-to-b from-transparent via-[#0a0a0a]/50 to-transparent">
+      <div className="w-full max-w-[1400px] mx-auto">
+        <div className="bg-[#111111]/90 backdrop-blur-3xl border border-white/10 shadow-[0_0_40px_rgba(255,255,255,0.03)] rounded-2xl p-6 lg:p-8 xl:p-10 relative overflow-hidden group">
+          <div className="absolute top-0 inset-x-0 h-[1px] bg-gradient-to-r from-transparent via-gold-500/30 to-transparent group-hover:via-gold-400/60 transition-colors duration-500 shadow-[0_0_20px_rgba(212,175,55,0.3)]" />
+          
+          
+          <div className="flex flex-col w-full">
+            {/* Top Premium Header */}
+            <div className="flex flex-col items-start mb-6 border-b border-white/5 pb-6">
+              <div className="flex items-center space-x-3 mb-3">
+                <div className="flex items-center justify-center w-6 h-6 rounded bg-gradient-to-br from-gold-500/20 to-gold-600/5 border border-gold-500/50 shadow-[0_0_10px_rgba(212,175,55,0.2)]">
+                  <span className="text-gold-400 font-serif text-sm font-bold">5</span>
+                </div>
+                <span className="text-gold-500 text-xs font-bold uppercase tracking-[0.3em] drop-shadow-sm">Section 5</span>
+              </div>
+              <h2 className="text-4xl md:text-5xl font-serif text-white font-light tracking-tight leading-tight">Recognition Programmes</h2>
+            </div>
+            
+            {/* Full-Width Content Column */}
+            <div className="w-full space-y-4">
+          <p className="text-neutral-300 font-light leading-relaxed md:text-[1.05rem] mb-6">
             The Juris Standard Index consists of specialised Recognition Programmes designed to acknowledge excellence across different sectors of the legal profession. Each programme follows the same Editorial Methodology while recognising the unique characteristics of different professional disciplines.
           </p>
-          <div className="w-16 h-[1px] bg-gold-500/50 mx-auto" />
-        </motion.div>
+          
+        </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {programmes.map((prog, index) => {
             const isActive = openId === prog.id;
             return (
-              <motion.div
+              <div
                 key={prog.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
                 className={`group relative bg-[#050505]/80 backdrop-blur-md border rounded-2xl p-8 transition-all duration-700 cursor-pointer ${
                   isActive 
                     ? 'border-gold-500/40 shadow-[0_10px_40px_rgba(212,175,55,0.1)]' 
@@ -104,23 +107,19 @@ export function RecognitionProgrammes() {
                     {prog.title}
                   </h3>
                   
-                  <p className="text-white/50 text-sm font-light leading-relaxed mb-6">
+                  <p className="text-neutral-400 text-sm font-light leading-relaxed mb-6">
                     {prog.intro}
                   </p>
 
-                  <AnimatePresence initial={false}>
+                  
                     {isActive && (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: 'auto', opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.4 }}
+                      <div
                         className="border-t border-white/10 pt-6 mt-2"
                       >
                         <h4 className="text-[0.65rem] uppercase tracking-widest text-gold-500/70 font-semibold mb-4">Includes</h4>
                         <ul className="grid grid-cols-1 sm:grid-cols-2 gap-y-3 gap-x-4">
                           {prog.includes.map((item, i) => (
-                            <li key={i} className="flex items-center text-xs text-white/60 font-light">
+                            <li key={i} className="flex items-center text-xs text-neutral-300 font-light">
                               <div className="w-1 h-1 rounded-full bg-gold-500/50 mr-2 shrink-0" />
                               {item}
                             </li>
@@ -128,18 +127,20 @@ export function RecognitionProgrammes() {
                         </ul>
 
                         <div className="mt-8 flex justify-end">
-                          <button className="text-[0.65rem] uppercase tracking-widest text-white/50 hover:text-gold-300 font-semibold flex items-center transition-colors">
+                          <button className="text-[0.65rem] uppercase tracking-widest text-neutral-400 hover:text-gold-300 font-semibold flex items-center transition-colors">
                             Explore Programmes
                             <ArrowRight className="w-3 h-3 ml-2" />
                           </button>
                         </div>
-                      </motion.div>
+                      </div>
                     )}
-                  </AnimatePresence>
+                  
                 </div>
-              </motion.div>
+              </div>
             );
           })}
+        </div>
+          </div>
         </div>
       </div>
     </section>

@@ -84,7 +84,7 @@ export function ReviewSubmission() {
   ];
 
   return (
-    <div className="min-h-screen pt-32 pb-24 px-6 lg:px-24 relative z-10 flex flex-col items-center max-w-5xl mx-auto w-full">
+    <div className="min-h-screen pt-32 pb-24 px-6 lg:px-12 relative z-10 flex flex-col w-full">
       <motion.div
         initial={isNavigatingBack ? false : { opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}

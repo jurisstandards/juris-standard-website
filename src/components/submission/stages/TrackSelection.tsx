@@ -42,8 +42,8 @@ export function TrackSelection() {
   };
 
   return (
-    <div className="flex flex-col justify-center min-h-screen pt-32 pb-16 px-6 lg:px-24 relative z-10">
-      <div className="w-full max-w-7xl mx-auto flex flex-col">
+    <div className="flex flex-col justify-center min-h-screen pt-32 pb-16 px-6 lg:px-12 relative z-10 w-full">
+      <div className="w-full flex flex-col">
         <motion.div
           initial={isNavigatingBack ? false : { opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
@@ -78,29 +78,29 @@ export function TrackSelection() {
               initial={isNavigatingBack ? false : { opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.2, delay: isNavigatingBack ? 0 : i * 0.05 }}
-              className="group relative rounded-2xl bg-gradient-to-b from-[#1c1c1c] to-[#0a0a0a] border-t border-t-white/[0.08] border-x border-x-white/[0.03] border-b border-b-black shadow-[0_20px_40px_rgba(0,0,0,0.6)] p-6 lg:p-8 flex items-start gap-6 cursor-pointer hover:border-t-gold-500/40 hover:border-x-gold-500/20 transition-all duration-150 hover:-translate-y-1 hover:shadow-[0_30px_50px_rgba(0,0,0,0.8)]"
+              className="group relative rounded-2xl bg-gradient-to-b from-[#161616] to-[#0a0a0a] border-t border-t-white/[0.08] border-x border-x-white/[0.03] border-b border-b-black shadow-[0_20px_40px_rgba(0,0,0,0.6)] p-6 lg:p-8 flex flex-col h-full cursor-pointer hover:border-t-gold-500/40 hover:border-x-gold-500/20 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_30px_50px_rgba(0,0,0,0.8)]"
               onClick={() => handleSelectTrack(track.id)}
             >
-              <div className="w-14 h-14 flex-shrink-0 rounded-xl bg-gradient-to-br from-[#111] to-[#1a1a1a] border border-white/5 flex items-center justify-center relative overflow-hidden group-hover:border-gold-500/30 transition-colors duration-150 mt-1">
-                <div className="absolute inset-0 bg-gold-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-150" />
-                <track.icon className="w-6 h-6 text-gold-500/70 group-hover:text-gold-400 transition-colors duration-150 relative z-10" strokeWidth={1.2} />
+              <div className="flex justify-between items-start w-full mb-6">
+                <div className="w-14 h-14 flex-shrink-0 rounded-xl bg-gradient-to-br from-[#111] to-[#1a1a1a] border border-white/5 flex items-center justify-center relative overflow-hidden group-hover:border-gold-500/30 transition-colors duration-300">
+                  <div className="absolute inset-0 bg-gold-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <track.icon className="w-6 h-6 text-gold-500/70 group-hover:text-gold-400 transition-colors duration-300 relative z-10" strokeWidth={1.2} />
+                </div>
+                <ChevronRight className="w-5 h-5 text-white/20 group-hover:text-gold-400 transition-all duration-300 transform group-hover:translate-x-1" />
               </div>
 
-              <div className="flex-1">
-                <div className="flex justify-between items-start mb-2">
-                  <h3 className="text-xl font-serif text-white group-hover:text-gold-200 transition-colors duration-150">
-                    {track.title}
-                  </h3>
-                  <ChevronRight className="w-4 h-4 text-white/20 group-hover:text-gold-400 transition-colors duration-150 transform group-hover:translate-x-1 mt-1" />
-                </div>
+              <div className="flex flex-col flex-1 w-full">
+                <h3 className="text-xl font-serif text-white group-hover:text-gold-100 transition-colors duration-300 mb-3 drop-shadow-sm">
+                  {track.title}
+                </h3>
                 
-                <p className="text-neutral-400 text-sm font-light leading-relaxed mb-6 pr-4">
+                <p className="text-neutral-400 text-sm font-light leading-relaxed mb-8 flex-1">
                   {track.description}
                 </p>
                 
-                <div className="flex items-center space-x-3 text-[0.6rem] uppercase tracking-[0.2em] font-semibold text-white/30 group-hover:text-gold-500/70 transition-colors duration-150 pt-5 border-t border-white/5 group-hover:border-gold-500/20">
-                  <span className="w-1 h-1 rounded-full bg-current" />
-                  <span>{track.footer}</span>
+                <div className="flex items-center space-x-3 text-[0.6rem] uppercase tracking-[0.2em] font-semibold text-white/30 group-hover:text-gold-500/70 transition-colors duration-300 pt-5 border-t border-white/5 group-hover:border-gold-500/20 w-full mt-auto">
+                  <span className="w-1 h-1 flex-shrink-0 rounded-full bg-current" />
+                  <span className="truncate">{track.footer}</span>
                 </div>
               </div>
             </motion.div>

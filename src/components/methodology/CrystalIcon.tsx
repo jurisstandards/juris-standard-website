@@ -1,13 +1,10 @@
 import React from 'react';
-import { motion } from 'framer-motion';
 
 export function CrystalIcon({ icon: Icon, className = '' }: { icon: any, className?: string }) {
   return (
-    <motion.div 
+    <div 
       className={`relative w-12 h-12 flex items-center justify-center shrink-0 ${className}`}
-      animate={{ y: [0, -3, 0] }}
-      transition={{ duration: 4, ease: "easeInOut", repeat: Infinity }}
-    >
+      >
       {/* 3D Black Crystal Body with Champagne Gold Edges */}
       <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-[#1a1a1a] to-black border border-gold-500/30 shadow-[inset_0_2px_10px_rgba(255,255,255,0.05),0_10px_20px_rgba(0,0,0,0.8)] overflow-hidden group-hover:border-gold-400/60 group-hover:shadow-[inset_0_2px_10px_rgba(212,175,55,0.1),0_10px_30px_rgba(212,175,55,0.15)] transition-all duration-700">
         
@@ -23,6 +20,6 @@ export function CrystalIcon({ icon: Icon, className = '' }: { icon: any, classNa
 
       {/* The Lucide Icon */}
       <Icon className="relative z-10 w-5 h-5 text-gold-500/80 drop-shadow-[0_0_8px_rgba(212,175,55,0.5)] group-hover:text-gold-300 transition-colors duration-700" strokeWidth={1.5} />
-    </motion.div>
+    </div>
   );
 }

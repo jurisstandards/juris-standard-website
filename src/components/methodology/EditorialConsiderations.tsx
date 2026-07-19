@@ -1,6 +1,5 @@
 'use client';
 
-import { motion, AnimatePresence } from "framer-motion";
 import { Award, Briefcase, GraduationCap, Building2, Lightbulb, TrendingUp, Globe, Clock, ChevronDown } from "lucide-react";
 import { useState } from "react";
 import { CrystalIcon } from "./CrystalIcon";
@@ -68,34 +67,38 @@ export function EditorialConsiderations() {
   const [openId, setOpenId] = useState<number | null>(1);
 
   return (
-    <section id="considerations" className="py-24 px-8 md:px-16 lg:px-24 xl:px-32 relative z-10 scroll-mt-24">
-      <div className="max-w-6xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 1 }}
-          className="text-center mb-16"
-        >
-          <CrystalIcon icon={Award} className="mx-auto mb-6" />
-          <span className="text-gold-500 text-[0.65rem] font-bold uppercase tracking-[0.3em] block mb-4">Section 4</span>
-          <h2 className="text-3xl md:text-5xl font-serif text-white font-light tracking-tight mb-6">Editorial Considerations</h2>
-          <p className="text-white/50 text-lg font-light max-w-3xl mx-auto mb-8 leading-relaxed">
+    <section id="considerations" className="py-10 px-8 md:px-16 lg:px-24 xl:px-32 relative z-10 scroll-mt-24">
+      <div className="w-full max-w-[1400px] mx-auto">
+        <div className="bg-[#111111]/90 backdrop-blur-3xl border border-white/10 shadow-[0_0_40px_rgba(255,255,255,0.03)] rounded-2xl p-6 lg:p-8 xl:p-10 relative overflow-hidden group">
+          <div className="absolute top-0 inset-x-0 h-[1px] bg-gradient-to-r from-transparent via-gold-500/30 to-transparent group-hover:via-gold-400/60 transition-colors duration-500 shadow-[0_0_20px_rgba(212,175,55,0.3)]" />
+          
+          
+          <div className="flex flex-col w-full">
+            {/* Top Premium Header */}
+            <div className="flex flex-col items-start mb-6 border-b border-white/5 pb-6">
+              <div className="flex items-center space-x-3 mb-3">
+                <div className="flex items-center justify-center w-6 h-6 rounded bg-gradient-to-br from-gold-500/20 to-gold-600/5 border border-gold-500/50 shadow-[0_0_10px_rgba(212,175,55,0.2)]">
+                  <span className="text-gold-400 font-serif text-sm font-bold">4</span>
+                </div>
+                <span className="text-gold-500 text-xs font-bold uppercase tracking-[0.3em] drop-shadow-sm">Section 4</span>
+              </div>
+              <h2 className="text-4xl md:text-5xl font-serif text-white font-light tracking-tight leading-tight">Editorial Considerations</h2>
+            </div>
+            
+            {/* Full-Width Content Column */}
+            <div className="w-full space-y-4">
+          <p className="text-neutral-300 font-light leading-relaxed md:text-[1.05rem] mb-6">
             Different Recognition Programmes require different editorial perspectives. Accordingly, editorial consideration is holistic rather than formulaic. No individual factor determines recognition. Instead, editors consider the overall professional profile within the context of the relevant Recognition Programme.
           </p>
-          <div className="w-16 h-[1px] bg-gold-500/50 mx-auto" />
-        </motion.div>
+          
+        </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
           {considerations.map((item, index) => {
             const isActive = openId === item.id;
             return (
-              <motion.div
+              <div
                 key={item.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
                 className={`group relative bg-[#0a0a0a]/60 backdrop-blur-md border rounded-2xl p-6 transition-all duration-500 cursor-pointer ${
                   isActive 
                     ? 'border-gold-500/40 shadow-[0_10px_30px_rgba(212,175,55,0.1)]' 
@@ -113,38 +116,32 @@ export function EditorialConsiderations() {
                   <ChevronDown className={`w-4 h-4 text-white/30 transition-transform duration-500 ${isActive ? 'rotate-180 text-gold-400' : ''}`} />
                 </div>
                 
-                <AnimatePresence initial={false}>
+                
                   {isActive && (
-                    <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: 'auto', opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.4 }}
-                    >
-                      <p className="text-white/50 text-sm font-light leading-relaxed pt-2 border-t border-white/5">
+                    <div
+                      >
+                      <p className="text-neutral-400 text-sm font-light leading-relaxed pt-2 border-t border-white/5">
                         {item.content}
                       </p>
-                    </motion.div>
+                    </div>
                   )}
-                </AnimatePresence>
-              </motion.div>
+                
+              </div>
             );
           })}
         </div>
 
         {/* Editorial Notice Panel */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.8 }}
+        <div
           className="bg-[#111]/80 backdrop-blur-xl border border-gold-500/30 rounded-[2rem] p-8 md:p-12 shadow-[inset_0_0_40px_rgba(212,175,55,0.05),0_20px_50px_rgba(0,0,0,0.5)]"
         >
           <span className="text-gold-500 text-[0.65rem] font-bold uppercase tracking-[0.3em] block mb-4">Editorial Notice</span>
           <p className="text-white/70 font-light leading-relaxed md:text-lg">
             Editorial Considerations provide guidance regarding the broader themes that may inform editorial review. The relative importance of individual considerations varies according to the Recognition Programme and institutional context. Editorial judgement remains independent and holistic.
           </p>
-        </motion.div>
+        </div>
+          </div>
+        </div>
       </div>
     </section>
   );

@@ -59,12 +59,16 @@ interface SubmissionState {
   currentStage: Stage;
   isNavigatingBack: boolean;
   selectedTrack: Track;
-  selectedProgramme: string | null;
+  selectedPracticeAreas: string[];
+  primaryPracticeArea: string | null;
+  otherPracticeArea: string;
   profileData: ProfileData;
   completedSections: string[];
   setStage: (stage: Stage) => void;
   setTrack: (track: Track) => void;
-  setProgramme: (programme: string | null) => void;
+  setPracticeAreas: (areas: string[]) => void;
+  setPrimaryPracticeArea: (area: string | null) => void;
+  setOtherPracticeArea: (value: string) => void;
   updateProfileData: (section: keyof ProfileData, data: Partial<ProfileData[keyof ProfileData]>) => void;
   markSectionCompleted: (section: string) => void;
   reset: () => void;
@@ -82,7 +86,9 @@ export const useSubmissionStore = create<SubmissionState>((set) => ({
   currentStage: 'welcome',
   isNavigatingBack: false,
   selectedTrack: null,
-  selectedProgramme: null,
+  selectedPracticeAreas: [],
+  primaryPracticeArea: null,
+  otherPracticeArea: '',
   profileData: initialProfileData,
   completedSections: [],
   setStage: (stage) => set((state) => {
@@ -94,7 +100,9 @@ export const useSubmissionStore = create<SubmissionState>((set) => ({
     };
   }),
   setTrack: (track) => set({ selectedTrack: track }),
-  setProgramme: (programme) => set({ selectedProgramme: programme }),
+  setPracticeAreas: (areas) => set({ selectedPracticeAreas: areas }),
+  setPrimaryPracticeArea: (area) => set({ primaryPracticeArea: area }),
+  setOtherPracticeArea: (value) => set({ otherPracticeArea: value }),
   updateProfileData: (section, data) => 
     set((state) => ({
       profileData: {

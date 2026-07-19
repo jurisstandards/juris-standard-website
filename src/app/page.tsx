@@ -118,25 +118,7 @@ export default function Home() {
                   </Link>
                 </div>
                 
-                {/* Watch Film Button moved here, below primary buttons */}
-                <div className="flex items-center cursor-pointer group mb-10 opacity-70 hover:opacity-100 transition-opacity">
-                  <div className="relative w-10 h-10 rounded-full flex items-center justify-center">
-                    <div className="absolute inset-0 rounded-full border border-gold-500/40 bg-[#050505]/60 flex items-center justify-center">
-                      <Play className="w-3 h-3 ml-0.5 text-gold-300 fill-gold-300" />
-                    </div>
-                  </div>
-                  
-                  <div className="ml-4">
-                    <span className="block text-[0.55rem] uppercase tracking-[0.3em] text-neutral-300 font-medium">
-                      Watch Juris Standard Film
-                    </span>
-                    <div className="flex items-center mt-1 space-x-1.5">
-                      <div className="w-1 h-1 rounded-full bg-gold-400" />
-                      <span className="block text-[0.50rem] tracking-[0.2em] text-gold-400/80 font-medium">1:25 MIN</span>
-                    </div>
-                  </div>
-                </div>
-                
+
                 <div className="flex items-center space-x-3 mb-6">
                   <ShieldCheck className="w-4 h-4 text-gold-400" strokeWidth={1.5} />
                   <span className="text-[0.55rem] uppercase tracking-[0.25em] text-neutral-400 font-medium">
@@ -144,9 +126,13 @@ export default function Home() {
                   </span>
                 </div>
                 
-                {/* Stats Bar moved up under buttons */}
-                <div className="w-full max-w-5xl bg-[#0a0a0a] border border-white/5 rounded-lg flex flex-col md:flex-row items-center justify-between p-5 shadow-2xl relative mb-8">
-                  <div className="absolute inset-0 bg-gradient-to-r from-gold-500/5 to-transparent pointer-events-none rounded-lg" />
+                {/* Stats Bar */}
+                <div className="w-full max-w-5xl bg-gradient-to-b from-[#161616]/90 to-[#0a0a0a]/95 backdrop-blur-2xl border border-white/5 border-t-white/10 rounded-2xl flex flex-col md:flex-row items-center justify-between p-3 shadow-[0_20px_50px_rgba(0,0,0,0.5)] relative mb-8 overflow-hidden group">
+                  <div className="absolute inset-0 bg-gradient-to-r from-gold-500/5 via-transparent to-gold-500/5 pointer-events-none opacity-50" />
+                  
+                  {/* Subtle shimmer effect on hover */}
+                  <div className="absolute inset-0 -translate-x-full group-hover:animate-shimmer bg-gradient-to-r from-transparent via-white/[0.04] to-transparent pointer-events-none" />
+
                   {[
                     { icon: Users, value: "20K+", label: "LAWYERS EVALUATED" },
                     { icon: Landmark, value: "5K+", label: "LAW FIRMS RANKED" },
@@ -154,11 +140,14 @@ export default function Home() {
                     { icon: Scale, value: "100+", label: "PRACTICE AREAS" },
                     { icon: Star, value: "50M+", label: "DATA POINTS" },
                   ].map((stat, i) => (
-                    <div key={i} className="flex items-center space-x-4 py-3 md:py-1 px-4 flex-1 first:pl-2 last:pr-2 border-b md:border-b-0 md:border-r border-white/5 last:border-0 relative z-10 rounded-sm">
-                      <stat.icon className="w-5 h-5 md:w-6 md:h-6 text-gold-400/90 stroke-[1.5px]" />
+                    <div key={i} className="flex items-center space-x-4 py-4 md:py-3 px-4 flex-1 border-b md:border-b-0 md:border-r border-white/5 last:border-0 relative z-10 transition-colors duration-300 hover:bg-white/[0.02] rounded-xl cursor-default">
+                      <div className="relative flex-shrink-0">
+                        <div className="absolute inset-0 bg-gold-500/20 blur-md rounded-full" />
+                        <stat.icon className="w-5 h-5 md:w-6 md:h-6 text-gold-400 relative z-10 stroke-[1.5px]" />
+                      </div>
                       <div className="flex flex-col">
-                        <span className="font-serif text-[1.2rem] md:text-[1.35rem] text-white leading-none mb-1.5 tracking-tight">{stat.value}</span>
-                        <span className="text-[0.45rem] md:text-[0.50rem] uppercase tracking-[0.12em] text-neutral-400 font-medium leading-none">{stat.label}</span>
+                        <span className="font-serif text-[1.3rem] md:text-[1.45rem] bg-gradient-to-br from-white to-white/60 bg-clip-text text-transparent leading-none mb-1.5 tracking-tight drop-shadow-sm">{stat.value}</span>
+                        <span className="text-[0.45rem] md:text-[0.55rem] uppercase tracking-[0.2em] text-gold-500/70 font-semibold leading-none">{stat.label}</span>
                       </div>
                     </div>
                   ))}
