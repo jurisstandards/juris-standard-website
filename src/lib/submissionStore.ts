@@ -62,6 +62,7 @@ interface SubmissionState {
   selectedPracticeAreas: string[];
   primaryPracticeArea: string | null;
   otherPracticeArea: string;
+  selectedProgramme: string | null;
   profileData: ProfileData;
   completedSections: string[];
   setStage: (stage: Stage) => void;
@@ -69,6 +70,7 @@ interface SubmissionState {
   setPracticeAreas: (areas: string[]) => void;
   setPrimaryPracticeArea: (area: string | null) => void;
   setOtherPracticeArea: (value: string) => void;
+  setSelectedProgramme: (programme: string | null) => void;
   updateProfileData: (section: keyof ProfileData, data: Partial<ProfileData[keyof ProfileData]>) => void;
   markSectionCompleted: (section: string) => void;
   reset: () => void;
@@ -89,6 +91,7 @@ export const useSubmissionStore = create<SubmissionState>((set) => ({
   selectedPracticeAreas: [],
   primaryPracticeArea: null,
   otherPracticeArea: '',
+  selectedProgramme: null,
   profileData: initialProfileData,
   completedSections: [],
   setStage: (stage) => set((state) => {
@@ -103,6 +106,7 @@ export const useSubmissionStore = create<SubmissionState>((set) => ({
   setPracticeAreas: (areas) => set({ selectedPracticeAreas: areas }),
   setPrimaryPracticeArea: (area) => set({ primaryPracticeArea: area }),
   setOtherPracticeArea: (value) => set({ otherPracticeArea: value }),
+  setSelectedProgramme: (programme) => set({ selectedProgramme: programme }),
   updateProfileData: (section, data) => 
     set((state) => ({
       profileData: {
