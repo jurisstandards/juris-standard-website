@@ -1,4 +1,6 @@
-import { useSubmissionStore, ProfileData, Track } from "@/lib/submissionStore";
+import os
+
+content = """import { useSubmissionStore, ProfileData, Track } from "@/lib/submissionStore";
 import { motion, AnimatePresence } from "framer-motion";
 import { CheckCircle2, ChevronRight, UploadCloud, Edit2, ChevronLeft, AlertCircle } from "lucide-react";
 import { useState } from "react";
@@ -84,7 +86,7 @@ export function EditorialProfile() {
           return !!(profileData.identity.orgName && profileData.identity.founderCeo && profileData.identity.country && profileData.identity.city);
         }
         // Professional
-        return !!(profileData.identity.fullName && profileData.identity.email && profileData.identity.mobile && profileData.identity.designation && profileData.identity.country && profileData.identity.city);
+        return !!(profileData.identity.fullName && profileData.identity.designation && profileData.identity.country && profileData.identity.city);
       
       case 'practice':
         if (selectedTrack === 'firm') {
@@ -222,9 +224,8 @@ export function EditorialProfile() {
             <p className="text-white/40 text-sm font-light mb-8">Tell us how you are professionally known.</p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <Input label="Full Name" value={profileData.identity.fullName} onChange={(val) => updateProfileData('identity', { fullName: val })} required />
+              <Input label="Preferred Professional Name" value={profileData.identity.preferredName} onChange={(val) => updateProfileData('identity', { preferredName: val })} />
               <Input label="Current Designation" value={profileData.identity.designation} onChange={(val) => updateProfileData('identity', { designation: val })} required />
-              <Input label="Email Address" value={profileData.identity.email} onChange={(val) => updateProfileData('identity', { email: val })} required />
-              <Input label="Mobile Number" value={profileData.identity.mobile} onChange={(val) => updateProfileData('identity', { mobile: val })} required />
               <Input label="Organisation / Chamber / Firm" value={profileData.identity.organization} onChange={(val) => updateProfileData('identity', { organization: val })} />
               <SelectInput 
                 label="Country" 
@@ -331,8 +332,8 @@ export function EditorialProfile() {
             <p className="text-white/40 text-sm font-light mb-8">Describe your professional journey, areas of expertise and significant contributions to the legal profession.</p>
             <TextArea 
               label="Biography" 
-              value={profileData.biography.bio} 
-              onChange={(val) => updateProfileData('biography', { bio: val })} 
+              value={profileData.biography} 
+              onChange={(val) => updateProfileData('biography', val)} 
             />
             <ContinueButton onClick={() => handleContinue('biography', 'presence')} />
           </div>
@@ -396,7 +397,7 @@ export function EditorialProfile() {
           <div className="flex space-x-3 mb-12">
             {sections.map((section, idx) => {
               const isActive = activeSection === section.id;
-              const isCompleted = completedSections.includes(section.id as SectionKey);
+              const isCompleted = completedSections.includes(section.id);
               const isPast = sections.findIndex(s => s.id === activeSection) > idx;
               
               return (
@@ -472,7 +473,7 @@ export function EditorialProfile() {
               <div className="absolute top-0 right-0 w-32 h-32 bg-gold-500/5 blur-3xl rounded-full" />
               <div className="space-y-5 relative z-10">
                 {sections.map((section, idx) => {
-                  const isCompleted = completedSections.includes(section.id as SectionKey) || sections.findIndex(s => s.id === activeSection) > idx;
+                  const isCompleted = completedSections.includes(section.id) || sections.findIndex(s => s.id === activeSection) > idx;
                   const isActive = activeSection === section.id;
                   
                   return (
@@ -674,3 +675,9 @@ function FileUpload({ label, onUpload, uploaded, required }: { label: string, on
     </div>
   );
 }
+"""
+
+with open("d:/jurisstandard/src/components/submission/stages/EditorialProfile.tsx", "w", encoding="utf-8") as f:
+    f.write(content)
+
+print("Updated EditorialProfile.tsx")

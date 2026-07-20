@@ -19,7 +19,7 @@ export function MethodologyHero() {
           <h1 className="text-6xl md:text-7xl lg:text-[6rem] font-serif text-white tracking-tighter mb-6 leading-[1.1] drop-shadow-lg">
             Editorial<br />
             <span className="text-transparent bg-clip-text bg-gradient-to-br from-gold-200 via-gold-400 to-gold-700 drop-shadow-[0_0_30px_rgba(212,175,55,0.3)]">
-              Methodology<sup className="text-3xl md:text-4xl -top-6 md:-top-8 relative bg-clip-text text-transparent bg-gradient-to-br from-gold-300 to-gold-500 font-light">™</sup>
+              Methodology
             </span>
           </h1>
           

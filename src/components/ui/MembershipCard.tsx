@@ -21,7 +21,7 @@ export function MembershipCard({ className }: MembershipCardProps) {
           </span>
 
           <h3 className="font-serif text-3xl text-white tracking-[0.25em] uppercase drop-shadow-md">
-            Black™
+            Black
           </h3>
           <div className="w-16 h-[1px] bg-gradient-to-r from-transparent via-gold-400 to-transparent my-8 shadow-[0_0_10px_rgba(197,160,89,0.8)]" />
         </div>

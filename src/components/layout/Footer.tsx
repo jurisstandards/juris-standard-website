@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 const footerLinks = {
-  "The Index™": [
+  "The Index": [
     { name: "Corporate Elite", href: "/juris-index" },
     { name: "Litigation Masters", href: "/juris-index" },
     { name: "Arbitration Leaders", href: "/juris-index" },

@@ -1,4 +1,6 @@
-import { useSubmissionStore } from "@/lib/submissionStore";
+import os
+
+content = """import { useSubmissionStore } from "@/lib/submissionStore";
 import { motion } from "framer-motion";
 import { CheckCircle, Download, ArrowRight, ShieldCheck, Milestone, Mail, Phone, ExternalLink } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -188,3 +190,9 @@ function TimelineStep({ active, step, title, desc }: { active?: boolean, step: s
     </div>
   );
 }
+"""
+
+with open("d:/jurisstandard/src/components/submission/stages/ConfirmationScreen.tsx", "w", encoding="utf-8") as f:
+    f.write(content)
+
+print("Updated ConfirmationScreen.tsx")

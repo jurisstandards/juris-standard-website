@@ -6,7 +6,7 @@ import { Footer } from "@/components/layout/Footer";
 import { LiveTicker } from "@/components/ui/LiveTicker";
 import { CTAButton } from "@/components/ui/CTAButton";
 import { SectionHeader } from "@/components/ui/SectionHeader";
-import { IndexCard } from "@/components/ui/IndexCard";
+import { InstitutionalCard } from "@/components/ui/InstitutionalCard";
 import { IntelligenceCard } from "@/components/ui/IntelligenceCard";
 import { AwardCard } from "@/components/ui/AwardCard";
 import { InsightCard } from "@/components/ui/InsightCard";
@@ -154,66 +154,77 @@ export default function Home() {
                 </div>
           </div>
           
-          <div className="flex items-center justify-end mt-8">
-            {/* Concept 3 text bottom right */}
-            <div className="flex items-center space-x-4 opacity-40 pointer-events-none z-10">
-              <div className="w-12 h-[1px] bg-white/50" />
-              <span className="text-[0.65rem] font-sans tracking-wide text-white">
-                Concept 3 • Layered Jurisdictions
-              </span>
-            </div>
-          </div>
+
         </div>
       </section>
 
-      {/* 3. The Juris Standard Index™ */}
+      {/* 3. The Juris Standard Index */}
       <section className="py-20 relative z-10">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(197,160,89,0.05)_0%,_transparent_50%)] pointer-events-none" />
         <div className="w-full px-8 md:px-16 lg:px-24 xl:px-32 relative">
           <SectionHeader 
-            title="The Juris Standard Index™" 
+            title="The Juris Standard Index" 
             subtitle="A research-driven institutional record of legal excellence."
             actionText="View All Indexes"
             actionHref="/juris-index"
             icon={<Award className="w-6 h-6 text-gold-400" strokeWidth={1.5} />}
           />
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-6">
-            <IndexCard delay={0} category="Corporate" title="Elite" href="/juris-index" icon={
-              <div className="relative flex items-center justify-center w-20 h-20">
-                <div className="absolute inset-0 bg-gold-500/5 rounded-full blur-xl group-hover:bg-gold-400/15 transition-colors duration-700" />
-                <Gem className="w-10 h-10 text-gold-400/90 drop-shadow-[0_0_10px_rgba(212,175,55,0.2)] stroke-[1.5px] group-hover:text-gold-300 group-hover:drop-shadow-[0_0_15px_rgba(212,175,55,0.4)] transition-all duration-700" />
-              </div>
-            } />
-            <IndexCard delay={100} category="Litigation" title="Masters" href="/juris-index" icon={
-              <div className="relative flex items-center justify-center w-20 h-20">
-                <div className="absolute inset-0 bg-gold-500/5 rounded-full blur-xl group-hover:bg-gold-400/15 transition-colors duration-700" />
-                <Scale className="w-10 h-10 text-gold-400/90 drop-shadow-[0_0_10px_rgba(212,175,55,0.2)] stroke-[1.5px] group-hover:text-gold-300 group-hover:drop-shadow-[0_0_15px_rgba(212,175,55,0.4)] transition-all duration-700" />
-              </div>
-            } />
-            <IndexCard delay={200} category="Arbitration" title="Leaders" href="/juris-index" icon={
-              <div className="relative flex items-center justify-center w-20 h-20">
-                <div className="absolute inset-0 bg-gold-500/5 rounded-full blur-xl group-hover:bg-gold-400/15 transition-colors duration-700" />
-                <Crown className="w-10 h-10 text-gold-400/90 drop-shadow-[0_0_10px_rgba(212,175,55,0.2)] stroke-[1.5px] group-hover:text-gold-300 group-hover:drop-shadow-[0_0_15px_rgba(212,175,55,0.4)] transition-all duration-700" />
-              </div>
-            } />
-            <IndexCard delay={300} category="Law Firm" title="Rankings" href="/juris-index" icon={
-              <div className="relative flex items-center justify-center w-20 h-20">
-                <div className="absolute inset-0 bg-gold-500/5 rounded-full blur-xl group-hover:bg-gold-400/15 transition-colors duration-700" />
-                <TrendingUp className="w-10 h-10 text-gold-400/90 drop-shadow-[0_0_10px_rgba(212,175,55,0.2)] stroke-[1.5px] group-hover:text-gold-300 group-hover:drop-shadow-[0_0_15px_rgba(212,175,55,0.4)] transition-all duration-700" />
-              </div>
-            } />
-            <IndexCard delay={400} category="General Counsel" title="Power List" href="/juris-index" icon={
-              <div className="relative flex items-center justify-center w-20 h-20">
-                <div className="absolute inset-0 bg-gold-500/5 rounded-full blur-xl group-hover:bg-gold-400/15 transition-colors duration-700" />
-                <Zap className="w-10 h-10 text-gold-400/90 drop-shadow-[0_0_10px_rgba(212,175,55,0.2)] stroke-[1.5px] group-hover:text-gold-300 group-hover:drop-shadow-[0_0_15px_rgba(212,175,55,0.4)] transition-all duration-700" />
-              </div>
-            } />
-            <IndexCard delay={500} category="Global" title="Influencers" href="/juris-index" icon={
-              <div className="relative flex items-center justify-center w-20 h-20">
-                <div className="absolute inset-0 bg-gold-500/5 rounded-full blur-xl group-hover:bg-gold-400/15 transition-colors duration-700" />
-                <Megaphone className="w-10 h-10 text-gold-400/90 drop-shadow-[0_0_10px_rgba(212,175,55,0.2)] stroke-[1.5px] group-hover:text-gold-300 group-hover:drop-shadow-[0_0_15px_rgba(212,175,55,0.4)] transition-all duration-700" />
-              </div>
-            } />
+          <div className="flex flex-col gap-6">
+            {/* Tier 1: The Signature Brands */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <InstitutionalCard 
+                title="LAW FIRMS"
+                subtitle="Recognising institutions that define excellence, leadership and professional distinction."
+                collections={["Law Firm Excellence", "Corporate Excellence", "Dispute Resolution", "Banking & Finance"]}
+                href="/juris-index/law-firms"
+                isSignature={true}
+                delay={0}
+              />
+              <InstitutionalCard 
+                title="LEGAL PROFESSIONALS"
+                subtitle="Recognising individuals whose excellence, influence and leadership shape the legal profession."
+                collections={["Corporate Elite", "Litigation Masters", "Arbitration Leaders", "General Counsel"]}
+                href="/juris-index/professionals"
+                isSignature={true}
+                delay={100}
+              />
+            </div>
+
+            {/* Tier 2: The Ecosystem */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <InstitutionalCard 
+                title="LEGAL MEDIA"
+                subtitle="Recognising organisations advancing legal journalism, publishing and public legal discourse."
+                collections={["Editorial Excellence", "Legal Publications", "Digital Legal Media"]}
+                href="/juris-index/media"
+                delay={200}
+              />
+              <InstitutionalCard 
+                title="LEGAL TECHNOLOGY & INNOVATION"
+                subtitle="Recognising organisations transforming the future of legal services."
+                collections={["Legal Innovation Excellence", "Artificial Intelligence", "Legal Research Platforms"]}
+                href="/juris-index/technology"
+                delay={300}
+              />
+            </div>
+
+            {/* Tier 3: The Record */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <InstitutionalCard 
+                title="EDITORIAL INTELLIGENCE"
+                subtitle="Independent research and legal intelligence published by Juris Standard."
+                collections={["Annual Review", "Market Intelligence", "Industry Reports"]}
+                href="/intelligence"
+                delay={400}
+              />
+              <InstitutionalCard 
+                title="INDEX ARCHIVE"
+                subtitle="The permanent editorial record of the Juris Standard Index."
+                collections={["Current Edition", "Previous Editions", "Recognition Archive"]}
+                href="/archive"
+                delay={500}
+              />
+            </div>
           </div>
         </div>
       </section>
@@ -351,7 +362,7 @@ export default function Home() {
                <div className="flex-1 relative z-10 w-full">
                  <h2 className="font-serif text-3xl md:text-4xl text-white uppercase leading-tight mb-2">
                    Juris Standard<br />
-                   <span className="text-gold-400 drop-shadow-[0_0_15px_rgba(197,160,89,0.5)] block mt-1">Black™</span>
+                   <span className="text-gold-400 drop-shadow-[0_0_15px_rgba(197,160,89,0.5)] block mt-1">Black</span>
                  </h2>
                  <p className="text-[0.65rem] uppercase tracking-[0.25em] text-white/40 mb-6">Private Membership</p>
                  

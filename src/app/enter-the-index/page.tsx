@@ -8,7 +8,7 @@ export const metadata = {
 
 export default function EnterTheIndexPage() {
   return (
-    <main className="min-h-screen bg-[#0a0a0a] text-white relative overflow-hidden selection:bg-gold-500/30">
+    <main className="min-h-screen flex flex-col bg-[#0a0a0a] text-white relative overflow-hidden selection:bg-gold-500/30">
       <Navbar />
       {/* Absolute Dark Background with ultra subtle radial glow */}
       <div className="fixed inset-0 z-0 bg-[radial-gradient(ellipse_at_center,_rgba(212,175,55,0.03)_0%,_transparent_60%)] pointer-events-none" />
@@ -21,7 +21,7 @@ export default function EnterTheIndexPage() {
       </div>
 
       {/* Main Experience Mount */}
-      <div className="relative z-10 min-h-screen flex flex-col">
+      <div className="relative z-10 flex flex-col flex-1" style={{ minHeight: "100vh" }}>
         <EditorialJourney />
       </div>
     </main>

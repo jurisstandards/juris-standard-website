@@ -1,4 +1,6 @@
-import { create } from 'zustand';
+import os
+
+content = """import { create } from 'zustand';
 
 export type Stage = 
   | 'welcome' 
@@ -22,8 +24,7 @@ export type Track = 'professional' | 'firm' | 'media' | 'innovation' | null;
 export interface ProfileData {
   identity: {
     fullName: string;
-    email: string;
-    mobile: string;
+    preferredName: string;
     designation: string;
     organization: string;
     city: string;
@@ -60,7 +61,6 @@ export interface ProfileData {
     marketsServed: string;
     orgSize: string;
     industryFocus: string;
-    primaryInnovationArea: string;
   };
   biography: {
     bio: string;
@@ -119,7 +119,7 @@ interface SubmissionState {
 
 const initialProfileData: ProfileData = {
   identity: { 
-    fullName: '', email: '', mobile: '', designation: '', organization: '', city: '', state: '', country: '',
+    fullName: '', preferredName: '', designation: '', organization: '', city: '', state: '', country: '',
     firmName: '', managingPartner: '', yearEstablished: '', hqCountry: '', hqCity: '',
     orgName: '', editorInChief: '', founderCeo: ''
   },
@@ -127,7 +127,7 @@ const initialProfileData: ProfileData = {
     primaryPractice: '', secondaryPractices: '', yearsOfPractice: '', industries: '', jurisdiction: '', memberships: '',
     primaryPracticeAreas: '', secondaryPracticeAreas: '', officeLocations: '', firmSize: '', industriesServed: '',
     primaryCoverageAreas: '', secondaryCoverageAreas: '', publicationFormats: '', geographicCoverage: '', teamSize: '',
-    productCategory: '', practiceAreasServed: '', marketsServed: '', orgSize: '', industryFocus: '', primaryInnovationArea: ''
+    productCategory: '', practiceAreasServed: '', marketsServed: '', orgSize: '', industryFocus: ''
   },
   biography: { 
     bio: '', firmHistory: '', publicationPhilosophy: '', companyInnovation: '' 
@@ -191,3 +191,7 @@ export const useSubmissionStore = create<SubmissionState>((set) => ({
     completedSections: []
   })
 }));
+"""
+
+with open(r'd:\jurisstandard\src\lib\submissionStore.ts', 'w', encoding='utf-8') as f:
+    f.write(content)

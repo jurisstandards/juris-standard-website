@@ -1,4 +1,6 @@
-import { useSubmissionStore, Track } from "@/lib/submissionStore";
+import os
+
+content = """import { useSubmissionStore, Track } from "@/lib/submissionStore";
 import { motion } from "framer-motion";
 import { Folder, CheckCircle, ChevronDown, Edit2, ShieldCheck, ChevronRight, ChevronLeft, FileText, CheckCircle2, XCircle } from "lucide-react";
 import { useState } from "react";
@@ -199,7 +201,7 @@ export function ReviewSubmission() {
         icon: Folder,
         content: (
           <div className="grid grid-cols-2 gap-y-6 gap-x-4">
-            <div className="col-span-2">
+            <div>
               <span className="text-[0.6rem] uppercase tracking-widest text-white/40 block mb-1">Full Name</span>
               <span className="text-white text-sm font-medium">{profileData.identity.fullName || "—"}</span>
             </div>
@@ -207,17 +209,9 @@ export function ReviewSubmission() {
               <span className="text-[0.6rem] uppercase tracking-widest text-white/40 block mb-1">Designation</span>
               <span className="text-white text-sm font-medium">{profileData.identity.designation || "—"}</span>
             </div>
-            <div>
+            <div className="col-span-2">
               <span className="text-[0.6rem] uppercase tracking-widest text-white/40 block mb-1">Location</span>
               <span className="text-white text-sm font-medium">{profileData.identity.city ? `${profileData.identity.city}, ${profileData.identity.country}` : "—"}</span>
-            </div>
-            <div>
-              <span className="text-[0.6rem] uppercase tracking-widest text-white/40 block mb-1">Email</span>
-              <span className="text-white text-sm font-medium">{profileData.identity.email || "—"}</span>
-            </div>
-            <div>
-              <span className="text-[0.6rem] uppercase tracking-widest text-white/40 block mb-1">Mobile</span>
-              <span className="text-white text-sm font-medium">{profileData.identity.mobile || "—"}</span>
             </div>
           </div>
         )
@@ -385,3 +379,9 @@ function DocStatus({ label, uploaded, required }: { label: string, uploaded: boo
     </div>
   );
 }
+"""
+
+with open("d:/jurisstandard/src/components/submission/stages/ReviewSubmission.tsx", "w", encoding="utf-8") as f:
+    f.write(content)
+
+print("Updated ReviewSubmission.tsx")

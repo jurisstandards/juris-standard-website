@@ -23,24 +23,24 @@ export function EditorialJourney() {
   const showSidebar = currentStage !== 'welcome' && currentStage !== 'confirmation';
 
   return (
-    <div className="flex-1 w-full flex relative min-h-screen">
+    <div className="flex-1 w-full flex flex-col relative">
       {/* Sidebar Stepper - Left Column (Hidden on Welcome/Confirmation) */}
       <SidebarStepper />
 
       {/* Main Content Area - Right Column */}
-      <div className={cn("flex-1 w-full relative", showSidebar ? "lg:ml-[280px] xl:ml-[320px]" : "")}>
+      <div className={cn("flex-1 flex flex-col w-full relative", showSidebar ? "lg:pl-[280px] xl:pl-[320px]" : "")}>
         <AnimatePresence mode="wait">
           {currentStage === 'welcome' && (
             <motion.div
-              key="welcome"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.15, ease: "easeInOut" }}
-              className="w-full min-h-screen"
-            >
-              <WelcomeExperience />
-            </motion.div>
+            key="welcome"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.15, ease: "easeInOut" }}
+            className="w-full flex-1 flex flex-col"
+          >
+            <WelcomeExperience />
+          </motion.div>
           )}
 
           {currentStage === 'track_selection' && (

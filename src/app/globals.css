@@ -61,6 +61,15 @@ body {
   animation: shimmer 2s infinite;
 }
 
+@keyframes glass-shine {
+  0% { transform: translateX(-150%); }
+  100% { transform: translateX(250%); }
+}
+
+@utility animate-glass-shine {
+  animation: glass-shine 15s linear infinite;
+}
+
 @keyframes locationPing {
   0% { transform: scale(0.5); opacity: 0.8; }
   50% { transform: scale(2.5); opacity: 0; }

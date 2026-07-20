@@ -183,7 +183,7 @@ export const SubmissionPdfDocument = ({ profileData, track, programme, reference
 
         <View style={styles.footer}>
           <Text style={styles.footerQuote}>"Recognition founded on merit. Preserved with integrity."</Text>
-          <Text style={styles.footerText}>Juris Standard™ Independent Editorial Institution</Text>
+          <Text style={styles.footerText}>Juris Standard Independent Editorial Institution</Text>
         </View>
       </Page>
     </Document>
