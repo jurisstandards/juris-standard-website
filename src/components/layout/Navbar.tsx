@@ -74,67 +74,69 @@ export function Navbar() {
           </div>
         </Link>
 
-        <div className="hidden lg:flex items-center space-x-8">
-          {navLinks.map((link) => {
-            const isIndexLink = link.href === "/enter-the-index";
-            const onIndexPage = pathname === "/enter-the-index";
-            const isActive = pathname === link.href;
+        <div className="hidden lg:flex items-center space-x-12">
+          {/* Navigation Links */}
+          <div className="flex items-center space-x-5 xl:space-x-7">
+            {navLinks.map((link) => {
+              const isIndexLink = link.href === "/enter-the-index";
+              const onIndexPage = pathname === "/enter-the-index";
+              const isActive = pathname === link.href;
 
-            // Common link styling for premium look but with original minimized typography
-            const linkClasses = cn(
-              "relative group px-1 py-1 text-[14px] md:text-[15px] font-normal tracking-wide transition-colors duration-300",
-              isActive ? "text-white" : "text-neutral-300 hover:text-white"
-            );
+              const linkClasses = cn(
+                "relative group px-1 py-1 text-[13px] xl:text-[14px] font-normal tracking-wide transition-colors duration-300",
+                isActive ? "text-white" : "text-neutral-300 hover:text-white"
+              );
 
-            // If this is The Index link and we're already on that page
-            if (isIndexLink && onIndexPage) {
+              if (isIndexLink && onIndexPage) {
+                return (
+                  <button
+                    key={link.name}
+                    onClick={() => {
+                      setStage("welcome");
+                      window.scrollTo({ top: 0, behavior: "smooth" });
+                    }}
+                    className={linkClasses}
+                  >
+                    {link.name}
+                    <span className="absolute left-0 bottom-0 w-full h-[1px] bg-gradient-to-r from-transparent via-gold-500 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-center" />
+                  </button>
+                );
+              }
+
               return (
-                <button
+                <Link
                   key={link.name}
-                  onClick={() => {
-                    setStage("welcome");
-                    window.scrollTo({ top: 0, behavior: "smooth" });
-                  }}
+                  href={link.href}
                   className={linkClasses}
                 >
                   {link.name}
-                  <span className="absolute left-0 bottom-0 w-full h-[1px] bg-gradient-to-r from-transparent via-gold-500 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-center" />
-                </button>
+                  <span className={cn(
+                    "absolute left-0 bottom-0 w-full h-[1px] bg-gradient-to-r from-transparent via-gold-500 to-transparent transition-transform duration-500 origin-center",
+                    isActive ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
+                  )} />
+                </Link>
               );
-            }
+            })}
+          </div>
 
-            return (
-              <Link
-                key={link.name}
-                href={link.href}
-                className={linkClasses}
-              >
-                {link.name}
-                <span className={cn(
-                  "absolute left-0 bottom-0 w-full h-[1px] bg-gradient-to-r from-transparent via-gold-500 to-transparent transition-transform duration-500 origin-center",
-                  isActive ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
-                )} />
-              </Link>
-            );
-          })}
-        </div>
-
-        <div className="hidden lg:flex items-center space-x-8">
-          <Link
-            href="/login"
-            className="text-[14px] md:text-[15px] font-normal text-neutral-300 hover:text-white transition-colors tracking-wide"
-          >
-            Login
-          </Link>
-          <Link
-            href="/request-access"
-            className="group relative inline-flex items-center justify-center px-6 py-2.5 bg-transparent border border-gold-500/30 text-gold-300 text-[11px] xl:text-[12px] font-semibold uppercase tracking-widest rounded-sm overflow-hidden transition-all duration-300 hover:border-gold-400 hover:text-white hover:bg-gold-500/5 shadow-[0_0_15px_rgba(212,175,55,0.05)] hover:shadow-[0_0_25px_rgba(212,175,55,0.15)]"
-          >
-            <span className="relative z-10 flex items-center gap-2">
-              Request Access
-              <span className="transform transition-transform duration-300 group-hover:translate-x-1">&rarr;</span>
-            </span>
-          </Link>
+          {/* Login & Request Access */}
+          <div className="flex items-center space-x-6">
+            <Link
+              href="/login"
+              className="text-[13px] xl:text-[14px] font-normal text-neutral-300 hover:text-white transition-colors tracking-wide"
+            >
+              Login
+            </Link>
+            <Link
+              href="/request-access"
+              className="group relative inline-flex items-center justify-center px-6 py-2 bg-transparent border border-gold-500/30 text-gold-300 text-[11px] xl:text-[12px] font-semibold uppercase tracking-widest rounded-sm overflow-hidden transition-all duration-300 hover:border-gold-400 hover:text-white hover:bg-gold-500/5 shadow-[0_0_15px_rgba(212,175,55,0.05)] hover:shadow-[0_0_25px_rgba(212,175,55,0.15)]"
+            >
+              <span className="relative z-10 flex items-center gap-2">
+                Request Access
+                <span className="transform transition-transform duration-300 group-hover:translate-x-1">&rarr;</span>
+              </span>
+            </Link>
+          </div>
         </div>
       </div>
     </nav>
