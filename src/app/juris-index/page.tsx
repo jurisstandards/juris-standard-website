@@ -96,7 +96,7 @@ export default function ExploreIndexPage() {
             <NumberedIndexCard number="04" topLabel="GENERAL COUNSEL" mainLabel="EXCELLENCE™" href="/juris-index/professionals/general-counsel" imageSrc="/collections/icon_ring.jpg" />
             
             <NumberedIndexCard number="05" topLabel="LEGAL" mainLabel="ACADEMIA™" href="/juris-index/academia" imageSrc="/collections/icon_book.jpg" />
-            <NumberedIndexCard number="06" topLabel="LEGAL" mainLabel="INNOVATION™" href="/juris-index/innovators" imageSrc="/collections/icon_globe.jpg" />
+            <NumberedIndexCard number="06" topLabel="LEGAL" mainLabel="INNOVATION EXCELLENCE™" href="/juris-index/legal-innovation" imageSrc="/collections/icon_globe.jpg" />
             <NumberedIndexCard number="07" topLabel="PUBLIC" mainLabel="LEADERSHIP™" href="/juris-index/public-leadership" imageSrc="/collections/icon_capitol.jpg" />
             <NumberedIndexCard number="08" topLabel="JURIS STANDARD" mainLabel="HONOURS™" href="/juris-index/honours" imageSrc="/collections/icon_compass.jpg" />
           </div>

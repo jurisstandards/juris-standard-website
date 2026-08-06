@@ -214,10 +214,10 @@ export default function Home() {
               href="/juris-index/professionals/future-leaders"
               imageSrc="/collections/icon_future.jpg"
             />
-            <PremiumIndexCard 
+            <PremiumIndexCard
               topLabel="LEGAL"
-              mainLabel="INNOVATORS™"
-              href="/juris-index/innovators"
+              mainLabel="INNOVATION EXCELLENCE™"
+              href="/juris-index/legal-innovation"
               imageSrc="/collections/icon_innovators.jpg"
             />
           </div>
