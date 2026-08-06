@@ -6,13 +6,13 @@ import { Footer } from "@/components/layout/Footer";
 import { LiveTicker } from "@/components/ui/LiveTicker";
 import { CTAButton } from "@/components/ui/CTAButton";
 import { SectionHeader } from "@/components/ui/SectionHeader";
-import { InstitutionalCard } from "@/components/ui/InstitutionalCard";
+import { PremiumIndexCard } from "@/components/ui/PremiumIndexCard";
 import { IntelligenceCard } from "@/components/ui/IntelligenceCard";
 import { AwardCard } from "@/components/ui/AwardCard";
 import { InsightCard } from "@/components/ui/InsightCard";
 import { MembershipCard } from "@/components/ui/MembershipCard";
 import { GlowingWorldMap } from "@/components/ui/GlowingWorldMap";
-import { Play, Globe, Gem, Scale, Crown, TrendingUp, Zap, Megaphone, ArrowRight, ShieldCheck, Landmark, Users, Star, Award } from "lucide-react";
+import { Play, Globe, Menu, ShieldCheck, ArrowRight, Landmark, Users, Star, Award, Scale, Megaphone, Gem, Crown, TrendingUp, Zap } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useAppStore } from "@/lib/store";
 
@@ -158,74 +158,78 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 3. The Juris Standard Index */}
-      <section className="py-20 relative z-10">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(197,160,89,0.05)_0%,_transparent_50%)] pointer-events-none" />
-        <div className="w-full px-8 md:px-16 lg:px-24 xl:px-32 relative">
-          <SectionHeader 
-            title="The Juris Standard Index" 
-            subtitle="A research-driven institutional record of legal excellence."
-            actionText="View All Indexes"
-            actionHref="/juris-index"
-            icon={<Award className="w-6 h-6 text-gold-400" strokeWidth={1.5} />}
-          />
-          <div className="flex flex-col gap-6">
-            {/* Tier 1: The Signature Brands */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <InstitutionalCard 
-                title="LAW FIRMS"
-                subtitle="Recognising institutions that define excellence, leadership and professional distinction."
-                collections={["Law Firm Excellence", "Corporate Excellence", "Dispute Resolution", "Banking & Finance"]}
-                href="/juris-index/law-firms"
-                isSignature={true}
-                delay={0}
-              />
-              <InstitutionalCard 
-                title="LEGAL PROFESSIONALS"
-                subtitle="Recognising individuals whose excellence, influence and leadership shape the legal profession."
-                collections={["Corporate Elite", "Litigation Masters", "Arbitration Leaders", "General Counsel"]}
-                href="/juris-index/professionals"
-                isSignature={true}
-                delay={100}
-              />
+      {/* 3. The Juris Standard Index - Premium 6-Card Layout */}
+      <section className="py-24 relative z-10">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(197,160,89,0.03)_0%,_transparent_50%)] pointer-events-none" />
+        
+        <div className="w-full px-6 md:px-12 lg:px-20 xl:px-24 2xl:px-32 max-w-[2000px] mx-auto relative">
+          
+          {/* Header Row */}
+          <div className="flex flex-col md:flex-row md:items-center justify-between mb-12 border-b border-white/[0.05] pb-6 gap-6">
+            <div className="flex items-center gap-4">
+              <Menu className="w-6 h-6 text-gold-500/80" strokeWidth={1.5} />
+              <h2 className="font-serif text-2xl md:text-3xl lg:text-4xl text-white/95 tracking-wide uppercase">
+                THE JURIS STANDARD INDEX<sup className="text-[0.5em] ml-0.5">™</sup>
+              </h2>
             </div>
-
-            {/* Tier 2: The Ecosystem */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <InstitutionalCard 
-                title="LEGAL MEDIA"
-                subtitle="Recognising organisations advancing legal journalism, publishing and public legal discourse."
-                collections={["Editorial Excellence", "Legal Publications", "Digital Legal Media"]}
-                href="/juris-index/media"
-                delay={200}
-              />
-              <InstitutionalCard 
-                title="LEGAL TECHNOLOGY & INNOVATION"
-                subtitle="Recognising organisations transforming the future of legal services."
-                collections={["Legal Innovation Excellence", "Artificial Intelligence", "Legal Research Platforms"]}
-                href="/juris-index/technology"
-                delay={300}
-              />
-            </div>
-
-            {/* Tier 3: The Record */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <InstitutionalCard 
-                title="EDITORIAL INTELLIGENCE"
-                subtitle="Independent research and legal intelligence published by Juris Standard."
-                collections={["Annual Review", "Market Intelligence", "Industry Reports"]}
-                href="/intelligence"
-                delay={400}
-              />
-              <InstitutionalCard 
-                title="INDEX ARCHIVE"
-                subtitle="The permanent editorial record of the Juris Standard Index."
-                collections={["Current Edition", "Previous Editions", "Recognition Archive"]}
-                href="/archive"
-                delay={500}
-              />
-            </div>
+            
+            <Link 
+              href="/juris-index"
+              className="group flex items-center gap-3 text-xs md:text-sm font-medium uppercase tracking-[0.2em] text-white/50 hover:text-gold-400 transition-colors"
+            >
+              EXPLORE THE INDEX
+              <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
+            </Link>
           </div>
+
+          {/* Premium Cards Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 xl:gap-6 w-full">
+            <PremiumIndexCard 
+              topLabel="LAW FIRM"
+              mainLabel="EXCELLENCE™"
+              href="/juris-index/law-firms"
+              imageSrc="/collections/icon_law_firm.jpg"
+            />
+            <PremiumIndexCard 
+              topLabel="CORPORATE"
+              mainLabel="ELITE™"
+              href="/juris-index/professionals/corporate-elite"
+              imageSrc="/collections/icon_corporate.jpg"
+            />
+            <PremiumIndexCard 
+              topLabel="LITIGATION"
+              mainLabel="MASTER™"
+              href="/juris-index/professionals/litigation-masters"
+              imageSrc="/collections/icon_litigation.jpg"
+            />
+            <PremiumIndexCard 
+              topLabel="WOMEN"
+              mainLabel="LEADERS™"
+              href="/juris-index/professionals/women-leaders"
+              imageSrc="/collections/icon_women.jpg"
+            />
+            <PremiumIndexCard 
+              topLabel="FUTURE"
+              mainLabel="LEADERS™"
+              href="/juris-index/professionals/future-leaders"
+              imageSrc="/collections/icon_future.jpg"
+            />
+            <PremiumIndexCard 
+              topLabel="LEGAL"
+              mainLabel="INNOVATORS™"
+              href="/juris-index/innovators"
+              imageSrc="/collections/icon_innovators.jpg"
+            />
+          </div>
+
+          {/* Footer Badge */}
+          <div className="mt-16 flex items-center justify-center gap-3 opacity-60">
+            <ShieldCheck className="w-4 h-4 text-gold-500" strokeWidth={1.5} />
+            <span className="text-[0.65rem] md:text-xs uppercase tracking-[0.3em] font-medium text-white/70">
+              TRUSTED BY LEGAL LEADERS IN 150+ COUNTRIES
+            </span>
+          </div>
+
         </div>
       </section>
 
