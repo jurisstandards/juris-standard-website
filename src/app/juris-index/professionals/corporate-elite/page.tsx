@@ -43,8 +43,8 @@ export default function CorporateElitePortalPage() {
           <img 
             src="/collections/corporate_elite_monument.jpg" 
             alt="Corporate Elite Monument" 
-            className="w-full lg:w-[60%] h-full object-contain object-[right_center] opacity-90"
-            style={{ maskImage: 'linear-gradient(to right, transparent, black 20%)', WebkitMaskImage: 'linear-gradient(to right, transparent, black 20%)' }}
+            className="w-full lg:w-[65%] h-full object-cover object-[right_35%] opacity-90"
+            style={{ maskImage: 'linear-gradient(to right, transparent, black 25%)', WebkitMaskImage: 'linear-gradient(to right, transparent, black 25%)' }}
           />
           {/* Black gradient overlay fading from left (solid) to right (transparent) */}
           <div className="absolute inset-0 bg-gradient-to-r from-[#000000] via-[#000000]/95 md:via-[#000000]/70 to-transparent" />
