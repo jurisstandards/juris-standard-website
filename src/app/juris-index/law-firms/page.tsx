@@ -21,9 +21,9 @@ export default function LawFirmExcellenceTerminal() {
         {/* Full Width Background Image */}
         <div className="absolute inset-0 z-0 flex justify-end">
           <img 
-            src="/collections/firm_pillars_monument.jpg" 
+            src="/collections/firm_pillars_monument_new.jpg" 
             alt="Pillars of Excellence" 
-            className="w-full lg:w-[65%] h-full object-cover object-left md:object-center opacity-90"
+            className="w-full lg:w-[70%] h-full object-cover object-right-bottom md:object-[80%_70%] opacity-90"
             style={{ maskImage: 'linear-gradient(to right, transparent, black 30%)', WebkitMaskImage: 'linear-gradient(to right, transparent, black 30%)' }}
           />
           {/* Black gradient overlay fading from left (solid) to right (transparent) */}
