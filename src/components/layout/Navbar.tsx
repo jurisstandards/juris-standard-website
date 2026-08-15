@@ -42,10 +42,10 @@ export function Navbar() {
       )}
     >
       <div className={cn(
-        "flex items-center justify-between",
+        "flex items-center justify-between mx-auto max-w-[2000px]",
         isSubmissionPage 
           ? "w-full px-6 lg:pl-[80px] xl:pl-[95px] lg:pr-12" 
-          : "w-full px-8 md:px-16 lg:px-24 xl:px-32"
+          : "w-full px-6 md:px-12 lg:px-24 xl:px-32"
       )}>
         <Link href="/" className="flex items-center group relative">
           <div className="h-[46px] md:h-[52px] w-auto relative flex-shrink-0 transition-transform duration-500 group-hover:scale-105">
