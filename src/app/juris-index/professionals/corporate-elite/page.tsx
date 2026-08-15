@@ -39,11 +39,11 @@ export default function CorporateElitePortalPage() {
       {/* 1. HERO SECTION */}
       <section className="relative w-full h-[60vh] min-h-[500px] flex items-center bg-[#000000] overflow-hidden pt-20 border-b border-[#222222]">
         {/* Full Width Background Image */}
-        <div className="absolute inset-0 z-0 flex justify-end">
+        <div className="absolute inset-0 z-0 flex justify-end top-12 md:top-20">
           <img 
             src="/collections/corporate_elite_monument.jpg" 
             alt="Corporate Elite Monument" 
-            className="w-full lg:w-[65%] h-full object-cover object-right md:object-[80%_60%] opacity-90"
+            className="w-full lg:w-[65%] h-full object-cover object-[right_top] md:object-[85%_100%] opacity-90"
             style={{ maskImage: 'linear-gradient(to right, transparent, black 30%)', WebkitMaskImage: 'linear-gradient(to right, transparent, black 30%)' }}
           />
           {/* Black gradient overlay fading from left (solid) to right (transparent) */}
