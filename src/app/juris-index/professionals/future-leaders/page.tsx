@@ -1,3 +1,5 @@
+"use client";
+
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { 
@@ -5,9 +7,13 @@ import {
   Scale, Building2, MapPin, Award, Globe, Users,
   ArrowRightCircle, User, Star, Landmark, Briefcase
 } from "lucide-react";
+import Link from "next/link";
+import { useRef } from "react";
 
 export default function FutureLeadersTerminal() {
   const containerClasses = "w-full max-w-[2000px] mx-auto px-6 md:px-12 lg:px-24 xl:px-32";
+  const bandsRef = useRef<HTMLDivElement>(null);
+  const scrollToBands = () => bandsRef.current?.scrollIntoView({ behavior: "smooth" });
 
   return (
     <main className="min-h-screen bg-[#000000] selection:bg-[#CBAA69]/30 flex flex-col font-sans text-[#FFFFF0] overflow-x-hidden">
@@ -63,12 +69,12 @@ export default function FutureLeadersTerminal() {
             </p>
 
             <div className="flex flex-wrap items-center gap-4 mb-10">
-              <button className="px-8 py-3.5 bg-gradient-to-r from-[#CBAA69] to-[#B89552] text-[#050505] text-[0.7rem] font-bold uppercase tracking-[0.15em] hover:from-[#E8D099] hover:to-[#CBAA69] transition-all flex items-center gap-3 rounded-[2px] shadow-[0_0_20px_rgba(203,170,105,0.2)]">
+              <button onClick={scrollToBands} className="px-8 py-3.5 bg-gradient-to-r from-[#CBAA69] to-[#B89552] text-[#050505] text-[0.7rem] font-bold uppercase tracking-[0.15em] hover:from-[#E8D099] hover:to-[#CBAA69] transition-all flex items-center gap-3 rounded-[2px] shadow-[0_0_20px_rgba(203,170,105,0.2)]">
                 ENTER THE INDEX <ArrowRight className="w-4 h-4" />
               </button>
-              <button className="px-8 py-3.5 border border-[#333333] bg-[#000000]/50 backdrop-blur-sm text-[#FFFFF0] text-[0.7rem] font-semibold uppercase tracking-[0.15em] hover:border-[#FFFFF0] hover:bg-white/5 transition-all flex items-center gap-3 rounded-[2px]">
+              <Link href="/about" className="px-8 py-3.5 border border-[#333333] bg-[#000000]/50 backdrop-blur-sm text-[#FFFFF0] text-[0.7rem] font-semibold uppercase tracking-[0.15em] hover:border-[#FFFFF0] hover:bg-white/5 transition-all flex items-center gap-3 rounded-[2px]">
                 THE STANDARD <ArrowRight className="w-4 h-4 text-[#FFFFF0]" />
-              </button>
+              </Link>
             </div>
           </div>
         </div>

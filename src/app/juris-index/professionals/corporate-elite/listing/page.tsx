@@ -1,5 +1,3 @@
-"use client";
-
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { 
@@ -9,22 +7,9 @@ import {
   Users, Landmark, Star, User
 } from "lucide-react";
 import Link from "next/link";
-import { useState, useRef } from "react";
-import { useRouter } from "next/navigation";
 
 export default function CorporateEliteTerminal() {
   const containerClasses = "w-full max-w-[2000px] mx-auto px-6 md:px-12 lg:px-24 xl:px-32";
-  const router = useRouter();
-  const [searchQuery, setSearchQuery] = useState("");
-  const [practiceArea, setPracticeArea] = useState("");
-  const [location, setLocation] = useState("");
-  const [recognition, setRecognition] = useState("");
-  const [setting, setSetting] = useState("");
-  const lawyersRef = useRef<HTMLDivElement>(null);
-
-  const handleSearch = () => lawyersRef.current?.scrollIntoView({ behavior: "smooth" });
-  const handleReset = () => { setSearchQuery(""); setPracticeArea(""); setLocation(""); setRecognition(""); setSetting(""); };
-
 
   return (
     <main className="min-h-screen bg-[#000000] selection:bg-[#CBAA69]/30 flex flex-col font-sans text-[#FFFFF0] overflow-x-hidden">
@@ -82,12 +67,12 @@ export default function CorporateEliteTerminal() {
             </p>
 
             <div className="flex flex-wrap items-center gap-4 mb-10">
-              <button onClick={handleSearch} className="px-8 py-3.5 bg-gradient-to-r from-[#CBAA69] to-[#B89552] text-[#050505] text-[0.7rem] font-bold uppercase tracking-[0.15em] hover:from-[#E8D099] hover:to-[#CBAA69] transition-all flex items-center gap-3 rounded-[2px] shadow-[0_0_20px_rgba(203,170,105,0.2)]">
+              <button className="px-8 py-3.5 bg-gradient-to-r from-[#CBAA69] to-[#B89552] text-[#050505] text-[0.7rem] font-bold uppercase tracking-[0.15em] hover:from-[#E8D099] hover:to-[#CBAA69] transition-all flex items-center gap-3 rounded-[2px] shadow-[0_0_20px_rgba(203,170,105,0.2)]">
                 ENTER THE INDEX <ArrowRight className="w-4 h-4" />
               </button>
-              <Link href="/about" className="px-8 py-3.5 border border-[#333333] bg-[#000000]/50 backdrop-blur-sm text-[#FFFFF0] text-[0.7rem] font-semibold uppercase tracking-[0.15em] hover:border-[#FFFFF0] hover:bg-white/5 transition-all flex items-center gap-3 rounded-[2px]">
+              <button className="px-8 py-3.5 border border-[#333333] bg-[#000000]/50 backdrop-blur-sm text-[#FFFFF0] text-[0.7rem] font-semibold uppercase tracking-[0.15em] hover:border-[#FFFFF0] hover:bg-white/5 transition-all flex items-center gap-3 rounded-[2px]">
                 THE STANDARD <ArrowRight className="w-4 h-4 text-[#FFFFF0]" />
-              </Link>
+              </button>
             </div>
 
             <div className="flex items-center space-x-3 mb-6">
@@ -126,22 +111,19 @@ export default function CorporateEliteTerminal() {
             
             <div className="flex items-center border-b border-white/10 pb-3 mb-6 group focus-within:border-[#CBAA69]/60 transition-colors">
               <input 
-                type="text"
-                value={searchQuery}
-                onChange={e => setSearchQuery(e.target.value)}
-                onKeyDown={e => e.key === "Enter" && handleSearch()}
+                type="text" 
                 placeholder="Search lawyer name, firm or company..."
                 className="w-full bg-transparent border-none text-xs text-white placeholder:text-white/30 focus:outline-none"
               />
-              <button onClick={handleSearch}><Search className="w-4 h-4 text-white/30 hover:text-[#CBAA69] transition-colors" /></button>
+              <Search className="w-4 h-4 text-white/30 group-focus-within:text-[#CBAA69]" />
             </div>
             
             <div className="flex flex-col gap-5 mb-8">
               {[
-                { label: 'PRACTICE AREA', val: 'All Practice Areas', icon: Briefcase, options: ['Corporate & M&A','Private Capital','Finance & Markets','In-House Counsel'], state: practiceArea, set: setPracticeArea },
-                { label: 'PROFESSIONAL SETTING', val: 'All', icon: Building2, options: ['Law Firm','In-House','Chambers','Independent'], state: setting, set: setSetting },
-                { label: 'LOCATION', val: 'All Cities', icon: MapPin, options: ['Mumbai','New Delhi','Bengaluru','Hyderabad','Chennai'], state: location, set: setLocation },
-                { label: 'RECOGNITION', val: 'Corporate Elite™ - 2027', icon: Award, options: ['2027','2026','2025'], state: recognition, set: setRecognition }
+                { label: 'PRACTICE AREA', val: 'All Practice Areas', icon: Briefcase },
+                { label: 'PROFESSIONAL SETTING', val: 'All', icon: Building2 },
+                { label: 'LOCATION', val: 'All Cities', icon: MapPin },
+                { label: 'RECOGNITION', val: 'Corporate Elite™ - 2027', icon: Award }
               ].map((dropdown, idx) => (
                 <div key={idx} className="flex flex-col gap-2 relative">
                   <div className="flex items-center gap-2">
@@ -149,9 +131,8 @@ export default function CorporateEliteTerminal() {
                     <span className="text-[0.55rem] font-medium uppercase tracking-[0.15em] text-white/40">{dropdown.label}</span>
                   </div>
                   <div className="relative group">
-                    <select value={dropdown.state} onChange={e => dropdown.set(e.target.value)} className="w-full appearance-none px-4 py-3 border border-white/5 bg-[#000000] text-xs text-white/80 focus:outline-none cursor-pointer rounded-[2px] hover:border-white/20 focus:border-[#CBAA69]/50 transition-colors">
+                    <select className="w-full appearance-none px-4 py-3 border border-white/5 bg-[#000000] text-xs text-white/80 focus:outline-none cursor-pointer rounded-[2px] hover:border-white/20 focus:border-[#CBAA69]/50 transition-colors">
                       <option value="">{dropdown.val}</option>
-                      {dropdown.options.map(o => <option key={o} value={o}>{o}</option>)}
                     </select>
                     <ChevronDown className="w-3.5 h-3.5 text-[#CBAA69] absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none group-hover:text-[#E8D099] transition-colors" />
                   </div>
@@ -160,31 +141,28 @@ export default function CorporateEliteTerminal() {
             </div>
 
             <div className="flex flex-col gap-3 mb-8">
-              <button onClick={handleSearch} className="w-full py-3.5 bg-gradient-to-r from-[#CBAA69] to-[#B89552] text-[#050505] text-[0.7rem] font-bold uppercase tracking-[0.15em] hover:from-[#E8D099] hover:to-[#CBAA69] transition-all flex items-center justify-center gap-3 rounded-[2px] shadow-[0_0_15px_rgba(203,170,105,0.15)]">
+              <button className="w-full py-3.5 bg-gradient-to-r from-[#CBAA69] to-[#B89552] text-[#050505] text-[0.7rem] font-bold uppercase tracking-[0.15em] hover:from-[#E8D099] hover:to-[#CBAA69] transition-all flex items-center justify-center gap-3 rounded-[2px] shadow-[0_0_15px_rgba(203,170,105,0.15)]">
                 SEARCH <ArrowRight className="w-3.5 h-3.5" />
-              </button>
-              <button onClick={handleReset} className="w-full py-3 border border-white/5 bg-black/40 text-white/50 text-[0.65rem] font-medium uppercase tracking-[0.15em] hover:border-white/20 hover:bg-white/5 hover:text-white/90 transition-all flex items-center justify-center rounded-[2px]">
-                RESET FILTERS
               </button>
             </div>
             
             <div className="flex items-start justify-between border-t border-white/10 pt-6 px-1">
-              <Link href="/juris-index/compare" className="flex flex-col items-center gap-2 cursor-pointer group">
+              <div className="flex flex-col items-center gap-2 cursor-pointer group">
                 <Scale className="w-4 h-4 text-white/30 group-hover:text-[#CBAA69] transition-colors" strokeWidth={1} />
                 <span className="text-[0.45rem] uppercase tracking-wider text-white/40 text-center leading-[1.3] group-hover:text-white/90 transition-colors">Compare<br/>Counsel</span>
-              </Link>
-              <Link href="/my-juris" className="flex flex-col items-center gap-2 cursor-pointer group">
+              </div>
+              <div className="flex flex-col items-center gap-2 cursor-pointer group">
                 <ShieldCheck className="w-4 h-4 text-white/30 group-hover:text-[#CBAA69] transition-colors" strokeWidth={1} />
                 <span className="text-[0.45rem] uppercase tracking-wider text-white/40 text-center leading-[1.3] group-hover:text-white/90 transition-colors">Saved<br/>Profiles</span>
-              </Link>
-              <Link href="/my-juris/history" className="flex flex-col items-center gap-2 cursor-pointer group">
+              </div>
+              <div className="flex flex-col items-center gap-2 cursor-pointer group">
                 <Globe className="w-4 h-4 text-white/30 group-hover:text-[#CBAA69] transition-colors" strokeWidth={1} />
                 <span className="text-[0.45rem] uppercase tracking-wider text-white/40 text-center leading-[1.3] group-hover:text-white/90 transition-colors">Recently<br/>Viewed</span>
-              </Link>
-              <button onClick={() => navigator.clipboard?.writeText(window.location.href).then(() => alert("Link copied!"))} className="flex flex-col items-center gap-2 cursor-pointer group">
+              </div>
+              <div className="flex flex-col items-center gap-2 cursor-pointer group">
                 <Share2 className="w-4 h-4 text-white/30 group-hover:text-[#CBAA69] transition-colors" strokeWidth={1} />
                 <span className="text-[0.45rem] uppercase tracking-wider text-white/40 text-center leading-[1.3] group-hover:text-white/90 transition-colors">Share<br/>Record</span>
-              </button>
+              </div>
             </div>
           </div>
           
@@ -192,7 +170,7 @@ export default function CorporateEliteTerminal() {
       </section>
 
       {/* 2. RECOGNISED LAWYERS HORIZONTAL BANDS */}
-      <div ref={lawyersRef} className="flex flex-col w-full relative z-10 bg-[#000000]">
+      <div className="flex flex-col w-full relative z-10 bg-[#000000]">
         {[
           {
             num: "01",
@@ -274,9 +252,7 @@ export default function CorporateEliteTerminal() {
                   )}
                   <span className="text-[0.55rem] font-bold text-[#CBAA69] uppercase tracking-[0.25em] mb-10">{band.extraInfo}</span>
                   
-                  <button 
-                    onClick={handleSearch}
-                    className="self-start px-6 py-3 border border-[#444] bg-transparent text-[#CBAA69] text-[0.55rem] font-bold uppercase tracking-[0.25em] hover:border-[#CBAA69] hover:bg-[#CBAA69]/5 transition-all flex items-center gap-3 rounded-[2px]">
+                  <button className="self-start px-6 py-3 border border-[#444] bg-transparent text-[#CBAA69] text-[0.55rem] font-bold uppercase tracking-[0.25em] hover:border-[#CBAA69] hover:bg-[#CBAA69]/5 transition-all flex items-center gap-3 rounded-[2px]">
                     VIEW ALL <ArrowRight className="w-3.5 h-3.5" />
                   </button>
                 </div>
@@ -366,11 +342,11 @@ export default function CorporateEliteTerminal() {
 
               {/* Button Column */}
               <div className="flex flex-col justify-center px-10 shrink-0 mt-8 lg:mt-0">
-                 <Link href="/juris-index" className="w-[240px] py-4 border border-[#CBAA69]/30 hover:border-[#CBAA69] bg-transparent text-[#CBAA69] text-[0.65rem] font-bold uppercase tracking-[0.15em] transition-colors flex items-center justify-center gap-4 rounded-[2px] leading-tight mb-4">
+                 <button className="w-[240px] py-4 border border-[#CBAA69]/30 hover:border-[#CBAA69] bg-transparent text-[#CBAA69] text-[0.65rem] font-bold uppercase tracking-[0.15em] transition-colors flex items-center justify-center gap-4 rounded-[2px] leading-tight mb-4">
                    <Briefcase className="w-4 h-4" strokeWidth={1.5} /> 
                    <span className="text-left">EXPLORE<br/>COMPLETE INDEX</span> 
                    <ArrowRight className="w-4 h-4" strokeWidth={1.5} />
-                 </Link>
+                 </button>
                  <span className="text-[0.55rem] text-white/40 leading-relaxed text-center mx-auto w-[200px]">
                    Access the full record across all corporate legal practices.
                  </span>

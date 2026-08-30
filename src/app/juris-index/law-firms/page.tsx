@@ -1,15 +1,102 @@
+"use client";
+
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { 
   Search, ArrowRight, ChevronDown, 
-  MapPin, Award, Scale, Globe, Building2, CheckCircle2,
+  MapPin, Award, Scale, Globe, Building2,
   ShieldCheck, Share2, FileText, Code2, QrCode, Briefcase,
   Users, Landmark, Star
 } from "lucide-react";
 import Link from "next/link";
+import { useState, useRef } from "react";
+import { useRouter } from "next/navigation";
 
 export default function LawFirmExcellenceTerminal() {
   const containerClasses = "w-full max-w-[2000px] mx-auto px-6 md:px-12 lg:px-24 xl:px-32";
+  const router = useRouter();
+
+  const [searchQuery, setSearchQuery] = useState("");
+  const [practiceArea, setPracticeArea] = useState("");
+  const [location, setLocation] = useState("");
+  const [tier, setTier] = useState("");
+  const [firmSize, setFirmSize] = useState("");
+  const [yearRecognition, setYearRecognition] = useState("");
+
+  const firmsRef = useRef<HTMLDivElement>(null);
+
+  const handleSearch = () => {
+    firmsRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const handleReset = () => {
+    setSearchQuery("");
+    setPracticeArea("");
+    setLocation("");
+    setTier("");
+    setFirmSize("");
+    setYearRecognition("");
+  };
+
+  const handleEnterIndex = () => {
+    firmsRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const handleDownloadDirectory = () => {
+    alert("Directory download will be available soon.");
+  };
+
+  const allFirms = [
+    { name: "AZB &\nPARTNERS", type: "Advocates & Solicitors", loc: "Mumbai", badge: "RECOGNISED - 2027", logoType: 'text', tier: "01" },
+    { name: "SHARDUL\nAMARCHAND\nMANGALDAS", type: "Advocates & Solicitors", loc: "New Delhi", badge: "RECOGNISED - 2027", logoType: 'icon_text', tier: "01" },
+    { name: "KHAITAN\n& CO", type: "Advocates since 1911", loc: "Mumbai", badge: "RECOGNISED - 2027", logoType: 'text', tier: "01" },
+    { name: "J. SAGAR\nASSOCIATES", type: "Advocates & Solicitors", loc: "New Delhi", badge: "RECOGNISED - 2027", logoType: 'text', tier: "01" },
+    { name: "III TRILEGAL", type: "Advocates", loc: "Bengaluru", badge: "RECOGNISED - 2027", logoType: 'text', tier: "01" },
+    { name: "CYRIL\nAMARCHAND\nMANGALDAS", type: "Advocates & Solicitors", loc: "Mumbai", badge: "RECOGNISED - 2027", logoType: 'text', tier: "01" },
+    { name: "LUTHRA AND\nLUTHRA LAW\nOFFICES", type: "New Delhi", loc: "", badge: "RECOGNISED - 2027", logoType: 'text', tier: "02" },
+    { name: "DUA\nASSOCIATES", type: "Advocates & Solicitors", loc: "New Delhi", badge: "RECOGNISED - 2027", logoType: 'text', tier: "02" },
+    { name: "SAMVĀD:\nPARTNERS", type: "Mumbai", loc: "", badge: "RECOGNISED - 2027", logoType: 'text', tier: "02" },
+    { name: "S&R\nASSOCIATES", type: "Advocates", loc: "New Delhi", badge: "RECOGNISED - 2027", logoType: 'text', tier: "02" },
+    { name: "INDUSLAW", type: "Advocates", loc: "Bengaluru", badge: "RECOGNISED - 2027", logoType: 'text', tier: "02" },
+    { name: "KOCHHAR\n& CO.", type: "Advocates & Solicitors", loc: "Mumbai", badge: "RECOGNISED - 2027", logoType: 'text', tier: "02" },
+    { name: "PSL\nADVOCATES\n& SOLICITORS", type: "New Delhi", loc: "", badge: "RECOGNISED - 2027", logoType: 'text', tier: "03" },
+    { name: "FOX\nMANDAL", type: "Bengaluru", loc: "", badge: "RECOGNISED - 2027", logoType: 'text', tier: "03" },
+    { name: "THINK\nLEGAL", type: "Advocates", loc: "Mumbai", badge: "RECOGNISED - 2027", logoType: 'colored_text', tier: "03" },
+    { name: "ag\nlaw", type: "New Delhi", loc: "", badge: "RECOGNISED - 2027", logoType: 'text', tier: "03" },
+    { name: "P&A\nLAW OFFICES", type: "Mumbai", loc: "", badge: "RECOGNISED - 2027", logoType: 'text', tier: "03" },
+    { name: "LEX\nORBIS", type: "Bengaluru", loc: "", badge: "RECOGNISED - 2027", logoType: 'text', tier: "03" },
+  ];
+
+  const filteredFirms = allFirms.filter(firm => {
+    const q = searchQuery.toLowerCase();
+    const nameMatch = !q || firm.name.toLowerCase().includes(q) || firm.type.toLowerCase().includes(q) || firm.loc.toLowerCase().includes(q);
+    const locMatch = !location || firm.loc.toLowerCase().includes(location.toLowerCase()) || firm.type.toLowerCase().includes(location.toLowerCase());
+    return nameMatch && locMatch;
+  });
+
+  const bands = [
+    {
+      num: "01",
+      title: "LAW FIRM EXCELLENCE™\nTHE PRINCIPAL RECORD",
+      subtitle: "THE GLOBAL GOLD STANDARD",
+      desc: "Recognising law firms that set the benchmark for legal excellence, client service and professional leadership.",
+      firms: filteredFirms.filter(f => f.tier === "01"),
+    },
+    {
+      num: "02",
+      title: "DISTINGUISHED\nLAW FIRMS™\nTHE ESTABLISHED RECORD",
+      subtitle: "THE GLOBAL GOLD STANDARD",
+      desc: "Recognising firms with a proven track record of excellence, capability and significant contribution to the profession.",
+      firms: filteredFirms.filter(f => f.tier === "02"),
+    },
+    {
+      num: "03",
+      title: "RISING LAW FIRMS™\nTHE NEXT GENERATION",
+      subtitle: "THE GLOBAL GOLD STANDARD",
+      desc: "Recognising emerging firms demonstrating exceptional potential, innovation and future leadership.",
+      firms: filteredFirms.filter(f => f.tier === "03"),
+    },
+  ];
 
   return (
     <main className="min-h-screen bg-[#000000] selection:bg-[#CBAA69]/30 flex flex-col font-sans text-[#FFFFF0] overflow-x-hidden">
@@ -67,12 +154,18 @@ export default function LawFirmExcellenceTerminal() {
             </p>
 
             <div className="flex flex-wrap items-center gap-4 mb-10">
-              <button className="px-8 py-3.5 bg-gradient-to-r from-[#CBAA69] to-[#B89552] text-[#050505] text-[0.7rem] font-bold uppercase tracking-[0.15em] hover:from-[#E8D099] hover:to-[#CBAA69] transition-all flex items-center gap-3 rounded-[2px] shadow-[0_0_20px_rgba(203,170,105,0.2)]">
+              <button 
+                onClick={handleEnterIndex}
+                className="px-8 py-3.5 bg-gradient-to-r from-[#CBAA69] to-[#B89552] text-[#050505] text-[0.7rem] font-bold uppercase tracking-[0.15em] hover:from-[#E8D099] hover:to-[#CBAA69] transition-all flex items-center gap-3 rounded-[2px] shadow-[0_0_20px_rgba(203,170,105,0.2)]"
+              >
                 ENTER THE INDEX <ArrowRight className="w-4 h-4" />
               </button>
-              <button className="px-8 py-3.5 border border-[#333333] bg-[#000000]/50 backdrop-blur-sm text-[#FFFFF0] text-[0.7rem] font-semibold uppercase tracking-[0.15em] hover:border-[#FFFFF0] hover:bg-white/5 transition-all flex items-center gap-3 rounded-[2px]">
+              <Link 
+                href="/about"
+                className="px-8 py-3.5 border border-[#333333] bg-[#000000]/50 backdrop-blur-sm text-[#FFFFF0] text-[0.7rem] font-semibold uppercase tracking-[0.15em] hover:border-[#FFFFF0] hover:bg-white/5 transition-all flex items-center gap-3 rounded-[2px]"
+              >
                 THE STANDARD <ArrowRight className="w-4 h-4 text-[#FFFFF0]" />
-              </button>
+              </Link>
             </div>
 
             <div className="flex items-center space-x-3 mb-6">
@@ -85,8 +178,6 @@ export default function LawFirmExcellenceTerminal() {
             {/* Stats Bar */}
             <div className="w-full max-w-2xl bg-gradient-to-b from-[#161616]/90 to-[#0a0a0a]/95 backdrop-blur-2xl border border-white/5 border-t-white/10 rounded-xl flex flex-col md:flex-row items-center justify-between p-3 shadow-[0_20px_50px_rgba(0,0,0,0.5)] relative overflow-hidden group">
               <div className="absolute inset-0 bg-gradient-to-r from-[#CBAA69]/5 via-transparent to-[#CBAA69]/5 pointer-events-none opacity-50" />
-              
-              <div className="absolute inset-0 -translate-x-full group-hover:animate-shimmer bg-gradient-to-r from-transparent via-white/[0.04] to-transparent pointer-events-none" />
 
               {[
                 { icon: Landmark, value: "5K+", label: "FIRMS RANKED" },
@@ -114,59 +205,75 @@ export default function LawFirmExcellenceTerminal() {
             
             <div className="flex items-center border-b border-white/10 pb-3 mb-6 group focus-within:border-[#CBAA69]/60 transition-colors">
               <input 
-                type="text" 
+                type="text"
+                value={searchQuery}
+                onChange={e => setSearchQuery(e.target.value)}
+                onKeyDown={e => e.key === "Enter" && handleSearch()}
                 placeholder="Search law firm by name..."
                 className="w-full bg-transparent border-none text-xs text-white placeholder:text-white/30 focus:outline-none"
               />
-              <Search className="w-4 h-4 text-white/30 group-focus-within:text-[#CBAA69]" />
+              <button onClick={handleSearch}>
+                <Search className="w-4 h-4 text-white/30 hover:text-[#CBAA69] transition-colors" />
+              </button>
             </div>
             
             <div className="flex flex-col gap-5 mb-8">
               {[
-                { label: 'PRACTICE AREAS', val: 'All Practice Areas' },
-                { label: 'LOCATION', val: 'All Cities' },
-                { label: 'TIER / RECOGNITION', val: 'All' },
-                { label: 'FIRM SIZE', val: 'All' },
-                { label: 'YEAR OF RECOGNITION', val: 'All' }
+                { label: 'PRACTICE AREAS', val: 'All Practice Areas', options: ['Corporate & M&A', 'Banking & Finance', 'Dispute Resolution', 'Tax', 'Real Estate', 'Employment', 'IP & TMT'], state: practiceArea, set: setPracticeArea },
+                { label: 'LOCATION', val: 'All Cities', options: ['Mumbai', 'New Delhi', 'Bengaluru', 'Hyderabad', 'Chennai', 'Kolkata', 'Pune'], state: location, set: setLocation },
+                { label: 'TIER / RECOGNITION', val: 'All', options: ['Principal Record', 'Distinguished', 'Rising'], state: tier, set: setTier },
+                { label: 'FIRM SIZE', val: 'All', options: ['Full Service', 'Specialist', 'Boutique', 'Mid Size'], state: firmSize, set: setFirmSize },
+                { label: 'YEAR OF RECOGNITION', val: 'All', options: ['2027', '2026', '2025'], state: yearRecognition, set: setYearRecognition },
               ].map((dropdown, idx) => (
                 <div key={idx} className="flex flex-col gap-2">
                   <span className="text-[0.55rem] font-medium uppercase tracking-[0.15em] text-white/40">{dropdown.label}</span>
                   <div className="relative group">
-                    <select className="w-full appearance-none px-4 py-3 border border-white/5 bg-[#000000] text-xs text-white/80 focus:outline-none cursor-pointer rounded-[2px] hover:border-white/20 focus:border-[#CBAA69]/50 transition-colors">
+                    <select 
+                      value={dropdown.state}
+                      onChange={e => dropdown.set(e.target.value)}
+                      className="w-full appearance-none px-4 py-3 border border-white/5 bg-[#000000] text-xs text-white/80 focus:outline-none cursor-pointer rounded-[2px] hover:border-white/20 focus:border-[#CBAA69]/50 transition-colors"
+                    >
                       <option value="">{dropdown.val}</option>
+                      {dropdown.options.map(o => <option key={o} value={o}>{o}</option>)}
                     </select>
-                    <ChevronDown className="w-3.5 h-3.5 text-[#CBAA69] absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none group-hover:text-gold-300 transition-colors" />
+                    <ChevronDown className="w-3.5 h-3.5 text-[#CBAA69] absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none transition-colors" />
                   </div>
                 </div>
               ))}
             </div>
 
             <div className="flex flex-col gap-3 mb-8">
-              <button className="w-full py-3.5 bg-gradient-to-r from-[#CBAA69] to-[#B89552] text-[#050505] text-[0.7rem] font-bold uppercase tracking-[0.15em] hover:from-[#E8D099] hover:to-[#CBAA69] transition-all flex items-center justify-center gap-3 rounded-[2px] shadow-[0_0_15px_rgba(203,170,105,0.15)]">
+              <button 
+                onClick={handleSearch}
+                className="w-full py-3.5 bg-gradient-to-r from-[#CBAA69] to-[#B89552] text-[#050505] text-[0.7rem] font-bold uppercase tracking-[0.15em] hover:from-[#E8D099] hover:to-[#CBAA69] transition-all flex items-center justify-center gap-3 rounded-[2px] shadow-[0_0_15px_rgba(203,170,105,0.15)]"
+              >
                 SEARCH FIRMS <ArrowRight className="w-3.5 h-3.5" />
               </button>
-              <button className="w-full py-3 border border-white/5 bg-black/40 text-white/50 text-[0.65rem] font-medium uppercase tracking-[0.15em] hover:border-white/20 hover:bg-white/5 hover:text-white/90 transition-all flex items-center justify-center rounded-[2px]">
+              <button 
+                onClick={handleReset}
+                className="w-full py-3 border border-white/5 bg-black/40 text-white/50 text-[0.65rem] font-medium uppercase tracking-[0.15em] hover:border-white/20 hover:bg-white/5 hover:text-white/90 transition-all flex items-center justify-center rounded-[2px]"
+              >
                 RESET FILTERS
               </button>
             </div>
             
             <div className="flex items-start justify-between border-t border-white/10 pt-6 px-1">
-              <div className="flex flex-col items-center gap-2 cursor-pointer group">
+              <button onClick={handleSearch} className="flex flex-col items-center gap-2 cursor-pointer group">
                 <Search className="w-4 h-4 text-white/30 group-hover:text-[#CBAA69] transition-colors" strokeWidth={1} />
                 <span className="text-[0.45rem] uppercase tracking-wider text-white/40 text-center leading-[1.3] group-hover:text-white/90 transition-colors">Advanced<br/>Search</span>
-              </div>
-              <div className="flex flex-col items-center gap-2 cursor-pointer group">
+              </button>
+              <Link href="/juris-index/compare" className="flex flex-col items-center gap-2 cursor-pointer group">
                 <Scale className="w-4 h-4 text-white/30 group-hover:text-[#CBAA69] transition-colors" strokeWidth={1} />
                 <span className="text-[0.45rem] uppercase tracking-wider text-white/40 text-center leading-[1.3] group-hover:text-white/90 transition-colors">Compare<br/>Firms</span>
-              </div>
-              <div className="flex flex-col items-center gap-2 cursor-pointer group">
+              </Link>
+              <Link href="/my-juris" className="flex flex-col items-center gap-2 cursor-pointer group">
                 <ShieldCheck className="w-4 h-4 text-white/30 group-hover:text-[#CBAA69] transition-colors" strokeWidth={1} />
                 <span className="text-[0.45rem] uppercase tracking-wider text-white/40 text-center leading-[1.3] group-hover:text-white/90 transition-colors">Saved<br/>Firms</span>
-              </div>
-              <div className="flex flex-col items-center gap-2 cursor-pointer group">
+              </Link>
+              <button onClick={handleDownloadDirectory} className="flex flex-col items-center gap-2 cursor-pointer group">
                 <ArrowRight className="w-4 h-4 text-white/30 group-hover:text-[#CBAA69] transition-colors rotate-90" strokeWidth={1} />
                 <span className="text-[0.45rem] uppercase tracking-wider text-white/40 text-center leading-[1.3] group-hover:text-white/90 transition-colors">Download<br/>Directory</span>
-              </div>
+              </button>
             </div>
           </div>
           
@@ -174,55 +281,12 @@ export default function LawFirmExcellenceTerminal() {
       </section>
 
       {/* 2. RECOGNISED FIRMS HORIZONTAL BANDS */}
-      <div className="flex flex-col w-full relative z-10 bg-[#000000]">
-        {[
-          {
-            num: "01",
-            title: "LAW FIRM EXCELLENCE™\nTHE PRINCIPAL RECORD",
-            subtitle: "THE GLOBAL GOLD STANDARD",
-            desc: "Recognising law firms that set the benchmark for legal excellence, client service and professional leadership.",
-            firms: [
-              { name: "AZB &\nPARTNERS", type: "Advocates & Solicitors", loc: "Mumbai", badge: "RECOGNISED - 2027", logoType: 'text' },
-              { name: "SHARDUL\nAMARCHAND\nMANGALDAS", type: "Advocates & Solicitors", loc: "New Delhi", badge: "RECOGNISED - 2027", logoType: 'icon_text' },
-              { name: "KHAITAN\n& CO", type: "Advocates since 1911", loc: "Mumbai", badge: "RECOGNISED - 2027", logoType: 'text' },
-              { name: "J. SAGAR\nASSOCIATES", type: "Advocates & Solicitors", loc: "New Delhi", badge: "RECOGNISED - 2027", logoType: 'text' },
-              { name: "III TRILEGAL", type: "Advocates", loc: "Bengaluru", badge: "RECOGNISED - 2027", logoType: 'text' },
-              { name: "CYRIL\nAMARCHAND\nMANGALDAS", type: "Advocates & Solicitors", loc: "Mumbai", badge: "RECOGNISED - 2027", logoType: 'text' }
-            ]
-          },
-          {
-            num: "02",
-            title: "DISTINGUISHED\nLAW FIRMS™\nTHE ESTABLISHED RECORD",
-            subtitle: "THE GLOBAL GOLD STANDARD",
-            desc: "Recognising firms with a proven track record of excellence, capability and significant contribution to the profession.",
-            firms: [
-              { name: "LUTHRA AND\nLUTHRA LAW\nOFFICES", type: "New Delhi", loc: "", badge: "RECOGNISED - 2027", logoType: 'text' },
-              { name: "DUA\nASSOCIATES", type: "Advocates & Solicitors", loc: "New Delhi", badge: "RECOGNISED - 2027", logoType: 'text' },
-              { name: "SAMVĀD:\nPARTNERS", type: "Mumbai", loc: "", badge: "RECOGNISED - 2027", logoType: 'text' },
-              { name: "S&R\nASSOCIATES", type: "Advocates", loc: "New Delhi", badge: "RECOGNISED - 2027", logoType: 'text' },
-              { name: "INDUSLAW", type: "Advocates", loc: "Bengaluru", badge: "RECOGNISED - 2027", logoType: 'text' },
-              { name: "KOCHHAR\n& CO.", type: "Advocates & Solicitors", loc: "Mumbai", badge: "RECOGNISED - 2027", logoType: 'text' }
-            ]
-          },
-          {
-            num: "03",
-            title: "RISING LAW FIRMS™\nTHE NEXT GENERATION",
-            subtitle: "THE GLOBAL GOLD STANDARD",
-            desc: "Recognising emerging firms demonstrating exceptional potential, innovation and future leadership.",
-            firms: [
-              { name: "PSL\nADVOCATES\n& SOLICITORS", type: "New Delhi", loc: "", badge: "RECOGNISED - 2027", logoType: 'text' },
-              { name: "FOX\nMANDAL", type: "Bengaluru", loc: "", badge: "RECOGNISED - 2027", logoType: 'text' },
-              { name: "THINK\nLEGAL", type: "Advocates", loc: "Mumbai", badge: "RECOGNISED - 2027", logoType: 'colored_text' },
-              { name: "ag\nlaw", type: "New Delhi", loc: "", badge: "RECOGNISED - 2027", logoType: 'text' },
-              { name: "P&A\nLAW OFFICES", type: "Mumbai", loc: "", badge: "RECOGNISED - 2027", logoType: 'text' },
-              { name: "LEX\nORBIS", type: "Bengaluru", loc: "", badge: "RECOGNISED - 2027", logoType: 'text' }
-            ]
-          },
-        ].map((band, idx) => (
+      <div ref={firmsRef} className="flex flex-col w-full relative z-10 bg-[#000000]">
+        {bands.map((band, idx) => (
           <div key={idx} className="w-full border-b border-white/5 last:border-0 relative">
             <div className={`${containerClasses} py-14 flex flex-col xl:flex-row gap-12`}>
               
-              {/* Left Column: Number and Description */}
+              {/* Left Column */}
               <div className="w-full xl:w-[420px] shrink-0 flex gap-6 md:gap-8">
                 <div className="font-serif text-[5rem] md:text-[7rem] text-[#CBAA69] font-light leading-[0.75] tracking-tight">{band.num}</div>
                 <div className="flex flex-col pt-2">
@@ -230,18 +294,24 @@ export default function LawFirmExcellenceTerminal() {
                   <span className="text-[0.6rem] font-bold text-[#CBAA69] uppercase tracking-[0.25em] mb-6">{band.subtitle}</span>
                   <p className="text-[0.75rem] text-white/70 leading-[1.8] mb-10 max-w-[280px] font-light">{band.desc}</p>
                   
-                  <button className="self-start px-8 py-4 border border-[#444] bg-transparent text-[#CBAA69] text-[0.55rem] font-bold uppercase tracking-[0.25em] hover:border-[#CBAA69] hover:bg-[#CBAA69]/5 transition-all flex items-center gap-3 rounded-[2px]">
+                  <button 
+                    onClick={handleSearch}
+                    className="self-start px-8 py-4 border border-[#444] bg-transparent text-[#CBAA69] text-[0.55rem] font-bold uppercase tracking-[0.25em] hover:border-[#CBAA69] hover:bg-[#CBAA69]/5 transition-all flex items-center gap-3 rounded-[2px]"
+                  >
                     VIEW ALL RECOGNISED FIRMS <ArrowRight className="w-3.5 h-3.5" />
                   </button>
                 </div>
               </div>
 
-              {/* Right Column: Firm Cards (Horizontal Scroll or Flex Wrap) */}
+              {/* Right Column: Firm Cards */}
               <div className="flex-1 overflow-x-auto pb-4 relative group [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
                 <div className="flex items-stretch gap-5 min-w-max pr-12 h-full py-2">
-                  {band.firms.map((firm, fIdx) => (
-                    <div key={fIdx} className="w-[195px] h-[270px] flex flex-col p-6 border border-[#2a2a2a] bg-[#0a0a0a] hover:border-[#CBAA69]/60 transition-colors duration-200 relative cursor-pointer shadow-xl group/card">
-                      
+                  {band.firms.length > 0 ? band.firms.map((firm, fIdx) => (
+                    <div 
+                      key={fIdx} 
+                      onClick={() => router.push(`/juris-index/law-firms/${firm.name.replace(/\n/g, '-').replace(/\s/g, '-').replace(/[^a-zA-Z0-9-]/g, '').toLowerCase()}`)}
+                      className="w-[195px] h-[270px] flex flex-col p-6 border border-[#2a2a2a] bg-[#0a0a0a] hover:border-[#CBAA69]/60 transition-colors duration-200 relative cursor-pointer shadow-xl group/card"
+                    >
                       <div className="flex-1 flex flex-col justify-center items-center text-center relative z-10 px-2">
                         {firm.logoType === 'icon_text' && <Globe className="w-6 h-6 text-[#CBAA69] mb-4 stroke-[1px]" />}
                         <h3 className={`font-serif text-[0.9rem] leading-[1.35] whitespace-pre-line tracking-[0.15em] uppercase ${firm.logoType === 'colored_text' ? 'text-[#CBAA69]' : 'text-white'}`}>
@@ -257,7 +327,9 @@ export default function LawFirmExcellenceTerminal() {
                         <div className="text-[0.45rem] font-bold tracking-[0.15em] text-[#CBAA69] mt-2">{firm.badge}</div>
                       </div>
                     </div>
-                  ))}
+                  )) : (
+                    <div className="flex items-center justify-center text-white/30 text-xs py-10 px-6">No firms match your search.</div>
+                  )}
                 </div>
               </div>
               
@@ -266,7 +338,7 @@ export default function LawFirmExcellenceTerminal() {
         ))}
       </div>
 
-      {/* 3, 4, 5. UNIFIED EXPLORE & RECOGNITION FOOTER PANEL */}
+      {/* 3. UNIFIED EXPLORE & RECOGNITION FOOTER PANEL */}
       <section className={`${containerClasses} py-20`}>
         <div className="w-full border border-[#CBAA69]/30 rounded-[2px] relative bg-[#050505] flex flex-col shadow-2xl">
           
@@ -277,83 +349,74 @@ export default function LawFirmExcellenceTerminal() {
             </div>
             
             <div className="flex flex-col lg:flex-row w-full px-4 lg:px-6">
-              {/* 4 Columns Grid */}
               <div className="grid grid-cols-2 lg:grid-cols-4 flex-1 border-r border-[#CBAA69]/20">
                 
-                {/* Col 1 */}
                 <div className="flex flex-col border-r border-[#CBAA69]/20 px-6 lg:px-8">
                   <div className="flex items-center gap-3 text-[#CBAA69] text-[0.65rem] font-bold uppercase tracking-widest mb-6">
                      <Briefcase className="w-4 h-4" strokeWidth={1.5}/> BY PRACTICE AREA
                   </div>
                   <div className="grid grid-cols-2 gap-x-4 gap-y-4">
                     <div className="flex flex-col gap-4 text-[0.65rem] text-white/60 cursor-pointer tracking-wide">
-                      <span className="hover:text-[#CBAA69] transition-colors">Corporate & M&A</span>
-                      <span className="hover:text-[#CBAA69] transition-colors">Banking & Finance</span>
-                      <span className="hover:text-[#CBAA69] transition-colors">Dispute Resolution</span>
-                      <span className="hover:text-[#CBAA69] transition-colors">Tax</span>
+                      {['Corporate & M&A','Banking & Finance','Dispute Resolution','Tax'].map(t => (
+                        <span key={t} className="hover:text-[#CBAA69] transition-colors">{t}</span>
+                      ))}
                     </div>
                     <div className="flex flex-col gap-4 text-[0.65rem] text-white/60 cursor-pointer tracking-wide">
-                      <span className="hover:text-[#CBAA69] transition-colors">Real Estate</span>
-                      <span className="hover:text-[#CBAA69] transition-colors">Employment</span>
-                      <span className="hover:text-[#CBAA69] transition-colors">IP & TMT</span>
-                      <span className="hover:text-[#CBAA69] transition-colors">Other Areas</span>
+                      {['Real Estate','Employment','IP & TMT','Other Areas'].map(t => (
+                        <span key={t} className="hover:text-[#CBAA69] transition-colors">{t}</span>
+                      ))}
                     </div>
                   </div>
                 </div>
 
-                {/* Col 2 */}
                 <div className="flex flex-col border-r border-[#CBAA69]/20 px-6 lg:px-8">
                   <div className="flex items-center gap-3 text-[#CBAA69] text-[0.65rem] font-bold uppercase tracking-widest mb-6">
                      <MapPin className="w-4 h-4" strokeWidth={1.5}/> BY LOCATION
                   </div>
                   <div className="grid grid-cols-2 gap-x-4 gap-y-4">
                     <div className="flex flex-col gap-4 text-[0.65rem] text-white/60 cursor-pointer tracking-wide">
-                      <span className="hover:text-[#CBAA69] transition-colors">Mumbai</span>
-                      <span className="hover:text-[#CBAA69] transition-colors">New Delhi</span>
-                      <span className="hover:text-[#CBAA69] transition-colors">Bengaluru</span>
-                      <span className="hover:text-[#CBAA69] transition-colors">Hyderabad</span>
+                      {['Mumbai','New Delhi','Bengaluru','Hyderabad'].map(t => (
+                        <span key={t} onClick={() => { setLocation(t); handleSearch(); }} className="hover:text-[#CBAA69] transition-colors cursor-pointer">{t}</span>
+                      ))}
                     </div>
                     <div className="flex flex-col gap-4 text-[0.65rem] text-white/60 cursor-pointer tracking-wide">
-                      <span className="hover:text-[#CBAA69] transition-colors">Chennai</span>
-                      <span className="hover:text-[#CBAA69] transition-colors">Kolkata</span>
-                      <span className="hover:text-[#CBAA69] transition-colors">Pune</span>
-                      <span className="hover:text-[#CBAA69] transition-colors">Other Cities</span>
+                      {['Chennai','Kolkata','Pune','Other Cities'].map(t => (
+                        <span key={t} onClick={() => { setLocation(t); handleSearch(); }} className="hover:text-[#CBAA69] transition-colors cursor-pointer">{t}</span>
+                      ))}
                     </div>
                   </div>
                 </div>
 
-                {/* Col 3 */}
                 <div className="flex flex-col border-r border-[#CBAA69]/20 px-6 lg:px-8">
                   <div className="flex items-center gap-3 text-[#CBAA69] text-[0.65rem] font-bold uppercase tracking-widest mb-6">
                      <Building2 className="w-4 h-4" strokeWidth={1.5}/> BY FIRM SIZE
                   </div>
                   <div className="flex flex-col gap-4 text-[0.65rem] text-white/60 cursor-pointer tracking-wide">
-                    <span className="hover:text-[#CBAA69] transition-colors">Full Service</span>
-                    <span className="hover:text-[#CBAA69] transition-colors">Specialist</span>
-                    <span className="hover:text-[#CBAA69] transition-colors">Boutique</span>
-                    <span className="hover:text-[#CBAA69] transition-colors">Mid Size</span>
+                    {['Full Service','Specialist','Boutique','Mid Size'].map(t => (
+                      <span key={t} className="hover:text-[#CBAA69] transition-colors">{t}</span>
+                    ))}
                   </div>
                 </div>
 
-                {/* Col 4 */}
                 <div className="flex flex-col px-6 lg:px-8">
                   <div className="flex items-center gap-3 text-[#CBAA69] text-[0.65rem] font-bold uppercase tracking-widest mb-6">
                      <Award className="w-4 h-4" strokeWidth={1.5}/> BY RECOGNITION
                   </div>
                   <div className="flex flex-col gap-4 text-[0.65rem] text-white/60 cursor-pointer tracking-wide">
-                    <span className="hover:text-[#CBAA69] transition-colors">Principal Record</span>
-                    <span className="hover:text-[#CBAA69] transition-colors">Distinguished</span>
-                    <span className="hover:text-[#CBAA69] transition-colors">Rising</span>
-                    <span className="hover:text-[#CBAA69] transition-colors">All Recognised Firms</span>
+                    {['Principal Record','Distinguished','Rising','All Recognised Firms'].map(t => (
+                      <span key={t} className="hover:text-[#CBAA69] transition-colors">{t}</span>
+                    ))}
                   </div>
                 </div>
               </div>
 
-              {/* Button Column */}
-              <div className="flex items-center justify-center px-10 shrink-0">
-                 <button className="px-8 py-5 border border-[#CBAA69]/30 hover:border-[#CBAA69] bg-transparent text-[#CBAA69] text-[0.65rem] font-bold uppercase tracking-[0.15em] transition-colors flex items-center gap-4 rounded-[2px] text-left leading-tight">
+              <div className="flex items-center justify-center px-10 shrink-0 mt-8 lg:mt-0">
+                 <Link 
+                   href="/juris-index"
+                   className="px-8 py-5 border border-[#CBAA69]/30 hover:border-[#CBAA69] bg-transparent text-[#CBAA69] text-[0.65rem] font-bold uppercase tracking-[0.15em] transition-colors flex items-center gap-4 rounded-[2px] text-left leading-tight"
+                 >
                    EXPLORE<br/>COMPLETE INDEX <ArrowRight className="w-4 h-4" />
-                 </button>
+                 </Link>
               </div>
             </div>
           </div>
@@ -363,7 +426,6 @@ export default function LawFirmExcellenceTerminal() {
             <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#050505] px-6">
               <h2 className="text-[0.7rem] font-bold tracking-[0.2em] text-[#CBAA69] uppercase whitespace-nowrap">WHY RECOGNISED BY THE JURIS STANDARD</h2>
             </div>
-            
             <div className="grid grid-cols-1 md:grid-cols-5 w-full px-4 lg:px-6">
                {[
                  { icon: Award, text: "Rigorous evaluation of capability, impact and professional excellence." },
@@ -372,7 +434,7 @@ export default function LawFirmExcellenceTerminal() {
                  { icon: Award, text: "Recognising leadership that shapes the future of the profession." },
                  { icon: Globe, text: "Building a trusted institutional record for the legal industry." }
                ].map((item, i) => (
-                 <div key={i} className={`flex items-start gap-4 px-6 lg:px-8 ${i < 4 ? 'border-r border-[#CBAA69]/20' : ''}`}>
+                 <div key={i} className={`flex items-start gap-4 px-6 lg:px-8 py-4 md:py-0 ${i < 4 ? 'border-b md:border-b-0 md:border-r border-[#CBAA69]/20' : ''}`}>
                    <item.icon className="w-8 h-8 text-[#CBAA69] shrink-0" strokeWidth={1} />
                    <p className="text-[0.65rem] text-white/60 leading-relaxed">{item.text}</p>
                  </div>
@@ -382,35 +444,29 @@ export default function LawFirmExcellenceTerminal() {
 
           {/* ROW 3: OFFICIAL DIGITAL RECOGNITION */}
           <div className="relative pt-10 pb-10">
-            <div className="absolute top-0 left-1/2 lg:left-auto lg:right-[20%] -translate-x-1/2 -translate-y-1/2 bg-[#050505] px-6">
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#050505] px-6">
               <h2 className="text-[0.65rem] font-bold tracking-[0.2em] text-[#CBAA69] uppercase whitespace-nowrap">OFFICIAL DIGITAL RECOGNITION</h2>
             </div>
-
             <div className="flex flex-col lg:flex-row items-center justify-between w-full px-4 lg:px-6 gap-10 lg:gap-0">
-              
-              {/* Left side text */}
               <div className="flex flex-col flex-1 px-6 lg:px-8">
                 <h2 className="text-[1.1rem] font-serif tracking-wide text-white/95 uppercase mb-2">THE JURIS STANDARD INDEX™</h2>
                 <p className="text-[0.65rem] text-white/50 tracking-wide mb-5">A mark of trust. A standard of distinction.</p>
                 <div className="w-12 h-[1px] bg-[#CBAA69]" />
               </div>
-
-              {/* Right side icons */}
               <div className="flex items-center justify-center shrink-0">
                  {[
-                   { icon: ShieldCheck, label: "VERIFY" },
-                   { icon: Share2, label: "SHARE" },
-                   { icon: FileText, label: "CERTIFICATE" },
-                   { icon: Code2, label: "EMBED" },
-                   { icon: QrCode, label: "QR CODE" }
+                   { icon: ShieldCheck, label: "VERIFY", action: () => alert("Verify a recognised firm's status.") },
+                   { icon: Share2, label: "SHARE", action: () => navigator.clipboard?.writeText(window.location.href).then(() => alert("Link copied!")) },
+                   { icon: FileText, label: "CERTIFICATE", action: () => alert("Download recognition certificate.") },
+                   { icon: Code2, label: "EMBED", action: () => alert("Get embed code for your website.") },
+                   { icon: QrCode, label: "QR CODE", action: () => alert("Generate QR code for recognition.") }
                  ].map((item, idx) => (
-                   <div key={idx} className={`flex flex-col items-center gap-3 px-8 lg:px-12 cursor-pointer group ${idx < 4 ? 'border-r border-[#CBAA69]/20' : ''}`}>
+                   <button key={idx} onClick={item.action} className={`flex flex-col items-center gap-3 px-8 lg:px-12 cursor-pointer group ${idx < 4 ? 'border-r border-[#CBAA69]/20' : ''}`}>
                      <item.icon className="w-6 h-6 text-[#CBAA69] group-hover:text-[#E8D099] transition-colors" strokeWidth={1} />
                      <span className="text-[0.55rem] text-white/50 tracking-[0.15em] uppercase group-hover:text-white transition-colors">{item.label}</span>
-                   </div>
+                   </button>
                  ))}
               </div>
-
             </div>
           </div>
 
