@@ -4,7 +4,7 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { 
   ArrowRight, ShieldCheck, Share2, FileText, Code2, QrCode,
-  Scale, Building2, MapPin, Award, Users,
+  Scale, Building2, MapPin, Award, Users, Globe,
   ArrowRightCircle, User, Star, Landmark, Briefcase
 } from "lucide-react";
 import Link from "next/link";

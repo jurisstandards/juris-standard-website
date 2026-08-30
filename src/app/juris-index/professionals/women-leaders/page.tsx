@@ -7,6 +7,7 @@ import {
   Scale, Building2, MapPin, Award, Globe, Users,
   ArrowRightCircle, User, Star, Landmark, Briefcase
 } from "lucide-react";
+import Link from "next/link";
 import { useRef } from "react";
 
 export default function WomenLeadersTerminal() {
