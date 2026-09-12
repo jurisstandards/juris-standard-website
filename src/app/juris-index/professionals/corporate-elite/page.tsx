@@ -195,11 +195,9 @@ export default function CorporateEliteTerminal() {
       <div ref={lawyersRef} className="flex flex-col w-full relative z-10 bg-[#000000]">
         {[
           {
-            num: "01",
-            title: "CORPORATE &\nM&A COUNSEL™",
-            subtitle: "The principal corporate record",
-            desc: "M&A • Corporate Advisory\nJoint Ventures\nStrategic Transactions",
-            extraInfo: "12 PROFILES • 6 + 6",
+            tag: "THE PRINCIPAL RECORD",
+            title: "CORPORATE & M&A COUNSEL™",
+            desc: "M&A • Corporate Advisory • Joint Ventures • Strategic Transactions",
             lawyers: [
               { name: "Rahul Khanna", type: "Partner", firmName: "Khaitan & Co", loc: "Mumbai", badge: "2027 - RECOGNISED" },
               { name: "Vaibhav Parikh", type: "Partner", firmName: "Shardul Amarchand", loc: "Mumbai", badge: "2027 - RECOGNISED" },
@@ -210,11 +208,9 @@ export default function CorporateEliteTerminal() {
             ]
           },
           {
-            num: "02",
-            title: "PRIVATE CAPITAL\nCOUNSEL™",
-            subtitle: "The investment and\nfinancial sponsors record",
-            desc: "Private Equity • Venture Capital\nInvestments • Funds\nAcquisitions",
-            extraInfo: "12 PROFILES • 6 + 6",
+            tag: "FINANCIAL SPONSORS RECORD",
+            title: "PRIVATE CAPITAL COUNSEL™",
+            desc: "Private Equity • Venture Capital • Investments • Funds • Acquisitions",
             lawyers: [
               { name: "Vivek Prasad", type: "Partner", firmName: "Khaitan & Co", loc: "Mumbai", badge: "2027 - RECOGNISED" },
               { name: "Mukul Rohatgi", type: "Partner", firmName: "Shardul Amarchand", loc: "New Delhi", badge: "2027 - RECOGNISED" },
@@ -225,11 +221,9 @@ export default function CorporateEliteTerminal() {
             ]
           },
           {
-            num: "03",
-            title: "FINANCE &\nMARKETS COUNSEL™",
-            subtitle: "The financial\ntransactions record",
-            desc: "Banking • Finance\nCapital Markets • Securities\nStructured Finance",
-            extraInfo: "12 PROFILES • 6 + 6",
+            tag: "THE FINANCIAL TRANSACTIONS RECORD",
+            title: "FINANCE & MARKETS COUNSEL™",
+            desc: "Banking • Finance • Capital Markets • Securities • Structured Finance",
             lawyers: [
               { name: "Harsh Avni", type: "Partner", firmName: "Khaitan & Co", loc: "Mumbai", badge: "2027 - RECOGNISED" },
               { name: "Ritesh Jain", type: "Partner", firmName: "AZB & Partners", loc: "Mumbai", badge: "2027 - RECOGNISED" },
@@ -240,11 +234,9 @@ export default function CorporateEliteTerminal() {
             ]
           },
           {
-            icon: Landmark,
-            title: "IN-HOUSE\nCORPORATE COUNSEL™",
-            subtitle: "Recognising legal leaders driving\nbusiness, strategy and governance\nfrom within leading organisations.",
-            desc: "",
-            extraInfo: "12 PROFILES • 6 + 6",
+            tag: "DRIVING BUSINESS STRATEGY & GOVERNANCE",
+            title: "IN-HOUSE CORPORATE COUNSEL™",
+            desc: "General Counsel • Chief Legal Officers • Head of Legal",
             lawyers: [
               { name: "Neeraj Bhagat", type: "General Counsel", firmName: "Tata Sons", loc: "Mumbai", badge: "2027 - RECOGNISED" },
               { name: "Dimple Agarwal", type: "Chief Legal Officer", firmName: "Reliance Industries", loc: "Mumbai", badge: "2027 - RECOGNISED" },
@@ -255,63 +247,78 @@ export default function CorporateEliteTerminal() {
             ]
           },
         ].map((band, idx) => (
-          <div key={idx} className="w-full border-b border-white/5 last:border-0 relative">
-            <div className={`${containerClasses} py-14 flex flex-col xl:flex-row gap-12`}>
+          <div key={idx} className="w-full border-b border-white/[0.06] last:border-0 relative">
+            <div className={`${containerClasses} py-6 md:py-10 flex flex-col gap-6`}>
               
-              {/* Left Column: Number and Description */}
-              <div className="w-full xl:w-[420px] shrink-0 flex gap-6 md:gap-8">
-                {band.num ? (
-                  <div className="font-serif text-[5rem] md:text-[7rem] text-[#CBAA69] font-light leading-[0.75] tracking-tight">{band.num}</div>
-                ) : band.icon ? (
-                  <div className="mt-2"><band.icon className="w-16 h-16 text-[#CBAA69] stroke-[1px]" /></div>
-                ) : null}
-                
-                <div className="flex flex-col pt-2">
-                  <h2 className="font-serif text-xl md:text-[1.35rem] text-white uppercase tracking-[0.15em] leading-[1.3] mb-4 whitespace-pre-line">{band.title}</h2>
-                  <span className="text-[0.6rem] font-bold text-[#CBAA69] uppercase tracking-[0.15em] mb-4 whitespace-pre-line leading-[1.6]">{band.subtitle}</span>
-                  {band.desc && (
-                    <p className="text-[0.75rem] text-white/70 leading-[1.8] mb-6 max-w-[280px] font-light whitespace-pre-line">{band.desc}</p>
-                  )}
-                  <span className="text-[0.55rem] font-bold text-[#CBAA69] uppercase tracking-[0.25em] mb-10">{band.extraInfo}</span>
-                  
-                  <button 
-                    onClick={handleSearch}
-                    className="self-start px-6 py-3 border border-[#444] bg-transparent text-[#CBAA69] text-[0.55rem] font-bold uppercase tracking-[0.25em] hover:border-[#CBAA69] hover:bg-[#CBAA69]/5 transition-all flex items-center gap-3 rounded-[2px]">
-                    VIEW ALL <ArrowRight className="w-3.5 h-3.5" />
-                  </button>
+              {/* Band Header — inline, minimal, matching Law Firm Excellence */}
+              <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 border-b border-white/[0.06] pb-5">
+                <div className="flex items-center gap-5">
+                  {/* thin gold line accent */}
+                  <div className="w-[3px] h-10 bg-gradient-to-b from-[#CBAA69] to-[#7a6030] rounded-full shrink-0" />
+                  <div className="flex flex-col gap-1.5">
+                    <span className="text-[0.5rem] font-medium uppercase tracking-[0.3em] text-[#CBAA69]/70">{band.tag}</span>
+                    <h2 className="font-serif text-2xl md:text-[1.75rem] text-white font-light tracking-wide leading-none">{band.title}</h2>
+                    {band.desc && (
+                      <p className="text-[0.55rem] uppercase tracking-[0.15em] text-white/40 mt-1">{band.desc}</p>
+                    )}
+                  </div>
+                </div>
+                {/* Recognition badge */}
+                <div className="hidden lg:flex items-center gap-2 px-4 py-2 border border-[#CBAA69]/20 rounded-[2px] shrink-0 self-start md:self-center">
+                  <div className="w-1.5 h-1.5 rounded-full bg-[#CBAA69]" />
+                  <span className="text-[0.5rem] uppercase tracking-[0.2em] text-[#CBAA69]/70 font-medium">THE GLOBAL GOLD STANDARD</span>
                 </div>
               </div>
 
-              {/* Right Column: Lawyer Cards */}
-              <div className="flex-1 overflow-x-auto pb-4 relative group [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-                <div className="flex items-stretch gap-5 min-w-max pr-12 h-full py-2">
-                  {band.lawyers.map((lawyer, fIdx) => (
-                    <div key={fIdx} className="w-[195px] h-[300px] flex flex-col border border-[#2a2a2a] bg-[#0a0a0a] hover:border-[#CBAA69]/60 transition-colors duration-200 relative cursor-pointer shadow-xl group/card">
-                      
-                      {/* Photo Placeholder */}
-                      <div className="w-full h-[130px] bg-[#111] border-b border-[#2a2a2a] relative overflow-hidden flex items-end justify-center">
-                         <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent z-10" />
-                         <User className="w-[4.5rem] h-[4.5rem] text-[#333] mb-[-10px] relative z-0" strokeWidth={1} />
-                      </div>
+              {/* Lawyer Cards row */}
+              <div className="relative">
+                <div className="overflow-x-auto pb-4 pt-1 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+                  <div className="flex items-stretch gap-4 min-w-max pr-12">
+                    {band.lawyers.map((lawyer, fIdx) => (
+                      <div key={fIdx} className="w-[200px] sm:w-[220px] h-[300px] flex flex-col border border-[#1a1a1a] bg-[#080808] hover:border-[#CBAA69]/40 transition-colors duration-200 relative cursor-pointer group/card overflow-hidden">
+                        
+                        {/* Permanent gold top accent */}
+                        <div className="h-[2px] w-full bg-gradient-to-r from-[#CBAA69]/60 via-[#CBAA69]/30 to-transparent flex-shrink-0" />
 
-                      {/* Info */}
-                      <div className="p-4 flex flex-col flex-1 relative z-10">
-                        <h3 className="font-serif text-[0.95rem] leading-tight tracking-[0.05em] text-white mb-2 group-hover:text-[#CBAA69] transition-colors">
-                          {lawyer.name}
-                        </h3>
-                        <span className="text-[0.6rem] text-white/50 leading-tight mb-1">{lawyer.type}</span>
-                        <span className="text-[0.6rem] text-white/50 leading-tight mb-1">{lawyer.firmName}</span>
-                        <span className="text-[0.6rem] text-white/50 leading-tight">{lawyer.loc}</span>
+                        {/* Photo Placeholder */}
+                        <div className="w-full h-[120px] bg-[#0c0c0c] border-b border-[#1a1a1a] relative overflow-hidden flex items-end justify-center">
+                           <div className="absolute inset-0 bg-gradient-to-t from-[#080808] via-transparent to-transparent z-10 opacity-80" />
+                           <User className="w-16 h-16 text-[#222] mb-[-12px] relative z-0" strokeWidth={1} />
+                        </div>
+
+                        {/* Info */}
+                        <div className="p-4 flex flex-col flex-1 relative z-10 text-center items-center justify-center">
+                          <h3 className="font-serif text-lg leading-tight tracking-[0.05em] text-white/95 mb-2 group-hover/card:text-[#CBAA69] transition-colors">
+                            {lawyer.name}
+                          </h3>
+                          <span className="text-[0.55rem] uppercase tracking-[0.1em] text-white/60 leading-tight mb-1">{lawyer.type}</span>
+                          <span className="text-[0.55rem] uppercase tracking-[0.1em] text-[#CBAA69]/70 leading-tight mb-1">{lawyer.firmName}</span>
+                          <span className="text-[0.55rem] uppercase tracking-[0.1em] text-white/40 leading-tight">{lawyer.loc}</span>
+                        </div>
+                        
+                        {/* Footer Badge */}
+                        <div className="border-t border-[#1a1a1a] px-4 py-3 flex items-center justify-center gap-1.5 relative z-10 bg-[#050505]">
+                          <div className="w-1 h-1 rounded-full bg-[#CBAA69]/60 flex-shrink-0" />
+                          <div className="text-[0.45rem] font-medium uppercase tracking-[0.2em] text-[#CBAA69]/70">{lawyer.badge}</div>
+                        </div>
                       </div>
-                      
-                      <div className="flex items-center gap-1.5 border-t border-[#2a2a2a] pt-3 pb-3 px-4 relative z-10">
-                        <div className="text-[0.45rem] font-bold tracking-[0.15em] text-[#CBAA69]">{lawyer.badge}</div>
-                      </div>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
+                {/* Right fade — scroll hint */}
+                <div className="absolute top-0 right-0 bottom-1 w-20 bg-gradient-to-l from-[#000000] to-transparent pointer-events-none" />
               </div>
               
+              {/* View All button — below cards, right-aligned */}
+              <div className="flex justify-end mt-2">
+                <button
+                  onClick={handleSearch}
+                  className="flex items-center gap-3 px-6 py-2.5 border border-[#CBAA69]/20 text-[#CBAA69] text-[0.55rem] font-medium uppercase tracking-[0.2em] hover:border-[#CBAA69]/60 hover:bg-[#CBAA69]/5 transition-all duration-200 rounded-[2px]"
+                >
+                  VIEW ALL IN THIS CATEGORY <ArrowRight className="w-3 h-3" />
+                </button>
+              </div>
+
             </div>
           </div>
         ))}

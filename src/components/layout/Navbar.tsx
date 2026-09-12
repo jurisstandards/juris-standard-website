@@ -1,10 +1,12 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useSubmissionStore } from "@/lib/submissionStore";
 import { cn } from "@/lib/utils";
+import { supabase } from "@/lib/supabase";
+import { User, LogOut, Shield, LayoutDashboard } from "lucide-react";
 
 const navLinks = [
   { name: "Home", href: "/" },
@@ -20,7 +22,12 @@ const navLinks = [
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
+  const router = useRouter();
   const { currentStage, setStage } = useSubmissionStore();
+
+  const [user, setUser] = useState<any>(null);
+  const [showDropdown, setShowDropdown] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -29,6 +36,36 @@ export function Navbar() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  useEffect(() => {
+    // Get initial session
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(session?.user ?? null);
+    });
+
+    // Listen for auth changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setShowDropdown(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const handleLogout = async () => {
+    setShowDropdown(false);
+    await supabase.auth.signOut();
+    router.refresh();
+  };
 
   const isSubmissionPage = pathname === "/enter-the-index";
 
@@ -68,7 +105,6 @@ export function Navbar() {
                 WebkitMaskPosition: 'center',
               }}
             >
-              {/* Added premium glass shine: 40% width, sharp gradient, slow 8s bezier animation */}
               <div className="absolute inset-y-0 w-[40%] animate-glass-shine bg-gradient-to-r from-transparent via-white/80 to-transparent -skew-x-[25deg] opacity-90" />
             </div>
           </div>
@@ -119,14 +155,42 @@ export function Navbar() {
             })}
           </div>
 
-          {/* Login & Request Access */}
-          <div className="flex items-center space-x-6">
-            <Link
-              href="/login"
-              className="text-[13px] xl:text-[14px] font-normal text-neutral-300 hover:text-white transition-colors tracking-wide"
-            >
-              Login
-            </Link>
+          {/* Login / User Link & Request Access */}
+          <div className="flex items-center space-x-6 relative">
+            {user ? (
+              <Link
+                href="/my-juris"
+                className="group flex items-center gap-3 px-1 py-1 transition-all duration-300"
+              >
+                <div className="flex flex-col items-end hidden sm:flex">
+                  <span className="text-[0.55rem] uppercase tracking-widest text-white/40 group-hover:text-white/70 transition-colors">
+                    My Profile
+                  </span>
+                  <span className="text-[0.6rem] text-[#CBAA69] tracking-widest uppercase font-medium mt-0.5">
+                    {user.user_metadata?.full_name || user.email?.split("@")[0] || "Member"}
+                  </span>
+                </div>
+                <div className="w-9 h-9 rounded-full bg-[#050505] border border-white/10 group-hover:border-[#CBAA69]/50 flex items-center justify-center transition-all shadow-sm group-hover:shadow-[0_0_15px_rgba(203,170,105,0.15)] relative overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#CBAA69]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                  <span className="text-[0.5rem] font-bold text-white/50 group-hover:text-[#CBAA69] tracking-wider relative z-10 transition-colors">
+                    {(user.user_metadata?.full_name || user.email || "U")
+                      .split(/[@.\s]/)
+                      .filter(Boolean)
+                      .slice(0, 2)
+                      .map((p: string) => p[0]?.toUpperCase() ?? "")
+                      .join("")}
+                  </span>
+                </div>
+              </Link>
+            ) : (
+              <Link
+                href="/login"
+                className="text-[13px] xl:text-[14px] font-normal text-neutral-300 hover:text-white transition-colors tracking-wide"
+              >
+                Login
+              </Link>
+            )}
+
             <Link
               href="/request-access"
               className="group relative inline-flex items-center justify-center px-6 py-2 bg-transparent border border-gold-500/30 text-gold-300 text-[11px] xl:text-[12px] font-semibold uppercase tracking-widest rounded-sm overflow-hidden transition-all duration-300 hover:border-gold-400 hover:text-white hover:bg-gold-500/5 shadow-[0_0_15px_rgba(212,175,55,0.05)] hover:shadow-[0_0_25px_rgba(212,175,55,0.15)]"

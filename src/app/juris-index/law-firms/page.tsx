@@ -9,7 +9,7 @@ import {
   Users, Landmark, Star
 } from "lucide-react";
 import Link from "next/link";
-import { useState, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 
 export default function LawFirmExcellenceTerminal() {
@@ -19,6 +19,7 @@ export default function LawFirmExcellenceTerminal() {
   const [searchQuery, setSearchQuery] = useState("");
   const [practiceArea, setPracticeArea] = useState("");
   const [location, setLocation] = useState("");
+  const [customLocation, setCustomLocation] = useState("");
   const [tier, setTier] = useState("");
   const [firmSize, setFirmSize] = useState("");
   const [yearRecognition, setYearRecognition] = useState("");
@@ -33,6 +34,7 @@ export default function LawFirmExcellenceTerminal() {
     setSearchQuery("");
     setPracticeArea("");
     setLocation("");
+    setCustomLocation("");
     setTier("");
     setFirmSize("");
     setYearRecognition("");
@@ -46,54 +48,72 @@ export default function LawFirmExcellenceTerminal() {
     alert("Directory download will be available soon.");
   };
 
-  const allFirms = [
-    { name: "AZB &\nPARTNERS", type: "Advocates & Solicitors", loc: "Mumbai", badge: "RECOGNISED - 2027", logoType: 'text', tier: "01" },
-    { name: "SHARDUL\nAMARCHAND\nMANGALDAS", type: "Advocates & Solicitors", loc: "New Delhi", badge: "RECOGNISED - 2027", logoType: 'icon_text', tier: "01" },
-    { name: "KHAITAN\n& CO", type: "Advocates since 1911", loc: "Mumbai", badge: "RECOGNISED - 2027", logoType: 'text', tier: "01" },
-    { name: "J. SAGAR\nASSOCIATES", type: "Advocates & Solicitors", loc: "New Delhi", badge: "RECOGNISED - 2027", logoType: 'text', tier: "01" },
-    { name: "III TRILEGAL", type: "Advocates", loc: "Bengaluru", badge: "RECOGNISED - 2027", logoType: 'text', tier: "01" },
-    { name: "CYRIL\nAMARCHAND\nMANGALDAS", type: "Advocates & Solicitors", loc: "Mumbai", badge: "RECOGNISED - 2027", logoType: 'text', tier: "01" },
-    { name: "LUTHRA AND\nLUTHRA LAW\nOFFICES", type: "New Delhi", loc: "", badge: "RECOGNISED - 2027", logoType: 'text', tier: "02" },
-    { name: "DUA\nASSOCIATES", type: "Advocates & Solicitors", loc: "New Delhi", badge: "RECOGNISED - 2027", logoType: 'text', tier: "02" },
-    { name: "SAMVĀD:\nPARTNERS", type: "Mumbai", loc: "", badge: "RECOGNISED - 2027", logoType: 'text', tier: "02" },
-    { name: "S&R\nASSOCIATES", type: "Advocates", loc: "New Delhi", badge: "RECOGNISED - 2027", logoType: 'text', tier: "02" },
-    { name: "INDUSLAW", type: "Advocates", loc: "Bengaluru", badge: "RECOGNISED - 2027", logoType: 'text', tier: "02" },
-    { name: "KOCHHAR\n& CO.", type: "Advocates & Solicitors", loc: "Mumbai", badge: "RECOGNISED - 2027", logoType: 'text', tier: "02" },
-    { name: "PSL\nADVOCATES\n& SOLICITORS", type: "New Delhi", loc: "", badge: "RECOGNISED - 2027", logoType: 'text', tier: "03" },
-    { name: "FOX\nMANDAL", type: "Bengaluru", loc: "", badge: "RECOGNISED - 2027", logoType: 'text', tier: "03" },
-    { name: "THINK\nLEGAL", type: "Advocates", loc: "Mumbai", badge: "RECOGNISED - 2027", logoType: 'colored_text', tier: "03" },
-    { name: "ag\nlaw", type: "New Delhi", loc: "", badge: "RECOGNISED - 2027", logoType: 'text', tier: "03" },
-    { name: "P&A\nLAW OFFICES", type: "Mumbai", loc: "", badge: "RECOGNISED - 2027", logoType: 'text', tier: "03" },
-    { name: "LEX\nORBIS", type: "Bengaluru", loc: "", badge: "RECOGNISED - 2027", logoType: 'text', tier: "03" },
-  ];
+  
+  const [allFirms, setAllFirms] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchRecords() {
+      try {
+        const res = await fetch("/api/admin/records");
+        const data = await res.json();
+        
+        // Filter out inactive records and only keep Law Firm Excellence division
+        const relevant = data.filter((d: any) => d.status === "active" && d.division.startsWith("Law Firm Excellence"));
+        
+        const mapped = relevant.map((f: any) => ({
+          id: f.id,
+          name: f.name.replace(" ", "\n"), // add a break for styling
+          type: f.firmInfo?.description || f.type || "Advocates & Solicitors",
+          loc: f.location || "",
+          badge: f.badge || "RECOGNISED - " + (f.year || "2027"),
+          logoType: f.logoType || "text",
+          tier: f.tier || "01",
+          originalName: f.name
+        }));
+        
+        setAllFirms(mapped);
+      } catch (e) {
+        console.error(e);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchRecords();
+  }, []);
+
+
+  
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-[#000000] text-[#FFFFF0] flex flex-col items-center justify-center font-sans">
+        <div className="w-8 h-8 border border-[#CBAA69] border-t-transparent rounded-full animate-spin"></div>
+        <p className="mt-4 text-[0.6rem] uppercase tracking-widest text-[#CBAA69]/60">Loading Directory...</p>
+      </div>
+    );
+  }
 
   const filteredFirms = allFirms.filter(firm => {
     const q = searchQuery.toLowerCase();
-    const nameMatch = !q || firm.name.toLowerCase().includes(q) || firm.type.toLowerCase().includes(q) || firm.loc.toLowerCase().includes(q);
+    const nameMatch = !q || (firm.originalName || firm.name).toLowerCase().includes(q) || firm.type.toLowerCase().includes(q) || firm.loc.toLowerCase().includes(q);
     const locMatch = !location || firm.loc.toLowerCase().includes(location.toLowerCase()) || firm.type.toLowerCase().includes(location.toLowerCase());
     return nameMatch && locMatch;
   });
 
   const bands = [
     {
-      num: "01",
-      title: "LAW FIRM EXCELLENCE™\nTHE PRINCIPAL RECORD",
-      subtitle: "THE GLOBAL GOLD STANDARD",
-      desc: "Recognising law firms that set the benchmark for legal excellence, client service and professional leadership.",
+      title: "Principal Record",
+      tag: "LAW FIRM EXCELLENCE™",
       firms: filteredFirms.filter(f => f.tier === "01"),
     },
     {
-      num: "02",
-      title: "DISTINGUISHED\nLAW FIRMS™\nTHE ESTABLISHED RECORD",
-      subtitle: "THE GLOBAL GOLD STANDARD",
-      desc: "Recognising firms with a proven track record of excellence, capability and significant contribution to the profession.",
+      title: "Distinguished Law Firms",
+      tag: "DISTINGUISHED RECORD™",
       firms: filteredFirms.filter(f => f.tier === "02"),
     },
     {
-      num: "03",
-      title: "RISING LAW FIRMS™\nTHE NEXT GENERATION",
-      subtitle: "THE GLOBAL GOLD STANDARD",
-      desc: "Recognising emerging firms demonstrating exceptional potential, innovation and future leadership.",
+      title: "Rising Law Firms",
+      tag: "NEXT GENERATION™",
       firms: filteredFirms.filter(f => f.tier === "03"),
     },
   ];
@@ -103,7 +123,7 @@ export default function LawFirmExcellenceTerminal() {
       <Navbar />
       
       {/* 1. HERO SECTION WITH SEARCH SIDEBAR */}
-      <section className="relative w-full min-h-[100vh] flex flex-col justify-center bg-[#050505] overflow-hidden pt-24 pb-12 border-b border-[#222222]">
+      <section className="relative w-full flex flex-col justify-center bg-[#050505] overflow-hidden pt-24 pb-8 border-b border-[#222222]">
         
         {/* Contained Background Image Layer */}
         <div className="absolute top-0 bottom-0 left-[5%] md:left-[15%] lg:left-[22%] xl:left-[25%] w-[95%] md:w-[85%] lg:w-[78%] xl:w-[75%] h-full z-0 pointer-events-none overflow-hidden">
@@ -166,36 +186,12 @@ export default function LawFirmExcellenceTerminal() {
               >
                 THE STANDARD <ArrowRight className="w-4 h-4 text-[#FFFFF0]" />
               </Link>
-            </div>
-
-            <div className="flex items-center space-x-3 mb-6">
-              <ShieldCheck className="w-4 h-4 text-[#CBAA69]" strokeWidth={1.5} />
-              <span className="text-[0.55rem] uppercase tracking-[0.25em] text-[#FFFFF0]/50 font-medium">
-                TRUSTED BY LEGAL LEADERS IN 150+ COUNTRIES
-              </span>
-            </div>
-            
-            {/* Stats Bar */}
-            <div className="w-full max-w-2xl bg-gradient-to-b from-[#161616]/90 to-[#0a0a0a]/95 backdrop-blur-2xl border border-white/5 border-t-white/10 rounded-xl flex flex-col md:flex-row items-center justify-between p-3 shadow-[0_20px_50px_rgba(0,0,0,0.5)] relative overflow-hidden group">
-              <div className="absolute inset-0 bg-gradient-to-r from-[#CBAA69]/5 via-transparent to-[#CBAA69]/5 pointer-events-none opacity-50" />
-
-              {[
-                { icon: Landmark, value: "5K+", label: "FIRMS RANKED" },
-                { icon: Globe, value: "150+", label: "JURISDICTIONS" },
-                { icon: Scale, value: "100+", label: "PRACTICE AREAS" },
-                { icon: Star, value: "50M+", label: "DATA POINTS" },
-              ].map((stat, i) => (
-                <div key={i} className="flex items-center space-x-4 py-3 md:py-2 px-4 flex-1 border-b md:border-b-0 md:border-r border-white/5 last:border-0 relative z-10 transition-colors duration-300 hover:bg-white/[0.02] rounded-lg cursor-default">
-                  <div className="relative flex-shrink-0">
-                    <div className="absolute inset-0 bg-[#CBAA69]/20 blur-md rounded-full" />
-                    <stat.icon className="w-4 h-4 md:w-5 md:h-5 text-[#CBAA69] relative z-10 stroke-[1.5px]" />
-                  </div>
-                  <div className="flex flex-col">
-                    <span className="font-serif text-[1.1rem] md:text-[1.25rem] bg-gradient-to-br from-white to-white/60 bg-clip-text text-transparent leading-none mb-1.5 tracking-tight drop-shadow-sm">{stat.value}</span>
-                    <span className="text-[0.45rem] md:text-[0.5rem] uppercase tracking-[0.2em] text-[#CBAA69]/70 font-semibold leading-none">{stat.label}</span>
-                  </div>
-                </div>
-              ))}
+              <Link 
+                href="/register"
+                className="px-8 py-3.5 border border-[#CBAA69]/30 bg-transparent text-[#CBAA69] text-[0.7rem] font-medium uppercase tracking-[0.15em] hover:border-[#CBAA69]/60 hover:bg-[#CBAA69]/5 transition-all flex items-center gap-3 rounded-[2px]"
+              >
+                APPLY FOR RECOGNITION <ArrowRight className="w-4 h-4" />
+              </Link>
             </div>
           </div>
 
@@ -219,8 +215,7 @@ export default function LawFirmExcellenceTerminal() {
             
             <div className="flex flex-col gap-5 mb-8">
               {[
-                { label: 'PRACTICE AREAS', val: 'All Practice Areas', options: ['Corporate & M&A', 'Banking & Finance', 'Dispute Resolution', 'Tax', 'Real Estate', 'Employment', 'IP & TMT'], state: practiceArea, set: setPracticeArea },
-                { label: 'LOCATION', val: 'All Cities', options: ['Mumbai', 'New Delhi', 'Bengaluru', 'Hyderabad', 'Chennai', 'Kolkata', 'Pune'], state: location, set: setLocation },
+                { label: 'PRACTICE AREAS', val: 'All Practice Areas', options: ['Arbitration & ADR', 'Artificial Intelligence', 'Aviation', 'Banking & Finance', 'Capital Markets', 'Competition & Antitrust', 'Constitutional & Public Law', 'Construction', 'Corporate & Commercial', 'Customs & International Trade', 'Data Privacy & Cybersecurity', 'Direct Tax', 'Employment & Labour', 'Energy & Natural Resources', 'Environmental & Climate', 'Family & Private Client', 'Government & Public Sector Advisory', 'Healthcare & Life Sciences', 'Indirect Tax (GST)', 'Infrastructure & Projects', 'Insolvency & Restructuring', 'Insurance', 'Intellectual Property', 'Litigation', 'Maritime & Shipping', 'Media & Entertainment', 'Private Equity & Venture Capital', 'Real Estate', 'Regulatory & Compliance', 'Sports Law', 'Technology, Media & Telecommunications', 'White Collar Crime & Investigations', 'Other (Specify)'], state: practiceArea, set: setPracticeArea },
                 { label: 'TIER / RECOGNITION', val: 'All', options: ['Principal Record', 'Distinguished', 'Rising'], state: tier, set: setTier },
                 { label: 'FIRM SIZE', val: 'All', options: ['Full Service', 'Specialist', 'Boutique', 'Mid Size'], state: firmSize, set: setFirmSize },
                 { label: 'YEAR OF RECOGNITION', val: 'All', options: ['2027', '2026', '2025'], state: yearRecognition, set: setYearRecognition },
@@ -240,6 +235,45 @@ export default function LawFirmExcellenceTerminal() {
                   </div>
                 </div>
               ))}
+
+              {/* LOCATION — separate block with custom Other input */}
+              <div className="flex flex-col gap-2">
+                <span className="text-[0.55rem] font-medium uppercase tracking-[0.15em] text-white/40">LOCATION</span>
+                <div className="relative group">
+                  <select
+                    value={location}
+                    onChange={e => { setLocation(e.target.value); if (e.target.value !== 'Other') setCustomLocation(''); }}
+                    className="w-full appearance-none px-4 py-3 border border-white/5 bg-[#000000] text-xs text-white/80 focus:outline-none cursor-pointer rounded-[2px] hover:border-white/20 focus:border-[#CBAA69]/50 transition-colors"
+                  >
+                    <option value="">All Cities</option>
+                    <option>Ahmedabad</option>
+                    <option>Bengaluru</option>
+                    <option>Chandigarh</option>
+                    <option>Chennai</option>
+                    <option>Gurugram</option>
+                    <option>Hyderabad</option>
+                    <option>Jaipur</option>
+                    <option>Kochi</option>
+                    <option>Kolkata</option>
+                    <option>Mumbai</option>
+                    <option>New Delhi</option>
+                    <option>Noida</option>
+                    <option>Pune</option>
+                    <option>Other</option>
+                  </select>
+                  <ChevronDown className="w-3.5 h-3.5 text-[#CBAA69] absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none transition-colors" />
+                </div>
+                {location === 'Other' && (
+                  <input
+                    type="text"
+                    value={customLocation}
+                    onChange={e => setCustomLocation(e.target.value)}
+                    placeholder="Type city name..."
+                    className="w-full px-4 py-3 border border-[#CBAA69]/30 bg-[#000000] text-xs text-white/80 placeholder:text-white/30 focus:outline-none focus:border-[#CBAA69]/60 rounded-[2px] transition-colors"
+                  />
+                )}
+              </div>
+
             </div>
 
             <div className="flex flex-col gap-3 mb-8">
@@ -283,56 +317,89 @@ export default function LawFirmExcellenceTerminal() {
       {/* 2. RECOGNISED FIRMS HORIZONTAL BANDS */}
       <div ref={firmsRef} className="flex flex-col w-full relative z-10 bg-[#000000]">
         {bands.map((band, idx) => (
-          <div key={idx} className="w-full border-b border-white/5 last:border-0 relative">
-            <div className={`${containerClasses} py-14 flex flex-col xl:flex-row gap-12`}>
-              
-              {/* Left Column */}
-              <div className="w-full xl:w-[420px] shrink-0 flex gap-6 md:gap-8">
-                <div className="font-serif text-[5rem] md:text-[7rem] text-[#CBAA69] font-light leading-[0.75] tracking-tight">{band.num}</div>
-                <div className="flex flex-col pt-2">
-                  <h2 className="font-serif text-xl md:text-[1.35rem] text-white uppercase tracking-[0.15em] leading-[1.3] mb-4 whitespace-pre-line">{band.title}</h2>
-                  <span className="text-[0.6rem] font-bold text-[#CBAA69] uppercase tracking-[0.25em] mb-6">{band.subtitle}</span>
-                  <p className="text-[0.75rem] text-white/70 leading-[1.8] mb-10 max-w-[280px] font-light">{band.desc}</p>
-                  
-                  <button 
-                    onClick={handleSearch}
-                    className="self-start px-8 py-4 border border-[#444] bg-transparent text-[#CBAA69] text-[0.55rem] font-bold uppercase tracking-[0.25em] hover:border-[#CBAA69] hover:bg-[#CBAA69]/5 transition-all flex items-center gap-3 rounded-[2px]"
-                  >
-                    VIEW ALL RECOGNISED FIRMS <ArrowRight className="w-3.5 h-3.5" />
-                  </button>
+          <div key={idx} className="w-full border-b border-white/[0.06] last:border-0 relative">
+            <div className={`${containerClasses} py-6 md:py-8 flex flex-col gap-4`}>
+
+              {/* Band Header — inline, minimal */}
+              <div className="flex items-center justify-between gap-6 border-b border-white/[0.06] pb-4">
+                <div className="flex items-center gap-5">
+                  {/* thin gold line accent */}
+                  <div className="w-[3px] h-8 bg-gradient-to-b from-[#CBAA69] to-[#7a6030] rounded-full shrink-0" />
+                  <div className="flex flex-col gap-1">
+                    <span className="text-[0.5rem] font-semibold uppercase tracking-[0.3em] text-[#CBAA69]/70">{band.tag}</span>
+                    <h2 className="font-serif text-2xl md:text-[1.75rem] text-white font-light tracking-wide leading-none">{band.title}</h2>
+                  </div>
+                </div>
+                {/* Recognition badge */}
+                <div className="hidden md:flex items-center gap-2 px-4 py-2 border border-[#CBAA69]/20 rounded-[2px] shrink-0">
+                  <div className="w-1.5 h-1.5 rounded-full bg-[#CBAA69]" />
+                  <span className="text-[0.5rem] uppercase tracking-[0.2em] text-[#CBAA69]/70 font-medium">THE GLOBAL GOLD STANDARD</span>
                 </div>
               </div>
 
-              {/* Right Column: Firm Cards */}
-              <div className="flex-1 overflow-x-auto pb-4 relative group [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-                <div className="flex items-stretch gap-5 min-w-max pr-12 h-full py-2">
-                  {band.firms.length > 0 ? band.firms.map((firm, fIdx) => (
-                    <div 
-                      key={fIdx} 
-                      onClick={() => router.push(`/juris-index/law-firms/${firm.name.replace(/\n/g, '-').replace(/\s/g, '-').replace(/[^a-zA-Z0-9-]/g, '').toLowerCase()}`)}
-                      className="w-[195px] h-[270px] flex flex-col p-6 border border-[#2a2a2a] bg-[#0a0a0a] hover:border-[#CBAA69]/60 transition-colors duration-200 relative cursor-pointer shadow-xl group/card"
-                    >
-                      <div className="flex-1 flex flex-col justify-center items-center text-center relative z-10 px-2">
-                        {firm.logoType === 'icon_text' && <Globe className="w-6 h-6 text-[#CBAA69] mb-4 stroke-[1px]" />}
-                        <h3 className={`font-serif text-[0.9rem] leading-[1.35] whitespace-pre-line tracking-[0.15em] uppercase ${firm.logoType === 'colored_text' ? 'text-[#CBAA69]' : 'text-white'}`}>
-                          {firm.name.includes('INDUS') ? <><span className="text-[#E53935]">INDUS</span>LAW</> : 
-                           firm.name.includes('THINK') ? <><span className="text-white">THINK</span><br/><span className="text-[#1E88E5]">LEGAL</span></> : 
-                           firm.name}
-                        </h3>
+              {/* Firm Cards row */}
+              <div className="relative">
+                <div className="overflow-x-auto pb-1 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+                  <div className="flex items-stretch gap-3 min-w-max">
+                    {band.firms.length > 0 ? band.firms.map((firm, fIdx) => (
+                      <div
+                        key={fIdx}
+                        onClick={() => {
+                          router.push(`/juris-index/law-firms/${firm.id}`);
+                        }}
+                        className="w-[210px] sm:w-[230px] h-[260px] sm:h-[280px] flex flex-col cursor-pointer group/card border border-[#1a1a1a] hover:border-[#CBAA69]/40 transition-colors duration-200 bg-[#080808] relative overflow-hidden"
+                      >
+                        {/* Permanent gold top accent */}
+                        <div className="h-[2px] w-full bg-gradient-to-r from-[#CBAA69]/60 via-[#CBAA69]/30 to-transparent flex-shrink-0" />
+
+                        {/* Firm name — centred */}
+                        <div className="flex-1 flex flex-col justify-center items-center text-center px-4 py-3">
+                          {firm.logoType === 'icon_text' && (
+                            <div className="w-6 h-6 border border-[#CBAA69]/30 rounded-full flex items-center justify-center mb-3 flex-shrink-0">
+                              <Globe className="w-3 h-3 text-[#CBAA69]/70 stroke-[1px]" />
+                            </div>
+                          )}
+                          <h3 className={`font-serif text-[0.95rem] leading-[1.5] whitespace-pre-line tracking-[0.08em] uppercase ${
+                            firm.logoType === 'colored_text' ? 'text-[#CBAA69]' : 'text-white/85 group-hover/card:text-white'
+                          } transition-colors duration-150`}>
+                            {firm.name.includes('INDUS') ? <><span className="text-[#E53935]">INDUS</span>LAW</> :
+                             firm.name.includes('THINK') ? <><span className="text-white">THINK</span><br/><span className="text-[#1E88E5]">LEGAL</span></> :
+                             firm.name}
+                          </h3>
+                        </div>
+
+                        {/* Footer info */}
+                        <div className="border-t border-[#1a1a1a] px-4 py-3 flex flex-col gap-1.5">
+                          {(firm.type || firm.loc) && (
+                            <p className="text-[0.45rem] text-white/30 uppercase tracking-[0.1em] leading-[1.6]">
+                              {[firm.type, firm.loc].filter(Boolean).join(' · ')}
+                            </p>
+                          )}
+                          <div className="flex items-center gap-1.5">
+                            <div className="w-1 h-1 rounded-full bg-[#CBAA69]/60 flex-shrink-0" />
+                            <span className="text-[0.42rem] font-semibold tracking-[0.15em] text-[#CBAA69]/70 uppercase">{firm.badge}</span>
+                          </div>
+                        </div>
                       </div>
-                      
-                      <div className="mt-auto flex flex-col gap-1.5 border-t border-[#2a2a2a] pt-4 relative z-10">
-                        {firm.type && <span className="text-[0.5rem] text-white/50 leading-tight">{firm.type}</span>}
-                        {firm.loc && <span className="text-[0.5rem] text-white/50 leading-tight">{firm.loc}</span>}
-                        <div className="text-[0.45rem] font-bold tracking-[0.15em] text-[#CBAA69] mt-2">{firm.badge}</div>
-                      </div>
-                    </div>
-                  )) : (
-                    <div className="flex items-center justify-center text-white/30 text-xs py-10 px-6">No firms match your search.</div>
-                  )}
+                    )) : (
+                      <div className="flex items-center justify-center text-white/20 text-xs py-8 px-6 italic">No firms match your search.</div>
+                    )}
+                  </div>
                 </div>
+                {/* Right fade — scroll hint */}
+                <div className="absolute top-0 right-0 bottom-1 w-20 bg-gradient-to-l from-[#000000] to-transparent pointer-events-none" />
               </div>
-              
+
+              {/* View All button — below cards, right-aligned */}
+              <div className="flex justify-end">
+                <button
+                  onClick={handleSearch}
+                  className="flex items-center gap-3 px-6 py-2.5 border border-[#CBAA69]/25 text-[#CBAA69] text-[0.55rem] font-semibold uppercase tracking-[0.2em] hover:border-[#CBAA69]/60 hover:bg-[#CBAA69]/5 transition-all duration-200 rounded-[2px]"
+                >
+                  VIEW ALL RECOGNISED FIRMS <ArrowRight className="w-3 h-3" />
+                </button>
+              </div>
+
             </div>
           </div>
         ))}
