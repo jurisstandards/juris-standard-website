@@ -96,166 +96,133 @@ export default function CertificatePage() {
       {/* Certificate Container */}
       <div className="relative z-10 flex-1 flex flex-col items-center justify-center w-full h-full pt-12 pb-24 print:p-0 print:bg-white print:h-screen print:w-screen">
         
-        {/* Certificate Outer Frame */}
-        <div className="relative bg-[#0c0a08] p-3 shadow-[0_30px_60px_rgba(0,0,0,0.9),0_0_40px_rgba(203,170,105,0.15)] border border-[#2a2218] print:p-0 print:border-none print:shadow-none w-[90%] max-w-[1100px] max-h-[75vh] aspect-[1.414/1] flex flex-col">
-          
-          {/* Inner Golden Trim Frame */}
-          <div className="flex-1 border-[1px] border-[#CBAA69]/40 relative bg-[#f4efdf] flex overflow-hidden shadow-inner print:border-none">
-            
-            {/* The Note / Watermark background */}
-            <div 
-              className="absolute inset-0 z-0 opacity-[0.03] pointer-events-none mix-blend-multiply"
-              style={{
-                backgroundImage: `url('/logo/certificate_bg.png')`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center right',
-                filter: 'grayscale(100%) contrast(120%)'
-              }}
-            />
-            {/* Paper Texture Overlay */}
-            <div 
-              className="absolute inset-0 z-0 opacity-[0.05] pointer-events-none mix-blend-multiply"
-              style={{
-                backgroundImage: `url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23noise)'/%3E%3C/svg%3E")`
-              }}
-            />
+        {/* Certificate Wrapper (Thick Frame) */}
+        <div className="w-[1000px] aspect-[1.5/1] bg-[#d4af37]/20 p-[2px] rounded-sm relative shadow-[0_20px_50px_rgba(0,0,0,0.8)] flex-shrink-0">
+          {/* Inner Gold Bevel effect */}
+          <div className="absolute inset-0 border-[4px] border-[#9c7b2e] rounded-sm pointer-events-none z-30 opacity-80 mix-blend-overlay" />
+          <div className="absolute inset-[4px] border-[2px] border-[#ffe8a1]/30 rounded-sm pointer-events-none z-30" />
+          <div className="absolute inset-[6px] border border-[#2a2a2a] rounded-sm pointer-events-none z-30 shadow-[inset_0_0_20px_rgba(0,0,0,0.5)]" />
 
+          {/* Certificate Content */}
+          <div className="w-full h-full bg-[#f4ebd8] relative overflow-hidden flex shadow-inner">
+            
+            {/* Watermark/Texture for the paper */}
+            <div className="absolute inset-0 pointer-events-none z-0 mix-blend-multiply opacity-[0.08]">
+              <img src="/logo/certificate_bg.png" className="w-full h-full object-cover filter grayscale" />
+            </div>
+            
             {/* Left Dark Panel */}
-            <div className="w-[18%] relative z-10 bg-[#080808] border-r-[1px] border-[#1a1a1a]/50 flex flex-col items-center justify-center overflow-hidden h-full shadow-[10px_0_20px_rgba(0,0,0,0.08)]">
-              <img 
-                src="/logo/certificate_bg.png" 
-                alt="Pillar Graphic" 
-                className="absolute inset-0 w-full h-full object-cover opacity-60 mix-blend-lighten sepia-[0.3] hue-rotate-[-15deg]"
-                style={{ objectPosition: '20% center' }}
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#080808] via-transparent to-[#080808] opacity-90" />
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#080808]/40 to-[#080808]/90" />
-              
-              <div className="relative z-20 flex flex-col h-full justify-between py-12 px-6">
-                 <div></div>
-                 <div className="text-[0.4rem] tracking-[0.25em] leading-[2.2] uppercase text-[#CBAA69]/90 font-serif text-center drop-shadow-md">
-                   Excellence<br/>Recognised.<br/>A Stronger<br/>Legal World.
+            <div className="w-[30%] h-full bg-[#080808] relative z-10 flex flex-col items-center py-16 px-8 text-center border-r-2 border-[#CBAA69]/40 shadow-[10px_0_20px_rgba(0,0,0,0.2)]">
+               
+               <div className="mb-auto">
+                 <h4 className="font-serif text-[0.7rem] tracking-[0.2em] text-white uppercase mb-1">The Juris Standard</h4>
+                 <div className="w-8 h-[1px] bg-[#CBAA69]/50 mx-auto"></div>
+               </div>
+
+               <div className="w-full aspect-square relative my-10 flex items-center justify-center">
+                 <div className="absolute inset-0 rounded-full border border-[#CBAA69]/20" />
+                 <div className="absolute inset-2 rounded-full border border-[#CBAA69]/40" />
+                 <img src="/logo/seal main.png" alt="Seal" className="w-[85%] h-[85%] object-contain drop-shadow-[0_0_15px_rgba(203,170,105,0.4)] mix-blend-luminosity brightness-150 contrast-125" />
+               </div>
+
+               <div className="mt-auto flex flex-col gap-10">
+                 <div className="text-[0.45rem] tracking-[0.3em] text-white/70 uppercase leading-[2]">
+                   INDEPENDENT.<br/>INSIGHTFUL.<br/>DEFINITIVE.
                  </div>
-                 <div className="text-[0.45rem] tracking-[0.3em] uppercase text-[#CBAA69]/90 font-serif text-center drop-shadow-md pb-4 border-b border-[#CBAA69]/20">
-                   The Juris<br/>Standard™
+                 
+                 <div className="text-[0.4rem] tracking-[0.25em] text-[#CBAA69]/60 uppercase leading-[2]">
+                   A STRONGER<br/>LEGAL WORLD.<br/>ALWAYS.
                  </div>
-              </div>
+               </div>
             </div>
 
-            {/* Right White Paper Panel */}
-            <div className="flex-1 relative z-10 flex flex-col items-center text-center px-12 md:px-16 py-12 h-full justify-between">
+            {/* Right Light Panel (Main Content) */}
+            <div className="w-[70%] h-full relative z-10 flex flex-col items-center py-12 px-16 text-center">
               
-              {/* Top Header Section */}
-              <div className="w-full flex justify-between items-start mb-6">
-                <div className="w-24"></div> {/* spacer */}
-                <div className="flex flex-col items-center pt-2">
-                  <h2 className="font-serif text-[1.1rem] md:text-[1.3rem] text-[#222222] tracking-[0.25em] mb-2 uppercase font-medium">
-                    The Juris Standard™
-                  </h2>
-                  <span className="text-[0.4rem] md:text-[0.45rem] text-[#444444] tracking-[0.4em] uppercase font-light">
-                    People &nbsp;&nbsp;|&nbsp;&nbsp; Firms &nbsp;&nbsp;|&nbsp;&nbsp; Ideas &nbsp;&nbsp;|&nbsp;&nbsp; Impact
-                  </span>
+              {/* Header */}
+              <div className="flex flex-col items-center mb-10">
+                <h2 className="font-serif text-sm tracking-[0.2em] text-[#111] uppercase mb-2 font-medium">The Juris Standard™</h2>
+                <div className="flex items-center gap-3 text-[0.4rem] tracking-[0.3em] text-[#444] uppercase font-semibold">
+                  <span>People</span><span>|</span><span>Firms</span><span>|</span><span>Ideas</span><span>|</span><span>Impact</span>
                 </div>
-                {/* Mini details top right */}
-                <div className="text-right flex flex-col gap-3 w-32 pt-2">
-                  <div>
-                    <span className="text-[0.35rem] tracking-[0.25em] uppercase text-[#666666] font-bold block mb-1">RECORD ID</span>
-                    <span className="font-serif text-[#333333] text-[0.55rem] tracking-wider">{firm.recognitionId}</span>
-                  </div>
-                  <div>
-                    <span className="text-[0.35rem] tracking-[0.25em] uppercase text-[#666666] font-bold block mb-1">STATUS</span>
-                    <span className="font-serif text-[#333333] text-[0.55rem] tracking-wider flex items-center justify-end gap-1.5">
-                      <span className="w-1 h-1 rounded-full bg-[#333] inline-block" />
-                      {firm.status || "Active"}
+              </div>
+
+              {/* Title */}
+              <h1 className="font-serif text-[1.7rem] tracking-[0.3em] text-[#050505] uppercase mb-4 font-bold">
+                Official Recognition
+              </h1>
+              <p className="font-serif italic text-[0.85rem] text-[#333] mb-6">
+                This is to certify that
+              </p>
+
+              {/* Name */}
+              <h2 className="font-serif text-[3rem] tracking-widest text-[#0a0a0a] uppercase mb-6 leading-none border-b border-[#a38743] pb-4 inline-block px-12 font-medium truncate max-w-[90%]">
+                {firm.name}
+              </h2>
+
+              <p className="text-[0.55rem] tracking-[0.2em] text-[#333] uppercase mb-4 font-semibold">
+                Has been recognised under
+              </p>
+
+              {/* Division */}
+              <h3 className="font-serif text-[1.7rem] tracking-[0.25em] text-[#9c7b2e] uppercase font-bold mb-2">
+                {firm.division?.replace('™', '')}™
+              </h3>
+              <h4 className="font-serif text-xl tracking-widest text-[#222] mb-3 font-semibold">
+                {firm.year}
+              </h4>
+              <p className="text-[0.7rem] tracking-[0.1em] text-[#111] uppercase font-bold mb-8">
+                {firm.division === 'Law Firm Excellence™' ? 'Principal Record' : ''}
+              </p>
+
+              {/* Citation */}
+              <p className="font-serif italic text-[0.85rem] text-[#222] leading-relaxed max-w-[85%] mx-auto mb-auto">
+                In acknowledgement of its exceptional legal capability, enduring professional excellence and distinguished contribution to the legal profession.
+              </p>
+
+              {/* Footer row inside certificate */}
+              <div className="w-full flex justify-between items-end mt-10 relative">
+                <div className="flex flex-col items-start gap-2">
+                  <span className="text-[0.75rem] text-[#111] font-medium">{currentDate}</span>
+                  <span className="w-16 h-[1px] bg-[#9c7b2e]"></span>
+                  <span className="text-[0.45rem] tracking-[0.2em] text-[#444] uppercase font-semibold">Date of Issue</span>
+                </div>
+
+                <div className="flex flex-col items-center gap-1.5 opacity-40 absolute left-1/2 -translate-x-1/2 bottom-0">
+                  <span className="text-[0.4rem] tracking-[0.3em] text-[#111] uppercase font-bold">RECOGNISE. VERIFY. PRESERVE.</span>
+                </div>
+
+                <div className="flex items-end gap-6">
+                  <div className="flex flex-col items-end gap-2">
+                    <div className="font-[Brush_Script_MT,cursive] text-[2.2rem] text-[#0a0a0a] opacity-90 -mb-2 pr-2">Gabriel Jones</div>
+                    <span className="w-36 h-[1px] bg-[#9c7b2e]"></span>
+                    <span className="text-[0.45rem] tracking-[0.2em] text-[#444] uppercase text-right leading-tight font-semibold">
+                      Editorial Board<br/>The Juris Standard™
                     </span>
                   </div>
-                </div>
-              </div>
-
-              {/* Center Main Text Section */}
-              <div className="flex flex-col items-center justify-center flex-1 w-full max-w-[80%]">
-                <h1 className="font-serif text-[1.35rem] md:text-[1.6rem] text-[#1a1a1a] tracking-[0.35em] uppercase mb-4 font-light">
-                  Official Recognition
-                </h1>
-                <p className="font-serif text-[0.65rem] md:text-[0.7rem] text-[#555555] italic mb-6">
-                  This is to certify that
-                </p>
-
-                {/* Firm Name */}
-                <h2 className="font-serif text-[2.2rem] md:text-[2.6rem] text-[#1a1a1a] uppercase tracking-[0.15em] mb-6 font-normal leading-tight px-4 w-full truncate">
-                  {firm.name}
-                </h2>
-
-                <p className="font-serif text-[0.65rem] md:text-[0.7rem] text-[#555555] italic mb-3">
-                  is recognised under
-                </p>
-                {/* Division & Year */}
-                <h3 className="font-serif text-[1rem] md:text-[1.2rem] text-[#B89552] tracking-[0.25em] uppercase mb-1.5 font-medium drop-shadow-sm">
-                  {firm.division?.replace('™', '')}™
-                </h3>
-                <div className="text-[0.8rem] text-[#333] tracking-[0.25em] font-serif mb-6 font-medium">
-                  {firm.year}
-                </div>
-
-                <p className="font-serif text-[0.6rem] md:text-[0.65rem] text-[#444444] italic max-w-[90%] leading-[1.8]">
-                  In acknowledgement of its exceptional legal capability,<br />
-                  enduring professional excellence and distinguished contribution<br />
-                  to the legal profession.
-                </p>
-              </div>
-
-              {/* Bottom Footer Section (Date, Seal, Signature) */}
-              <div className="w-full flex items-end justify-between px-4 mt-6 relative pb-2">
-                
-                {/* Left: Date */}
-                <div className="flex flex-col text-left pb-1 w-32">
-                  <span className="font-serif text-[#333] text-[0.6rem] mb-2">{currentDate}</span>
-                  <span className="text-[0.35rem] tracking-[0.25em] uppercase text-[#666] font-bold border-t border-[#333]/20 pt-2">
-                    Date of Issue
-                  </span>
-                  <div className="mt-5">
-                    <h4 className="font-serif text-[0.7rem] text-[#333] tracking-[0.2em] uppercase leading-tight font-medium">
-                      The Juris<br />Standard™
-                    </h4>
-                  </div>
-                </div>
-
-                {/* Center: Seal - Smaller and nicely placed */}
-                <div className="flex flex-col items-center justify-center -mt-6 relative z-20">
-                  <div className="relative w-28 h-28 flex items-center justify-center">
-                    <img 
-                      src="/logo/seal main.png" 
-                      alt="Juris Standard Seal" 
-                      className="w-full h-full object-contain relative z-10 drop-shadow-[0_10px_15px_rgba(0,0,0,0.3)] hover:scale-105 transition-transform duration-500"
-                    />
-                  </div>
-                  <span className="text-[0.35rem] tracking-[0.25em] uppercase text-[#666] font-bold mt-3">
-                    A STRONGER LEGAL WORLD. ALWAYS.
-                  </span>
-                </div>
-
-                {/* Right: Signature & QR */}
-                <div className="flex flex-col text-right items-end pb-1 w-44">
-                  {/* Signature */}
-                  <div className="font-serif italic text-xl text-[#333] mb-1.5 signature-font pr-4" style={{ fontFamily: "'Cedarville Cursive', 'Brush Script MT', cursive" }}>
-                    Gabriel Jones
-                  </div>
-                  <span className="text-[0.35rem] tracking-[0.25em] uppercase text-[#666] font-bold border-t border-[#333]/20 pt-2 w-full text-left">
-                    EDITORIAL BOARD<br />
-                    THE JURIS STANDARD™
-                  </span>
                   
-                  {/* QR Code Layout matching the reference exactly */}
-                  <div className="mt-5 flex items-center justify-start w-full gap-3">
-                    <span className="text-[0.35rem] tracking-[0.2em] uppercase text-[#666] font-bold text-right leading-[1.6]">
-                      SCAN TO VERIFY<br/>THIS RECORD
-                    </span>
-                    <div className="w-10 h-10 bg-white border border-[#1a1a1a]/15 p-0.5">
-                      <img src={`https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://jurisstandard.com/record/${firm.recognitionId}`} alt="QR Code" className="w-full h-full opacity-85" />
+                  {/* QR Code Next to Signature */}
+                  <div className="flex flex-col items-center gap-1.5 shrink-0">
+                    <div className="w-12 h-12 bg-white p-1 border border-[#9c7b2e]/50 shadow-sm">
+                      <img src={`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://jurisstandard.com/record/${firm.recognitionId}`} alt="QR Code" className="w-full h-full opacity-90" />
                     </div>
+                    <span className="text-[0.3rem] tracking-[0.1em] text-[#444] uppercase text-center w-14 leading-tight font-medium">
+                      Verify this record
+                    </span>
                   </div>
                 </div>
+              </div>
 
+              {/* Top Right Meta */}
+              <div className="absolute top-10 right-10 flex flex-col items-end gap-3 text-right">
+                <div className="flex flex-col">
+                  <span className="text-[0.45rem] tracking-[0.2em] text-[#444] uppercase font-semibold">Record ID</span>
+                  <span className="text-[0.65rem] tracking-wider text-[#111] font-bold">{firm.recognitionId}</span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-[0.45rem] tracking-[0.2em] text-[#444] uppercase font-semibold">Status</span>
+                  <span className="text-[0.65rem] tracking-wider text-[#111] font-bold">{firm.status || 'Active'}</span>
+                </div>
               </div>
 
             </div>
