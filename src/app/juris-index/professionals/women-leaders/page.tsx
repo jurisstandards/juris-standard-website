@@ -202,14 +202,9 @@ export default function WomenLeadersTerminal() {
                   <span className="text-[0.6rem] font-bold tracking-[0.15em] text-[#CBAA69] uppercase">BY PROFESSIONAL FIELD</span>
                 </div>
                 <div className="grid grid-cols-2 gap-x-4 gap-y-3 text-[0.55rem] text-white/50">
-                  <span className="hover:text-[#CBAA69] cursor-pointer transition-colors">Corporate</span>
-                  <span className="hover:text-[#CBAA69] cursor-pointer transition-colors">IP</span>
-                  <span className="hover:text-[#CBAA69] cursor-pointer transition-colors">Litigation</span>
-                  <span className="hover:text-[#CBAA69] cursor-pointer transition-colors">Tax</span>
-                  <span className="hover:text-[#CBAA69] cursor-pointer transition-colors">Arbitration</span>
-                  <span className="hover:text-[#CBAA69] cursor-pointer transition-colors">In-House</span>
-                  <span className="hover:text-[#CBAA69] cursor-pointer transition-colors">Public Law</span>
-                  <span className="hover:text-[#CBAA69] cursor-pointer transition-colors">Other</span>
+                  {["Corporate & Commercial", "M&A", "Private Equity", "Banking & Finance", "Capital Markets", "Taxation", "Dispute Resolution", "Litigation", "Arbitration", "Competition/Antitrust", "Insolvency & Restructuring", "Regulatory & Compliance", "Employment & Labour", "Real Estate", "Infrastructure & Projects", "Energy & Power", "Intellectual Property", "Technology & AI", "Data Protection & Privacy", "Life Sciences & Healthcare", "International Trade"].map(pa => (
+                    <span key={pa} className="hover:text-[#CBAA69] cursor-pointer transition-colors">{pa}</span>
+                  ))}
                 </div>
               </div>
 

@@ -40,7 +40,7 @@ export async function POST(req: NextRequest) {
     const record = {
       id,
       recognitionId,
-      name: app.firm_name,
+      name: app.firm_type === 'Legal Professional' ? app.contact_name : app.firm_name,
       type: app.firm_type || "law_firm",
       division: assigned_division,
       category: assigned_category,
@@ -54,6 +54,8 @@ export async function POST(req: NextRequest) {
       logoType: "text",
       whyThisRecord: app.key_areas_for_recognition || "",
       firmInfo: {
+        firm_name: app.firm_type === 'Legal Professional' ? app.firm_name : "",
+        designation: app.contact_designation || "",
         founded: app.year_established || "",
         size: app.firm_size || "",
         description: app.about_firm || "",

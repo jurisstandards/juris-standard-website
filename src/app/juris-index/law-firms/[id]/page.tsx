@@ -416,12 +416,13 @@ export default async function JurisStandardRecordPage({
               </span>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 {[
-                  { Icon: Award, label: "Official Certificate", sub: "View / Download" },
-                  { Icon: FileText, label: "Recognition Share Card", sub: "Create / Share" },
-                  { Icon: Code2, label: "Website Seal™", sub: "Get / Install" },
-                ].map(({ Icon, label, sub }) => (
-                  <button
+                  { Icon: Award, label: "Official Certificate", sub: "View / Download", href: `/juris-index/law-firms/${record.id}/certificate` },
+                  { Icon: FileText, label: "Recognition Share Card", sub: "Create / Share", href: `/juris-index/law-firms/${record.id}/share` },
+                  { Icon: Code2, label: "Website Seal™", sub: "Get / Install", href: "#" },
+                ].map(({ Icon, label, sub, href }) => (
+                  <Link
                     key={label}
+                    href={href}
                     className="flex flex-col items-center justify-center gap-3 p-5 border border-[#CBAA69]/20 bg-transparent hover:border-[#CBAA69]/50 hover:bg-white/[0.02] transition-all group text-center rounded-[1px]"
                   >
                     <Icon className="w-6 h-6 text-[#CBAA69]/40 group-hover:text-[#CBAA69]/80 transition-colors" strokeWidth={1.2} />
@@ -429,7 +430,7 @@ export default async function JurisStandardRecordPage({
                       {label}
                     </span>
                     <span className="text-[0.45rem] uppercase tracking-widest text-white/30 font-light">{sub}</span>
-                  </button>
+                  </Link>
                 ))}
               </div>
             </div>

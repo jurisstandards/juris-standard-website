@@ -174,21 +174,9 @@ export default function LawFirmExcellenceTerminal() {
             </p>
 
             <div className="flex flex-wrap items-center gap-4 mb-10">
-              <button 
-                onClick={handleEnterIndex}
+              <Link 
+                href="/enter-the-index"
                 className="px-8 py-3.5 bg-gradient-to-r from-[#CBAA69] to-[#B89552] text-[#050505] text-[0.7rem] font-bold uppercase tracking-[0.15em] hover:from-[#E8D099] hover:to-[#CBAA69] transition-all flex items-center gap-3 rounded-[2px] shadow-[0_0_20px_rgba(203,170,105,0.2)]"
-              >
-                ENTER THE INDEX <ArrowRight className="w-4 h-4" />
-              </button>
-              <Link 
-                href="/about"
-                className="px-8 py-3.5 border border-[#333333] bg-[#000000]/50 backdrop-blur-sm text-[#FFFFF0] text-[0.7rem] font-semibold uppercase tracking-[0.15em] hover:border-[#FFFFF0] hover:bg-white/5 transition-all flex items-center gap-3 rounded-[2px]"
-              >
-                THE STANDARD <ArrowRight className="w-4 h-4 text-[#FFFFF0]" />
-              </Link>
-              <Link 
-                href="/register"
-                className="px-8 py-3.5 border border-[#CBAA69]/30 bg-transparent text-[#CBAA69] text-[0.7rem] font-medium uppercase tracking-[0.15em] hover:border-[#CBAA69]/60 hover:bg-[#CBAA69]/5 transition-all flex items-center gap-3 rounded-[2px]"
               >
                 APPLY FOR RECOGNITION <ArrowRight className="w-4 h-4" />
               </Link>
@@ -215,7 +203,7 @@ export default function LawFirmExcellenceTerminal() {
             
             <div className="flex flex-col gap-5 mb-8">
               {[
-                { label: 'PRACTICE AREAS', val: 'All Practice Areas', options: ['Arbitration & ADR', 'Artificial Intelligence', 'Aviation', 'Banking & Finance', 'Capital Markets', 'Competition & Antitrust', 'Constitutional & Public Law', 'Construction', 'Corporate & Commercial', 'Customs & International Trade', 'Data Privacy & Cybersecurity', 'Direct Tax', 'Employment & Labour', 'Energy & Natural Resources', 'Environmental & Climate', 'Family & Private Client', 'Government & Public Sector Advisory', 'Healthcare & Life Sciences', 'Indirect Tax (GST)', 'Infrastructure & Projects', 'Insolvency & Restructuring', 'Insurance', 'Intellectual Property', 'Litigation', 'Maritime & Shipping', 'Media & Entertainment', 'Private Equity & Venture Capital', 'Real Estate', 'Regulatory & Compliance', 'Sports Law', 'Technology, Media & Telecommunications', 'White Collar Crime & Investigations', 'Other (Specify)'], state: practiceArea, set: setPracticeArea },
+                { label: 'PRACTICE AREAS', val: 'All Practice Areas', options: ["Corporate & Commercial", "M&A", "Private Equity", "Banking & Finance", "Capital Markets", "Taxation", "Competition/Antitrust", "Insolvency & Restructuring", "Litigation", "Arbitration", "White-Collar Crime & Investigations", "Regulatory & Compliance", "Employment & Labour", "Real Estate", "Infrastructure & Projects", "Energy & Power", "Intellectual Property", "Technology & AI", "Data Protection & Privacy", "Life Sciences & Healthcare", "Environmental & ESG", "International Trade", "Foreign Investment"], state: practiceArea, set: setPracticeArea },
                 { label: 'TIER / RECOGNITION', val: 'All', options: ['Principal Record', 'Distinguished', 'Rising'], state: tier, set: setTier },
                 { label: 'FIRM SIZE', val: 'All', options: ['Full Service', 'Specialist', 'Boutique', 'Mid Size'], state: firmSize, set: setFirmSize },
                 { label: 'YEAR OF RECOGNITION', val: 'All', options: ['2027', '2026', '2025'], state: yearRecognition, set: setYearRecognition },

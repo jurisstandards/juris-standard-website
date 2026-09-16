@@ -192,7 +192,7 @@ export default function FutureLeadersTerminal() {
                   <span className="text-[0.6rem] font-bold tracking-[0.15em] text-[#CBAA69] uppercase">EXPLORE BY PRACTICE</span>
                 </div>
                 <div className="grid grid-cols-2 gap-x-4 gap-y-3 text-[0.55rem] text-white/50">
-                  {["Corporate", "Tax", "Litigation", "IP", "Arbitration", "Employment", "Insolvency", "Public Law"].map(t => (
+                  {["Corporate & Commercial", "M&A", "Private Equity", "Banking & Finance", "Capital Markets", "Taxation", "Competition/Antitrust", "Insolvency & Restructuring", "Litigation", "Arbitration", "Regulatory & Compliance", "Employment & Labour", "Real Estate", "Infrastructure & Projects", "Energy & Power", "Intellectual Property", "Technology & AI", "Data Protection & Privacy", "Life Sciences & Healthcare", "International Trade", "Emerging Technologies"].map(t => (
                     <span key={t} className="hover:text-[#CBAA69] cursor-pointer transition-colors">{t}</span>
                   ))}
                 </div>

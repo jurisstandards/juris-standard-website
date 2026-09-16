@@ -75,13 +75,13 @@ export function EditorialProfile() {
     switch (section) {
       case 'identity':
         if (selectedTrack === 'firm') {
-          return !!(profileData.identity.firmName && profileData.identity.managingPartner && profileData.identity.yearEstablished && profileData.identity.country && profileData.identity.city);
+          return !!(profileData.identity.firmName && profileData.identity.managingPartner && profileData.identity.email && profileData.identity.yearEstablished && profileData.identity.country && profileData.identity.hqCity);
         }
         if (selectedTrack === 'media') {
-          return !!(profileData.identity.orgName && profileData.identity.editorInChief && profileData.identity.country && profileData.identity.city);
+          return !!(profileData.identity.orgName && profileData.identity.editorInChief && profileData.identity.email && profileData.identity.country && profileData.identity.city);
         }
         if (selectedTrack === 'innovation') {
-          return !!(profileData.identity.orgName && profileData.identity.founderCeo && profileData.identity.country && profileData.identity.city);
+          return !!(profileData.identity.orgName && profileData.identity.founderCeo && profileData.identity.email && profileData.identity.country && profileData.identity.city);
         }
         // Professional
         return !!(profileData.identity.fullName && profileData.identity.email && profileData.identity.mobile && profileData.identity.designation && profileData.identity.country && profileData.identity.city);
@@ -165,6 +165,7 @@ export function EditorialProfile() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <Input label="Firm Name" value={profileData.identity.firmName} onChange={(val) => updateProfileData('identity', { firmName: val })} required />
                 <Input label="Managing Partner" value={profileData.identity.managingPartner} onChange={(val) => updateProfileData('identity', { managingPartner: val })} required />
+                <Input label="Contact Email" value={profileData.identity.email} onChange={(val) => updateProfileData('identity', { email: val })} required />
                 <Input label="Year Established" value={profileData.identity.yearEstablished} onChange={(val) => updateProfileData('identity', { yearEstablished: val })} required />
                 <div className="hidden md:block"></div>
                 <SelectInput 
@@ -195,6 +196,7 @@ export function EditorialProfile() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <Input label="Organisation Name" value={profileData.identity.orgName} onChange={(val) => updateProfileData('identity', { orgName: val })} required />
                 <Input label={selectedTrack === 'media' ? "Editor-in-Chief / Primary Contact" : "Founder / CEO"} value={selectedTrack === 'media' ? profileData.identity.editorInChief : profileData.identity.founderCeo} onChange={(val) => selectedTrack === 'media' ? updateProfileData('identity', { editorInChief: val }) : updateProfileData('identity', { founderCeo: val })} required />
+                <Input label="Contact Email" value={profileData.identity.email} onChange={(val) => updateProfileData('identity', { email: val })} required />
                 <SelectInput 
                   label="Country" 
                   value={profileData.identity.country} 

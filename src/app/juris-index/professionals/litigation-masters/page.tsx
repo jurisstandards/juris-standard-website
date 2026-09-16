@@ -194,14 +194,9 @@ export default function LitigationMastersTerminal() {
                   <span className="text-[0.6rem] font-bold tracking-[0.15em] text-[#CBAA69] uppercase">EXPLORE BY PRACTICE</span>
                 </div>
                 <div className="grid grid-cols-2 gap-x-4 gap-y-4 text-[0.55rem] text-white/50">
-                  <span className="hover:text-[#CBAA69] cursor-pointer transition-colors">Commercial Litigation</span>
-                  <span className="hover:text-[#CBAA69] cursor-pointer transition-colors">Arbitration</span>
-                  <span className="hover:text-[#CBAA69] cursor-pointer transition-colors">Civil Litigation</span>
-                  <span className="hover:text-[#CBAA69] cursor-pointer transition-colors">Insolvency</span>
-                  <span className="hover:text-[#CBAA69] cursor-pointer transition-colors">Constitutional & Public Law</span>
-                  <span className="hover:text-[#CBAA69] cursor-pointer transition-colors">Regulatory & Tribunal</span>
-                  <span className="hover:text-[#CBAA69] cursor-pointer transition-colors">Criminal & White-Collar</span>
-                  <span className="hover:text-[#CBAA69] cursor-pointer transition-colors">Other Practice Areas</span>
+                  {["Commercial Litigation", "Corporate Litigation", "Constitutional & Administrative Law", "Civil Litigation", "Criminal Law", "Tax Litigation", "Competition Litigation", "Insolvency Litigation", "Arbitration", "International Arbitration", "Investment Arbitration", "White-Collar Crime & Investigations", "Regulatory Litigation", "Intellectual Property Litigation", "Employment Litigation", "Real Estate & Infrastructure Disputes", "Environmental Disputes", "Maritime Disputes"].map(pa => (
+                    <span key={pa} className="hover:text-[#CBAA69] cursor-pointer transition-colors">{pa}</span>
+                  ))}
                 </div>
               </div>
 

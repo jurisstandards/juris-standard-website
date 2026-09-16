@@ -3,20 +3,89 @@ import { motion } from "framer-motion";
 import { Folder, CheckCircle, ChevronDown, Edit2, ShieldCheck, ChevronRight, ChevronLeft, FileText, CheckCircle2, XCircle } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
+import { supabase } from "@/lib/supabase";
+import { useRouter } from "next/navigation";
 
 export function ReviewSubmission() {
-  const { profileData, selectedTrack, selectedProgramme, setStage, updateProfileData, isNavigatingBack } = useSubmissionStore();
+  const { profileData, selectedTrack, selectedProgramme, selectedPracticeAreas, setStage, updateProfileData, isNavigatingBack } = useSubmissionStore();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [declarationAccepted, setDeclarationAccepted] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  const router = useRouter();
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!declarationAccepted) return;
     setIsSubmitting(true);
-    // Mock API Call
-    setTimeout(() => {
+    setSubmitError(null);
+
+    try {
+      // Check auth
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) {
+        router.push("/login?redirect=/enter-the-index");
+        return;
+      }
+
+      let applying_for_division = "Law Firm Excellence™";
+      if (selectedTrack === "firm") {
+        applying_for_division = "Law Firm Excellence™";
+      } else if (selectedTrack === "professional") {
+        const cePractices = ["Corporate Advisory", "Corporate Governance", "Mergers & Acquisitions", "Joint Ventures", "Commercial Contracts", "Private Equity", "Venture Capital"];
+        const hasCE = selectedPracticeAreas.some(area => cePractices.includes(area));
+        applying_for_division = hasCE ? "Corporate Elite™" : "Litigation Masters™";
+      } else if (selectedTrack === "media" || selectedTrack === "innovation") {
+        applying_for_division = "Legal Innovation Excellence™";
+      }
+
+      // Build payload
+      const payload = {
+        // Firm identity
+        firm_name: profileData.identity.firmName || profileData.identity.orgName || profileData.identity.fullName || "",
+        firm_type: selectedTrack === "firm" ? "Law Firm" : selectedTrack === "media" ? "Legal Media" : selectedTrack === "innovation" ? "Legal Technology" : "Legal Professional",
+        year_established: profileData.identity.yearEstablished || "",
+        headquarters_city: profileData.identity.hqCity || profileData.identity.city || "",
+        country: profileData.identity.hqCountry || profileData.identity.country || "India",
+        website_url: profileData.presence.website || profileData.presence.firmProfile || "",
+        // Practice — use the checked areas from ProgrammeSelection step
+        practice_areas: selectedPracticeAreas.length > 0
+          ? selectedPracticeAreas
+          : (profileData.practice.primaryPracticeAreas || profileData.practice.primaryPractice || "")
+              .split(",").map((s: string) => s.trim()).filter(Boolean),
+        firm_size: profileData.practice.firmSize || profileData.practice.orgSize || "",
+        num_partners: "",
+        num_lawyers: "",
+        offices: profileData.practice.officeLocations || "",
+        // About
+        about_firm: profileData.biography.firmHistory || profileData.biography.bio || profileData.biography.companyInnovation || "",
+        achievements: profileData.presence.publications || profileData.presence.publicationsInsights || "",
+        key_areas_for_recognition: selectedPracticeAreas.join(", ") || profileData.practice.primaryPracticeAreas || profileData.practice.primaryInnovationArea || "",
+        applying_for_division,
+        // Contact
+        contact_name: profileData.identity.managingPartner || profileData.identity.fullName || profileData.identity.editorInChief || profileData.identity.founderCeo || "",
+        contact_email: profileData.identity.email || "",
+        contact_phone: profileData.identity.mobile || "",
+        contact_designation: profileData.identity.designation || (selectedTrack === "firm" ? "Managing Partner" : ""),
+      };
+
+      const res = await fetch("/api/admin/applications", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${session.access_token}`,
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.error || "Submission failed");
+      }
+
+      setStage("confirmation");
+    } catch (err: any) {
+      setSubmitError(err.message || "An unexpected error occurred. Please try again.");
       setIsSubmitting(false);
-      setStage('confirmation');
-    }, 2000);
+    }
   };
 
   const getTrackName = () => {
@@ -355,6 +424,12 @@ export function ReviewSubmission() {
                 )}
               </span>
             </button>
+
+            {submitError && (
+              <div className="mt-4 p-3 bg-red-500/10 border border-red-500/30 rounded-lg">
+                <p className="text-red-400 text-xs leading-relaxed">{submitError}</p>
+              </div>
+            )}
           </div>
         </div>
 

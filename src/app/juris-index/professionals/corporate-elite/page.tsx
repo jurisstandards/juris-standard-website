@@ -9,8 +9,9 @@ import {
   Users, Landmark, Star, User
 } from "lucide-react";
 import Link from "next/link";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { supabase } from "@/lib/supabase";
 
 export default function CorporateEliteTerminal() {
   const containerClasses = "w-full max-w-[2000px] mx-auto px-6 md:px-12 lg:px-24 xl:px-32";
@@ -21,6 +22,20 @@ export default function CorporateEliteTerminal() {
   const [recognition, setRecognition] = useState("");
   const [setting, setSetting] = useState("");
   const lawyersRef = useRef<HTMLDivElement>(null);
+  
+  const [dynamicLawyers, setDynamicLawyers] = useState<any[]>([]);
+  useEffect(() => {
+    const fetchLawyers = async () => {
+      const { data } = await supabase
+        .from('juris_records')
+        .select('*')
+        .eq('division', 'Corporate Elite™');
+      if (data) {
+        setDynamicLawyers(data);
+      }
+    };
+    fetchLawyers();
+  }, []);
 
   const handleSearch = () => lawyersRef.current?.scrollIntoView({ behavior: "smooth" });
   const handleReset = () => { setSearchQuery(""); setPracticeArea(""); setLocation(""); setRecognition(""); setSetting(""); };
@@ -82,11 +97,8 @@ export default function CorporateEliteTerminal() {
             </p>
 
             <div className="flex flex-wrap items-center gap-4 mb-10">
-              <button onClick={handleSearch} className="px-8 py-3.5 bg-gradient-to-r from-[#CBAA69] to-[#B89552] text-[#050505] text-[0.7rem] font-bold uppercase tracking-[0.15em] hover:from-[#E8D099] hover:to-[#CBAA69] transition-all flex items-center gap-3 rounded-[2px] shadow-[0_0_20px_rgba(203,170,105,0.2)]">
+              <Link href="/enter-the-index" className="px-8 py-3.5 bg-gradient-to-r from-[#CBAA69] to-[#B89552] text-[#050505] text-[0.7rem] font-bold uppercase tracking-[0.15em] hover:from-[#E8D099] hover:to-[#CBAA69] transition-all flex items-center gap-3 rounded-[2px] shadow-[0_0_20px_rgba(203,170,105,0.2)]">
                 ENTER THE INDEX <ArrowRight className="w-4 h-4" />
-              </button>
-              <Link href="/about" className="px-8 py-3.5 border border-[#333333] bg-[#000000]/50 backdrop-blur-sm text-[#FFFFF0] text-[0.7rem] font-semibold uppercase tracking-[0.15em] hover:border-[#FFFFF0] hover:bg-white/5 transition-all flex items-center gap-3 rounded-[2px]">
-                THE STANDARD <ArrowRight className="w-4 h-4 text-[#FFFFF0]" />
               </Link>
             </div>
 
@@ -138,7 +150,7 @@ export default function CorporateEliteTerminal() {
             
             <div className="flex flex-col gap-5 mb-8">
               {[
-                { label: 'PRACTICE AREA', val: 'All Practice Areas', icon: Briefcase, options: ['Corporate & M&A','Private Capital','Finance & Markets','In-House Counsel'], state: practiceArea, set: setPracticeArea },
+                { label: 'PRACTICE AREA', val: 'All Practice Areas', icon: Briefcase, options: ["Corporate Governance", "M&A", "Corporate Finance", "Banking & Finance", "Capital Markets", "Taxation", "Competition/Antitrust", "Insolvency & Restructuring", "Regulatory & Compliance", "Employment & Labour", "Intellectual Property", "Technology & AI", "Data Protection & Privacy", "Real Estate", "Infrastructure & Projects", "Energy & Power", "International Trade", "Foreign Investment", "Environmental & ESG"], state: practiceArea, set: setPracticeArea },
                 { label: 'PROFESSIONAL SETTING', val: 'All', icon: Building2, options: ['Law Firm','In-House','Chambers','Independent'], state: setting, set: setSetting },
                 { label: 'LOCATION', val: 'All Cities', icon: MapPin, options: ['Mumbai','New Delhi','Bengaluru','Hyderabad','Chennai'], state: location, set: setLocation },
                 { label: 'RECOGNITION', val: 'Corporate Elite™ - 2027', icon: Award, options: ['2027','2026','2025'], state: recognition, set: setRecognition }
@@ -246,7 +258,21 @@ export default function CorporateEliteTerminal() {
               { name: "Pallavi Shroff", type: "Global General Counsel", firmName: "Mahindra Group", loc: "Mumbai", badge: "2027 - RECOGNISED" }
             ]
           },
-        ].map((band, idx) => (
+        ].map((band, idx) => {
+          let mergedLawyers = [...band.lawyers];
+          const dbLawyersForBand = dynamicLawyers
+            .filter(l => l.category === band.title || (band.title === "CORPORATE & M&A COUNSEL™" && !l.category))
+            .map(l => ({
+               id: l.id,
+               name: l.name,
+               type: l.firmInfo?.designation || l.type || 'Partner',
+               firmName: l.firmInfo?.firm_name || l.name,
+               loc: l.location || l.headquarters_city || '',
+               badge: `${l.year || '2027'} - RECOGNISED`
+            }));
+          mergedLawyers = [...dbLawyersForBand, ...mergedLawyers];
+
+          return (
           <div key={idx} className="w-full border-b border-white/[0.06] last:border-0 relative">
             <div className={`${containerClasses} py-6 md:py-10 flex flex-col gap-6`}>
               
@@ -274,8 +300,8 @@ export default function CorporateEliteTerminal() {
               <div className="relative">
                 <div className="overflow-x-auto pb-4 pt-1 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
                   <div className="flex items-stretch gap-4 min-w-max pr-12">
-                    {band.lawyers.map((lawyer, fIdx) => (
-                      <div key={fIdx} className="w-[200px] sm:w-[220px] h-[300px] flex flex-col border border-[#1a1a1a] bg-[#080808] hover:border-[#CBAA69]/40 transition-colors duration-200 relative cursor-pointer group/card overflow-hidden">
+                    {mergedLawyers.map((lawyer, fIdx) => (
+                      <Link key={fIdx} href={`/juris-index/professionals/corporate-elite/${(lawyer as any).id || lawyer.name.toLowerCase().replaceAll(' ', '-')}`} className="w-[200px] sm:w-[220px] h-[300px] flex flex-col border border-[#1a1a1a] bg-[#080808] hover:border-[#CBAA69]/40 transition-colors duration-200 relative cursor-pointer group/card overflow-hidden">
                         
                         {/* Permanent gold top accent */}
                         <div className="h-[2px] w-full bg-gradient-to-r from-[#CBAA69]/60 via-[#CBAA69]/30 to-transparent flex-shrink-0" />
@@ -301,7 +327,7 @@ export default function CorporateEliteTerminal() {
                           <div className="w-1 h-1 rounded-full bg-[#CBAA69]/60 flex-shrink-0" />
                           <div className="text-[0.45rem] font-medium uppercase tracking-[0.2em] text-[#CBAA69]/70">{lawyer.badge}</div>
                         </div>
-                      </div>
+                      </Link>
                     ))}
                   </div>
                 </div>
@@ -321,7 +347,8 @@ export default function CorporateEliteTerminal() {
 
             </div>
           </div>
-        ))}
+          );
+        })}
       </div>
 
       {/* 3. UNIFIED EXPLORE & RECOGNITION FOOTER PANEL */}

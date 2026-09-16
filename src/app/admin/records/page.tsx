@@ -36,7 +36,7 @@ const DIVISIONS = [
 const CATEGORIES: Record<string, string[]> = {
   "Law Firm Excellence™": ["Principal Record", "Distinguished Law Firms", "Rising Law Firms"],
   "Litigation Masters™": ["Senior Counsel", "Established Advocates", "Rising Advocates"],
-  "Corporate Elite™": ["Corporate Senior", "Corporate Partners", "Corporate Associates"],
+  "Corporate Elite™": ["CORPORATE & M&A COUNSEL™", "PRIVATE CAPITAL COUNSEL™", "FINANCE & MARKETS COUNSEL™", "IN-HOUSE CORPORATE COUNSEL™"],
   "Women Leaders™": ["Women Leaders 2027", "Distinguished Women", "Next Generation"],
   "Future Leaders™": ["Future Leaders 2027", "Emerging Leaders", "Rising Stars"],
   "Legal Innovation Excellence™": ["Innovation Excellence", "Legal Research", "Legal Technology"],
