@@ -119,10 +119,15 @@ export default function LegalInnovationExcellenceCertificatePage() {
       </div>
 
       {/* Certificate Container */}
-      <div className="relative z-10 flex-1 flex flex-col items-center justify-center w-full h-full pt-12 pb-24 print:p-0 print:m-0 print:flex print:items-center print:justify-center">
+      <div className="relative z-10 flex-1 flex flex-col items-center justify-center w-full h-full pt-14 pb-20 print:p-0 print:m-0 print:flex print:items-center print:justify-center overflow-hidden">
         
         {/* Certificate Wrapper (Thick Frame) */}
-        <div className="w-[1000px] aspect-[1.5/1] bg-[#d4af37]/20 p-[2px] rounded-sm relative shadow-[0_20px_50px_rgba(0,0,0,0.8)] flex-shrink-0 print:shadow-none print:m-0 print:overflow-hidden">
+        <div className="w-[1000px] aspect-[1.5/1] bg-[#d4af37]/20 p-[2px] rounded-sm relative shadow-[0_20px_50px_rgba(0,0,0,0.8)] flex-shrink-0 print:shadow-none print:m-0 print:overflow-hidden"
+          style={{ 
+            maxHeight: 'calc(100vh - 136px)',
+            maxWidth: 'min(1000px, calc((100vh - 136px) * 1.5))',
+            width: 'min(1000px, calc((100vh - 136px) * 1.5))',
+          }}>
           {/* Inner Gold Bevel effect */}
           <div className="absolute inset-0 border-[4px] border-[#9c7b2e] rounded-sm pointer-events-none z-30 opacity-80 mix-blend-overlay" />
           <div className="absolute inset-[4px] border-[2px] border-[#ffe8a1]/30 rounded-sm pointer-events-none z-30" />
