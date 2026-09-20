@@ -64,165 +64,134 @@ export default async function JurisStandardRecordPage({
   // High-end serif font fallback for maximum elegance
   const luxurySerif = "Playfair Display, Georgia, serif";
 
-  return (
-    <main className="min-h-screen bg-[#050402] selection:bg-[#CBAA69]/30 flex flex-col font-sans text-[#FFFFF0] overflow-x-hidden">
+    <main className="min-h-screen bg-[#0a0a0a] selection:bg-[#CBAA69]/30 flex flex-col font-sans text-neutral-300 overflow-x-hidden">
       <Navbar />
 
       {/* ═══════════════════════════════════════════════════════
           SECTION 1 — HERO
       ═══════════════════════════════════════════════════════ */}
-      <section className="relative w-full min-h-[600px] flex flex-col justify-center overflow-hidden border-b border-[#CBAA69]/20 pt-32 pb-16">
+      <section className="relative w-full min-h-[600px] flex flex-col pt-32 pb-16 lg:pt-36 lg:pb-16 border-b border-[#1a1a1a]">
         
-        {/* Cinematic Dark Background */}
-        <div
-          className="absolute inset-0 z-0"
-          style={{
-            background: "radial-gradient(ellipse 90% 100% at 75% 40%, rgba(35,25,10,0.8) 0%, rgba(10,8,5,0.95) 50%, #050402 100%)",
-          }}
-        />
-        <div className="absolute inset-0 z-0 opacity-[0.02] pointer-events-none" style={{ backgroundImage: "repeating-linear-gradient(90deg, #CBAA69 0px, transparent 1px, transparent 80px)" }} />
-        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#050402] to-transparent z-10 pointer-events-none" />
-
-        {/* Top-left breadcrumb & navigation row */}
-        <div className="absolute top-28 left-6 md:left-12 lg:left-16 z-20 flex gap-6 items-center text-[0.5rem] uppercase tracking-[0.3em] text-[#CBAA69]/70 font-medium">
-          <Link href="/juris-index/law-firms" className="hover:text-[#CBAA69] transition-colors flex items-center gap-2">
-            <ArrowLeft className="w-3.5 h-3.5" strokeWidth={1.5} />
-            LAW FIRM EXCELLENCE™
-          </Link>
+        {/* Cinematic Dark Background matching homepage/Corporate Elite */}
+        <div className="absolute inset-0 z-0 bg-[#050505]">
+           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,#050505_100%)]" />
+           <div className="absolute inset-0 bg-gradient-to-r from-[#050505] via-transparent to-[#050505]" />
         </div>
 
-        {/* Top-right decorative text */}
-        <div className="absolute top-28 right-6 md:right-16 z-20 hidden md:flex gap-6 items-center text-[0.5rem] uppercase tracking-[0.3em] text-white/30 font-medium">
-          <span>A STRONGER LEGAL WORLD. ALWAYS.</span>
-        </div>
-
-        <div className="relative z-20 w-full max-w-[1500px] mx-auto px-6 md:px-12 lg:px-16 grid grid-cols-1 lg:grid-cols-12 gap-12 mt-12">
+        <div className="w-full px-6 md:px-12 lg:px-20 max-w-[1400px] mx-auto relative z-10 flex flex-col flex-1">
           
-          {/* LEFT CONTENT COLUMN */}
-          <div className="lg:col-span-7 flex flex-col justify-center">
-            
-            <p className="text-[0.55rem] uppercase tracking-[0.4em] text-[#CBAA69]/80 mb-6 font-medium">
-              LAW FIRM EXCELLENCE™
-            </p>
-            
-            <h1 className="text-5xl md:text-6xl lg:text-7xl text-white font-normal leading-[1.05] tracking-wide mb-6 uppercase drop-shadow-md" style={{ fontFamily: luxurySerif }}>
-              {record.name}
-            </h1>
-
-            <p className="text-lg md:text-xl text-[#CBAA69] font-light tracking-[0.3em] uppercase mb-4 drop-shadow-sm" style={{ fontFamily: luxurySerif }}>
-              RECOGNISED · {record.year}
-            </p>
-
-            <p className="text-base md:text-lg text-white/70 italic mb-12 tracking-wide font-light max-w-xl" style={{ fontFamily: luxurySerif }}>
-              A mark of enduring excellence in the legal profession.
-            </p>
-
-            {/* Meta info row with ultra-thin gold dividers */}
-            <div className="flex flex-wrap items-center gap-6 md:gap-10 mb-10 border-t border-b border-[#CBAA69]/20 py-5">
-              <div className="flex flex-col gap-1.5">
-                <span className="text-[0.5rem] uppercase tracking-[0.3em] text-[#CBAA69]/60 font-medium">RECORD ID</span>
-                <span className="text-xs text-white/80 font-mono tracking-widest">{record.recognitionId}</span>
-              </div>
-              <div className="w-[1px] h-10 bg-[#CBAA69]/20 hidden sm:block" />
-              <div className="flex flex-col gap-1.5">
-                <span className="text-[0.5rem] uppercase tracking-[0.3em] text-[#CBAA69]/60 font-medium">STATUS</span>
-                <span className="flex items-center gap-2 text-xs text-white/80 uppercase tracking-[0.2em] font-medium">
-                  <span className="w-2 h-2 rounded-full bg-emerald-500/80 shadow-[0_0_8px_rgba(52,211,153,0.4)]" />
-                  {record.status === "active" ? "Active" : record.status}
-                </span>
-              </div>
-              <div className="w-[1px] h-10 bg-[#CBAA69]/20 hidden sm:block" />
-              <div className="flex flex-col gap-1.5">
-                <span className="text-[0.5rem] uppercase tracking-[0.3em] text-[#CBAA69]/60 font-medium">RECOGNITION YEAR</span>
-                <span className="text-xs text-white/80 tracking-widest">{record.year}</span>
-              </div>
-              <div className="w-[1px] h-10 bg-[#CBAA69]/20 hidden md:block" />
-              <div className="flex flex-col gap-1.5">
-                <span className="text-[0.5rem] uppercase tracking-[0.3em] text-[#CBAA69]/60 font-medium">DIVISION</span>
-                <span className="text-xs text-white/80 tracking-widest">{record.division}</span>
-              </div>
-            </div>
-
-            {/* Actions */}
-            <FirmHeroActions
-              recordId={record.id}
-              recordName={record.name}
-              recordDiv={record.division}
-              recordYear={record.year}
-            />
+          {/* Top Bar for Back button */}
+          <div className="flex justify-between items-center mb-12 border-b border-white/[0.05] pb-6">
+            <Link href="/juris-index/law-firms" className="flex items-center gap-3 text-[0.6rem] uppercase tracking-widest text-white/50 hover:text-[#CBAA69] transition-colors font-medium">
+              <ArrowLeft className="w-4 h-4" /> Back to Law Firm Excellence™
+            </Link>
+            <span className="text-[0.55rem] uppercase tracking-[0.4em] text-white/30 hidden md:block">RECOGNISE. VERIFY. PRESERVE.</span>
           </div>
 
-          {/* RIGHT COLUMN - MEDALLION & TEXT */}
-          <div className="lg:col-span-5 relative hidden lg:flex items-center justify-end pr-8">
+          <div className="flex flex-col lg:flex-row justify-between gap-16 lg:gap-12 items-center lg:items-stretch flex-1">
             
-            {/* The giant seal */}
-            <div className="relative w-[360px] h-[360px] xl:w-[400px] xl:h-[400px] flex items-center justify-center group pointer-events-none">
+            {/* LEFT CONTENT COLUMN */}
+            <div className="lg:col-span-7 flex flex-col justify-center max-w-3xl flex-1">
               
-              {/* Outer thin ring & subtle glow */}
-              <div className="absolute inset-0 rounded-full border border-[#CBAA69]/40 shadow-[0_0_80px_rgba(203,170,105,0.1),inset_0_0_50px_rgba(203,170,105,0.05)] bg-gradient-to-br from-[#1a140a] via-[#0f0c06] to-[#050402]" />
+              <div className="inline-flex items-center gap-3 mb-6">
+                <span className="w-6 h-[1px] bg-[#CBAA69]/50" />
+                <h4 className="text-[0.65rem] tracking-[0.3em] text-[#CBAA69] uppercase font-medium">Law Firm Excellence™</h4>
+              </div>
               
-              {/* Inner metallic ring */}
-              <div className="absolute inset-[20px] rounded-full border border-[#CBAA69]/20 shadow-[inset_0_0_30px_rgba(0,0,0,0.5)]" />
-              
-              {/* Content core */}
-              <div className="absolute inset-[40px] rounded-full border border-[#CBAA69]/10 flex flex-col items-center justify-center gap-4 text-center">
-                
-                {/* Curved top text */}
-                <svg className="absolute inset-0 w-full h-full" viewBox="0 0 100 100">
-                  <path id="curve-top" d="M 15 50 A 35 35 0 1 1 85 50" fill="transparent" />
-                  <text className="text-[0.38rem] font-medium uppercase fill-[#CBAA69]/80" style={{ letterSpacing: "0.45em" }}>
-                    <textPath href="#curve-top" startOffset="50%" textAnchor="middle">THE JURIS STANDARD</textPath>
-                  </text>
-                </svg>
+              <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl text-white tracking-wider uppercase mb-6 leading-[1.05] break-words">
+                {record.name}
+              </h1>
 
-                {/* Curved bottom text */}
-                <svg className="absolute inset-0 w-full h-full" viewBox="0 0 100 100">
-                  <path id="curve-bottom" d="M 15 50 A 35 35 0 1 0 85 50" fill="transparent" />
-                  <text className="text-[0.35rem] font-medium uppercase fill-[#CBAA69]/60" style={{ letterSpacing: "0.3em" }}>
-                    <textPath href="#curve-bottom" startOffset="50%" textAnchor="middle">LAW FIRM EXCELLENCE</textPath>
-                  </text>
-                </svg>
+              <div className="flex items-center gap-4 text-[0.6rem] tracking-[0.25em] uppercase mb-4">
+                <span className="px-3 py-1 bg-[#CBAA69]/10 text-[#CBAA69] border border-[#CBAA69]/20 rounded-sm font-semibold">RECOGNISED · {record.year}</span>
+              </div>
 
-                {/* Center logo */}
-                <Landmark className="w-16 h-16 text-[#CBAA69]/90 drop-shadow-lg z-10" strokeWidth={1} />
-                
-                {/* Center Year */}
-                <span className="text-2xl text-[#CBAA69] z-10 drop-shadow-sm tracking-wider font-normal mt-1" style={{ fontFamily: luxurySerif }}>
-                  {record.year}
-                </span>
+              <p className="font-serif italic text-xl md:text-2xl text-white/80 mb-12 max-w-xl">
+                A mark of enduring excellence in the legal profession.
+              </p>
+
+              {/* Meta info row */}
+              <div className="flex flex-wrap items-center gap-x-8 gap-y-6 mb-10 border-t border-b border-white/5 py-6">
+                <div className="flex flex-col gap-1.5">
+                  <span className="text-[0.55rem] font-sans tracking-[0.2em] text-white/30 uppercase">Record ID</span>
+                  <span className="text-[0.8rem] text-white/80 font-serif">{record.recognitionId}</span>
+                </div>
+                <div className="w-[1px] h-8 bg-white/10 hidden sm:block" />
+                <div className="flex flex-col gap-1.5">
+                  <span className="text-[0.55rem] font-sans tracking-[0.2em] text-white/30 uppercase">Status</span>
+                  <span className="flex items-center gap-2 text-[0.8rem] text-white/80 uppercase tracking-widest font-serif">
+                    <span className="w-2 h-2 rounded-full bg-emerald-500/80 shadow-[0_0_8px_rgba(52,211,153,0.4)]" />
+                    {record.status === "active" ? "Active" : record.status}
+                  </span>
+                </div>
+                <div className="w-[1px] h-8 bg-white/10 hidden sm:block" />
+                <div className="flex flex-col gap-1.5">
+                  <span className="text-[0.55rem] font-sans tracking-[0.2em] text-white/30 uppercase">Recognition Year</span>
+                  <span className="text-[0.8rem] text-white/80 font-serif">{record.year}</span>
+                </div>
+                <div className="w-[1px] h-8 bg-white/10 hidden md:block" />
+                <div className="flex flex-col gap-1.5">
+                  <span className="text-[0.55rem] font-sans tracking-[0.2em] text-white/30 uppercase">Division</span>
+                  <span className="text-[0.8rem] text-white/80 font-serif">{record.division}</span>
+                </div>
+              </div>
+
+              {/* Actions */}
+              <div className="mt-auto">
+                <FirmHeroActions
+                  recordId={record.id}
+                  recordName={record.name}
+                  recordDiv={record.division}
+                  recordYear={record.year}
+                />
               </div>
             </div>
 
-            {/* Floating text - Top Right */}
-            <div className="absolute top-10 -right-6 text-right select-none">
-              <p className="text-[0.45rem] uppercase tracking-[0.45em] text-[#CBAA69]/50 font-medium leading-[2.5]">
-                PEOPLE.<br/>FIRMS.<br/>IDEAS.<br/>IMPACT.
-              </p>
-            </div>
-            
-            {/* Floating text - Bottom Left */}
-            <div className="absolute bottom-16 left-4 select-none">
-              <p className="text-[0.45rem] uppercase tracking-[0.45em] text-[#CBAA69]/50 font-medium leading-[2.5]">
-                EXCELLENCE<br/>RECOGNISED.<br/>A STRONGER<br/>LEGAL WORLD.
-              </p>
-            </div>
-          </div>
+            {/* RIGHT COLUMN - MEDALLION & TEXT */}
+            <div className="lg:col-span-5 relative hidden lg:flex flex-col items-center justify-center shrink-0 lg:w-[450px] py-4 border-l-0 lg:border-l lg:border-white/5">
+              
+              <div className="flex flex-col items-center text-center w-full relative">
+                <div className="w-[320px] h-[320px] xl:w-[380px] xl:h-[380px] relative mb-12 flex items-center justify-center">
+                  <div className="absolute inset-0 bg-[#CBAA69]/5 rounded-full blur-3xl opacity-50" />
+                  <img 
+                    src="/logo/seal main.png" 
+                    alt="The Juris Standard Seal" 
+                    className="w-[85%] h-[85%] object-contain relative z-10 drop-shadow-2xl" 
+                  />
+                </div>
+              </div>
 
+              <div className="grid grid-cols-2 w-full gap-8 px-6 text-center mt-auto">
+                <div className="flex flex-col gap-1.5 border-r border-white/5 pr-4">
+                  <span className="text-[0.45rem] tracking-[0.3em] text-[#CBAA69]/70 uppercase">INDEPENDENT.</span>
+                  <span className="text-[0.45rem] tracking-[0.3em] text-[#CBAA69]/70 uppercase">INSIGHTFUL.</span>
+                  <span className="text-[0.45rem] tracking-[0.3em] text-[#CBAA69]/70 uppercase">DEFINITIVE.</span>
+                </div>
+                <div className="flex flex-col gap-1.5 pl-4 justify-center">
+                  <span className="text-[0.45rem] tracking-[0.3em] text-white/30 uppercase">PEOPLE.</span>
+                  <span className="text-[0.45rem] tracking-[0.3em] text-white/30 uppercase">FIRMS.</span>
+                  <span className="text-[0.45rem] tracking-[0.3em] text-white/30 uppercase">IDEAS.</span>
+                  <span className="text-[0.45rem] tracking-[0.3em] text-white/30 uppercase">IMPACT.</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
         </div>
       </section>
 
       {/* ═══════════════════════════════════════════════════════
           SECTION 2 — THE RECOGNITION / INSTITUTION / STANDARD
       ═══════════════════════════════════════════════════════ */}
-      <section className="w-full bg-[#050402] border-b border-[#CBAA69]/20">
+      <section className="w-full bg-[#050505] border-b border-[#1a1a1a]">
         <div className="w-full max-w-[1500px] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
 
           {/* Col 1 — THE RECOGNITION */}
-          <div className="border-r border-b lg:border-b-0 border-[#CBAA69]/20 p-10 lg:p-12 flex flex-col gap-6">
-            <span className="text-[0.55rem] uppercase tracking-[0.3em] text-[#CBAA69]/70 font-medium drop-shadow-sm">
+          <div className="border-r border-b lg:border-b-0 border-white/5 p-10 lg:p-12 flex flex-col gap-6">
+            <span className="text-[0.55rem] font-sans uppercase tracking-[0.3em] text-[#CBAA69] font-medium drop-shadow-sm">
               THE RECOGNITION
             </span>
-            <blockquote className="text-lg lg:text-xl text-white/90 leading-[1.6] italic font-light" style={{ fontFamily: luxurySerif }}>
+            <blockquote className="text-lg lg:text-xl text-white/80 leading-[1.6] italic font-serif">
               &ldquo;{record.whyThisRecord || "Recognised for exceptional legal capability, enduring professional excellence and a distinguished contribution to the legal profession."}&rdquo;
             </blockquote>
             <Link
@@ -235,32 +204,32 @@ export default async function JurisStandardRecordPage({
           </div>
 
           {/* Col 2 — THE INSTITUTION */}
-          <div className="border-r border-b lg:border-b-0 border-[#CBAA69]/20 p-10 lg:p-12 flex flex-col gap-6">
-            <span className="text-[0.55rem] uppercase tracking-[0.3em] text-[#CBAA69]/70 font-medium drop-shadow-sm">
+          <div className="border-r border-b lg:border-b-0 border-white/5 p-10 lg:p-12 flex flex-col gap-6">
+            <span className="text-[0.55rem] font-sans uppercase tracking-[0.3em] text-[#CBAA69] font-medium drop-shadow-sm">
               THE INSTITUTION
             </span>
             <div className="flex flex-col gap-6">
               <div className="flex flex-col xl:flex-row xl:items-start gap-8">
                 <div className="flex items-start gap-3">
-                  <Building2 className="w-3.5 h-3.5 text-[#CBAA69]/50 mt-0.5 shrink-0" strokeWidth={1.5} />
+                  <Building2 className="w-3.5 h-3.5 text-[#CBAA69]/70 mt-0.5 shrink-0" strokeWidth={1.5} />
                   <div>
-                    <span className="text-[0.5rem] font-medium uppercase tracking-[0.25em] text-white/40 block mb-1">Established</span>
+                    <span className="text-[0.5rem] font-sans font-medium uppercase tracking-[0.25em] text-white/40 block mb-1">Established</span>
                     <span className="text-xs text-white/80 font-normal">{record.firmInfo?.founded || "—"}</span>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
-                  <MapPin className="w-3.5 h-3.5 text-[#CBAA69]/50 mt-0.5 shrink-0" strokeWidth={1.5} />
+                  <MapPin className="w-3.5 h-3.5 text-[#CBAA69]/70 mt-0.5 shrink-0" strokeWidth={1.5} />
                   <div>
-                    <span className="text-[0.5rem] font-medium uppercase tracking-[0.25em] text-white/40 block mb-1">Headquarters</span>
+                    <span className="text-[0.5rem] font-sans font-medium uppercase tracking-[0.25em] text-white/40 block mb-1">Headquarters</span>
                     <span className="text-xs text-white/80 font-normal">{record.location || "—"}, {record.jurisdiction || "India"}</span>
                   </div>
                 </div>
               </div>
 
-              <div className="flex items-start gap-3 pt-6 border-t border-[#CBAA69]/10">
-                <FileText className="w-3.5 h-3.5 text-[#CBAA69]/50 mt-0.5 shrink-0" strokeWidth={1.5} />
+              <div className="flex items-start gap-3 pt-6 border-t border-white/5">
+                <FileText className="w-3.5 h-3.5 text-[#CBAA69]/70 mt-0.5 shrink-0" strokeWidth={1.5} />
                 <div>
-                  <span className="text-[0.5rem] font-medium uppercase tracking-[0.25em] text-white/40 block mb-2">Key Practice Areas</span>
+                  <span className="text-[0.5rem] font-sans font-medium uppercase tracking-[0.25em] text-white/40 block mb-2">Key Practice Areas</span>
                   <span className="text-xs text-white/70 leading-[1.8] font-normal">{practiceAreasDisplay}</span>
                 </div>
               </div>
@@ -275,12 +244,12 @@ export default async function JurisStandardRecordPage({
           </div>
 
           {/* Col 3 — THE STANDARD */}
-          <div className="border-r border-b lg:border-b-0 border-[#CBAA69]/20 p-10 lg:p-12 flex flex-col gap-6">
-            <span className="text-[0.55rem] uppercase tracking-[0.3em] text-[#CBAA69]/70 font-medium drop-shadow-sm">
+          <div className="border-r border-b lg:border-b-0 border-white/5 p-10 lg:p-12 flex flex-col gap-6">
+            <span className="text-[0.55rem] font-sans uppercase tracking-[0.3em] text-[#CBAA69] font-medium drop-shadow-sm">
               THE STANDARD
             </span>
             <div className="flex items-start gap-4">
-              <BookOpen className="w-4 h-4 text-[#CBAA69]/50 mt-1 shrink-0" strokeWidth={1.5} />
+              <BookOpen className="w-4 h-4 text-[#CBAA69]/70 mt-1 shrink-0" strokeWidth={1.5} />
               <p className="text-[0.85rem] text-white/70 leading-[1.8] font-light">
                 Recognition reflects the Juris Standard&apos;s assessment of sustained professional excellence, capability and contribution to the legal profession.
               </p>
@@ -295,12 +264,12 @@ export default async function JurisStandardRecordPage({
           </div>
 
           {/* Col 4 — PULL QUOTE */}
-          <div className="p-10 lg:p-12 flex flex-col gap-6 bg-[#080604]">
-            <blockquote className="text-xl lg:text-2xl text-white/80 leading-[1.5] italic font-light flex-1 flex items-center drop-shadow-sm" style={{ fontFamily: luxurySerif }}>
+          <div className="p-10 lg:p-12 flex flex-col gap-6 bg-[#0a0a0a]">
+            <blockquote className="text-xl lg:text-2xl text-white/80 leading-[1.5] italic font-serif flex-1 flex items-center drop-shadow-sm">
               &ldquo;A stronger legal world is a more just and resilient society.&rdquo;
             </blockquote>
-            <div className="border-t border-[#CBAA69]/20 pt-6">
-              <span className="text-[0.55rem] uppercase tracking-[0.3em] text-[#CBAA69]/80 font-medium">
+            <div className="border-t border-white/5 pt-6">
+              <span className="text-[0.55rem] font-sans uppercase tracking-[0.3em] text-white/50 font-medium">
                 THE JURIS STANDARD™
               </span>
             </div>
@@ -311,12 +280,12 @@ export default async function JurisStandardRecordPage({
       {/* ═══════════════════════════════════════════════════════
           SECTION 3 — WITHIN THE JURIS STANDARD™
       ═══════════════════════════════════════════════════════ */}
-      <section className="w-full bg-[#050402] border-b border-[#CBAA69]/20">
+      <section className="w-full bg-[#050505] border-b border-[#1a1a1a]">
         <div className="w-full max-w-[1500px] mx-auto px-6 md:px-12 lg:px-16 py-14">
-          <p className="text-[0.55rem] uppercase tracking-[0.3em] text-[#CBAA69]/70 mb-8 font-medium">
+          <p className="text-[0.55rem] font-sans uppercase tracking-[0.3em] text-[#CBAA69] mb-8 font-medium">
             WITHIN THE JURIS STANDARD™
           </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-0 border border-[#CBAA69]/20">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-0 border border-white/5">
             {[
               {
                 Icon: Users,
@@ -347,7 +316,7 @@ export default async function JurisStandardRecordPage({
                 key={idx}
                 href={href}
                 className={`flex flex-col gap-4 p-8 lg:p-10 hover:bg-white/[0.02] transition-all duration-300 group ${
-                  idx < 3 ? "lg:border-r border-b lg:border-b-0 border-[#CBAA69]/10" : ""
+                  idx < 3 ? "lg:border-r border-b lg:border-b-0 border-white/5" : ""
                 }`}
               >
                 <Icon className="w-5 h-5 text-[#CBAA69]/40 group-hover:text-[#CBAA69]/80 transition-colors" strokeWidth={1.5} />
@@ -366,19 +335,19 @@ export default async function JurisStandardRecordPage({
       {/* ═══════════════════════════════════════════════════════
           SECTION 4 — BOTTOM 3-COLUMN STRIP
       ═══════════════════════════════════════════════════════ */}
-      <section className="w-full bg-[#050402]">
+      <section className="w-full bg-[#0a0a0a]">
         <div className="w-full max-w-[1500px] mx-auto px-6 md:px-12 lg:px-16 py-14">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-0 border border-[#CBAA69]/20 bg-[#060503]">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-0 border border-white/5 bg-[#050505]">
 
             {/* Col A — OFFICIAL VERIFICATION */}
-            <div className="border-b lg:border-b-0 lg:border-r border-[#CBAA69]/20 p-10 flex flex-col gap-8">
-              <span className="text-[0.55rem] uppercase tracking-[0.3em] text-[#CBAA69]/70 font-medium">
+            <div className="border-b lg:border-b-0 lg:border-r border-white/5 p-10 flex flex-col gap-8">
+              <span className="text-[0.55rem] font-sans uppercase tracking-[0.3em] text-[#CBAA69] font-medium">
                 OFFICIAL VERIFICATION
               </span>
               <div className="flex gap-6 items-start">
                 {/* QR placeholder */}
-                <div className="w-[85px] h-[85px] shrink-0 border border-[#CBAA69]/30 bg-white flex flex-col items-center justify-center p-2">
-                  <QrCode className="w-full h-full text-black" strokeWidth={1} />
+                <div className="w-[85px] h-[85px] shrink-0 border border-white/10 bg-white flex flex-col items-center justify-center p-2">
+                  <img src={`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://jurisstandard.com/record/${record.recognitionId}`} alt="QR Code" className="w-full h-full opacity-90" />
                 </div>
                 {/* Verification table */}
                 <div className="flex flex-col gap-4 flex-1">
@@ -398,20 +367,21 @@ export default async function JurisStandardRecordPage({
                     },
                   ].map(({ label, value, custom }) => (
                     <div key={label} className="flex flex-col gap-1 text-left">
-                      <span className="text-[0.5rem] uppercase tracking-[0.25em] text-[#CBAA69]/60 font-medium">{label}</span>
-                      {custom ?? <span className="text-[0.65rem] text-white/90 font-medium tracking-widest uppercase">{value}</span>}
+                      <span className="text-[0.5rem] font-sans uppercase tracking-[0.25em] text-white/40 font-medium">{label}</span>
+                      {value ? (
+                        <span className="text-[0.65rem] text-white/80 font-normal leading-snug tracking-wider">{value}</span>
+                      ) : (
+                        custom
+                      )}
                     </div>
                   ))}
                 </div>
               </div>
-              <p className="text-[0.55rem] text-white/40 uppercase tracking-[0.2em] font-light mt-auto">
-                Scan to verify this record on The Juris Standard.
-              </p>
             </div>
 
             {/* Col B — THE RECOGNITION VAULT™ */}
-            <div className="border-b lg:border-b-0 lg:border-r border-[#CBAA69]/20 p-10 flex flex-col gap-8">
-              <span className="text-[0.55rem] uppercase tracking-[0.3em] text-[#CBAA69]/70 font-medium">
+            <div className="border-b lg:border-b-0 lg:border-r border-white/5 p-10 flex flex-col gap-8">
+              <span className="text-[0.55rem] font-sans uppercase tracking-[0.3em] text-[#CBAA69] font-medium">
                 THE RECOGNITION VAULT™
               </span>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -423,7 +393,7 @@ export default async function JurisStandardRecordPage({
                   <Link
                     key={label}
                     href={href}
-                    className="flex flex-col items-center justify-center gap-3 p-5 border border-[#CBAA69]/20 bg-transparent hover:border-[#CBAA69]/50 hover:bg-white/[0.02] transition-all group text-center rounded-[1px]"
+                    className="flex flex-col items-center justify-center gap-3 p-5 border border-white/5 bg-[#0a0a0a] hover:border-[#CBAA69]/50 hover:bg-white/[0.02] transition-all group text-center rounded-[1px]"
                   >
                     <Icon className="w-6 h-6 text-[#CBAA69]/40 group-hover:text-[#CBAA69]/80 transition-colors" strokeWidth={1.2} />
                     <span className="text-[0.55rem] uppercase tracking-widest text-white/70 group-hover:text-white font-medium transition-colors leading-[1.6]">
@@ -436,17 +406,17 @@ export default async function JurisStandardRecordPage({
             </div>
 
             {/* Col C — CITE THIS RECORD™ */}
-            <div className="p-10 flex flex-col gap-6">
-              <span className="text-[0.55rem] uppercase tracking-[0.3em] text-[#CBAA69]/70 font-medium">
+            <div className="p-10 flex flex-col gap-6 bg-[#0a0a0a]">
+              <span className="text-[0.55rem] font-sans uppercase tracking-[0.3em] text-[#CBAA69] font-medium">
                 CITE THIS RECORD™
               </span>
               <div className="flex gap-4 items-start bg-transparent py-4">
                 <span className="text-4xl text-[#CBAA69]/40 leading-none select-none font-serif">&ldquo;</span>
-                <p className="text-[0.75rem] text-white/70 leading-[1.8] font-light italic mt-1" style={{ fontFamily: luxurySerif }}>
+                <p className="text-[0.75rem] text-white/70 leading-[1.8] font-light italic mt-1 font-serif">
                   {citationText}
                 </p>
               </div>
-              <button className="flex items-center justify-center gap-3 w-full py-3 border border-[#CBAA69]/30 text-[#CBAA69]/80 text-[0.55rem] font-medium uppercase tracking-[0.25em] hover:bg-white/[0.02] hover:text-[#CBAA69] hover:border-[#CBAA69]/60 transition-all mt-auto rounded-[1px]">
+              <button className="flex items-center justify-center gap-3 w-full py-3 border border-white/10 text-white/70 text-[0.55rem] font-medium uppercase tracking-[0.25em] hover:bg-white/[0.02] hover:text-[#CBAA69] hover:border-[#CBAA69]/60 transition-all mt-auto rounded-[1px]">
                 <Copy className="w-3.5 h-3.5" strokeWidth={1.2} />
                 Copy Citation
               </button>
@@ -457,30 +427,31 @@ export default async function JurisStandardRecordPage({
 
       {/* Related Records */}
       {record.relatedRecords && record.relatedRecords.length > 0 && (
-        <section className="w-full bg-[#050402] border-t border-[#CBAA69]/20">
+        <section className="w-full bg-[#050505] border-t border-[#1a1a1a]">
           <div className="w-full max-w-[1500px] mx-auto px-6 md:px-12 lg:px-16 py-14">
             <div className="flex items-center gap-4 mb-8">
-              <div className="w-[1px] h-6 bg-[#CBAA69]/60" />
-              <h2 className="text-[0.55rem] font-medium uppercase tracking-[0.3em] text-[#CBAA69]/80">
+              <div className="w-[1px] h-6 bg-[#CBAA69]" />
+              <h2 className="text-[0.55rem] font-medium uppercase tracking-[0.3em] text-white/50">
                 RELATED RECORDS
               </h2>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {record.relatedRecords.map((r) => (
+              {record.relatedRecords.map((rel: any, idx: number) => (
                 <Link
-                  key={r.id}
-                  href={`/juris-index/law-firms/${r.id}`}
-                  className="flex items-center justify-between p-6 border border-[#CBAA69]/20 hover:bg-white/[0.01] hover:border-[#CBAA69]/50 transition-all group rounded-[1px]"
+                  key={idx}
+                  href={`/juris-index/${rel.type === 'firm' ? 'law-firms' : 'professionals'}/${rel.id}`}
+                  className="flex flex-col p-6 bg-[#0a0a0a] border border-white/5 hover:border-[#CBAA69]/30 transition-colors group"
                 >
-                  <div>
-                    <span className="text-[0.8rem] text-white/80 font-normal tracking-wide group-hover:text-white transition-colors">
-                      {r.name}
-                    </span>
-                    <span className="text-[0.5rem] uppercase tracking-[0.25em] text-[#CBAA69]/60 block mt-1.5 font-medium">
-                      {r.type}
-                    </span>
+                  <span className="text-[0.5rem] uppercase tracking-widest text-[#CBAA69]/60 mb-2 font-medium">
+                    {rel.division}
+                  </span>
+                  <h3 className="text-lg text-white/90 font-serif tracking-wide group-hover:text-[#CBAA69] transition-colors mb-4">
+                    {rel.name}
+                  </h3>
+                  <div className="flex items-center justify-between text-[0.6rem] text-white/40 uppercase tracking-widest mt-auto">
+                    <span>{rel.year}</span>
+                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                   </div>
-                  <ExternalLink className="w-4 h-4 text-[#CBAA69]/40 group-hover:text-[#CBAA69]/80 transition-colors shrink-0" />
                 </Link>
               ))}
             </div>
