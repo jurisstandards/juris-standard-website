@@ -69,7 +69,7 @@ export function ProgrammeSelection() {
     } else {
       setPracticeAreas([...selectedPracticeAreas, area]);
       // If it's the first one they select, auto-set as primary
-      if (selectedPracticeAreas.length === 0 && selectedTrack === 'professional') {
+      if (selectedPracticeAreas.length === 0 && ['corporate_elite', 'litigation_masters', 'women_leaders', 'future_leaders'].includes(selectedTrack as string)) {
         setPrimaryPracticeArea(area);
       }
     }
@@ -86,7 +86,7 @@ export function ProgrammeSelection() {
   };
 
   const canContinue = selectedPracticeAreas.length > 0 && 
-    (selectedTrack !== 'professional' || primaryPracticeArea !== null) && 
+    (!['corporate_elite', 'litigation_masters', 'women_leaders', 'future_leaders'].includes(selectedTrack as string) || primaryPracticeArea !== null) && 
     (!selectedPracticeAreas.includes("Other") || otherPracticeArea.trim() !== "");
 
   const renderCheckboxItem = (label: string, isSelected: boolean, onClick: () => void) => (
@@ -127,8 +127,8 @@ export function ProgrammeSelection() {
               Select Practice Areas
             </h2>
             <p className="text-neutral-400 text-sm md:text-base font-light leading-relaxed max-w-2xl mb-2">
-              {selectedTrack === 'professional' ? "Select your areas of practice. You may choose multiple, but you must designate one as your Primary Practice Area." :
-               selectedTrack === 'firm' ? "Highlight your firm's strongest practice areas." : 
+              {['corporate_elite', 'litigation_masters', 'women_leaders', 'future_leaders'].includes(selectedTrack as string) ? "Select your areas of practice. You may choose multiple, but you must designate one as your Primary Practice Area." :
+               selectedTrack === 'law_firm_excellence' ? "Highlight your firm's strongest practice areas." : 
                "Choose the categories that best represent your expertise."}
             </p>
           </div>
@@ -142,131 +142,108 @@ export function ProgrammeSelection() {
           </button>
         </motion.div>
 
-        <motion.div
-          initial={isNavigatingBack ? false : { opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.2, delay: 0.1 }}
-          className="w-full"
-        >
-          {/* PROFESSIONAL TRACK */}
-          {selectedTrack === 'professional' && (
-            <div className="space-y-12">
-              <div className="columns-1 md:columns-2 lg:columns-3 gap-8 space-y-8">
-                {LEGAL_PROFESSIONAL_PRACTICES.map((group) => (
-                  <div key={group.category} className="break-inside-avoid bg-[#0a0a0a] border border-white/5 rounded-xl p-5">
-                    <h3 className="text-gold-400/80 font-serif text-lg mb-4">{group.category}</h3>
-                    <div className="flex flex-col space-y-2">
-                      {group.items.map(item => renderCheckboxItem(
-                        item, 
-                        selectedPracticeAreas.includes(item), 
-                        () => handleToggleArea(item)
-                      ))}
+          <motion.div
+            initial={isNavigatingBack ? false : { opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.2, delay: 0.1 }}
+            className="w-full"
+          >
+            {/* INDIVIDUAL TRACKS */}
+            {['corporate_elite', 'litigation_masters', 'women_leaders', 'future_leaders'].includes(selectedTrack as string) && (
+              <div className="space-y-12">
+                <div className="columns-1 md:columns-2 lg:columns-3 gap-8 space-y-8">
+                  {LEGAL_PROFESSIONAL_PRACTICES.map((group) => (
+                    <div key={group.category} className="break-inside-avoid bg-[#0a0a0a] border border-white/5 rounded-xl p-5">
+                      <h3 className="text-gold-400/80 font-serif text-lg mb-4">{group.category}</h3>
+                      <div className="flex flex-col space-y-2">
+                        {group.items.map(item => renderCheckboxItem(
+                          item, 
+                          selectedPracticeAreas.includes(item), 
+                          () => handleToggleArea(item)
+                        ))}
+                      </div>
                     </div>
+                  ))}
+                  <div className="break-inside-avoid bg-[#0a0a0a] border border-white/5 rounded-xl p-5">
+                    <h3 className="text-gold-400/80 font-serif text-lg mb-4">Other</h3>
+                    {renderCheckboxItem("Other (Specify)", selectedPracticeAreas.includes("Other"), handleToggleOther)}
+                    {selectedPracticeAreas.includes("Other") && (
+                      <input
+                        type="text"
+                        value={otherPracticeArea}
+                        onChange={(e) => setOtherPracticeArea(e.target.value)}
+                        placeholder="Please specify..."
+                        className="mt-3 w-full bg-[#111] border border-white/10 rounded-md p-3 text-sm text-white focus:outline-none focus:border-gold-500/50"
+                      />
+                    )}
                   </div>
+                </div>
+  
+                {selectedPracticeAreas.length > 0 && (
+                  <div className="bg-[#0a0a0a] border border-gold-500/20 rounded-xl p-6 mt-8 max-w-2xl">
+                    <h3 className="text-white font-serif text-xl mb-2">Primary Practice Area</h3>
+                    <p className="text-neutral-400 text-sm mb-4">Please select one from your chosen areas.</p>
+                    <select 
+                      value={primaryPracticeArea || ''} 
+                      onChange={(e) => setPrimaryPracticeArea(e.target.value)}
+                      className="w-full bg-[#111] border border-white/10 rounded-md p-3 text-white focus:outline-none focus:border-gold-500/50"
+                    >
+                      <option value="" disabled>Select Primary Area</option>
+                      {selectedPracticeAreas.map(area => (
+                        <option key={area} value={area}>{area}</option>
+                      ))}
+                    </select>
+                  </div>
+                )}
+              </div>
+            )}
+  
+            {/* FIRM TRACK */}
+            {selectedTrack === 'law_firm_excellence' && (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {LAW_FIRM_PRACTICES.map(item => renderCheckboxItem(
+                  item, 
+                  selectedPracticeAreas.includes(item), 
+                  () => handleToggleArea(item)
                 ))}
-                <div className="break-inside-avoid bg-[#0a0a0a] border border-white/5 rounded-xl p-5">
-                  <h3 className="text-gold-400/80 font-serif text-lg mb-4">Other</h3>
-                  {renderCheckboxItem("Other (Specify)", selectedPracticeAreas.includes("Other"), handleToggleOther)}
-                  {selectedPracticeAreas.includes("Other") && (
+                {renderCheckboxItem("Other (Specify)", selectedPracticeAreas.includes("Other"), handleToggleOther)}
+                {selectedPracticeAreas.includes("Other") && (
+                  <div className="col-span-1 md:col-span-2 lg:col-span-3">
                     <input
                       type="text"
                       value={otherPracticeArea}
                       onChange={(e) => setOtherPracticeArea(e.target.value)}
-                      placeholder="Please specify..."
-                      className="mt-3 w-full bg-[#111] border border-white/10 rounded-md p-3 text-sm text-white focus:outline-none focus:border-gold-500/50"
+                      placeholder="Please specify other practice areas..."
+                      className="w-full max-w-xl bg-[#0a0a0a] border border-white/10 rounded-md p-3 text-sm text-white focus:outline-none focus:border-gold-500/50"
                     />
-                  )}
-                </div>
+                  </div>
+                )}
               </div>
-
-              {selectedPracticeAreas.length > 0 && (
-                <div className="bg-[#0a0a0a] border border-gold-500/20 rounded-xl p-6 mt-8 max-w-2xl">
-                  <h3 className="text-white font-serif text-xl mb-2">Primary Practice Area</h3>
-                  <p className="text-neutral-400 text-sm mb-4">Please select one from your chosen areas.</p>
-                  <select 
-                    value={primaryPracticeArea || ''} 
-                    onChange={(e) => setPrimaryPracticeArea(e.target.value)}
-                    className="w-full bg-[#111] border border-white/10 rounded-md p-3 text-white focus:outline-none focus:border-gold-500/50"
-                  >
-                    <option value="" disabled>Select Primary Area</option>
-                    {selectedPracticeAreas.map(area => (
-                      <option key={area} value={area}>{area}</option>
-                    ))}
-                  </select>
-                </div>
-              )}
-            </div>
-          )}
-
-          {/* FIRM TRACK */}
-          {selectedTrack === 'firm' && (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {LAW_FIRM_PRACTICES.map(item => renderCheckboxItem(
-                item, 
-                selectedPracticeAreas.includes(item), 
-                () => handleToggleArea(item)
-              ))}
-              {renderCheckboxItem("Other (Specify)", selectedPracticeAreas.includes("Other"), handleToggleOther)}
-              {selectedPracticeAreas.includes("Other") && (
-                <div className="col-span-1 md:col-span-2 lg:col-span-3">
-                  <input
-                    type="text"
-                    value={otherPracticeArea}
-                    onChange={(e) => setOtherPracticeArea(e.target.value)}
-                    placeholder="Please specify other practice areas..."
-                    className="w-full max-w-xl bg-[#0a0a0a] border border-white/10 rounded-md p-3 text-sm text-white focus:outline-none focus:border-gold-500/50"
-                  />
-                </div>
-              )}
-            </div>
-          )}
-
-          {/* MEDIA TRACK */}
-          {selectedTrack === 'media' && (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {LEGAL_MEDIA_PRACTICES.map(item => renderCheckboxItem(
-                item, 
-                selectedPracticeAreas.includes(item), 
-                () => handleToggleArea(item)
-              ))}
-              {renderCheckboxItem("Other (Specify)", selectedPracticeAreas.includes("Other"), handleToggleOther)}
-              {selectedPracticeAreas.includes("Other") && (
-                <div className="col-span-1 md:col-span-2 lg:col-span-3">
-                  <input
-                    type="text"
-                    value={otherPracticeArea}
-                    onChange={(e) => setOtherPracticeArea(e.target.value)}
-                    placeholder="Please specify other areas..."
-                    className="w-full max-w-xl bg-[#0a0a0a] border border-white/10 rounded-md p-3 text-sm text-white focus:outline-none focus:border-gold-500/50"
-                  />
-                </div>
-              )}
-            </div>
-          )}
-
-          {/* INNOVATION TRACK */}
-          {selectedTrack === 'innovation' && (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {LEGAL_TECH_PRACTICES.map(item => renderCheckboxItem(
-                item, 
-                selectedPracticeAreas.includes(item), 
-                () => handleToggleArea(item)
-              ))}
-              {renderCheckboxItem("Other (Specify)", selectedPracticeAreas.includes("Other"), handleToggleOther)}
-              {selectedPracticeAreas.includes("Other") && (
-                <div className="col-span-1 md:col-span-2 lg:col-span-3">
-                  <input
-                    type="text"
-                    value={otherPracticeArea}
-                    onChange={(e) => setOtherPracticeArea(e.target.value)}
-                    placeholder="Please specify other areas..."
-                    className="w-full max-w-xl bg-[#0a0a0a] border border-white/10 rounded-md p-3 text-sm text-white focus:outline-none focus:border-gold-500/50"
-                  />
-                </div>
-              )}
-            </div>
-          )}
-        </motion.div>
+            )}
+  
+            {/* INNOVATION TRACK */}
+            {selectedTrack === 'legal_innovation' && (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {LEGAL_TECH_PRACTICES.map(item => renderCheckboxItem(
+                  item, 
+                  selectedPracticeAreas.includes(item), 
+                  () => handleToggleArea(item)
+                ))}
+                {renderCheckboxItem("Other (Specify)", selectedPracticeAreas.includes("Other"), handleToggleOther)}
+                {selectedPracticeAreas.includes("Other") && (
+                  <div className="col-span-1 md:col-span-2 lg:col-span-3">
+                    <input
+                      type="text"
+                      value={otherPracticeArea}
+                      onChange={(e) => setOtherPracticeArea(e.target.value)}
+                      placeholder="Please specify other areas..."
+                      className="w-full max-w-xl bg-[#0a0a0a] border border-white/10 rounded-md p-3 text-sm text-white focus:outline-none focus:border-gold-500/50"
+                    />
+                  </div>
+                )}
+              </div>
+            )}
+          </motion.div>
 
         {/* Floating Action Pill */}
         <AnimatePresence>

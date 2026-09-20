@@ -17,7 +17,7 @@ export const STAGE_ORDER: Stage[] = [
   'confirmation'
 ];
 
-export type Track = 'professional' | 'firm' | 'media' | 'innovation' | null;
+export type Track = 'law_firm_excellence' | 'corporate_elite' | 'litigation_masters' | 'women_leaders' | 'future_leaders' | 'legal_innovation' | null;
 
 export interface ProfileData {
   identity: {

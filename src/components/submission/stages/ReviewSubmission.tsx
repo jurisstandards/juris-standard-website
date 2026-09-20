@@ -27,13 +27,17 @@ export function ReviewSubmission() {
       }
 
       let applying_for_division = "Law Firm Excellence™";
-      if (selectedTrack === "firm") {
+      if (selectedTrack === "law_firm_excellence") {
         applying_for_division = "Law Firm Excellence™";
-      } else if (selectedTrack === "professional") {
-        const cePractices = ["Corporate Advisory", "Corporate Governance", "Mergers & Acquisitions", "Joint Ventures", "Commercial Contracts", "Private Equity", "Venture Capital"];
-        const hasCE = selectedPracticeAreas.some(area => cePractices.includes(area));
-        applying_for_division = hasCE ? "Corporate Elite™" : "Litigation Masters™";
-      } else if (selectedTrack === "media" || selectedTrack === "innovation") {
+      } else if (selectedTrack === "corporate_elite") {
+        applying_for_division = "Corporate Elite™";
+      } else if (selectedTrack === "litigation_masters") {
+        applying_for_division = "Litigation Masters™";
+      } else if (selectedTrack === "women_leaders") {
+        applying_for_division = "Women Leaders™";
+      } else if (selectedTrack === "future_leaders") {
+        applying_for_division = "Future Leaders™";
+      } else if (selectedTrack === "legal_innovation") {
         applying_for_division = "Legal Innovation Excellence™";
       }
 
@@ -41,7 +45,7 @@ export function ReviewSubmission() {
       const payload = {
         // Firm identity
         firm_name: profileData.identity.firmName || profileData.identity.orgName || profileData.identity.fullName || "",
-        firm_type: selectedTrack === "firm" ? "Law Firm" : selectedTrack === "media" ? "Legal Media" : selectedTrack === "innovation" ? "Legal Technology" : "Legal Professional",
+        firm_type: selectedTrack === "law_firm_excellence" ? "Law Firm" : selectedTrack === "legal_innovation" ? "Legal Technology" : "Legal Professional",
         year_established: profileData.identity.yearEstablished || "",
         headquarters_city: profileData.identity.hqCity || profileData.identity.city || "",
         country: profileData.identity.hqCountry || profileData.identity.country || "India",
@@ -64,7 +68,7 @@ export function ReviewSubmission() {
         contact_name: profileData.identity.managingPartner || profileData.identity.fullName || profileData.identity.editorInChief || profileData.identity.founderCeo || "",
         contact_email: profileData.identity.email || "",
         contact_phone: profileData.identity.mobile || "",
-        contact_designation: profileData.identity.designation || (selectedTrack === "firm" ? "Managing Partner" : ""),
+        contact_designation: profileData.identity.designation || (selectedTrack === "law_firm_excellence" ? "Managing Partner" : ""),
       };
 
       const res = await fetch("/api/admin/applications", {
@@ -90,10 +94,12 @@ export function ReviewSubmission() {
 
   const getTrackName = () => {
     switch(selectedTrack) {
-      case 'professional': return "Legal Professional";
-      case 'firm': return "Law Firm";
-      case 'media': return "Legal Media";
-      case 'innovation': return "Legal Technology & Innovation";
+      case 'law_firm_excellence': return "Law Firm Excellence™";
+      case 'corporate_elite': return "Corporate Elite™";
+      case 'litigation_masters': return "Litigation Masters™";
+      case 'women_leaders': return "Women Leaders™";
+      case 'future_leaders': return "Future Leaders™";
+      case 'legal_innovation': return "Legal Innovation Excellence™";
       default: return "Not Selected";
     }
   };
@@ -118,7 +124,7 @@ export function ReviewSubmission() {
       }
     ];
 
-    if (track === 'firm') {
+    if (track === 'law_firm_excellence') {
       return [
         ...baseFolders,
         {
@@ -168,53 +174,7 @@ export function ReviewSubmission() {
       ];
     }
 
-    if (track === 'media') {
-      return [
-        ...baseFolders,
-        {
-          title: "Organisation Identity",
-          icon: Folder,
-          content: (
-            <div className="grid grid-cols-2 gap-y-6 gap-x-4">
-              <div>
-                <span className="text-[0.6rem] uppercase tracking-widest text-white/40 block mb-1">Organisation Name</span>
-                <span className="text-white text-sm font-medium">{profileData.identity.orgName || "—"}</span>
-              </div>
-              <div>
-                <span className="text-[0.6rem] uppercase tracking-widest text-white/40 block mb-1">Editor-in-Chief</span>
-                <span className="text-white text-sm font-medium">{profileData.identity.editorInChief || "—"}</span>
-              </div>
-              <div className="col-span-2">
-                <span className="text-[0.6rem] uppercase tracking-widest text-white/40 block mb-1">Location</span>
-                <span className="text-white text-sm font-medium">{profileData.identity.city ? `${profileData.identity.city}, ${profileData.identity.country}` : "—"}</span>
-              </div>
-            </div>
-          )
-        },
-        {
-          title: "Editorial Coverage",
-          icon: Folder,
-          content: (
-            <div className="grid grid-cols-2 gap-y-6 gap-x-4">
-              <div className="col-span-2">
-                <span className="text-[0.6rem] uppercase tracking-widest text-white/40 block mb-1">Primary Coverage</span>
-                <span className="text-white text-sm font-medium">{profileData.practice.primaryCoverageAreas || "—"}</span>
-              </div>
-              <div>
-                <span className="text-[0.6rem] uppercase tracking-widest text-white/40 block mb-1">Team Size</span>
-                <span className="text-white text-sm font-medium">{profileData.practice.teamSize || "—"}</span>
-              </div>
-              <div>
-                <span className="text-[0.6rem] uppercase tracking-widest text-white/40 block mb-1">Publication Formats</span>
-                <span className="text-white text-sm font-medium">{profileData.practice.publicationFormats || "—"}</span>
-              </div>
-            </div>
-          )
-        }
-      ];
-    }
-
-    if (track === 'innovation') {
+    if (track === 'legal_innovation') {
       return [
         ...baseFolders,
         {
@@ -260,7 +220,7 @@ export function ReviewSubmission() {
       ];
     }
 
-    // Default Professional
+    // Default Professional (Corporate Elite, Litigation Masters, Women Leaders, Future Leaders)
     return [
       ...baseFolders,
       {

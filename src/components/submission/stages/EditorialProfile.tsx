@@ -34,7 +34,7 @@ export function EditorialProfile() {
 
   const getSections = (track: Track) => {
     switch (track) {
-      case 'firm':
+      case 'law_firm_excellence':
         return [
           { id: 'identity', title: 'Section A', subtitle: 'Firm Identity' },
           { id: 'practice', title: 'Section B', subtitle: 'Practice Areas' },
@@ -42,23 +42,15 @@ export function EditorialProfile() {
           { id: 'presence', title: 'Section D', subtitle: 'Firm Presence' },
           { id: 'documents', title: 'Section E', subtitle: 'Supporting Information' }
         ];
-      case 'media':
-        return [
-          { id: 'identity', title: 'Section A', subtitle: 'Organisation Identity' },
-          { id: 'practice', title: 'Section B', subtitle: 'Editorial Coverage' },
-          { id: 'biography', title: 'Section C', subtitle: 'Editorial Profile' },
-          { id: 'presence', title: 'Section D', subtitle: 'Editorial Presence' },
-          { id: 'documents', title: 'Section E', subtitle: 'Supporting Information' }
-        ];
-      case 'innovation':
+      case 'legal_innovation':
         return [
           { id: 'identity', title: 'Section A', subtitle: 'Organisation Identity' },
           { id: 'practice', title: 'Section B', subtitle: 'Innovation Profile' },
-          { id: 'biography', title: 'Section C', subtitle: 'Company Profile' },
-          { id: 'presence', title: 'Section D', subtitle: 'Market Presence' },
-          { id: 'documents', title: 'Section E', subtitle: 'Supporting Information' }
+          { id: 'biography', title: 'Section C', subtitle: 'Company Overview' },
+          { id: 'presence', title: 'Section D', subtitle: 'Digital Presence' },
+          { id: 'documents', title: 'Section E', subtitle: 'Supporting Documents' }
         ];
-      default:
+      default: // corporate_elite, litigation_masters, women_leaders, future_leaders
         return [
           { id: 'identity', title: 'Section A', subtitle: 'Professional Identity' },
           { id: 'practice', title: 'Section B', subtitle: 'Professional Practice' },
@@ -74,26 +66,20 @@ export function EditorialProfile() {
   const validateSection = (section: SectionKey): boolean => {
     switch (section) {
       case 'identity':
-        if (selectedTrack === 'firm') {
+        if (selectedTrack === 'law_firm_excellence') {
           return !!(profileData.identity.firmName && profileData.identity.managingPartner && profileData.identity.email && profileData.identity.yearEstablished && profileData.identity.country && profileData.identity.hqCity);
         }
-        if (selectedTrack === 'media') {
-          return !!(profileData.identity.orgName && profileData.identity.editorInChief && profileData.identity.email && profileData.identity.country && profileData.identity.city);
-        }
-        if (selectedTrack === 'innovation') {
+        if (selectedTrack === 'legal_innovation') {
           return !!(profileData.identity.orgName && profileData.identity.founderCeo && profileData.identity.email && profileData.identity.country && profileData.identity.city);
         }
         // Professional
         return !!(profileData.identity.fullName && profileData.identity.email && profileData.identity.mobile && profileData.identity.designation && profileData.identity.country && profileData.identity.city);
       
       case 'practice':
-        if (selectedTrack === 'firm') {
+        if (selectedTrack === 'law_firm_excellence') {
           return !!(profileData.practice.primaryPracticeAreas && profileData.practice.officeLocations && profileData.practice.firmSize);
         }
-        if (selectedTrack === 'media') {
-          return !!(profileData.practice.primaryCoverageAreas && profileData.practice.publicationFormats && profileData.practice.teamSize);
-        }
-        if (selectedTrack === 'innovation') {
+        if (selectedTrack === 'legal_innovation') {
           return !!(profileData.practice.primaryInnovationArea && profileData.practice.productCategory && profileData.practice.practiceAreasServed && profileData.practice.marketsServed && profileData.practice.orgSize);
         }
         // Professional
@@ -157,7 +143,7 @@ export function EditorialProfile() {
   const renderSectionContent = (section: SectionKey) => {
     switch (section) {
       case 'identity':
-        if (selectedTrack === 'firm') {
+        if (selectedTrack === 'law_firm_excellence') {
           const hqCities = getCityOptions(profileData.identity.country);
           return (
             <div className="space-y-6">
@@ -188,14 +174,14 @@ export function EditorialProfile() {
           );
         }
 
-        if (selectedTrack === 'media' || selectedTrack === 'innovation') {
+        if (selectedTrack === 'legal_innovation') {
           const cities = getCityOptions(profileData.identity.country);
           return (
             <div className="space-y-6">
               <p className="text-white/40 text-sm font-light mb-8">Tell us about your organisation.</p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <Input label="Organisation Name" value={profileData.identity.orgName} onChange={(val) => updateProfileData('identity', { orgName: val })} required />
-                <Input label={selectedTrack === 'media' ? "Editor-in-Chief / Primary Contact" : "Founder / CEO"} value={selectedTrack === 'media' ? profileData.identity.editorInChief : profileData.identity.founderCeo} onChange={(val) => selectedTrack === 'media' ? updateProfileData('identity', { editorInChief: val }) : updateProfileData('identity', { founderCeo: val })} required />
+                <Input label="Founder / CEO / Primary Contact" value={profileData.identity.founderCeo} onChange={(val) => updateProfileData('identity', { founderCeo: val })} required />
                 <Input label="Contact Email" value={profileData.identity.email} onChange={(val) => updateProfileData('identity', { email: val })} required />
                 <SelectInput 
                   label="Country" 
@@ -248,7 +234,7 @@ export function EditorialProfile() {
         );
 
       case 'practice':
-        if (selectedTrack === 'firm') {
+        if (selectedTrack === 'law_firm_excellence') {
           return (
             <div className="space-y-6">
               <p className="text-white/40 text-sm font-light mb-8">Help us understand the nature of your firm's practice.</p>
@@ -270,29 +256,7 @@ export function EditorialProfile() {
           );
         }
 
-        if (selectedTrack === 'media') {
-          return (
-            <div className="space-y-6">
-              <p className="text-white/40 text-sm font-light mb-8">Detail your organisation's editorial coverage.</p>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <Input label="Primary Coverage Areas" value={profileData.practice.primaryCoverageAreas} onChange={(val) => updateProfileData('practice', { primaryCoverageAreas: val })} required />
-                <Input label="Secondary Coverage Areas" value={profileData.practice.secondaryCoverageAreas} onChange={(val) => updateProfileData('practice', { secondaryCoverageAreas: val })} />
-                <Input label="Publication Formats" value={profileData.practice.publicationFormats} onChange={(val) => updateProfileData('practice', { publicationFormats: val })} required />
-                <Input label="Geographic Coverage" value={profileData.practice.geographicCoverage} onChange={(val) => updateProfileData('practice', { geographicCoverage: val })} />
-                <SelectInput 
-                  label="Team Size" 
-                  value={profileData.practice.teamSize} 
-                  onChange={(val) => updateProfileData('practice', { teamSize: val })} 
-                  options={["1 member", "2 - 5 members", "6 - 10 members", "11 - 50 members", "51 - 150 members", "150+ members"]}
-                  required
-                />
-              </div>
-              <ContinueButton onClick={() => handleContinue('practice', 'biography')} />
-            </div>
-          );
-        }
-
-        if (selectedTrack === 'innovation') {
+        if (selectedTrack === 'legal_innovation') {
           return (
             <div className="space-y-6">
               <p className="text-white/40 text-sm font-light mb-8">Detail your organisation's innovation profile.</p>

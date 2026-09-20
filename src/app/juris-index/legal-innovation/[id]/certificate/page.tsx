@@ -6,7 +6,7 @@ import Link from "next/link";
 import { ArrowLeft, Download, Printer, Share2, Link as LinkIcon } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 
-export default function CertificatePage() {
+export default function LegalInnovationExcellenceCertificatePage() {
   const { id } = useParams() as { id: string };
   const router = useRouter();
   const [firm, setFirm] = useState<any>(null);

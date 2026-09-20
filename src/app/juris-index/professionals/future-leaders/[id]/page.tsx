@@ -1,157 +1,251 @@
+"use client";
+
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
-import { CheckCircle2, MapPin, Building2, Briefcase, Award, ShieldCheck, QrCode, Target, ArrowRight } from "lucide-react";
+import { 
+  ArrowLeft, FileText, Share2, Code2, Award, User,
+  
+} from "lucide-react";
 import Link from "next/link";
+import { useParams, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { supabase } from "@/lib/supabase";
 
-const mockProfile = {
-  name: "Rohan Desai",
-  organisation: "Independent Practice",
-  careerStage: "Counsel",
-  jurisdiction: "New Delhi, India",
-  citation: "Recognised for demonstrating exceptional potential and emerging leadership in complex commercial litigation, shaping the future standards of dispute resolution.",
-  overview: "Rohan Desai is a Counsel with a rapidly growing reputation in high-stakes commercial disputes. Acting frequently before the Delhi High Court and various tribunals, he has demonstrated an exceptional grasp of evidentiary strategy and courtroom advocacy, marking him as a definitive future leader of the Bar.",
-  domains: ["Commercial Litigation", "Arbitration"],
-  timeline: [
-    { year: "2024", title: "Future Leaders™", detail: "Recognised" },
-  ],
-  verificationId: "FL-2024-RD883"
-};
+export default function FutureLeadersProfilePage() {
+  const { id } = useParams() as { id: string };
+  const router = useRouter();
+  const [record, setRecord] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
 
-export default function FutureLeadersProfilePage({ params }: { params: { id: string } }) {
+  useEffect(() => {
+    const fetchRecord = async () => {
+      try {
+        const { data, error } = await supabase
+          .from("juris_records")
+          .select("*")
+          .eq("id", id)
+          .single();
+
+        if (data) {
+          setRecord(data);
+        }
+      } catch (e) {
+        console.error("Failed to fetch record", e);
+      }
+      setLoading(false);
+    };
+    fetchRecord();
+  }, [id]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-[#020202] flex items-center justify-center">
+        <div className="w-8 h-8 border border-[#CBAA69] border-t-transparent rounded-full animate-spin"></div>
+      </div>
+    );
+  }
+
+  if (!record) {
+    return (
+      <div className="min-h-screen bg-[#020202] text-white flex flex-col items-center justify-center font-sans">
+        <h1 className="text-2xl font-serif text-[#CBAA69] mb-4">Professional Not Found</h1>
+        <button onClick={() => router.back()} className="text-sm text-white/50 hover:text-white">Return to Future Leaders</button>
+      </div>
+    );
+  }
+
+  const recognitionId = record.recognitionId || `JS-CE-${record.year || "2027"}-001`;
+  const practiceDisplay = record.practiceAreas?.length 
+    ? record.practiceAreas.slice(0,3).join(" | ").toUpperCase()
+    : "M&A | CORPORATE GOVERNANCE | STRATEGIC TRANSACTIONS";
+    
+  const roleName = "Corporate & M&A Counsel™";
+  
+  const handleCopyCitation = () => {
+    const citationText = `The Juris Standard. (${record.year || '2027'}). ${record.name} - Future Leaders™ (${roleName}). ${recognitionId}.`;
+    navigator.clipboard.writeText(citationText);
+    alert("Citation copied to clipboard");
+  };
+
   return (
-    <main className="min-h-screen bg-[#000000] selection:bg-[#C5A059]/30 flex flex-col font-sans text-[#FFFFF0]">
-      <Navbar />
+    <main className="min-h-screen bg-[#020202] relative selection:bg-[#CBAA69]/30 flex flex-col font-sans text-neutral-300">
       
-      {/* 1. INSTITUTIONAL HEADER & CITATION */}
-      <section className="w-full pt-40 pb-24 border-b border-[#222222] bg-[#000000]">
-        <div className="w-full px-6 md:px-12 lg:px-20 xl:px-32 max-w-[1200px] mx-auto">
-          
-          <div className="flex items-center gap-4 text-xs font-semibold tracking-widest text-[#C5A059] uppercase mb-12">
-            <span className="w-8 h-[1px] bg-[#C5A059]/50 block" />
-            FUTURE LEADERS™ • OFFICIAL RECORD
+      {/* Global Premium Lighting */}
+      <div className="pointer-events-none fixed inset-0 z-0 pointer-events-none">
+        <div className="absolute top-0 right-0 w-[120vw] h-[120vh] bg-[radial-gradient(ellipse_at_top_right,rgba(203,170,105,0.08),transparent_60%)] -translate-y-1/4 translate-x-1/4 blur-3xl mix-blend-screen" />
+      </div>
+
+      <div className="relative z-10 flex flex-col w-full">
+        <Navbar />
+        
+        {/* HERO SECTION */}
+        <section className="relative w-full pt-32 pb-16 lg:pt-36 lg:pb-16 border-b border-white/[0.02]">
+          {/* Background Image / Gradients */}
+          <div className="absolute inset-0 z-0 bg-[#020202]">
+             <img src="/collections/corporate_elite_bg.png" alt="Background" className="w-full h-full object-cover object-center opacity-[0.08] mix-blend-screen" />
+             <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,#020202_90%)]" />
+             <div className="absolute inset-0 bg-gradient-to-b from-[#020202]/30 via-transparent to-[#020202]" />
           </div>
 
-          <div className="flex flex-col md:flex-row gap-16 lg:gap-24 items-start">
+        <div className="w-full px-6 md:px-12 lg:px-20 max-w-[1400px] mx-auto relative z-10">
+          
+          {/* Top Bar */}
+          <div className="flex justify-between items-center mb-16 border-b border-white/[0.05] pb-6">
+            <button onClick={() => router.push('/juris-index/professionals/future-leaders')} className="flex items-center gap-3 text-[0.6rem] uppercase tracking-widest text-white/50 hover:text-[#CBAA69] transition-colors">
+              <ArrowLeft className="w-4 h-4" /> Back to Future Leaders™
+            </button>
+            <span className="text-[0.55rem] uppercase tracking-[0.4em] text-white/30 hidden md:block">RECOGNISE. VERIFY. PRESERVE.</span>
+          </div>
+
+          <div className="flex flex-col md:flex-row gap-10 md:gap-20 items-start mt-8">
             
-            {/* Portrait Placeholder */}
-            <div className="w-48 h-64 bg-[#111111] border border-[#222222] shrink-0 flex items-center justify-center relative">
-               <svg className="w-20 h-20 text-[#333333]" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
-               <div className="absolute bottom-0 left-0 w-full h-[1px] bg-[#C5A059]" />
+            {/* Left Column: Photo Frame */}
+            <div className="w-[180px] md:w-[220px] shrink-0">
+              <div className="aspect-[3/4] bg-[#050505] border border-white/[0.05] relative overflow-hidden group p-1.5 shadow-[0_20px_40px_rgba(0,0,0,0.8)]">
+                 <div className="w-full h-full bg-[#0a0a0a] flex items-center justify-center relative">
+                    {/* Noise overlay */}
+                    <div className="absolute inset-0 opacity-[0.2] bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] mix-blend-overlay" />
+                    <User className="w-12 h-12 text-white/10 group-hover:scale-105 transition-transform duration-700" strokeWidth={1} />
+                 </div>
+              </div>
             </div>
 
-            {/* Details */}
-            <div className="flex flex-col flex-grow">
-              <h1 className="font-serif text-4xl md:text-5xl text-[#FFFFF0] leading-tight tracking-wide mb-6">
-                {mockProfile.name}
-              </h1>
+            {/* Right Column: Precise Information */}
+            <div className="flex flex-col flex-1 pt-0 min-w-0">
               
-              <div className="flex flex-col gap-4 text-sm tracking-widest uppercase text-[#FFFFF0]/60 mb-12">
-                <div className="flex items-center gap-3">
-                  <Target className="w-4 h-4 text-[#C5A059]" />
-                  <span className="text-[#C5A059] font-semibold">{mockProfile.careerStage}</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <Building2 className="w-4 h-4" />
-                  {mockProfile.organisation}
-                </div>
-                <div className="flex items-center gap-3">
-                  <MapPin className="w-4 h-4" />
-                  {mockProfile.jurisdiction}
-                </div>
+              <div className="flex items-center gap-3 mb-4">
+                <span className="text-[0.55rem] tracking-[0.4em] text-[#CBAA69] uppercase font-semibold">The Juris Standard</span>
+                <span className="w-1 h-1 rounded-full bg-white/20" />
+                <span className="text-[0.55rem] tracking-[0.4em] text-white/50 uppercase">Future Leaders™</span>
               </div>
 
-              {/* Editorial Citation */}
-              <div className="border-l border-[#C5A059] pl-8 py-2">
-                <h4 className="text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-[#C5A059] mb-4">Editorial Citation</h4>
-                <p className="font-serif text-lg md:text-xl text-[#FFFFF0]/90 leading-relaxed italic">
-                  "{mockProfile.citation}"
-                </p>
+              <h1 className="font-serif text-4xl md:text-5xl lg:text-[4rem] text-white tracking-wide mb-3 leading-none drop-shadow-sm">
+                {record.name}
+              </h1>
+              
+              <h2 className="text-[0.7rem] md:text-sm text-[#CBAA69] font-light tracking-[0.2em] uppercase mb-6">
+                {record.firmInfo?.designation || record.type || 'Partner'} <span className="mx-3 text-white/20">|</span> {record.firmInfo?.firm_name || record.name}
+              </h2>
+
+              <div className="w-full h-px bg-gradient-to-r from-white/10 to-transparent mb-6" />
+
+              {/* Precise Grid layout */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-6 gap-x-12 mb-6">
+                 <div>
+                    <span className="block text-[0.55rem] tracking-[0.2em] text-white/60 uppercase mb-1.5">Location</span>
+                    <span className="text-[0.75rem] text-white tracking-wide uppercase">{record.location}, {record.jurisdiction || 'India'}</span>
+                 </div>
+                 <div>
+                    <span className="block text-[0.55rem] tracking-[0.2em] text-white/60 uppercase mb-1.5">Practice Coverage</span>
+                    <span className="text-[0.75rem] text-white tracking-widest uppercase">{practiceDisplay}</span>
+                 </div>
+                 <div>
+                    <span className="block text-[0.55rem] tracking-[0.2em] text-white/60 uppercase mb-1.5">Record Status</span>
+                    <div className="flex items-center gap-2">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#CBAA69]" />
+                      <span className="text-[0.75rem] text-white tracking-wide uppercase">{record.status || 'Active'} ({record.year || '2027'})</span>
+                    </div>
+                 </div>
+                 <div>
+                    <span className="block text-[0.55rem] tracking-[0.2em] text-white/60 uppercase mb-1.5">Record ID</span>
+                    <span className="text-[0.75rem] text-white font-mono tracking-widest">{recognitionId}</span>
+                 </div>
               </div>
+
+              {/* Official Seal and Verification Badge */}
+              <div className="flex items-center gap-5 p-4 border border-white/5 bg-white/[0.02] w-full max-w-2xl rounded-sm">
+                 <img src="/logo/seal main.png" alt="Seal" className="w-12 h-12 object-contain drop-shadow-lg shrink-0 grayscale hover:grayscale-0 transition-all duration-500" />
+                 <div className="flex flex-col gap-1">
+                    <span className="text-[0.6rem] tracking-[0.25em] text-[#CBAA69] uppercase font-bold">Official Recognition</span>
+                    <span className="text-[0.55rem] tracking-[0.1em] text-white/60 uppercase leading-relaxed">
+                      Verified independently by the Juris Standard editorial board in accordance with the definitive recognition methodology.
+                    </span>
+                 </div>
+              </div>
+
             </div>
           </div>
         </div>
       </section>
 
-      <div className="w-full px-6 md:px-12 lg:px-20 xl:px-32 max-w-[1200px] mx-auto py-24 grid grid-cols-1 lg:grid-cols-3 gap-24">
+      {/* SECONDARY SECTIONS */}
+      <section className="w-full px-6 md:px-12 lg:px-20 max-w-[1400px] mx-auto py-16 flex flex-col gap-12">
         
-        {/* Main Content Column */}
-        <div className="lg:col-span-2 flex flex-col gap-24">
-          
-          <section>
-            <h3 className="text-xs font-semibold uppercase tracking-[0.2em] text-[#C5A059] mb-8">Professional Overview</h3>
-            <p className="text-sm text-[#FFFFF0]/70 leading-loose font-light">
-              {mockProfile.overview}
-            </p>
-          </section>
-
-          <section>
-            <h3 className="text-xs font-semibold uppercase tracking-[0.2em] text-[#C5A059] mb-8">Recognition Domains</h3>
-            <div className="flex flex-wrap gap-4">
-              {mockProfile.domains.map(domain => (
-                <div key={domain} className="px-6 py-4 border border-[#333333] bg-[#111111]">
-                  <span className="text-xs uppercase tracking-widest text-[#FFFFF0]/90">{domain}</span>
-                </div>
-              ))}
-            </div>
-          </section>
-
-          <section>
-            <h3 className="text-xs font-semibold uppercase tracking-[0.2em] text-[#C5A059] mb-8">Recognition Timeline</h3>
-            <div className="flex flex-col">
-              {mockProfile.timeline.map((item, idx) => (
-                <div key={idx} className="flex gap-8 py-6 border-t border-[#222222] first:border-0 first:pt-0">
-                  <span className="font-serif text-2xl text-[#C5A059] w-24 shrink-0">{item.year}</span>
-                  <div className="flex flex-col">
-                    <span className="text-sm uppercase tracking-widest text-[#FFFFF0]">{item.title}</span>
-                    <span className="text-[0.65rem] uppercase tracking-widest text-[#FFFFF0]/50 mt-2 flex items-center gap-2">
-                      <CheckCircle2 className="w-3 h-3 text-[#C5A059]" /> {item.detail}
-                    </span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </section>
-
+        {/* PREMIUM VAULT SECTION */}
+        <div className="w-full border border-[#CBAA69]/30 bg-gradient-to-br from-[#111] to-[#050505] p-8 md:p-12 flex flex-col lg:flex-row gap-12 items-center justify-between shadow-[0_15px_40px_rgba(203,170,105,0.06)] rounded-sm">
+           <div className="flex flex-col gap-4 lg:max-w-md">
+             <div className="inline-flex items-center gap-4 mb-2">
+               <span className="w-8 h-[1px] bg-[#CBAA69]" />
+               <h3 className="text-[0.7rem] tracking-[0.4em] text-[#CBAA69] uppercase font-bold">The Recognition Vault™</h3>
+             </div>
+             <p className="text-sm text-white/70 font-serif leading-relaxed">
+               Official assets for institutional and professional use. Access your verified recognition materials, certificates, and digital presence tools directly from the Juris Standard secure vault.
+             </p>
+           </div>
+           
+           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 w-full lg:w-auto flex-1">
+             <Link href={`/juris-index/professionals/future-leaders/${id}/certificate`} className="group flex flex-col items-center justify-center text-center gap-4 p-6 border border-white/10 bg-[#0a0a0a] hover:border-[#CBAA69]/50 hover:bg-[#CBAA69]/5 transition-all">
+                <FileText className="w-6 h-6 text-[#CBAA69]/70 group-hover:text-[#CBAA69] transition-colors" strokeWidth={1.5} />
+                <span className="text-[0.55rem] uppercase tracking-widest text-white/70 group-hover:text-white">Official<br/>Certificate</span>
+             </Link>
+             <Link href={`/juris-index/professionals/future-leaders/${id}/share`} className="group flex flex-col items-center justify-center text-center gap-4 p-6 border border-white/10 bg-[#0a0a0a] hover:border-[#CBAA69]/50 hover:bg-[#CBAA69]/5 transition-all">
+                <Share2 className="w-6 h-6 text-[#CBAA69]/70 group-hover:text-[#CBAA69] transition-colors" strokeWidth={1.5} />
+                <span className="text-[0.55rem] uppercase tracking-widest text-white/70 group-hover:text-white">Recognition<br/>Share Card</span>
+             </Link>
+             <button className="group flex flex-col items-center justify-center text-center gap-4 p-6 border border-white/10 bg-[#0a0a0a] hover:border-[#CBAA69]/50 hover:bg-[#CBAA69]/5 transition-all">
+                <Code2 className="w-6 h-6 text-[#CBAA69]/70 group-hover:text-[#CBAA69] transition-colors" strokeWidth={1.5} />
+                <span className="text-[0.55rem] uppercase tracking-widest text-white/70 group-hover:text-white">Website<br/>Seal</span>
+             </button>
+             <button className="group flex flex-col items-center justify-center text-center gap-4 p-6 border border-white/10 bg-[#0a0a0a] hover:border-[#CBAA69]/50 hover:bg-[#CBAA69]/5 transition-all">
+                <Award className="w-6 h-6 text-[#CBAA69]/70 group-hover:text-[#CBAA69] transition-colors" strokeWidth={1.5} />
+                <span className="text-[0.55rem] uppercase tracking-widest text-white/70 group-hover:text-white">Record<br/>Document</span>
+             </button>
+           </div>
         </div>
 
-        {/* Sidebar Column */}
-        <div className="flex flex-col gap-16">
-          
-          {/* Verification Block */}
-          <div className="w-full p-10 bg-[#111111] border border-[#222222] flex flex-col relative">
-            <div className="absolute top-0 left-0 w-full h-[1px] bg-[#C5A059]" />
-            <ShieldCheck className="w-8 h-8 text-[#C5A059] mb-6" strokeWidth={1} />
-            <h3 className="text-xs uppercase tracking-[0.2em] font-semibold text-[#FFFFF0] mb-2">Verification</h3>
-            <p className="text-[0.7rem] uppercase tracking-widest text-[#C5A059] mb-8">Officially Recognised</p>
-            
-            <div className="flex flex-col gap-4 mb-8">
-              <div>
-                <span className="text-[0.6rem] uppercase tracking-widest text-[#FFFFF0]/40 block mb-1">Recognition ID</span>
-                <span className="text-sm tracking-widest text-[#FFFFF0]">{mockProfile.verificationId}</span>
+        {/* CONSOLIDATED METADATA GRID */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+           
+           {/* Verification & QR */}
+           <div className="border border-white/[0.05] bg-[#0a0a0a] p-8 flex gap-6 items-center group hover:border-[#CBAA69]/30 transition-colors">
+              <div className="w-20 h-20 bg-white p-1.5 shrink-0">
+                 <img src={`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://jurisstandard.com/record/${recognitionId}`} alt="QR Code" className="w-full h-full opacity-90" />
               </div>
-            </div>
+              <div className="flex flex-col">
+                 <h3 className="text-[0.6rem] tracking-[0.2em] text-[#CBAA69] uppercase mb-2">Official Verification</h3>
+                 <p className="text-[0.65rem] text-white/50 mb-4 font-serif">Scan to verify this record directly on The Juris Standard.</p>
+                 <Link href="#" className="text-[0.55rem] uppercase tracking-widest text-white/80 hover:text-[#CBAA69]">Verify Record →</Link>
+              </div>
+           </div>
 
-            <div className="mt-auto flex justify-center p-4 bg-white">
-              <QrCode className="w-24 h-24 text-black" strokeWidth={1} />
-            </div>
-          </div>
+           {/* The Standard & Methodology */}
+           <div className="border border-white/[0.05] bg-[#0a0a0a] p-8 flex flex-col group hover:border-[#CBAA69]/30 transition-colors">
+              <h3 className="text-[0.6rem] tracking-[0.2em] text-[#CBAA69] uppercase mb-3">The Standard & Methodology</h3>
+              <p className="text-[0.7rem] text-white/60 mb-6 leading-relaxed font-serif flex-1">
+                 Future Leaders™ recognises exceptional counsel and strategic judgement through a rigorous, independent editorial process.
+              </p>
+              <Link href="#" className="text-[0.55rem] uppercase tracking-widest text-white/80 hover:text-[#CBAA69]">View Methodology →</Link>
+           </div>
 
-          <section className="p-8 bg-[#111111] border border-[#333333]">
-            <h3 className="text-xs font-semibold uppercase tracking-[0.2em] text-[#C5A059] mb-6 flex items-center gap-3">
-               Recognition Assets
-            </h3>
-            <p className="text-[0.65rem] uppercase tracking-widest text-[#FFFFF0]/50 leading-loose mb-8">
-              Official assets and downloads are strictly available to recognised individuals via the Recognition Centre.
-            </p>
-            <Link href="#" className="flex items-center justify-between text-xs uppercase tracking-widest text-[#FFFFF0] border border-[#C5A059] p-4 hover:bg-[#C5A059] hover:text-black transition-colors">
-              Access Assets <ArrowRight className="w-4 h-4" />
-            </Link>
-          </section>
+           {/* Citation */}
+           <div className="border border-white/[0.05] bg-[#0a0a0a] p-8 flex flex-col group hover:border-[#CBAA69]/30 transition-colors">
+              <h3 className="text-[0.6rem] tracking-[0.2em] text-[#CBAA69] uppercase mb-4">Cite This Record™</h3>
+              <div className="border border-white/10 bg-[#050505] p-4 mb-4">
+                 <p className="text-[0.55rem] leading-relaxed text-white/60 font-serif">
+                   The Juris Standard. ({record.year || '2027'}). {record.name} – Future Leaders™. {recognitionId}.
+                 </p>
+              </div>
+              <button onClick={handleCopyCitation} className="text-[0.55rem] uppercase tracking-widest text-white/80 hover:text-[#CBAA69] mt-auto w-max text-left flex items-center gap-2">
+                 <FileText className="w-3.5 h-3.5" /> Copy Citation
+              </button>
+           </div>
 
         </div>
-      </div>
-      
+
+      </section>
+
       <Footer />
+      </div>
     </main>
   );
 }

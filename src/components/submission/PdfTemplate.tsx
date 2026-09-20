@@ -124,10 +124,12 @@ export const SubmissionPdfDocument = ({ profileData, track, programme, reference
   
   const getTrackName = () => {
     switch(track) {
-      case 'professional': return "Legal Professional";
-      case 'firm': return "Law Firm";
-      case 'media': return "Legal Media";
-      case 'innovation': return "Legal Innovation";
+      case 'law_firm_excellence': return "Law Firm Excellence™";
+      case 'corporate_elite': return "Corporate Elite™";
+      case 'litigation_masters': return "Litigation Masters™";
+      case 'women_leaders': return "Women Leaders™";
+      case 'future_leaders': return "Future Leaders™";
+      case 'legal_innovation': return "Legal Innovation Excellence™";
       default: return "Not Selected";
     }
   };

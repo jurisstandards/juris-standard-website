@@ -158,30 +158,50 @@ export function Navbar() {
           {/* Login / User Link & Request Access */}
           <div className="flex items-center space-x-6 relative">
             {user ? (
-              <Link
-                href="/my-juris"
-                className="group flex items-center gap-3 px-1 py-1 transition-all duration-300"
-              >
-                <div className="flex flex-col items-end hidden sm:flex">
-                  <span className="text-[0.55rem] uppercase tracking-widest text-white/40 group-hover:text-white/70 transition-colors">
-                    My Profile
-                  </span>
-                  <span className="text-[0.6rem] text-[#CBAA69] tracking-widest uppercase font-medium mt-0.5">
-                    {user.user_metadata?.full_name || user.email?.split("@")[0] || "Member"}
-                  </span>
-                </div>
-                <div className="w-9 h-9 rounded-full bg-[#050505] border border-white/10 group-hover:border-[#CBAA69]/50 flex items-center justify-center transition-all shadow-sm group-hover:shadow-[0_0_15px_rgba(203,170,105,0.15)] relative overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-br from-[#CBAA69]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                  <span className="text-[0.5rem] font-bold text-white/50 group-hover:text-[#CBAA69] tracking-wider relative z-10 transition-colors">
-                    {(user.user_metadata?.full_name || user.email || "U")
-                      .split(/[@.\s]/)
-                      .filter(Boolean)
-                      .slice(0, 2)
-                      .map((p: string) => p[0]?.toUpperCase() ?? "")
-                      .join("")}
-                  </span>
-                </div>
-              </Link>
+              <div className="relative" ref={dropdownRef}>
+                <button
+                  onClick={() => setShowDropdown(!showDropdown)}
+                  className="group flex items-center gap-3 px-1 py-1 transition-all duration-300"
+                >
+                  <div className="flex flex-col items-end hidden sm:flex">
+                    <span className="text-[0.55rem] uppercase tracking-widest text-white/40 group-hover:text-white/70 transition-colors">
+                      My Profile
+                    </span>
+                    <span className="text-[0.6rem] text-[#CBAA69] tracking-widest uppercase font-medium mt-0.5">
+                      {user.user_metadata?.full_name || user.email?.split("@")[0] || "Member"}
+                    </span>
+                  </div>
+                  <div className="w-9 h-9 rounded-full bg-[#050505] border border-white/10 group-hover:border-[#CBAA69]/50 flex items-center justify-center transition-all shadow-sm group-hover:shadow-[0_0_15px_rgba(203,170,105,0.15)] relative overflow-hidden">
+                    <div className="absolute inset-0 bg-gradient-to-br from-[#CBAA69]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <span className="text-[0.5rem] font-bold text-white/50 group-hover:text-[#CBAA69] tracking-wider relative z-10 transition-colors">
+                      {(user.user_metadata?.full_name || user.email || "U")
+                        .split(/[@.\s]/)
+                        .filter(Boolean)
+                        .slice(0, 2)
+                        .map((p: string) => p[0]?.toUpperCase() ?? "")
+                        .join("")}
+                    </span>
+                  </div>
+                </button>
+
+                {/* Dropdown Menu */}
+                {showDropdown && (
+                  <div className="absolute right-0 mt-3 w-52 bg-[#0a0a0a] border border-white/10 rounded-[3px] shadow-2xl py-1.5 z-50">
+                    <Link href="/my-juris" onClick={() => setShowDropdown(false)} className="flex items-center gap-3 px-4 py-2.5 text-[0.65rem] uppercase tracking-widest text-white/70 hover:text-white hover:bg-white/5 transition-colors">
+                      <User className="w-3.5 h-3.5" />
+                      My Profile
+                    </Link>
+                    <Link href="/admin" onClick={() => setShowDropdown(false)} className="flex items-center gap-3 px-4 py-2.5 text-[0.65rem] uppercase tracking-widest text-[#CBAA69]/80 hover:text-[#CBAA69] hover:bg-[#CBAA69]/5 transition-colors border-t border-white/5">
+                      <LayoutDashboard className="w-3.5 h-3.5" />
+                      Admin Panel
+                    </Link>
+                    <button onClick={handleLogout} className="w-full flex items-center gap-3 px-4 py-2.5 text-[0.65rem] uppercase tracking-widest text-red-400/80 hover:text-red-400 hover:bg-red-400/5 transition-colors border-t border-white/5 text-left">
+                      <LogOut className="w-3.5 h-3.5" />
+                      Sign Out
+                    </button>
+                  </div>
+                )}
+              </div>
             ) : (
               <Link
                 href="/login"

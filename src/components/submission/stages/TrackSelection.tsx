@@ -1,35 +1,49 @@
 import { useSubmissionStore, Track } from "@/lib/submissionStore";
 import { motion } from "framer-motion";
-import { Scale, Building2, Newspaper, Cpu, ChevronRight, ChevronLeft } from "lucide-react";
+import { Building2, Diamond, Gavel, Sparkles, Star, Lightbulb, ChevronRight, ChevronLeft } from "lucide-react";
 
 const tracks = [
   {
-    id: 'professional' as Track,
-    title: "Legal Professional",
-    icon: Scale,
-    description: "Recognition for distinguished legal practitioners demonstrating excellence within their respective fields of practice.",
-    footer: "32 Recognition Programmes"
-  },
-  {
-    id: 'firm' as Track,
-    title: "Law Firm",
+    id: 'law_firm_excellence' as Track,
+    title: "Law Firm Excellence™",
     icon: Building2,
     description: "Recognition for law firms demonstrating institutional excellence across legal practice, leadership and professional standards.",
-    footer: "15 Recognition Programmes"
+    footer: "Firm Registration"
   },
   {
-    id: 'media' as Track,
-    title: "Legal Media",
-    icon: Newspaper,
-    description: "Recognition for organisations advancing legal journalism, publishing, education and professional knowledge.",
-    footer: "9 Recognition Programmes"
+    id: 'corporate_elite' as Track,
+    title: "Corporate Elite™",
+    icon: Diamond,
+    description: "Recognition for distinguished legal practitioners demonstrating excellence within their respective fields of practice.",
+    footer: "Individual Registration"
   },
   {
-    id: 'innovation' as Track,
-    title: "Legal Innovation",
-    icon: Cpu,
+    id: 'litigation_masters' as Track,
+    title: "Litigation Masters™",
+    icon: Gavel,
+    description: "Recognition for exceptional dispute resolution and litigation experts shaping major legal outcomes.",
+    footer: "Individual Registration"
+  },
+  {
+    id: 'women_leaders' as Track,
+    title: "Women Leaders™",
+    icon: Sparkles,
+    description: "Celebrating outstanding female practitioners breaking barriers and leading the legal profession globally.",
+    footer: "Individual Registration"
+  },
+  {
+    id: 'future_leaders' as Track,
+    title: "Future Leaders™",
+    icon: Star,
+    description: "Recognising the most promising young legal minds and rising stars across jurisdictions.",
+    footer: "Individual Registration"
+  },
+  {
+    id: 'legal_innovation' as Track,
+    title: "Legal Innovation Excellence™",
+    icon: Lightbulb,
     description: "Recognition for organisations transforming legal services through innovation, artificial intelligence and technology.",
-    footer: "12 Recognition Programmes"
+    footer: "Organisation Registration"
   }
 ];
 
@@ -43,7 +57,7 @@ export function TrackSelection() {
 
   return (
     <div className="flex flex-col justify-center min-h-screen pt-32 pb-16 px-6 lg:px-12 relative z-10 w-full">
-      <div className="w-full flex flex-col">
+      <div className="w-full flex flex-col max-w-[1600px] mx-auto">
         <motion.div
           initial={isNavigatingBack ? false : { opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
@@ -71,7 +85,7 @@ export function TrackSelection() {
           </button>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 w-full">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
           {tracks.map((track, i) => (
             <motion.div
               key={track.id}

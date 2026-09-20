@@ -18,9 +18,8 @@ export function ConfirmationScreen() {
 
   const getApplicantName = () => {
     switch (selectedTrack) {
-      case 'firm': return profileData.identity.firmName;
-      case 'media':
-      case 'innovation': return profileData.identity.orgName;
+      case 'law_firm_excellence': return profileData.identity.firmName;
+      case 'legal_innovation': return profileData.identity.orgName;
       default: return profileData.identity.fullName;
     }
   };
