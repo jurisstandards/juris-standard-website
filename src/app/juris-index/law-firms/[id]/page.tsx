@@ -61,9 +61,9 @@ export default async function JurisStandardRecordPage({
 
   const citationText = `The Juris Standard™. "${record.name} — ${record.division}™." ${record.year}. Juris Standard Record ${record.recognitionId}.`;
   
-  // High-end serif font fallback for maximum elegance
   const luxurySerif = "Playfair Display, Georgia, serif";
 
+  return (
     <main className="min-h-screen bg-[#0a0a0a] selection:bg-[#CBAA69]/30 flex flex-col font-sans text-neutral-300 overflow-x-hidden">
       <Navbar />
 
