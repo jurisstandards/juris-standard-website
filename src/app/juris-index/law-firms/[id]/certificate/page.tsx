@@ -11,6 +11,7 @@ export default function CertificatePage() {
   const router = useRouter();
   const [firm, setFirm] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const [certScale, setCertScale] = useState(1);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -38,6 +39,23 @@ export default function CertificatePage() {
 
     fetchData();
   }, [id]);
+
+  // Calculate scale so the 1000×667 certificate fits perfectly without overlapping buttons
+  useEffect(() => {
+    const CERT_W = 1000;
+    const CERT_H = 667;
+    const RESERVED = 136; // top navbar + bottom action bar
+    const H_PAD = 40;     // horizontal breathing room
+    const updateScale = () => {
+      const availH = window.innerHeight - RESERVED;
+      const availW = window.innerWidth - H_PAD;
+      const scale = Math.min(1, availH / CERT_H, availW / CERT_W);
+      setCertScale(scale);
+    };
+    updateScale();
+    window.addEventListener("resize", updateScale);
+    return () => window.removeEventListener("resize", updateScale);
+  }, []);
 
   if (loading) {
     return (
@@ -119,15 +137,26 @@ export default function CertificatePage() {
       </div>
 
       {/* Certificate Container */}
-      <div className="relative z-10 flex-1 flex flex-col items-center justify-center w-full h-full pt-14 pb-20 print:p-0 print:m-0 print:flex print:items-center print:justify-center overflow-hidden">
+      <div className="relative z-10 flex-1 flex flex-col items-center justify-center w-full print:p-0 print:m-0 print:flex print:items-center print:justify-center">
         
-        {/* Certificate Wrapper (Thick Frame) — scales down to fit viewport */}
-        <div className="w-[1000px] aspect-[1.5/1] bg-[#d4af37]/20 p-[2px] rounded-sm relative shadow-[0_20px_50px_rgba(0,0,0,0.8)] flex-shrink-0 print:shadow-none print:m-0 print:overflow-hidden"
-          style={{ 
-            maxHeight: 'calc(100vh - 136px)',
-            maxWidth: 'min(1000px, calc((100vh - 136px) * 1.5))',
-            width: 'min(1000px, calc((100vh - 136px) * 1.5))',
-          }}>
+        {/* Scaled viewport — sized to the scaled dimensions so the action bar never overlaps */}
+        <div
+          style={{
+            width: `${1000 * certScale}px`,
+            height: `${667 * certScale}px`,
+            position: 'relative',
+            flexShrink: 0,
+          }}
+          className="print:w-[1000px] print:h-[667px]"
+        >
+          {/* Certificate Wrapper (Thick Frame) — always 1000×667, scaled via CSS transform */}
+          <div
+            className="w-[1000px] aspect-[1.5/1] bg-[#d4af37]/20 p-[2px] rounded-sm relative shadow-[0_20px_50px_rgba(0,0,0,0.8)] print:shadow-none print:overflow-hidden"
+            style={{
+              transformOrigin: 'top left',
+              transform: `scale(${certScale})`,
+            }}
+          >
           {/* Inner Gold Bevel effect */}
           <div className="absolute inset-0 border-[4px] border-[#9c7b2e] rounded-sm pointer-events-none z-30 opacity-80 mix-blend-overlay" />
           <div className="absolute inset-[4px] border-[2px] border-[#ffe8a1]/30 rounded-sm pointer-events-none z-30" />
@@ -255,6 +284,7 @@ export default function CertificatePage() {
               </div>
             </div>
           </div>
+        </div>
         </div>
       </div>
       

@@ -31,14 +31,23 @@ async function getAdminProfile() {
     const { data: { user }, error: userError } = await supabase.auth.getUser();
     if (userError || !user) return null;
 
-    const { data: profile } = await supabase
+    const { data: profile, error: profileError } = await supabase
       .from("profiles")
       .select("role, email")
       .eq("id", user.id)
       .single();
 
-    // Allow access if role is 'admin' or if the email matches the main admin email
-    if (profile?.role === "admin" || user.email === "jurisstandard@gmail.com") {
+    if (profileError) {
+      console.error("Profile fetch error in admin layout:", profileError);
+    }
+
+    // Allow access if role is 'admin' (case-insensitive) or if the email matches
+    const isRoleAdmin = profile?.role?.toLowerCase() === "admin";
+    const isEmailAdmin = user.email === "jurisstandard@gmail.com";
+
+    // Fallback: If they somehow got here and we just want to let them in based on their email or something, 
+    // but the user explicitly said they updated DB. We will trust the DB.
+    if (isRoleAdmin || isEmailAdmin || profile?.role === "Admin") {
       return { email: profile?.email || user.email, role: "admin" };
     }
 
@@ -52,9 +61,14 @@ async function getAdminProfile() {
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
   const admin = await getAdminProfile();
 
-  // Note: /admin/setup is excluded from auth check via its own page
   if (!admin) {
-    redirect("/admin-setup");
+    return (
+      <div className="min-h-screen bg-[#050505] text-white flex flex-col items-center justify-center">
+        <h1 className="text-2xl font-serif text-[#CBAA69] mb-4">Access Denied</h1>
+        <p className="text-white/50 mb-8">Your account does not have admin privileges.</p>
+        <Link href="/" className="px-6 py-2 bg-[#CBAA69] text-black font-semibold rounded-[2px]">Return to Home</Link>
+      </div>
+    );
   }
 
   return (
