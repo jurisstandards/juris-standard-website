@@ -7,24 +7,185 @@ import { cn } from "@/lib/utils";
 type SectionKey = keyof ProfileData;
 
 const allCountries = [
-  "United States", "United Kingdom", "Canada", "Australia", 
-  "Germany", "France", "Japan", "Singapore", "United Arab Emirates"
+  "Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Antigua and Barbuda",
+  "Argentina", "Armenia", "Australia", "Austria", "Azerbaijan",
+  "Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium", "Belize",
+  "Benin", "Bhutan", "Bolivia", "Bosnia and Herzegovina", "Botswana", "Brazil",
+  "Brunei", "Bulgaria", "Burkina Faso", "Burundi",
+  "Cabo Verde", "Cambodia", "Cameroon", "Canada", "Central African Republic",
+  "Chad", "Chile", "China", "Colombia", "Comoros", "Congo (DRC)", "Congo (Republic)",
+  "Costa Rica", "Croatia", "Cuba", "Cyprus", "Czech Republic",
+  "Denmark", "Djibouti", "Dominica", "Dominican Republic",
+  "East Timor", "Ecuador", "Egypt", "El Salvador", "Equatorial Guinea", "Eritrea",
+  "Estonia", "Eswatini", "Ethiopia",
+  "Fiji", "Finland", "France",
+  "Gabon", "Gambia", "Georgia", "Germany", "Ghana", "Greece", "Grenada",
+  "Guatemala", "Guinea", "Guinea-Bissau", "Guyana",
+  "Haiti", "Honduras", "Hungary",
+  "Iceland", "India", "Indonesia", "Iran", "Iraq", "Ireland", "Israel", "Italy",
+  "Jamaica", "Japan", "Jordan",
+  "Kazakhstan", "Kenya", "Kiribati", "Kuwait", "Kyrgyzstan",
+  "Laos", "Latvia", "Lebanon", "Lesotho", "Liberia", "Libya", "Liechtenstein",
+  "Lithuania", "Luxembourg",
+  "Madagascar", "Malawi", "Malaysia", "Maldives", "Mali", "Malta", "Marshall Islands",
+  "Mauritania", "Mauritius", "Mexico", "Micronesia", "Moldova", "Monaco",
+  "Mongolia", "Montenegro", "Morocco", "Mozambique", "Myanmar",
+  "Namibia", "Nauru", "Nepal", "Netherlands", "New Zealand", "Nicaragua", "Niger",
+  "Nigeria", "North Korea", "North Macedonia", "Norway",
+  "Oman",
+  "Pakistan", "Palau", "Palestine", "Panama", "Papua New Guinea", "Paraguay", "Peru",
+  "Philippines", "Poland", "Portugal",
+  "Qatar",
+  "Romania", "Russia", "Rwanda",
+  "Saint Kitts and Nevis", "Saint Lucia", "Saint Vincent and the Grenadines", "Samoa",
+  "San Marino", "Sao Tome and Principe", "Saudi Arabia", "Senegal", "Serbia",
+  "Seychelles", "Sierra Leone", "Singapore", "Slovakia", "Slovenia", "Solomon Islands",
+  "Somalia", "South Africa", "South Korea", "South Sudan", "Spain", "Sri Lanka",
+  "Sudan", "Suriname", "Sweden", "Switzerland", "Syria",
+  "Taiwan", "Tajikistan", "Tanzania", "Thailand", "Togo", "Tonga",
+  "Trinidad and Tobago", "Tunisia", "Turkey", "Turkmenistan", "Tuvalu",
+  "Uganda", "Ukraine", "United Arab Emirates", "United Kingdom", "United States",
+  "Uruguay", "Uzbekistan",
+  "Vanuatu", "Vatican City", "Venezuela", "Vietnam",
+  "Yemen",
+  "Zambia", "Zimbabwe"
 ];
 
-const getCityOptions = (country: string) => {
+const getCityOptions = (country: string): string[] => {
   const cities: Record<string, string[]> = {
-    "United States": ["New York", "Los Angeles", "Chicago", "Washington D.C."],
-    "United Kingdom": ["London", "Manchester", "Edinburgh", "Birmingham"],
-    "Canada": ["Toronto", "Vancouver", "Montreal", "Calgary"],
-    "Australia": ["Sydney", "Melbourne", "Brisbane", "Perth"],
-    "Germany": ["Berlin", "Frankfurt", "Munich", "Hamburg"],
-    "France": ["Paris", "Lyon", "Marseille"],
-    "Japan": ["Tokyo", "Osaka", "Kyoto"],
+    "Afghanistan": ["Kabul", "Kandahar", "Herat", "Mazar-i-Sharif"],
+    "Albania": ["Tirana", "Durrës", "Vlorë", "Shkodër"],
+    "Algeria": ["Algiers", "Oran", "Constantine", "Annaba"],
+    "Argentina": ["Buenos Aires", "Córdoba", "Rosario", "Mendoza", "Tucumán", "Mar del Plata"],
+    "Armenia": ["Yerevan", "Gyumri", "Vanadzor"],
+    "Australia": ["Sydney", "Melbourne", "Brisbane", "Perth", "Adelaide", "Canberra", "Gold Coast", "Darwin"],
+    "Austria": ["Vienna", "Graz", "Linz", "Salzburg", "Innsbruck"],
+    "Azerbaijan": ["Baku", "Ganja", "Sumqayit"],
+    "Bahrain": ["Manama", "Riffa", "Muharraq"],
+    "Bangladesh": ["Dhaka", "Chittagong", "Sylhet", "Khulna", "Rajshahi"],
+    "Belgium": ["Brussels", "Antwerp", "Ghent", "Bruges", "Liège"],
+    "Bhutan": ["Thimphu", "Phuentsholing", "Punakha"],
+    "Bolivia": ["La Paz", "Santa Cruz", "Cochabamba", "Sucre"],
+    "Bosnia and Herzegovina": ["Sarajevo", "Banja Luka", "Mostar"],
+    "Botswana": ["Gaborone", "Francistown", "Maun"],
+    "Brazil": ["São Paulo", "Rio de Janeiro", "Brasília", "Salvador", "Fortaleza", "Manaus", "Curitiba", "Recife", "Porto Alegre", "Belo Horizonte"],
+    "Bulgaria": ["Sofia", "Plovdiv", "Varna", "Burgas"],
+    "Cambodia": ["Phnom Penh", "Siem Reap", "Battambang"],
+    "Cameroon": ["Yaoundé", "Douala", "Bamenda"],
+    "Canada": ["Toronto", "Vancouver", "Montreal", "Calgary", "Ottawa", "Edmonton", "Quebec City", "Winnipeg", "Halifax"],
+    "Chile": ["Santiago", "Valparaíso", "Concepción", "Antofagasta"],
+    "China": ["Beijing", "Shanghai", "Guangzhou", "Shenzhen", "Chengdu", "Chongqing", "Wuhan", "Xi'an", "Hangzhou", "Nanjing", "Tianjin"],
+    "Colombia": ["Bogotá", "Medellín", "Cali", "Barranquilla", "Cartagena"],
+    "Costa Rica": ["San José", "Alajuela", "Cartago"],
+    "Croatia": ["Zagreb", "Split", "Rijeka", "Dubrovnik"],
+    "Cuba": ["Havana", "Santiago de Cuba", "Holguín"],
+    "Cyprus": ["Nicosia", "Limassol", "Larnaca", "Paphos"],
+    "Czech Republic": ["Prague", "Brno", "Ostrava", "Plzeň"],
+    "Denmark": ["Copenhagen", "Aarhus", "Odense", "Aalborg"],
+    "Dominican Republic": ["Santo Domingo", "Santiago de los Caballeros"],
+    "Ecuador": ["Quito", "Guayaquil", "Cuenca"],
+    "Egypt": ["Cairo", "Alexandria", "Giza", "Luxor", "Aswan", "Port Said"],
+    "Estonia": ["Tallinn", "Tartu", "Narva"],
+    "Ethiopia": ["Addis Ababa", "Dire Dawa", "Gondar", "Mekelle"],
+    "Finland": ["Helsinki", "Espoo", "Tampere", "Turku", "Oulu"],
+    "France": ["Paris", "Lyon", "Marseille", "Toulouse", "Bordeaux", "Nice", "Nantes", "Strasbourg", "Lille"],
+    "Georgia": ["Tbilisi", "Kutaisi", "Batumi"],
+    "Germany": ["Berlin", "Hamburg", "Munich", "Frankfurt", "Cologne", "Düsseldorf", "Stuttgart", "Leipzig", "Dresden", "Bonn"],
+    "Ghana": ["Accra", "Kumasi", "Tamale", "Takoradi"],
+    "Greece": ["Athens", "Thessaloniki", "Patras", "Heraklion"],
+    "Guatemala": ["Guatemala City", "Quetzaltenango", "Escuintla"],
+    "Hungary": ["Budapest", "Debrecen", "Miskolc", "Pécs", "Győr"],
+    "Iceland": ["Reykjavik", "Akureyri"],
+    "India": ["Mumbai", "Delhi", "Bangalore", "Hyderabad", "Chennai", "Kolkata", "Pune", "Ahmedabad", "Jaipur", "Surat", "Lucknow", "Kochi", "Chandigarh", "Bhopal", "Indore", "Nagpur", "Visakhapatnam", "Coimbatore", "Gurgaon", "Noida", "Agra", "Varanasi", "Patna"],
+    "Indonesia": ["Jakarta", "Surabaya", "Bandung", "Medan", "Makassar", "Semarang", "Palembang", "Bali (Denpasar)"],
+    "Iran": ["Tehran", "Mashhad", "Isfahan", "Tabriz", "Shiraz", "Karaj"],
+    "Iraq": ["Baghdad", "Basra", "Mosul", "Erbil", "Najaf"],
+    "Ireland": ["Dublin", "Cork", "Galway", "Limerick", "Waterford"],
+    "Israel": ["Tel Aviv", "Jerusalem", "Haifa", "Be'er Sheva"],
+    "Italy": ["Rome", "Milan", "Naples", "Turin", "Florence", "Venice", "Bologna", "Genoa", "Palermo"],
+    "Jamaica": ["Kingston", "Montego Bay", "Portmore"],
+    "Japan": ["Tokyo", "Osaka", "Kyoto", "Nagoya", "Sapporo", "Fukuoka", "Yokohama", "Hiroshima", "Sendai"],
+    "Jordan": ["Amman", "Zarqa", "Irbid", "Aqaba"],
+    "Kazakhstan": ["Almaty", "Astana", "Shymkent", "Karaganda"],
+    "Kenya": ["Nairobi", "Mombasa", "Kisumu", "Nakuru"],
+    "Kuwait": ["Kuwait City", "Hawalli", "Farwaniya", "Salmiya"],
+    "Kyrgyzstan": ["Bishkek", "Osh", "Jalal-Abad"],
+    "Latvia": ["Riga", "Daugavpils", "Liepāja"],
+    "Lebanon": ["Beirut", "Tripoli", "Sidon"],
+    "Libya": ["Tripoli", "Benghazi", "Misrata"],
+    "Lithuania": ["Vilnius", "Kaunas", "Klaipėda"],
+    "Luxembourg": ["Luxembourg City", "Esch-sur-Alzette"],
+    "Malaysia": ["Kuala Lumpur", "Penang", "Johor Bahru", "Ipoh", "Kota Kinabalu", "Kuching"],
+    "Malta": ["Valletta", "Birkirkara", "Mosta"],
+    "Mauritius": ["Port Louis", "Beau Bassin-Rose Hill", "Curepipe"],
+    "Mexico": ["Mexico City", "Guadalajara", "Monterrey", "Puebla", "Tijuana", "León", "Cancún", "Mérida"],
+    "Moldova": ["Chișinău", "Tiraspol", "Bălți"],
+    "Mongolia": ["Ulaanbaatar", "Erdenet", "Darkhan"],
+    "Montenegro": ["Podgorica", "Nikšić", "Budva"],
+    "Morocco": ["Casablanca", "Rabat", "Marrakech", "Fes", "Tangier", "Agadir"],
+    "Mozambique": ["Maputo", "Beira", "Nampula"],
+    "Myanmar": ["Naypyidaw", "Yangon", "Mandalay"],
+    "Namibia": ["Windhoek", "Swakopmund", "Walvis Bay"],
+    "Nepal": ["Kathmandu", "Pokhara", "Lalitpur", "Bharatpur"],
+    "Netherlands": ["Amsterdam", "Rotterdam", "The Hague", "Utrecht", "Eindhoven"],
+    "New Zealand": ["Auckland", "Wellington", "Christchurch", "Hamilton", "Tauranga"],
+    "Nicaragua": ["Managua", "León", "Masaya"],
+    "Nigeria": ["Lagos", "Abuja", "Kano", "Port Harcourt", "Ibadan", "Benin City", "Enugu"],
+    "North Korea": ["Pyongyang", "Hamhung", "Chongjin"],
+    "Norway": ["Oslo", "Bergen", "Trondheim", "Stavanger"],
+    "Oman": ["Muscat", "Salalah", "Sohar", "Sur"],
+    "Pakistan": ["Karachi", "Lahore", "Islamabad", "Rawalpindi", "Peshawar", "Quetta", "Multan", "Faisalabad"],
+    "Palestine": ["Gaza", "Ramallah", "Nablus", "Hebron"],
+    "Panama": ["Panama City", "Colón", "David"],
+    "Papua New Guinea": ["Port Moresby", "Lae", "Mount Hagen"],
+    "Paraguay": ["Asunción", "Ciudad del Este", "Luque"],
+    "Peru": ["Lima", "Arequipa", "Trujillo", "Cusco"],
+    "Philippines": ["Manila", "Cebu City", "Davao City", "Quezon City", "Makati", "Taguig", "Pasig"],
+    "Poland": ["Warsaw", "Kraków", "Łódź", "Wrocław", "Poznań", "Gdańsk"],
+    "Portugal": ["Lisbon", "Porto", "Braga", "Funchal", "Coimbra"],
+    "Qatar": ["Doha", "Al Wakrah", "Al Rayyan"],
+    "Romania": ["Bucharest", "Cluj-Napoca", "Timișoara", "Iași", "Constanța"],
+    "Russia": ["Moscow", "Saint Petersburg", "Novosibirsk", "Yekaterinburg", "Kazan", "Nizhny Novgorod", "Vladivostok", "Samara"],
+    "Rwanda": ["Kigali", "Butare", "Gisenyi"],
+    "Saudi Arabia": ["Riyadh", "Jeddah", "Mecca", "Medina", "Dammam", "Khobar", "Tabuk"],
+    "Senegal": ["Dakar", "Thiès", "Saint-Louis"],
+    "Serbia": ["Belgrade", "Novi Sad", "Niš", "Kragujevac"],
     "Singapore": ["Singapore"],
-    "United Arab Emirates": ["Dubai", "Abu Dhabi"]
+    "Slovakia": ["Bratislava", "Košice", "Prešov", "Žilina"],
+    "Slovenia": ["Ljubljana", "Maribor", "Celje"],
+    "Somalia": ["Mogadishu", "Hargeisa", "Kismayo"],
+    "South Africa": ["Johannesburg", "Cape Town", "Durban", "Pretoria", "Port Elizabeth", "Bloemfontein"],
+    "South Korea": ["Seoul", "Busan", "Incheon", "Daegu", "Daejeon", "Gwangju"],
+    "South Sudan": ["Juba", "Wau", "Malakal"],
+    "Spain": ["Madrid", "Barcelona", "Valencia", "Seville", "Bilbao", "Málaga", "Zaragoza"],
+    "Sri Lanka": ["Colombo", "Kandy", "Galle", "Jaffna"],
+    "Sudan": ["Khartoum", "Omdurman", "Port Sudan"],
+    "Sweden": ["Stockholm", "Gothenburg", "Malmö", "Uppsala"],
+    "Switzerland": ["Zurich", "Geneva", "Basel", "Bern", "Lausanne"],
+    "Syria": ["Damascus", "Aleppo", "Homs", "Latakia"],
+    "Taiwan": ["Taipei", "Taichung", "Kaohsiung", "Tainan"],
+    "Tajikistan": ["Dushanbe", "Khujand", "Kulob"],
+    "Tanzania": ["Dar es Salaam", "Dodoma", "Arusha", "Mwanza"],
+    "Thailand": ["Bangkok", "Chiang Mai", "Pattaya", "Phuket", "Hat Yai"],
+    "Tunisia": ["Tunis", "Sfax", "Sousse", "Kairouan"],
+    "Turkey": ["Istanbul", "Ankara", "Izmir", "Bursa", "Antalya", "Adana", "Konya"],
+    "Turkmenistan": ["Ashgabat", "Türkmenabat", "Mary"],
+    "Uganda": ["Kampala", "Gulu", "Lira", "Mbarara"],
+    "Ukraine": ["Kyiv", "Kharkiv", "Odesa", "Dnipro", "Lviv"],
+    "United Arab Emirates": ["Dubai", "Abu Dhabi", "Sharjah", "Ajman", "Ras Al Khaimah"],
+    "United Kingdom": ["London", "Manchester", "Birmingham", "Leeds", "Edinburgh", "Glasgow", "Bristol", "Liverpool", "Sheffield", "Nottingham", "Cardiff", "Belfast"],
+    "United States": ["New York", "Los Angeles", "Chicago", "Houston", "Phoenix", "Philadelphia", "San Antonio", "San Diego", "Dallas", "San Jose", "Austin", "Jacksonville", "Washington D.C.", "San Francisco", "Seattle", "Denver", "Boston", "Atlanta", "Miami", "Las Vegas"],
+    "Uruguay": ["Montevideo", "Salto", "Paysandú"],
+    "Uzbekistan": ["Tashkent", "Samarkand", "Namangan", "Bukhara"],
+    "Venezuela": ["Caracas", "Maracaibo", "Valencia", "Barquisimeto"],
+    "Vietnam": ["Ho Chi Minh City", "Hanoi", "Da Nang", "Haiphong", "Can Tho"],
+    "Yemen": ["Sanaa", "Aden", "Taiz", "Hodeidah"],
+    "Zambia": ["Lusaka", "Ndola", "Kitwe", "Livingstone"],
+    "Zimbabwe": ["Harare", "Bulawayo", "Mutare", "Gweru"],
   };
   return cities[country] || [];
 };
+
 
 export function EditorialProfile() {
   const { profileData, updateProfileData, setStage, selectedTrack } = useSubmissionStore();
@@ -92,7 +253,11 @@ export function EditorialProfile() {
         return true; // entirely optional
       
       case 'documents':
+        if (selectedTrack === 'law_firm_excellence') {
+          return !!(profileData.documents.photoUploaded);
+        }
         return !!(profileData.documents.photoUploaded && profileData.documents.cvUploaded);
+
         
       default:
         return true;
@@ -165,7 +330,8 @@ export function EditorialProfile() {
                   label="Headquarters City" 
                   value={profileData.identity.hqCity} 
                   onChange={(val) => updateProfileData('identity', { hqCity: val })} 
-                  options={hqCities.length > 0 ? hqCities : ['Please select a country first']}
+                  options={hqCities}
+                  placeholder={profileData.identity.country ? "Search or type your city..." : "Please select a country first"}
                   required
                 />
               </div>
@@ -194,7 +360,8 @@ export function EditorialProfile() {
                   label="City" 
                   value={profileData.identity.city} 
                   onChange={(val) => updateProfileData('identity', { city: val })} 
-                  options={cities.length > 0 ? cities : ['Please select a country first']}
+                  options={cities}
+                  placeholder={profileData.identity.country ? "Search or type your city..." : "Please select a country first"}
                   required
                 />
               </div>
@@ -225,7 +392,8 @@ export function EditorialProfile() {
                 label="City" 
                 value={profileData.identity.city} 
                 onChange={(val) => updateProfileData('identity', { city: val })} 
-                options={cities.length > 0 ? cities : ['Please select a country first']}
+                options={cities}
+                placeholder={profileData.identity.country ? "Search or type your city..." : "Please select a country first"}
                 required
               />
             </div>
@@ -318,6 +486,20 @@ export function EditorialProfile() {
         );
 
       case 'documents':
+        if (selectedTrack === 'law_firm_excellence') {
+          return (
+            <div className="space-y-6">
+              <p className="text-white/40 text-sm font-light mb-8">Upload supporting documentation for your firm's submission.</p>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <FileUpload label="Firm Logo / Photograph" onUpload={() => updateProfileData('documents', { photoUploaded: true })} uploaded={profileData.documents.photoUploaded} required />
+                <FileUpload label="Representative Work" onUpload={() => updateProfileData('documents', { workUploaded: true })} uploaded={profileData.documents.workUploaded} />
+                <FileUpload label="Supporting Documents" onUpload={() => updateProfileData('documents', { suppUploaded: true })} uploaded={profileData.documents.suppUploaded} />
+              </div>
+              <ContinueButton onClick={() => handleContinue('documents', 'review')} text="Review Editorial Submission" />
+            </div>
+          );
+        }
+
         return (
           <div className="space-y-6">
             <p className="text-white/40 text-sm font-light mb-8">Upload supporting documentation for your submission.</p>
@@ -330,6 +512,7 @@ export function EditorialProfile() {
             <ContinueButton onClick={() => handleContinue('documents', 'review')} text="Review Editorial Submission" />
           </div>
         );
+
     }
   };
 
@@ -503,7 +686,7 @@ function Input({ label, value, onChange, required }: { label: string, value: str
   );
 }
 
-function SelectInput({ label, value, onChange, options, required }: { label: string, value: string, onChange: (val: string) => void, options: string[], required?: boolean }) {
+function SelectInput({ label, value, onChange, options, required, placeholder }: { label: string, value: string, onChange: (val: string) => void, options: string[], required?: boolean, placeholder?: string }) {
   const [isOpen, setIsOpen] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
 
@@ -538,9 +721,10 @@ function SelectInput({ label, value, onChange, options, required }: { label: str
           onBlur={() => {
             setTimeout(() => setIsOpen(false), 200);
           }}
-          placeholder={`Search or type ${label}...`}
+          placeholder={placeholder || `Search or type ${label}...`}
           className="w-full bg-[#111]/80 backdrop-blur-md border border-white/10 rounded-md px-4 py-3 pr-10 text-white text-sm focus:outline-none focus:border-gold-500/60 focus:ring-1 focus:ring-gold-500/20 transition-all duration-300 shadow-inner"
         />
+
         <div className="absolute inset-y-0 right-0 flex items-center px-4 pointer-events-none">
           <ChevronRight className={`w-4 h-4 text-white/40 transition-transform duration-300 ${isOpen ? 'rotate-90' : 'rotate-0'}`} />
         </div>

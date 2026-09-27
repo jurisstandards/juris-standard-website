@@ -140,6 +140,10 @@ export function ConfirmationScreen() {
       >
         <Link 
           href="/"
+          onClick={() => {
+            useSubmissionStore.persist.clearStorage();
+            useSubmissionStore.getState().reset();
+          }}
           className="group flex items-center space-x-3 text-xs uppercase tracking-widest text-white/50 hover:text-white transition-colors"
         >
           <ArrowRight className="w-4 h-4 group-hover:-translate-x-1 transition-transform rotate-180" />
@@ -147,7 +151,11 @@ export function ConfirmationScreen() {
         </Link>
         <div className="hidden sm:block w-px h-4 bg-white/20" />
         <Link 
-          href="/index"
+          href="/juris-index"
+          onClick={() => {
+            useSubmissionStore.persist.clearStorage();
+            useSubmissionStore.getState().reset();
+          }}
           className="group flex items-center space-x-3 text-xs uppercase tracking-widest text-gold-500/70 hover:text-gold-400 transition-colors"
         >
           <span>Explore The Index</span>

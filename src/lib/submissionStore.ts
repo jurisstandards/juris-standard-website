@@ -117,6 +117,8 @@ interface SubmissionState {
   reset: () => void;
 }
 
+import { persist } from 'zustand/middleware';
+
 const initialProfileData: ProfileData = {
   identity: { 
     fullName: '', email: '', mobile: '', designation: '', organization: '', city: '', state: '', country: '',
@@ -146,48 +148,55 @@ const initialProfileData: ProfileData = {
   },
 };
 
-export const useSubmissionStore = create<SubmissionState>((set) => ({
-  currentStage: 'welcome',
-  isNavigatingBack: false,
-  selectedTrack: null,
-  selectedPracticeAreas: [],
-  primaryPracticeArea: null,
-  otherPracticeArea: '',
-  selectedProgramme: null,
-  profileData: initialProfileData,
-  completedSections: [],
-  setStage: (stage) => set((state) => {
-    const currentIndex = STAGE_ORDER.indexOf(state.currentStage);
-    const nextIndex = STAGE_ORDER.indexOf(stage);
-    return { 
-      currentStage: stage,
-      isNavigatingBack: nextIndex < currentIndex
-    };
-  }),
-  setTrack: (track) => set({ selectedTrack: track }),
-  setPracticeAreas: (areas) => set({ selectedPracticeAreas: areas }),
-  setPrimaryPracticeArea: (area) => set({ primaryPracticeArea: area }),
-  setOtherPracticeArea: (value) => set({ otherPracticeArea: value }),
-  setSelectedProgramme: (programme) => set({ selectedProgramme: programme }),
-  updateProfileData: (section, data) => 
-    set((state) => ({
-      profileData: {
-        ...state.profileData,
-        [section]: { ...state.profileData[section], ...data }
-      }
-    })),
-  markSectionCompleted: (section) => 
-    set((state) => ({
-      completedSections: state.completedSections.includes(section) 
-        ? state.completedSections 
-        : [...state.completedSections, section]
-    })),
-  reset: () => set({
-    currentStage: 'welcome',
-    isNavigatingBack: false,
-    selectedTrack: null,
-    selectedProgramme: null,
-    profileData: initialProfileData,
-    completedSections: []
-  })
-}));
+export const useSubmissionStore = create<SubmissionState>()(
+  persist(
+    (set) => ({
+      currentStage: 'welcome',
+      isNavigatingBack: false,
+      selectedTrack: null,
+      selectedPracticeAreas: [],
+      primaryPracticeArea: null,
+      otherPracticeArea: '',
+      selectedProgramme: null,
+      profileData: initialProfileData,
+      completedSections: [],
+      setStage: (stage) => set((state) => {
+        const currentIndex = STAGE_ORDER.indexOf(state.currentStage);
+        const nextIndex = STAGE_ORDER.indexOf(stage);
+        return { 
+          currentStage: stage,
+          isNavigatingBack: nextIndex < currentIndex
+        };
+      }),
+      setTrack: (track) => set({ selectedTrack: track }),
+      setPracticeAreas: (areas) => set({ selectedPracticeAreas: areas }),
+      setPrimaryPracticeArea: (area) => set({ primaryPracticeArea: area }),
+      setOtherPracticeArea: (value) => set({ otherPracticeArea: value }),
+      setSelectedProgramme: (programme) => set({ selectedProgramme: programme }),
+      updateProfileData: (section, data) => 
+        set((state) => ({
+          profileData: {
+            ...state.profileData,
+            [section]: { ...state.profileData[section], ...data }
+          }
+        })),
+      markSectionCompleted: (section) => 
+        set((state) => ({
+          completedSections: state.completedSections.includes(section) 
+            ? state.completedSections 
+            : [...state.completedSections, section]
+        })),
+      reset: () => set({
+        currentStage: 'welcome',
+        isNavigatingBack: false,
+        selectedTrack: null,
+        selectedProgramme: null,
+        profileData: initialProfileData,
+        completedSections: []
+      })
+    }),
+    {
+      name: 'juris-submission-storage',
+    }
+  )
+);

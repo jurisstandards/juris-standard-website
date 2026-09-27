@@ -5,10 +5,12 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { supabase } from "@/lib/supabase";
 import { ArrowRight, AlertCircle, Check, Loader2 } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export default function LoginPage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirectTo = searchParams.get("redirect") || "/my-juris";
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -32,8 +34,9 @@ export default function LoginPage() {
         setError(error.message);
       } else {
         setSuccess("Login successful. Redirecting...");
-        setTimeout(() => router.push("/my-juris"), 1000);
+        setTimeout(() => router.push(redirectTo), 1000);
       }
+
     } else {
       const { data, error } = await supabase.auth.signUp({
         email,
