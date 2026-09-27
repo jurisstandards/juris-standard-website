@@ -97,7 +97,7 @@ export default function WomenLeadersProfilePage() {
             <span className="text-[0.55rem] uppercase tracking-[0.4em] text-white/30 hidden md:block">RECOGNISE. VERIFY. PRESERVE.</span>
           </div>
 
-          <div className="flex flex-col md:flex-row gap-10 md:gap-20 items-start mt-8">
+          <div className="flex flex-col lg:flex-row gap-10 lg:gap-16 items-start mt-8 w-full">
             
             {/* Left Column: Photo Frame */}
             <div className="w-[180px] md:w-[220px] shrink-0">
@@ -110,7 +110,7 @@ export default function WomenLeadersProfilePage() {
               </div>
             </div>
 
-            {/* Right Column: Precise Information */}
+            {/* Middle Column: Precise Information */}
             <div className="flex flex-col flex-1 pt-0 min-w-0">
               
               <div className="flex items-center gap-3 mb-4">

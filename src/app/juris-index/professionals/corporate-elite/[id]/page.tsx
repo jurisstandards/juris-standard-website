@@ -97,7 +97,7 @@ export default function CorporateEliteProfilePage() {
             <span className="text-[0.55rem] uppercase tracking-[0.4em] text-white/30 hidden md:block">RECOGNISE. VERIFY. PRESERVE.</span>
           </div>
 
-          <div className="flex flex-col md:flex-row gap-10 md:gap-20 items-start mt-8">
+          <div className="flex flex-col lg:flex-row gap-10 lg:gap-16 items-start mt-8 w-full">
             
             {/* Left Column: Photo Frame */}
             <div className="w-[180px] md:w-[220px] shrink-0">
@@ -110,7 +110,7 @@ export default function CorporateEliteProfilePage() {
               </div>
             </div>
 
-            {/* Right Column: Precise Information */}
+            {/* Middle Column: Precise Information */}
             <div className="flex flex-col flex-1 pt-0 min-w-0">
               
               <div className="flex items-center gap-3 mb-4">
@@ -163,6 +163,23 @@ export default function CorporateEliteProfilePage() {
                  </div>
               </div>
 
+            </div>
+
+            {/* Right Column: Premium Seal Medallion */}
+            <div className="hidden lg:flex flex-col items-center justify-center w-[300px] xl:w-[350px] shrink-0 relative border-l border-white/[0.05] pl-8 xl:pl-12 self-stretch">
+               <div className="w-full flex-1 flex items-center justify-center relative">
+                  {/* Subtle glowing background behind seal */}
+                  <div className="absolute inset-0 bg-gradient-to-tr from-[#CBAA69]/20 via-[#CBAA69]/5 to-transparent rounded-full blur-3xl opacity-60" />
+                  <img 
+                    src="/logo/seal main.png" 
+                    alt="The Juris Standard Seal" 
+                    className="w-[85%] h-[85%] object-contain relative z-10 drop-shadow-[0_15px_30px_rgba(0,0,0,0.8)] opacity-95" 
+                  />
+               </div>
+               <div className="flex flex-col items-center text-center mt-6 gap-2">
+                 <span className="text-[0.45rem] tracking-[0.3em] text-[#CBAA69]/80 uppercase font-bold">Verified Professional</span>
+                 <span className="text-[0.45rem] tracking-[0.3em] text-white/40 uppercase">The Juris Standard™</span>
+               </div>
             </div>
           </div>
         </div>
