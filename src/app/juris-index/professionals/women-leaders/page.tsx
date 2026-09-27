@@ -119,19 +119,33 @@ export default function WomenLeadersTerminal() {
               </div>
             ))}
 
-            {/* Compact Search */}
-            <div className="flex items-center gap-3 px-5 py-3 flex-1 md:min-w-[240px] md:max-w-[280px] relative z-10 border-t md:border-t-0 md:border-l border-white/5">
-              <Search className="w-3.5 h-3.5 text-[#CBAA69]/60 flex-shrink-0" />
+          </div>
+
+          {/* Full-width horizontal search card */}
+          <div className="w-full mt-6 bg-[#0a0a0a]/90 backdrop-blur-2xl border border-white/[0.07] border-t-[#CBAA69]/20 rounded-[2px] flex flex-col md:flex-row items-stretch shadow-2xl relative overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-r from-[#CBAA69]/5 via-transparent to-[#CBAA69]/5 pointer-events-none opacity-50" />
+            
+            {/* Divider label */}
+            <div className="hidden lg:flex items-center px-6 border-r border-white/[0.05] relative z-10">
+              <span className="text-[0.45rem] uppercase tracking-[0.3em] text-white/20 font-medium whitespace-nowrap">FIND A RECORD</span>
+            </div>
+
+            {/* Search input */}
+            <div className="flex items-center gap-3 px-6 py-4 flex-1 relative z-10 min-w-0">
+              <Search className="w-4 h-4 text-[#CBAA69]/50 flex-shrink-0" />
               <input 
                 type="text"
                 value={searchQuery}
                 onChange={e => setSearchQuery(e.target.value)}
                 onKeyDown={e => e.key === "Enter" && handleSearch()}
-                placeholder="Search by name or Record ID..."
-                className="w-full bg-transparent border-none text-[0.65rem] text-white placeholder:text-white/25 focus:outline-none"
+                placeholder="Search by name, city or Record ID..."
+                className="w-full bg-transparent border-none text-[0.7rem] text-white placeholder:text-white/25 focus:outline-none"
               />
-              <button onClick={handleSearch} className="shrink-0 text-[0.55rem] uppercase tracking-[0.15em] text-[#CBAA69] hover:text-white transition-colors font-medium whitespace-nowrap">
-                GO
+              <button 
+                onClick={handleSearch} 
+                className="shrink-0 px-5 py-2 bg-[#CBAA69]/10 border border-[#CBAA69]/30 text-[0.55rem] uppercase tracking-[0.2em] text-[#CBAA69] hover:bg-[#CBAA69] hover:text-black transition-all font-medium whitespace-nowrap rounded-[2px]"
+              >
+                SEARCH
               </button>
             </div>
           </div>

@@ -122,187 +122,109 @@ export default function LawFirmExcellenceTerminal() {
     <main className="min-h-screen bg-[#000000] selection:bg-[#CBAA69]/30 flex flex-col font-sans text-[#FFFFF0] overflow-x-hidden">
       <Navbar />
       
-      {/* 1. HERO SECTION WITH SEARCH SIDEBAR */}
-      <section className="relative w-full flex flex-col justify-center bg-[#050505] overflow-hidden pt-24 pb-8 border-b border-[#222222]">
+      {/* 1. HERO SECTION — FULL WIDTH */}
+      <section className="relative w-full min-h-[92vh] flex flex-col justify-end bg-[#050505] overflow-hidden pt-24 pb-0 border-b border-[#222222]">
         
-        {/* Contained Background Image Layer */}
-        <div className="absolute top-0 bottom-0 left-[5%] md:left-[15%] lg:left-[22%] xl:left-[25%] w-[95%] md:w-[85%] lg:w-[78%] xl:w-[75%] h-full z-0 pointer-events-none overflow-hidden">
+        {/* Full-width cinematic background */}
+        <div className="absolute inset-0 z-0 pointer-events-none">
           <img 
             src="/collections/law_firm_excellence_bg.png" 
             alt="Pillars of Excellence" 
-            className="w-full h-full object-contain object-center opacity-95 transition-all duration-700 -translate-x-[10%] md:-translate-x-[15%] lg:-translate-x-[20%] xl:-translate-x-[22%] translate-y-[10%] scale-90"
+            className="w-full h-full object-contain object-center opacity-90"
             style={{ 
-              maskImage: 'linear-gradient(to bottom, transparent 0%, transparent 15%, black 35%, black 70%, transparent 90%, transparent 100%)', 
-              WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, transparent 15%, black 35%, black 70%, transparent 90%, transparent 100%)' 
+              maskImage: 'linear-gradient(to bottom, transparent 0%, black 25%, black 65%, transparent 100%)',
+              WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 25%, black 65%, transparent 100%)'
             }}
           />
+          <div className="absolute inset-0" style={{ background: 'linear-gradient(90deg, #050505 0%, rgba(5,5,5,0.85) 30%, rgba(5,5,5,0.2) 60%, rgba(5,5,5,0.4) 100%)' }} />
+          <div className="absolute inset-x-0 bottom-0 h-56 bg-gradient-to-t from-[#000000] to-transparent" />
+          <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-[#050505] to-transparent" />
         </div>
-        
-        {/* Overlay Gradients for Seamless Blending */}
-        <div 
-          className="absolute inset-0 z-0 pointer-events-none"
-          style={{
-            background: 'linear-gradient(90deg, #050505 0%, rgba(5,5,5,0.95) 28%, rgba(5,5,5,0.3) 42%, rgba(5,5,5,0.02) 55%, rgba(5,5,5,0.05) 72%, rgba(5,5,5,0.8) 100%)'
-          }}
-        />
-        <div className="absolute inset-x-0 bottom-0 h-64 bg-gradient-to-t from-[#050505] via-[#050505] to-transparent z-0 pointer-events-none" />
-        <div className="absolute inset-x-0 top-0 h-64 bg-gradient-to-b from-[#050505] via-[#050505] to-transparent z-0 pointer-events-none" />
 
-        {/* Hero Content container */}
-        <div className={`${containerClasses} relative z-10 flex flex-col lg:flex-row justify-between items-center gap-12 lg:gap-8`}>
+        <div className={`${containerClasses} relative z-10 flex flex-col pb-16`}>
           
-          {/* Left: Titles & Buttons */}
-          <div className="flex flex-col max-w-xl lg:max-w-2xl w-full mt-8">
-            <div className="flex items-center space-x-4 mb-6">
-              <div className="w-8 h-[1px] bg-[#CBAA69]" />
-              <span className="text-[0.60rem] uppercase tracking-[0.2em] text-[#CBAA69] font-medium font-sans">
-                THE INSTITUTIONAL RECORD OF EXCELLENCE
-              </span>
-            </div>
-            
-            <h1 className="font-serif text-5xl md:text-6xl lg:text-[5rem] font-light leading-[1.05] tracking-tight drop-shadow-2xl mb-8 uppercase">
-              <span className="text-transparent bg-clip-text bg-gradient-to-br from-white via-neutral-100 to-neutral-400 drop-shadow-sm block mb-2">
-                LAW FIRM
-              </span>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#D4AF37] via-[#FFF3D3] to-[#CBAA69] drop-shadow-[0_10px_20px_rgba(0,0,0,0.8)] inline-block pb-2 pr-4 relative">
-                EXCELLENCE<sup className="text-[0.35em] ml-1 absolute top-4 text-[#D4AF37]">™</sup>
-              </span>
-            </h1>
-            
-            <p className="text-neutral-300 text-sm md:text-base max-w-lg mb-10 leading-[1.7] font-light tracking-wide shadow-sm">
-              Recognising law firms that demonstrate exceptional legal capability, professional excellence, client impact and leadership in the practice of law.
-            </p>
+          {/* Eyebrow */}
+          <div className="flex items-center space-x-4 mb-6">
+            <div className="w-8 h-[1px] bg-[#CBAA69]" />
+            <span className="text-[0.60rem] uppercase tracking-[0.2em] text-[#CBAA69] font-medium font-sans">
+              THE INSTITUTIONAL RECORD OF EXCELLENCE
+            </span>
+          </div>
+          
+          {/* Main heading */}
+          <h1 className="font-serif text-5xl md:text-6xl lg:text-[5.5rem] font-light leading-[1.02] tracking-tight drop-shadow-2xl mb-6 uppercase max-w-3xl">
+            <span className="text-transparent bg-clip-text bg-gradient-to-br from-white via-neutral-100 to-neutral-400 drop-shadow-sm block mb-1">
+              LAW FIRM
+            </span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#D4AF37] via-[#FFF3D3] to-[#CBAA69] drop-shadow-[0_10px_20px_rgba(0,0,0,0.8)] inline-block pb-2 pr-4 relative">
+              EXCELLENCE<sup className="text-[0.35em] ml-1 absolute top-4 text-[#D4AF37]">™</sup>
+            </span>
+          </h1>
+          
+          <p className="text-neutral-300 text-sm md:text-base max-w-lg mb-8 leading-[1.7] font-light tracking-wide">
+            Recognising law firms that demonstrate exceptional legal capability, professional excellence, client impact and leadership in the practice of law.
+          </p>
 
-            <div className="flex flex-wrap items-center gap-4 mb-10">
-              <Link 
-                href="/enter-the-index"
-                className="px-8 py-3.5 bg-gradient-to-r from-[#CBAA69] to-[#B89552] text-[#050505] text-[0.7rem] font-bold uppercase tracking-[0.15em] hover:from-[#E8D099] hover:to-[#CBAA69] transition-all flex items-center gap-3 rounded-[2px] shadow-[0_0_20px_rgba(203,170,105,0.2)]"
-              >
-                APPLY FOR RECOGNITION <ArrowRight className="w-4 h-4" />
-              </Link>
+          {/* CTA */}
+          <div className="flex flex-wrap items-center gap-6 mb-10">
+            <Link href="/enter-the-index" className="px-8 py-3.5 bg-gradient-to-r from-[#CBAA69] to-[#B89552] text-[#050505] text-[0.7rem] font-bold uppercase tracking-[0.15em] hover:from-[#E8D099] hover:to-[#CBAA69] transition-all flex items-center gap-3 rounded-[2px] shadow-[0_0_20px_rgba(203,170,105,0.2)]">
+              APPLY FOR RECOGNITION <ArrowRight className="w-4 h-4" />
+            </Link>
+            <div className="flex items-center gap-2">
+              <ShieldCheck className="w-4 h-4 text-[#CBAA69]" strokeWidth={1.5} />
+              <span className="text-[0.55rem] uppercase tracking-[0.25em] text-[#FFFFF0]/50 font-medium">TRUSTED BY LEGAL LEADERS IN 150+ COUNTRIES</span>
             </div>
           </div>
-
-          {/* Right: Floating Search & Explore Panel */}
-          <div className="w-full lg:w-[380px] shrink-0 border border-white/10 bg-[#0a0a0a]/95 backdrop-blur-3xl rounded-[2px] p-7 shadow-[0_30px_60px_rgba(0,0,0,0.8)] relative z-20">
-            <h3 className="text-xs font-semibold tracking-[0.2em] text-white/95 uppercase mb-6">SEARCH & EXPLORE</h3>
+          
+          {/* Full-width horizontal search card */}
+          <div className="w-full bg-[#0a0a0a]/90 backdrop-blur-2xl border border-white/[0.07] border-t-[#CBAA69]/20 rounded-[2px] flex flex-col md:flex-row items-stretch shadow-2xl relative overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-r from-[#CBAA69]/5 via-transparent to-[#CBAA69]/5 pointer-events-none opacity-50" />
             
-            <div className="flex items-center border-b border-white/10 pb-3 mb-6 group focus-within:border-[#CBAA69]/60 transition-colors">
+            {/* Stats */}
+            {[
+              { icon: Users, value: "1K+", label: "FIRMS RANKED" },
+              { icon: Globe, value: "150+", label: "JURISDICTIONS" },
+              { icon: Scale, value: "50+", label: "PRACTICE AREAS" },
+              { icon: Star, value: "10M+", label: "DATA POINTS" },
+            ].map((stat, i) => (
+              <div key={i} className="flex items-center space-x-4 py-4 px-6 border-b md:border-b-0 md:border-r border-white/[0.05] relative z-10 hover:bg-white/[0.02] transition-colors">
+                <stat.icon className="w-4 h-4 text-[#CBAA69] flex-shrink-0 stroke-[1px]" />
+                <div className="flex flex-col">
+                  <span className="font-serif text-[1.15rem] text-white leading-none mb-1 tracking-tight">{stat.value}</span>
+                  <span className="text-[0.45rem] uppercase tracking-[0.2em] text-[#CBAA69]/70 font-semibold leading-none">{stat.label}</span>
+                </div>
+              </div>
+            ))}
+
+            {/* Divider label */}
+            <div className="hidden lg:flex items-center px-6 border-l border-white/[0.05] relative z-10">
+              <span className="text-[0.45rem] uppercase tracking-[0.3em] text-white/20 font-medium whitespace-nowrap">FIND A RECORD</span>
+            </div>
+
+            {/* Search input — takes remaining space */}
+            <div className="flex items-center gap-3 px-6 py-4 flex-1 relative z-10 border-t md:border-t-0 md:border-l border-white/[0.05] min-w-0">
+              <Search className="w-4 h-4 text-[#CBAA69]/50 flex-shrink-0" />
               <input 
                 type="text"
                 value={searchQuery}
                 onChange={e => setSearchQuery(e.target.value)}
                 onKeyDown={e => e.key === "Enter" && handleSearch()}
-                placeholder="Search law firm by name..."
-                className="w-full bg-transparent border-none text-xs text-white placeholder:text-white/30 focus:outline-none"
+                placeholder="Search by firm name, city or Record ID..."
+                className="w-full bg-transparent border-none text-[0.7rem] text-white placeholder:text-white/25 focus:outline-none"
               />
-              <button onClick={handleSearch}>
-                <Search className="w-4 h-4 text-white/30 hover:text-[#CBAA69] transition-colors" />
-              </button>
-            </div>
-            
-            <div className="flex flex-col gap-5 mb-8">
-              {[
-                { label: 'PRACTICE AREAS', val: 'All Practice Areas', options: ["Corporate & Commercial", "M&A", "Private Equity", "Banking & Finance", "Capital Markets", "Taxation", "Competition/Antitrust", "Insolvency & Restructuring", "Litigation", "Arbitration", "White-Collar Crime & Investigations", "Regulatory & Compliance", "Employment & Labour", "Real Estate", "Infrastructure & Projects", "Energy & Power", "Intellectual Property", "Technology & AI", "Data Protection & Privacy", "Life Sciences & Healthcare", "Environmental & ESG", "International Trade", "Foreign Investment"], state: practiceArea, set: setPracticeArea },
-                { label: 'TIER / RECOGNITION', val: 'All', options: ['Principal Record', 'Distinguished', 'Rising'], state: tier, set: setTier },
-                { label: 'FIRM SIZE', val: 'All', options: ['Full Service', 'Specialist', 'Boutique', 'Mid Size'], state: firmSize, set: setFirmSize },
-                { label: 'YEAR OF RECOGNITION', val: 'All', options: ['2027', '2026', '2025'], state: yearRecognition, set: setYearRecognition },
-              ].map((dropdown, idx) => (
-                <div key={idx} className="flex flex-col gap-2">
-                  <span className="text-[0.55rem] font-medium uppercase tracking-[0.15em] text-white/40">{dropdown.label}</span>
-                  <div className="relative group">
-                    <select 
-                      value={dropdown.state}
-                      onChange={e => dropdown.set(e.target.value)}
-                      className="w-full appearance-none px-4 py-3 border border-white/5 bg-[#000000] text-xs text-white/80 focus:outline-none cursor-pointer rounded-[2px] hover:border-white/20 focus:border-[#CBAA69]/50 transition-colors"
-                    >
-                      <option value="">{dropdown.val}</option>
-                      {dropdown.options.map(o => <option key={o} value={o}>{o}</option>)}
-                    </select>
-                    <ChevronDown className="w-3.5 h-3.5 text-[#CBAA69] absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none transition-colors" />
-                  </div>
-                </div>
-              ))}
-
-              {/* LOCATION — separate block with custom Other input */}
-              <div className="flex flex-col gap-2">
-                <span className="text-[0.55rem] font-medium uppercase tracking-[0.15em] text-white/40">LOCATION</span>
-                <div className="relative group">
-                  <select
-                    value={location}
-                    onChange={e => { setLocation(e.target.value); if (e.target.value !== 'Other') setCustomLocation(''); }}
-                    className="w-full appearance-none px-4 py-3 border border-white/5 bg-[#000000] text-xs text-white/80 focus:outline-none cursor-pointer rounded-[2px] hover:border-white/20 focus:border-[#CBAA69]/50 transition-colors"
-                  >
-                    <option value="">All Cities</option>
-                    <option>Ahmedabad</option>
-                    <option>Bengaluru</option>
-                    <option>Chandigarh</option>
-                    <option>Chennai</option>
-                    <option>Gurugram</option>
-                    <option>Hyderabad</option>
-                    <option>Jaipur</option>
-                    <option>Kochi</option>
-                    <option>Kolkata</option>
-                    <option>Mumbai</option>
-                    <option>New Delhi</option>
-                    <option>Noida</option>
-                    <option>Pune</option>
-                    <option>Other</option>
-                  </select>
-                  <ChevronDown className="w-3.5 h-3.5 text-[#CBAA69] absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none transition-colors" />
-                </div>
-                {location === 'Other' && (
-                  <input
-                    type="text"
-                    value={customLocation}
-                    onChange={e => setCustomLocation(e.target.value)}
-                    placeholder="Type city name..."
-                    className="w-full px-4 py-3 border border-[#CBAA69]/30 bg-[#000000] text-xs text-white/80 placeholder:text-white/30 focus:outline-none focus:border-[#CBAA69]/60 rounded-[2px] transition-colors"
-                  />
-                )}
-              </div>
-
-            </div>
-
-            <div className="flex flex-col gap-3 mb-8">
               <button 
-                onClick={handleSearch}
-                className="w-full py-3.5 bg-gradient-to-r from-[#CBAA69] to-[#B89552] text-[#050505] text-[0.7rem] font-bold uppercase tracking-[0.15em] hover:from-[#E8D099] hover:to-[#CBAA69] transition-all flex items-center justify-center gap-3 rounded-[2px] shadow-[0_0_15px_rgba(203,170,105,0.15)]"
+                onClick={handleSearch} 
+                className="shrink-0 px-5 py-2 bg-[#CBAA69]/10 border border-[#CBAA69]/30 text-[0.55rem] uppercase tracking-[0.2em] text-[#CBAA69] hover:bg-[#CBAA69] hover:text-black transition-all font-medium whitespace-nowrap rounded-[2px]"
               >
-                SEARCH FIRMS <ArrowRight className="w-3.5 h-3.5" />
-              </button>
-              <button 
-                onClick={handleReset}
-                className="w-full py-3 border border-white/5 bg-black/40 text-white/50 text-[0.65rem] font-medium uppercase tracking-[0.15em] hover:border-white/20 hover:bg-white/5 hover:text-white/90 transition-all flex items-center justify-center rounded-[2px]"
-              >
-                RESET FILTERS
-              </button>
-            </div>
-            
-            <div className="flex items-start justify-between border-t border-white/10 pt-6 px-1">
-              <button onClick={handleSearch} className="flex flex-col items-center gap-2 cursor-pointer group">
-                <Search className="w-4 h-4 text-white/30 group-hover:text-[#CBAA69] transition-colors" strokeWidth={1} />
-                <span className="text-[0.45rem] uppercase tracking-wider text-white/40 text-center leading-[1.3] group-hover:text-white/90 transition-colors">Advanced<br/>Search</span>
-              </button>
-              <Link href="/juris-index/compare" className="flex flex-col items-center gap-2 cursor-pointer group">
-                <Scale className="w-4 h-4 text-white/30 group-hover:text-[#CBAA69] transition-colors" strokeWidth={1} />
-                <span className="text-[0.45rem] uppercase tracking-wider text-white/40 text-center leading-[1.3] group-hover:text-white/90 transition-colors">Compare<br/>Firms</span>
-              </Link>
-              <Link href="/my-juris" className="flex flex-col items-center gap-2 cursor-pointer group">
-                <ShieldCheck className="w-4 h-4 text-white/30 group-hover:text-[#CBAA69] transition-colors" strokeWidth={1} />
-                <span className="text-[0.45rem] uppercase tracking-wider text-white/40 text-center leading-[1.3] group-hover:text-white/90 transition-colors">Saved<br/>Firms</span>
-              </Link>
-              <button onClick={handleDownloadDirectory} className="flex flex-col items-center gap-2 cursor-pointer group">
-                <ArrowRight className="w-4 h-4 text-white/30 group-hover:text-[#CBAA69] transition-colors rotate-90" strokeWidth={1} />
-                <span className="text-[0.45rem] uppercase tracking-wider text-white/40 text-center leading-[1.3] group-hover:text-white/90 transition-colors">Download<br/>Directory</span>
+                SEARCH
               </button>
             </div>
           </div>
-          
+
         </div>
       </section>
 
-      {/* 2. RECOGNISED FIRMS HORIZONTAL BANDS */}
+            {/* 2. RECOGNISED FIRMS HORIZONTAL BANDS */}
       <div ref={firmsRef} className="flex flex-col w-full relative z-10 bg-[#000000]">
         {bands.map((band, idx) => (
           <div key={idx} className="w-full border-b border-white/[0.06] last:border-0 relative">

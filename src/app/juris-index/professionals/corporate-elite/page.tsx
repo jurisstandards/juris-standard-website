@@ -96,16 +96,18 @@ export default function CorporateEliteTerminal() {
             </div>
           </div>
           
-          {/* Stats bar + compact inline search */}
-          <div className="w-full max-w-4xl bg-[#0a0a0a]/90 backdrop-blur-2xl border border-white/5 border-t-white/10 rounded-[4px] flex flex-col md:flex-row items-stretch shadow-2xl relative overflow-hidden">
+          {/* Full-width horizontal search card */}
+          <div className="w-full bg-[#0a0a0a]/90 backdrop-blur-2xl border border-white/[0.07] border-t-[#CBAA69]/20 rounded-[2px] flex flex-col md:flex-row items-stretch shadow-2xl relative overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-r from-[#CBAA69]/5 via-transparent to-[#CBAA69]/5 pointer-events-none opacity-50" />
+            
+            {/* Stats */}
             {[
               { icon: Users, value: "1K+", label: "COUNSEL RANKED" },
               { icon: Globe, value: "150+", label: "JURISDICTIONS" },
               { icon: Scale, value: "50+", label: "PRACTICE AREAS" },
               { icon: Star, value: "10M+", label: "DATA POINTS" },
             ].map((stat, i) => (
-              <div key={i} className="flex items-center space-x-4 py-3 px-5 flex-1 border-b md:border-b-0 md:border-r border-white/5 last:md:border-r relative z-10 hover:bg-white/[0.02] transition-colors">
+              <div key={i} className="flex items-center space-x-4 py-4 px-6 border-b md:border-b-0 md:border-r border-white/[0.05] relative z-10 hover:bg-white/[0.02] transition-colors">
                 <stat.icon className="w-4 h-4 text-[#CBAA69] flex-shrink-0 stroke-[1px]" />
                 <div className="flex flex-col">
                   <span className="font-serif text-[1.15rem] text-white leading-none mb-1 tracking-tight">{stat.value}</span>
@@ -113,21 +115,32 @@ export default function CorporateEliteTerminal() {
                 </div>
               </div>
             ))}
-            <div className="flex items-center gap-3 px-5 py-3 flex-1 md:min-w-[240px] md:max-w-[280px] relative z-10 border-t md:border-t-0 md:border-l border-white/5">
-              <Search className="w-3.5 h-3.5 text-[#CBAA69]/60 flex-shrink-0" />
+
+            {/* Divider label */}
+            <div className="hidden lg:flex items-center px-6 border-l border-white/[0.05] relative z-10">
+              <span className="text-[0.45rem] uppercase tracking-[0.3em] text-white/20 font-medium whitespace-nowrap">FIND A RECORD</span>
+            </div>
+
+            {/* Search input */}
+            <div className="flex items-center gap-3 px-6 py-4 flex-1 relative z-10 border-t md:border-t-0 md:border-l border-white/[0.05] min-w-0">
+              <Search className="w-4 h-4 text-[#CBAA69]/50 flex-shrink-0" />
               <input 
                 type="text"
                 value={searchQuery}
                 onChange={e => setSearchQuery(e.target.value)}
                 onKeyDown={e => e.key === "Enter" && handleSearch()}
-                placeholder="Search by name or Record ID..."
-                className="w-full bg-transparent border-none text-[0.65rem] text-white placeholder:text-white/25 focus:outline-none"
+                placeholder="Search by name, city or Record ID..."
+                className="w-full bg-transparent border-none text-[0.7rem] text-white placeholder:text-white/25 focus:outline-none"
               />
-              <button onClick={handleSearch} className="shrink-0 text-[0.55rem] uppercase tracking-[0.15em] text-[#CBAA69] hover:text-white transition-colors font-medium whitespace-nowrap">
-                GO
+              <button 
+                onClick={handleSearch} 
+                className="shrink-0 px-5 py-2 bg-[#CBAA69]/10 border border-[#CBAA69]/30 text-[0.55rem] uppercase tracking-[0.2em] text-[#CBAA69] hover:bg-[#CBAA69] hover:text-black transition-all font-medium whitespace-nowrap rounded-[2px]"
+              >
+                SEARCH
               </button>
             </div>
           </div>
+
 
         </div>
       </section>
