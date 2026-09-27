@@ -63,7 +63,7 @@ export default function LoginPage() {
   const labelClass = "text-[0.5rem] uppercase tracking-[0.2em] text-white/40 block mb-1.5 font-bold";
 
   return (
-    <main className="min-h-screen bg-[#000000] selection:bg-[#CBAA69]/30 flex flex-col font-sans text-[#FFFFF0]">
+    <main className="min-h-screen bg-[#000000] selection:bg-[#CBAA69]/30 overflow-x-hidden flex flex-col font-sans text-[#FFFFF0]">
       <Navbar />
 
       <div className="flex-grow flex items-center justify-center py-32 px-6">

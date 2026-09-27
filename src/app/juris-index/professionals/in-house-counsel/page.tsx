@@ -5,7 +5,7 @@ import Link from "next/link";
 
 export default function InHouseCounselPortalPage() {
   return (
-    <main className="min-h-screen bg-[#020202] selection:bg-gold-500/30 flex flex-col font-sans text-neutral-300">
+    <main className="min-h-screen bg-[#020202] selection:bg-gold-500/30 overflow-x-hidden flex flex-col font-sans text-neutral-300">
       <Navbar />
       
       {/* 1. HERO & EDITORIAL FOREWORD (Collection 9) & VERIFICATION (Collection 8) */}

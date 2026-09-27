@@ -68,7 +68,7 @@ export default function FutureLeadersProfilePage() {
   };
 
   return (
-    <main className="min-h-screen bg-[#020202] relative selection:bg-[#CBAA69]/30 flex flex-col font-sans text-neutral-300">
+    <main className="min-h-screen bg-[#020202] relative selection:bg-[#CBAA69]/30 overflow-x-hidden flex flex-col font-sans text-neutral-300">
       
       {/* Global Premium Lighting */}
       <div className="pointer-events-none fixed inset-0 z-0 pointer-events-none">

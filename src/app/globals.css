@@ -18,7 +18,8 @@
 }
 
 html {
-  font-size: 14px;
+  /* No fixed font-size — let browser zoom scale rem units correctly */
+  scroll-behavior: smooth;
 }
 
 body {
@@ -26,6 +27,7 @@ body {
   color: var(--foreground);
   font-family: var(--font-sans);
   overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 ::selection {

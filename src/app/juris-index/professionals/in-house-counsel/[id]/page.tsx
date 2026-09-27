@@ -22,7 +22,7 @@ const mockProfile = {
 
 export default function InHouseCounselProfilePage({ params }: { params: { id: string } }) {
   return (
-    <main className="min-h-screen bg-[#020202] selection:bg-gold-500/30 flex flex-col font-sans text-neutral-300">
+    <main className="min-h-screen bg-[#020202] selection:bg-gold-500/30 overflow-x-hidden flex flex-col font-sans text-neutral-300">
       <Navbar />
       
       {/* 1. INSTITUTIONAL HEADER & CITATION */}

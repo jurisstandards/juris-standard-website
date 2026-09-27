@@ -4,7 +4,7 @@ import { SectionHeader } from "@/components/ui/SectionHeader";
 
 export default function intelligencePage() {
   return (
-    <main className="min-h-screen bg-background selection:bg-gold-500/30 flex flex-col">
+    <main className="min-h-screen bg-background selection:bg-gold-500/30 overflow-x-hidden flex flex-col">
       <Navbar />
       <div className="flex-grow pt-32 pb-24 w-full px-8 md:px-16 lg:px-24 xl:px-32">
         <SectionHeader title="Legal Intelligence" subtitle="Legal market reports, dashboards, data cards, insights." />

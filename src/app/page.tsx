@@ -22,7 +22,7 @@ export default function Home() {
   const isGlobeLoaded = useAppStore((state) => state.isGlobeLoaded);
 
   return (
-    <main className="min-h-screen bg-background selection:bg-gold-500/30 overflow-hidden relative">
+    <main className="min-h-screen bg-background selection:bg-gold-500/30 overflow-x-hidden relative">
       {/* Global Ambient Glows Removed for Performance */}
 
       <Navbar />
