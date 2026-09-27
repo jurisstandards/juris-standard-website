@@ -150,7 +150,7 @@ export default function LegalInnovationExcellenceTerminal() {
             
             <h1 className="font-serif text-5xl md:text-6xl lg:text-[5rem] font-light leading-[1.05] tracking-tight drop-shadow-2xl mb-8 uppercase">
               <span className="text-transparent bg-clip-text bg-gradient-to-br from-white via-neutral-100 to-neutral-400 drop-shadow-sm block mb-2">
-                LAW FIRM
+                LEGAL INNOVATION
               </span>
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#D4AF37] via-[#FFF3D3] to-[#CBAA69] drop-shadow-[0_10px_20px_rgba(0,0,0,0.8)] inline-block pb-2 pr-4 relative">
                 EXCELLENCE<sup className="text-[0.35em] ml-1 absolute top-4 text-[#D4AF37]">™</sup>
@@ -158,7 +158,7 @@ export default function LegalInnovationExcellenceTerminal() {
             </h1>
             
             <p className="text-neutral-300 text-sm md:text-base max-w-lg mb-10 leading-[1.7] font-light tracking-wide shadow-sm">
-              Recognising law firms that demonstrate exceptional legal capability, professional excellence, client impact and leadership in the practice of law.
+              Recognising pioneers who are transforming the legal landscape through groundbreaking technology and progressive practice models.
             </p>
 
             <div className="flex flex-wrap items-center gap-4 mb-10">
