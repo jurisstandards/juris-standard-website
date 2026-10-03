@@ -191,6 +191,9 @@ export const useSubmissionStore = create<SubmissionState>()(
         isNavigatingBack: false,
         selectedTrack: null,
         selectedProgramme: null,
+        selectedPracticeAreas: [],
+        primaryPracticeArea: null,
+        otherPracticeArea: '',
         profileData: initialProfileData,
         completedSections: []
       })

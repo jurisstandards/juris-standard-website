@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getServiceRoleClient } from "@/lib/supabase";
+import { CATEGORIES, normalizeDivision, tierForCategory } from "@/lib/adminConstants";
 
 function slugify(str: string) {
   return str.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
@@ -8,9 +9,18 @@ function slugify(str: string) {
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { application_id, assigned_division, assigned_category, assigned_year, admin_note } = body;
+    const { application_id, assigned_category, assigned_year, admin_note } = body;
+    // Always store the canonical division string the public pages filter on (with trademark symbol)
+    const assigned_division = normalizeDivision(body.assigned_division);
     if (!application_id || !assigned_division || !assigned_category || !assigned_year) {
       return NextResponse.json({ error: "application_id, assigned_division, assigned_category, assigned_year required" }, { status: 400 });
+    }
+
+    if (!assigned_division) {
+      return NextResponse.json({ error: `Unknown division: ${body.assigned_division}` }, { status: 400 });
+    }
+    if (!(CATEGORIES[assigned_division] ?? []).includes(assigned_category)) {
+      return NextResponse.json({ error: `Category "${assigned_category}" does not belong to ${assigned_division}` }, { status: 400 });
     }
 
     const db = getServiceRoleClient();
@@ -23,19 +33,12 @@ export async function POST(req: NextRequest) {
 
     if (fetchErr || !app) return NextResponse.json({ error: "Application not found" }, { status: 404 });
 
-    const id = slugify(app.firm_name);
+    const baseSlug = slugify(app.firm_name);
+    // Make unique: append year + random suffix to avoid overwriting a different firm with same name
+    const id = `${baseSlug}-${assigned_year}-${Math.random().toString(36).slice(2, 6)}`;
     const allRecords = await db.from("juris_records").select("id").order("created_at");
     const count = (allRecords.data?.length ?? 0) + 1;
     const recognitionId = `JS-${assigned_division.slice(0, 3).toUpperCase().replace(/ /g, "")}-${assigned_year}-${String(count).padStart(3, "0")}`;
-
-    const tierMap: Record<string, string> = {
-      "Principal Record": "01",
-      "Distinguished Law Firms": "02",
-      "Rising Law Firms": "03",
-      "Corporate Senior": "01",
-      "Corporate Partners": "02",
-      "Corporate Associates": "03",
-    };
 
     const record = {
       id,
@@ -44,7 +47,7 @@ export async function POST(req: NextRequest) {
       type: app.firm_type || "law_firm",
       division: assigned_division,
       category: assigned_category,
-      tier: tierMap[assigned_category] ?? "01",
+      tier: tierForCategory(assigned_division, assigned_category),
       year: assigned_year,
       location: app.headquarters_city || "",
       jurisdiction: app.country || "India",
@@ -53,6 +56,11 @@ export async function POST(req: NextRequest) {
       badge: `RECOGNISED - ${assigned_year}`,
       logoType: "text",
       whyThisRecord: app.key_areas_for_recognition || "",
+      // Link back to the submitting user so My Records page can filter correctly
+      linked_user_id: app.submitted_by_user_id || null,
+      linked_user_email: app.contact_email || null,
+      sort_order: null,    // admin can set this later via Records panel
+      is_visible: true,   // visible by default
       firmInfo: {
         firm_name: app.firm_type === 'Legal Professional' ? app.firm_name : "",
         designation: app.contact_designation || "",
@@ -105,7 +113,7 @@ async function sendApprovalEmail(to: string, name: string, firmName: string, div
       body: JSON.stringify({
         from: "Juris Standard <recognition@jurisstandard.com>",
         to,
-        subject: `Congratulations � ${firmName} Recognised by Juris Standard`,
+        subject: `Congratulations — ${firmName} Recognised by Juris Standard`,
         html: `
           <div style="font-family: Georgia, serif; background: #050505; color: #FFFFF0; padding: 48px; max-width: 600px; margin: 0 auto;">
             <div style="border-bottom: 1px solid #CBAA69; padding-bottom: 24px; margin-bottom: 32px;">
@@ -115,7 +123,7 @@ async function sendApprovalEmail(to: string, name: string, firmName: string, div
             <p style="color: #FFFFF0; opacity: 0.8; line-height: 1.7;">Dear ${name},</p>
             <p style="color: #FFFFF0; opacity: 0.8; line-height: 1.7;">
               We are pleased to inform you that <strong style="color: #CBAA69;">${firmName}</strong> has been officially recognised in the
-              <strong style="color: #CBAA69;">${division}</strong> � ${year}.
+              <strong style="color: #CBAA69;">${division}</strong> — ${year}.
             </p>
             <p style="color: #FFFFF0; opacity: 0.8; line-height: 1.7;">
               Your firm's record is now live on the Juris Standard Index. You may view, share, and embed your recognition badge at any time.
@@ -125,7 +133,7 @@ async function sendApprovalEmail(to: string, name: string, firmName: string, div
               <p style="font-size: 20px; font-weight: 300; margin: 0;">${firmName}</p>
             </div>
             <p style="font-size: 10px; letter-spacing: 2px; color: rgba(255,255,240,0.3); text-transform: uppercase; margin-top: 48px;">
-              The Juris Standard � A mark of trust. A standard of distinction.
+              The Juris Standard — A mark of trust. A standard of distinction.
             </p>
           </div>
         `,

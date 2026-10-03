@@ -11,8 +11,19 @@ function getAuthClient(req: NextRequest) {
   );
 }
 
-export async function GET() {
+const ADMIN_EMAILS = ["jurisstandard@gmail.com"];
+
+export async function GET(req: NextRequest) {
   try {
+    const authClient = getAuthClient(req);
+    const { data: { user } } = await authClient.auth.getUser();
+    if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    if (!ADMIN_EMAILS.includes(user.email ?? "")) {
+      // also check profiles table
+      const db2 = getServiceRoleClient();
+      const { data: profile } = await db2.from("profiles").select("role").eq("id", user.id).maybeSingle();
+      if (profile?.role !== "admin") return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+    }
     const db = getServiceRoleClient();
     const { data, error } = await db
       .from("firm_applications")

@@ -1,105 +1,114 @@
-import { Landmark, Scale, FileCheck, ShieldAlert, Lock, Info } from "lucide-react";
-import { CrystalIcon } from "./CrystalIcon";
+import { Landmark, Scale, FileCheck, ShieldAlert, Lock, Info, ScrollText } from "lucide-react";
 
 const governanceItems = [
   {
-    title: "Editorial Governance",
+    title: "Institutional Oversight",
     icon: Landmark,
-    content: "Editorial governance ensures that all Recognition Programmes operate within a consistent editorial framework. The Editorial Office is responsible for administering submissions, coordinating workflows, maintaining profiles and supporting the ongoing integrity of the Index."
+    content: "The Editorial Office centrally administers workflows, candidate screening, profile curation, and compliance with published guidelines."
   },
   {
-    title: "Editorial Standards",
+    title: "Quad-Pillar Standards",
     icon: Scale,
-    content: "Every decision is guided by four institutional standards: Independence, Consistency, Integrity, and Transparency. The Editorial Methodology and Recognition Framework remain publicly accessible."
+    content: "Every decision adheres to four benchmarks: Independence, Qualitative Consistency, Institutional Integrity, and Public Transparency."
   },
   {
-    title: "Profile Management",
+    title: "Profile Administration",
     icon: FileCheck,
-    content: "Recognised profiles are maintained as editorial publications. Profile holders may request factual updates where appropriate. Substantive changes may require additional editorial review."
+    content: "Indexed profiles are maintained as living publications. Factual amendments undergo rigorous verification before archiving."
   },
   {
-    title: "Information Standards",
+    title: "Information Veracity",
     icon: Info,
-    content: "Applicants are responsible for ensuring that submitted information is accurate, complete and current. The Editorial Office may request additional information where necessary."
+    content: "Applicants hold absolute responsibility for factual accuracy. Misrepresentation leads to immediate exclusion from the Index."
   },
   {
-    title: "Editorial Corrections",
+    title: "Editorial Rectification",
     icon: ShieldAlert,
-    content: "Where factual inaccuracies are identified in a published profile, correction requests may be submitted to the Editorial Office. Verified corrections will be incorporated through normal editorial updates."
+    content: "Clear protocols exist for third-party or subject correction notices, evaluated swiftly by senior editorial ombudsmen."
   },
   {
-    title: "Confidentiality",
+    title: "Privilege & Discretion",
     icon: Lock,
-    content: "Information submitted during the editorial process is handled with appropriate confidentiality and used for editorial purposes in accordance with applicable privacy standards."
+    content: "Submissions and internal deliberations are treated under strict editorial non-disclosure to protect candidate integrity."
   }
 ];
 
 export function EditorialGovernance() {
   return (
-    <section id="governance" className="py-10 px-8 md:px-16 lg:px-24 xl:px-32 relative z-10 scroll-mt-24">
-      <div className="w-full max-w-[1400px] mx-auto">
-        <div className="bg-[#111111]/90 backdrop-blur-3xl border border-white/10 shadow-[0_0_40px_rgba(255,255,255,0.03)] rounded-2xl p-6 lg:p-8 xl:p-10 relative overflow-hidden group">
-          <div className="absolute top-0 inset-x-0 h-[1px] bg-gradient-to-r from-transparent via-gold-500/30 to-transparent group-hover:via-gold-400/60 transition-colors duration-500 shadow-[0_0_20px_rgba(212,175,55,0.3)]" />
-          
-          
-          <div className="flex flex-col w-full">
-            {/* Top Premium Header */}
-            <div className="flex flex-col items-start mb-6 border-b border-white/5 pb-6">
-              <div className="flex items-center space-x-3 mb-3">
-                <div className="flex items-center justify-center w-6 h-6 rounded bg-gradient-to-br from-gold-500/20 to-gold-600/5 border border-gold-500/50 shadow-[0_0_10px_rgba(212,175,55,0.2)]">
-                  <span className="text-gold-400 font-serif text-sm font-bold">6</span>
-                </div>
-                <span className="text-gold-500 text-xs font-bold uppercase tracking-[0.3em] drop-shadow-sm">Section 6</span>
-              </div>
-              <h2 className="text-4xl md:text-5xl font-serif text-white font-light tracking-tight leading-tight">Editorial Governance & Policies</h2>
+    <section id="governance" className="relative z-10 scroll-mt-28">
+      <div className="bg-[#090806]/90 backdrop-blur-2xl border border-white/[0.08] border-t-[#CBAA69]/30 rounded-[4px] p-6 sm:p-8 lg:p-10 relative overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.8)]">
+        {/* Section Header */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-6 mb-8 border-b border-white/[0.06] gap-4">
+          <div>
+            <div className="flex items-center space-x-3 mb-2">
+              <span className="px-2 py-0.5 text-[0.6rem] font-bold tracking-[0.2em] uppercase bg-[#CBAA69]/10 text-[#CBAA69] border border-[#CBAA69]/25 rounded-[2px]">
+                06
+              </span>
+              <span className="text-[0.6rem] uppercase tracking-[0.3em] text-[#CBAA69]/80 font-medium">
+                SECTION 06 • INSTITUTIONAL GOVERNANCE
+              </span>
             </div>
-            
-            {/* Full-Width Content Column */}
-            <div className="w-full space-y-4">
-          <p className="text-neutral-300 font-light leading-relaxed md:text-[1.05rem] mb-6">
-            This section establishes the governance standards that support the Juris Standard Editorial Methodology. It explains how editorial integrity is maintained, how professional information is managed, and how recognised profiles are administered.
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-serif text-white font-light tracking-wide">
+              Editorial Governance & Policies
+            </h2>
+          </div>
+          <p className="text-xs uppercase tracking-[0.15em] text-white/40 max-w-sm font-light leading-relaxed">
+            Institutional standards safeguarding the credibility and objectivity of the Index.
           </p>
-          
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-24">
+        {/* 6 Compact Micro-Cards (3x2 Grid) */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5 sm:gap-4 mb-8">
           {governanceItems.map((item, index) => (
             <div
               key={index}
-              className="bg-[#0a0a0a]/40 border border-white/5 rounded-2xl p-8 hover:bg-[#111]/60 hover:border-white/10 transition-colors duration-500"
+              className="group bg-[#060504] border border-white/[0.07] hover:border-[#CBAA69]/40 rounded-[3px] p-4 sm:p-5 transition-all duration-300 flex flex-col justify-between hover:bg-[#080706]"
             >
-              <div className="w-10 h-10 rounded-lg bg-black border border-white/5 flex items-center justify-center mb-6">
-                <item.icon className="w-4 h-4 text-gold-500/60" />
+              <div>
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="w-8 h-8 rounded-[2px] bg-[#120f0a] border border-[#CBAA69]/20 flex items-center justify-center group-hover:border-[#CBAA69]/50 transition-colors">
+                    <item.icon className="w-3.5 h-3.5 text-[#CBAA69]" strokeWidth={1.5} />
+                  </div>
+                  <h3 className="text-sm sm:text-[0.95rem] font-serif text-white font-light group-hover:text-[#CBAA69] transition-colors">
+                    {item.title}
+                  </h3>
+                </div>
+                <p className="text-neutral-400 text-xs sm:text-[0.8rem] font-light leading-relaxed">
+                  {item.content}
+                </p>
               </div>
-              <h3 className="text-lg font-serif text-white mb-3">{item.title}</h3>
-              <p className="text-sm font-light text-neutral-400 leading-relaxed">
-                {item.content}
-              </p>
             </div>
           ))}
         </div>
 
-        {/* The Juris Standard Editorial Charter */}
-        <div
-          className="relative bg-black/80 backdrop-blur-2xl border border-gold-500/20 rounded-[2rem] p-10 md:p-16  shadow-[inset_0_0_80px_rgba(212,175,55,0.05),0_30px_60px_rgba(0,0,0,0.8)] overflow-hidden"
-        >
-          {/* Subtle moving glow inside the charter */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(ellipse_at_center,rgba(212,175,55,0.08)_0%,transparent_70%)] pointer-events-none" />
-          
-          <span className="text-gold-500 text-[0.65rem] font-bold uppercase tracking-[0.3em] block mb-6">Final Editorial Charter</span>
-          
-          <h3 className="text-3xl md:text-4xl font-serif text-white mb-8">
-            The Juris Standard Editorial Charter
-          </h3>
-          
-          <p className="text-neutral-300 text-lg md:text-xl font-light leading-relaxed w-full max-w-[1400px] mx-auto mb-8">
-            Juris Standard is committed to recognising professional excellence through an editorial process founded upon independence, consistency, transparency and institutional integrity. Every recognition reflects an independent editorial opinion formed through structured review, responsible research and programme-specific editorial judgement.
-          </p>
-          
-          <p className="text-white/80 text-lg font-medium leading-relaxed max-w-3xl mx-auto">
-            Our objective is to build a trusted editorial institution that serves the legal profession with professionalism, fairness and long-term credibility.
-          </p>
-        </div>
+        {/* Compact Editorial Charter Plaque */}
+        <div className="relative p-6 sm:p-8 bg-gradient-to-br from-[#120f0a] via-[#080705] to-[#040404] border border-[#CBAA69]/30 rounded-[3px] overflow-hidden shadow-2xl">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-[#CBAA69]/10 rounded-full blur-3xl pointer-events-none" />
+
+          <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
+            <div className="max-w-2xl">
+              <div className="flex items-center gap-2 mb-2">
+                <ScrollText className="w-4 h-4 text-[#CBAA69]" />
+                <span className="text-[0.55rem] uppercase tracking-[0.25em] text-[#CBAA69] font-bold">
+                  The Juris Standard Editorial Charter
+                </span>
+              </div>
+              <h3 className="text-xl sm:text-2xl font-serif text-white font-light mb-3">
+                Uncompromising Commitment to Legal Excellence
+              </h3>
+              <p className="text-neutral-300 text-xs sm:text-[0.85rem] font-light leading-relaxed">
+                Juris Standard is dedicated to recognizing peer distinction through an independent editorial mechanism founded on qualitative integrity, meticulous research, and transparency. Recognition reflects an autonomous editorial opinion that serves the global legal profession with lasting credibility.
+              </p>
+            </div>
+
+            <div className="shrink-0 flex flex-col items-start md:items-end border-t md:border-t-0 md:border-l border-white/[0.08] pt-4 md:pt-0 md:pl-8 text-left md:text-right">
+              <span className="text-[0.55rem] uppercase tracking-[0.25em] text-[#CBAA69] font-serif font-bold block mb-1">
+                ADOPTED BY EDITORIAL COUNCIL
+              </span>
+              <span className="text-xs text-white/50 font-mono">
+                JS-DOC-EDG-2027
+              </span>
+            </div>
           </div>
         </div>
       </div>

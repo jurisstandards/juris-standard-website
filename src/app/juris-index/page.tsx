@@ -1,65 +1,67 @@
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { NumberedIndexCard } from "@/components/ui/NumberedIndexCard";
+import { CTAButton } from "@/components/ui/CTAButton";
 import { ArrowRight, ShieldCheck, Crown, Globe, Scale, Search, Clock, FileText, User, Building2 } from "lucide-react";
 import Link from "next/link";
 
 export default function ExploreIndexPage() {
   return (
-    <main className="min-h-screen bg-black selection:bg-gold-500/30 overflow-x-hidden flex flex-col font-sans text-neutral-300">
+    <main className="min-h-screen bg-[#050505] selection:bg-gold-500/30 overflow-x-hidden flex flex-col font-sans text-neutral-300">
       <Navbar />
       
       {/* 1. HERO SECTION */}
-      <section className="relative w-full h-[750px] lg:h-[850px] flex items-center mt-16 lg:mt-20 overflow-hidden">
-        {/* Background Image with improved contrast and lighting */}
+      <section className="relative w-full min-h-[70vh] lg:min-h-[80vh] flex items-center pt-32 pb-16 overflow-hidden">
+        {/* Background Image */}
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat scale-105"
-          style={{ backgroundImage: "url('/collections/hero_hall.jpg')" }}
+          style={{ backgroundImage: "url('/collections/hero_index_new.jpg')" }}
         />
-        {/* Richer dark overlay gradients for depth */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#030303] via-black/70 to-transparent z-0" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#030303] via-transparent to-black/60 z-0" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#030303] via-black/90 to-transparent z-0" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#030303] via-transparent to-black/80 z-0" />
         <div className="absolute top-0 left-0 w-[800px] h-[800px] bg-[radial-gradient(ellipse_at_center,_rgba(212,175,55,0.15)_0%,_transparent_60%)] -translate-x-1/4 -translate-y-1/4 pointer-events-none z-0" />
         
         <div className="w-full px-6 md:px-12 lg:px-20 xl:px-32 max-w-[2000px] mx-auto relative z-10 flex flex-col lg:flex-row items-center justify-between">
           
-          <div className="max-w-3xl pt-10 lg:pt-0">
-            <div className="flex items-center gap-4 mb-6">
-              <span className="w-12 h-[1px] bg-gold-500/60 block" />
-              <span className="text-[0.65rem] md:text-[0.75rem] uppercase tracking-[0.4em] text-gold-400 font-semibold">
+          <div className="max-w-3xl pt-4 lg:pt-0">
+            <div className="flex items-center space-x-4 mb-4 relative z-10">
+              <div className="w-8 h-[1px] bg-gold-400" />
+              <span className="text-[0.60rem] uppercase tracking-[0.2em] text-gold-400 font-medium font-sans">
                 EXPLORE
               </span>
             </div>
             
-            <h1 className="font-serif text-5xl md:text-7xl lg:text-[6.5rem] text-white leading-[1.05] tracking-wide mb-8 drop-shadow-2xl font-light">
-              THE JURIS STANDARD <br/>
-              <span className="font-medium bg-gradient-to-r from-gold-300 via-gold-500 to-gold-600 text-transparent bg-clip-text drop-shadow-[0_0_30px_rgba(212,175,55,0.3)]">
-                INDEX<sup className="text-[0.3em] ml-2 text-gold-500">™</sup>
-              </span>
-            </h1>
+            <div className="relative">
+              {/* Text background gradient to pop it from background */}
+              <div className="absolute -inset-x-8 -inset-y-4 bg-black/50 blur-2xl rounded-full z-0 pointer-events-none" />
+              
+              <h1 className="relative z-10 font-serif text-5xl md:text-6xl lg:text-7xl font-light leading-[1.05] mb-4 tracking-tight drop-shadow-2xl">
+                <span className="text-transparent bg-clip-text bg-gradient-to-br from-white via-neutral-100 to-neutral-400 drop-shadow-sm">
+                  The Juris Standard
+                </span>
+                <br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-gold-300 via-gold-100 to-gold-500 drop-shadow-[0_10px_20px_rgba(0,0,0,0.8)] inline-block pb-4 pr-4">
+                  Index<sup className="text-[0.4em] ml-2 text-gold-500">™</sup>
+                </span>
+              </h1>
+            </div>
             
-            <p className="text-lg md:text-xl text-neutral-300 font-light tracking-wide max-w-xl mb-14 border-l-[3px] border-gold-500/80 pl-8 leading-relaxed shadow-sm">
+            <p className="text-neutral-300 text-sm md:text-base max-w-xl mb-8 leading-[1.6] font-light tracking-wide border-l-[3px] border-gold-500/80 pl-6 relative z-10">
               The world's definitive record of legal excellence.<br/>
               Independent. Authoritative. Global.
             </p>
             
-            <div className="flex flex-col sm:flex-row gap-8 items-start sm:items-center">
-              <Link href="#collections" className="group relative flex items-center justify-between px-10 py-5 bg-[#0a0a0a]/80 backdrop-blur-md border border-gold-500/50 text-gold-400 text-sm font-semibold uppercase tracking-[0.25em] transition-all overflow-hidden min-w-[280px] shadow-[0_0_20px_rgba(212,175,55,0.1)] hover:shadow-[0_0_40px_rgba(212,175,55,0.3)] hover:border-gold-400">
-                <div className="absolute inset-0 bg-gradient-to-r from-gold-500/0 via-gold-500/10 to-gold-500/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
-                <span className="relative z-10">ENTER THE INDEX</span>
-                <ArrowRight className="relative z-10 w-5 h-5 transform group-hover:translate-x-2 transition-transform duration-500" />
-              </Link>
-              <Link href="#live" className="group flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.15em] text-white/70 hover:text-gold-400 transition-colors">
-                View Current Recognitions 
-                <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
+            <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-4 sm:space-y-0 sm:space-x-8 relative z-10">
+              <CTAButton href="#collections" variant="primary" showArrow>Enter the Index</CTAButton>
+              <Link href="#live" className="flex items-center text-[11px] font-semibold uppercase tracking-[2px] text-neutral-300 hover:text-gold-300 transition-all duration-300 group pb-1 border-b border-transparent hover:border-gold-300/30">
+                View Current Recognitions
+                <ArrowRight className="ml-2 w-3.5 h-3.5 transform group-hover:translate-x-1 transition-transform" />
               </Link>
             </div>
           </div>
 
-          <div className="hidden lg:flex flex-col bg-black/40 backdrop-blur-xl border border-white/10 rounded-lg min-w-[340px] shadow-[0_8px_32px_rgba(0,0,0,0.5)] overflow-hidden">
-            {/* Top decorative line */}
+          <div className="hidden lg:flex flex-col bg-black/50 backdrop-blur-xl border border-white/10 rounded-lg min-w-[340px] shadow-[0_8px_32px_rgba(0,0,0,0.5)] overflow-hidden mt-10 lg:mt-0">
             <div className="w-full h-[2px] bg-gradient-to-r from-transparent via-gold-500/50 to-transparent" />
-            
             <div className="flex flex-col p-2">
               {[
                 { icon: ShieldCheck, title: "INDEPENDENT", desc: "Editorially Independent" },
@@ -87,18 +89,15 @@ export default function ExploreIndexPage() {
 
       <div className="w-full px-6 md:px-12 lg:px-20 xl:px-32 max-w-[2000px] mx-auto pb-32">
         
-        {/* 2. THE 8 COLLECTIONS GRID */}
+        {/* 2. THE 6 COLLECTIONS GRID */}
         <section id="collections" className="py-8 -mt-20 relative z-20">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 xl:gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 xl:gap-4">
             <NumberedIndexCard number="01" topLabel="LAW FIRM" mainLabel="EXCELLENCE™" href="/juris-index/law-firms" imageSrc="/collections/icon_law_firm.jpg" />
             <NumberedIndexCard number="02" topLabel="CORPORATE" mainLabel="ELITE™" href="/juris-index/professionals/corporate-elite" imageSrc="/collections/icon_corporate.jpg" />
             <NumberedIndexCard number="03" topLabel="LITIGATION" mainLabel="MASTERS™" href="/juris-index/professionals/litigation-masters" imageSrc="/collections/icon_litigation.jpg" />
-            <NumberedIndexCard number="04" topLabel="GENERAL COUNSEL" mainLabel="EXCELLENCE™" href="/juris-index/professionals/general-counsel" imageSrc="/collections/icon_ring.jpg" />
-            
-            <NumberedIndexCard number="05" topLabel="LEGAL" mainLabel="ACADEMIA™" href="/juris-index/academia" imageSrc="/collections/icon_book.jpg" />
-            <NumberedIndexCard number="06" topLabel="LEGAL" mainLabel="INNOVATION EXCELLENCE™" href="/juris-index/legal-innovation" imageSrc="/collections/icon_globe.jpg" />
-            <NumberedIndexCard number="07" topLabel="PUBLIC" mainLabel="LEADERSHIP™" href="/juris-index/public-leadership" imageSrc="/collections/icon_capitol.jpg" />
-            <NumberedIndexCard number="08" topLabel="JURIS STANDARD" mainLabel="HONOURS™" href="/juris-index/honours" imageSrc="/collections/icon_compass.jpg" />
+            <NumberedIndexCard number="04" topLabel="WOMEN" mainLabel="LEADERS™" href="/juris-index/professionals/women-leaders" imageSrc="/collections/icon_women.jpg" />
+            <NumberedIndexCard number="05" topLabel="FUTURE" mainLabel="LEADERS™" href="/juris-index/professionals/future-leaders" imageSrc="/collections/icon_future.jpg" />
+            <NumberedIndexCard number="06" topLabel="LEGAL" mainLabel="INNOVATION EXCELLENCE™" href="/juris-index/legal-innovation" imageSrc="/collections/icon_innovators.jpg" />
           </div>
         </section>
 

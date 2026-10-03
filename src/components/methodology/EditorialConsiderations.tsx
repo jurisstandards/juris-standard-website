@@ -1,146 +1,140 @@
-'use client';
-
-import { Award, Briefcase, GraduationCap, Building2, Lightbulb, TrendingUp, Globe, Clock, ChevronDown } from "lucide-react";
-import { useState } from "react";
-import { CrystalIcon } from "./CrystalIcon";
+import { Award, Briefcase, GraduationCap, Building2, Lightbulb, TrendingUp, Globe, Clock, BookOpen, AlertCircle } from "lucide-react";
 
 const considerations = [
   {
-    id: 1,
+    id: "01",
     title: "Professional Experience",
+    tag: "TENURE",
     icon: Briefcase,
-    content: "The consistency, depth and maturity of professional practice over a sustained period."
+    content: "Consistency, depth, and maturity of active practice demonstrated over sustained multi-year periods."
   },
   {
-    id: 2,
-    title: "Professional Expertise",
+    id: "02",
+    title: "Specialist Expertise",
+    tag: "TECHNICAL",
     icon: Award,
-    content: "Demonstrated capability, specialised knowledge and technical excellence within distinct legal disciplines."
+    content: "Demonstrated technical capability, subject-matter mastery, and distinction within defined practice areas."
   },
   {
-    id: 3,
-    title: "Leadership",
+    id: "03",
+    title: "Practice Leadership",
+    tag: "LEADERSHIP",
     icon: TrendingUp,
-    content: "Leadership demonstrated within professional practice, institutional governance, legal teams or the broader legal profession."
+    content: "Guiding institutional practice groups, leading major transactions/disputes, and pioneering ethical benchmarks."
   },
   {
-    id: 4,
-    title: "Professional Contribution",
+    id: "04",
+    title: "Civic & Sector Impact",
+    tag: "CONTRIBUTION",
     icon: GraduationCap,
-    content: "Contribution towards legal education, research, institutional development, public policy or the overall advancement of the profession."
+    content: "Advancing legal education, regulatory policy, pro bono access, and institutional stewardship."
   },
   {
-    id: 5,
+    id: "05",
     title: "Thought Leadership",
+    tag: "SCHOLARSHIP",
     icon: BookOpen,
-    content: "Publications, academic contribution, professional speaking engagements, legal writing and knowledge development."
+    content: "Authoring definitive treatises, speaking at global summits, and contributing original jurisprudence."
   },
   {
-    id: 6,
-    title: "Institutional Development",
+    id: "06",
+    title: "Institutional Maturity",
+    tag: "GOVERNANCE",
     icon: Building2,
-    content: "Applicable primarily to Law Firms, Legal Media and Legal Innovation. Considers organisational growth, governance, professional standards and institutional maturity."
+    content: "Organisational governance, partner retention, succession systems, and institutional development."
   },
   {
-    id: 7,
-    title: "Innovation",
+    id: "07",
+    title: "Innovation & Technology",
+    tag: "MODERNISATION",
     icon: Lightbulb,
-    content: "Development of new ideas, legal technology, professional systems, operational excellence or research."
+    content: "Pioneering operational efficiency, automated workflows, legaltech adoption, and forward-looking methods."
   },
   {
-    id: 8,
-    title: "Cross-Border Engagement",
+    id: "08",
+    title: "Cross-Border Calibre",
+    tag: "GLOBAL",
     icon: Globe,
-    content: "Where relevant: International practice, cross-border matters, engagement with international institutions and global collaboration."
+    content: "Multijurisdictional advisory, coordination across international forums, and foreign counsel collaboration."
   },
   {
-    id: 9,
-    title: "Long-Term Contribution",
+    id: "09",
+    title: "Sustained Distinction",
+    tag: "LONGEVITY",
     icon: Clock,
-    content: "Sustained professional contribution over time rather than isolated or temporary achievement."
+    content: "Longitudinal track record of professional standing, avoiding temporary or transactional visibility."
   }
 ];
 
-import { BookOpen } from "lucide-react";
-
 export function EditorialConsiderations() {
-  const [openId, setOpenId] = useState<number | null>(1);
-
   return (
-    <section id="considerations" className="py-10 px-8 md:px-16 lg:px-24 xl:px-32 relative z-10 scroll-mt-24">
-      <div className="w-full max-w-[1400px] mx-auto">
-        <div className="bg-[#111111]/90 backdrop-blur-3xl border border-white/10 shadow-[0_0_40px_rgba(255,255,255,0.03)] rounded-2xl p-6 lg:p-8 xl:p-10 relative overflow-hidden group">
-          <div className="absolute top-0 inset-x-0 h-[1px] bg-gradient-to-r from-transparent via-gold-500/30 to-transparent group-hover:via-gold-400/60 transition-colors duration-500 shadow-[0_0_20px_rgba(212,175,55,0.3)]" />
-          
-          
-          <div className="flex flex-col w-full">
-            {/* Top Premium Header */}
-            <div className="flex flex-col items-start mb-6 border-b border-white/5 pb-6">
-              <div className="flex items-center space-x-3 mb-3">
-                <div className="flex items-center justify-center w-6 h-6 rounded bg-gradient-to-br from-gold-500/20 to-gold-600/5 border border-gold-500/50 shadow-[0_0_10px_rgba(212,175,55,0.2)]">
-                  <span className="text-gold-400 font-serif text-sm font-bold">4</span>
-                </div>
-                <span className="text-gold-500 text-xs font-bold uppercase tracking-[0.3em] drop-shadow-sm">Section 4</span>
-              </div>
-              <h2 className="text-4xl md:text-5xl font-serif text-white font-light tracking-tight leading-tight">Editorial Considerations</h2>
+    <section id="considerations" className="relative z-10 scroll-mt-28">
+      <div className="bg-[#090806]/90 backdrop-blur-2xl border border-white/[0.08] border-t-[#CBAA69]/30 rounded-[4px] p-6 sm:p-8 lg:p-10 relative overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.8)]">
+        {/* Section Header */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-6 mb-8 border-b border-white/[0.06] gap-4">
+          <div>
+            <div className="flex items-center space-x-3 mb-2">
+              <span className="px-2 py-0.5 text-[0.6rem] font-bold tracking-[0.2em] uppercase bg-[#CBAA69]/10 text-[#CBAA69] border border-[#CBAA69]/25 rounded-[2px]">
+                04
+              </span>
+              <span className="text-[0.6rem] uppercase tracking-[0.3em] text-[#CBAA69]/80 font-medium">
+                SECTION 04 • EVALUATION CRITERIA
+              </span>
             </div>
-            
-            {/* Full-Width Content Column */}
-            <div className="w-full space-y-4">
-          <p className="text-neutral-300 font-light leading-relaxed md:text-[1.05rem] mb-6">
-            Different Recognition Programmes require different editorial perspectives. Accordingly, editorial consideration is holistic rather than formulaic. No individual factor determines recognition. Instead, editors consider the overall professional profile within the context of the relevant Recognition Programme.
-          </p>
-          
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
-          {considerations.map((item, index) => {
-            const isActive = openId === item.id;
-            return (
-              <div
-                key={item.id}
-                className={`group relative bg-[#0a0a0a]/60 backdrop-blur-md border rounded-2xl p-6 transition-all duration-500 cursor-pointer ${
-                  isActive 
-                    ? 'border-gold-500/40 shadow-[0_10px_30px_rgba(212,175,55,0.1)]' 
-                    : 'border-white/10 hover:border-gold-500/30'
-                }`}
-                onClick={() => setOpenId(isActive ? null : item.id)}
-              >
-                <div className="flex items-center justify-between mb-4">
-                  <div className="flex items-center space-x-4">
-                    <item.icon className={`w-5 h-5 transition-colors duration-500 ${isActive ? 'text-gold-400' : 'text-white/40'}`} />
-                    <h3 className={`font-serif text-lg transition-colors duration-500 ${isActive ? 'text-white' : 'text-white/80'}`}>
-                      {item.title}
-                    </h3>
-                  </div>
-                  <ChevronDown className={`w-4 h-4 text-white/30 transition-transform duration-500 ${isActive ? 'rotate-180 text-gold-400' : ''}`} />
-                </div>
-                
-                
-                  {isActive && (
-                    <div
-                      >
-                      <p className="text-neutral-400 text-sm font-light leading-relaxed pt-2 border-t border-white/5">
-                        {item.content}
-                      </p>
-                    </div>
-                  )}
-                
-              </div>
-            );
-          })}
-        </div>
-
-        {/* Editorial Notice Panel */}
-        <div
-          className="bg-[#111]/80 backdrop-blur-xl border border-gold-500/30 rounded-[2rem] p-8 md:p-12 shadow-[inset_0_0_40px_rgba(212,175,55,0.05),0_20px_50px_rgba(0,0,0,0.5)]"
-        >
-          <span className="text-gold-500 text-[0.65rem] font-bold uppercase tracking-[0.3em] block mb-4">Editorial Notice</span>
-          <p className="text-white/70 font-light leading-relaxed md:text-lg">
-            Editorial Considerations provide guidance regarding the broader themes that may inform editorial review. The relative importance of individual considerations varies according to the Recognition Programme and institutional context. Editorial judgement remains independent and holistic.
-          </p>
-        </div>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-serif text-white font-light tracking-wide">
+              Editorial Considerations
+            </h2>
           </div>
+          <p className="text-xs uppercase tracking-[0.15em] text-white/40 max-w-sm font-light leading-relaxed">
+            Nine holistic qualitative dimensions informing editorial discretion.
+          </p>
+        </div>
+
+        {/* 3x3 Compact Micro-Cards Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5 sm:gap-4 mb-8">
+          {considerations.map((item) => (
+            <div
+              key={item.id}
+              className="group relative bg-[#060504] border border-white/[0.07] hover:border-[#CBAA69]/40 rounded-[3px] p-4 sm:p-5 transition-all duration-300 flex flex-col justify-between hover:bg-[#080706]"
+            >
+              {/* Subtle top indicator */}
+              <div className="absolute top-0 inset-x-0 h-[1px] bg-gradient-to-r from-transparent via-[#CBAA69]/0 to-transparent group-hover:via-[#CBAA69]/40 transition-all duration-500" />
+
+              <div>
+                <div className="flex items-center justify-between mb-3">
+                  <div className="flex items-center gap-2.5">
+                    <div className="w-8 h-8 rounded-[2px] bg-[#120f0a] border border-[#CBAA69]/20 flex items-center justify-center group-hover:border-[#CBAA69]/50 transition-colors">
+                      <item.icon className="w-3.5 h-3.5 text-[#CBAA69]" strokeWidth={1.5} />
+                    </div>
+                    <span className="text-[0.5rem] font-mono tracking-[0.2em] text-[#CBAA69]/60">
+                      CRITERIA {item.id}
+                    </span>
+                  </div>
+                  <span className="text-[0.48rem] uppercase tracking-[0.18em] text-white/30 font-medium">
+                    {item.tag}
+                  </span>
+                </div>
+
+                <h3 className="text-sm sm:text-[0.95rem] font-serif text-white font-light mb-1.5 group-hover:text-[#CBAA69] transition-colors">
+                  {item.title}
+                </h3>
+
+                <p className="text-neutral-400 text-xs sm:text-[0.8rem] font-light leading-relaxed">
+                  {item.content}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Compact Editorial Notice Strip */}
+        <div className="p-4 sm:p-5 bg-gradient-to-r from-[#120f0a]/90 via-[#0a0907] to-[#120f0a]/90 border border-[#CBAA69]/20 rounded-[2px] flex flex-col sm:flex-row items-start sm:items-center gap-3.5">
+          <div className="w-7 h-7 rounded-[2px] bg-[#CBAA69]/10 border border-[#CBAA69]/30 flex items-center justify-center shrink-0">
+            <AlertCircle className="w-3.5 h-3.5 text-[#CBAA69]" />
+          </div>
+          <p className="text-xs sm:text-[0.8rem] text-white/70 font-light leading-relaxed">
+            <strong className="text-white font-medium">Holistic Assessment:</strong> No individual criterion determines recognition. The weighting of each dimension adapts dynamically to the institutional context and specific Recognition Programme.
+          </p>
         </div>
       </div>
     </section>

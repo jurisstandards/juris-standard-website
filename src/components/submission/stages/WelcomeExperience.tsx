@@ -4,12 +4,27 @@ import { useSubmissionStore } from "@/lib/submissionStore";
 import { motion, AnimatePresence } from "framer-motion";
 import { Scale, Milestone, BookOpen, ChevronRight, Gem, Crown, TrendingUp, Zap, Megaphone, Award, ArrowRight } from "lucide-react";
 import { useState, useRef } from "react";
+import { useRouter } from "next/navigation";
+import { supabase } from "@/lib/supabase";
 import { IndexCard } from "@/components/ui/IndexCard";
 
 export function WelcomeExperience() {
   const { setStage, isNavigatingBack } = useSubmissionStore();
+  const router = useRouter();
   const [showIndex, setShowIndex] = useState(false);
+  const [checkingAuth, setCheckingAuth] = useState(false);
   const indexRef = useRef<HTMLDivElement>(null);
+
+  const handleContinueJourney = async () => {
+    setCheckingAuth(true);
+    const { data: { session } } = await supabase.auth.getSession();
+    setCheckingAuth(false);
+    if (!session) {
+      router.push("/login?redirect=/enter-the-index");
+      return;
+    }
+    setStage("track_selection");
+  };
 
   const handleExploreIndex = () => {
     setShowIndex(true);
@@ -75,11 +90,15 @@ export function WelcomeExperience() {
             >
               {/* PRIMARY: Continue Journey */}
               <button
-                onClick={() => setStage("track_selection")}
-                className="group relative inline-flex items-center justify-center px-10 py-4 bg-gold-500/10 border border-gold-500/40 text-gold-300 text-[0.65rem] md:text-xs font-bold uppercase tracking-[0.3em] rounded-sm transition-all duration-300 hover:bg-gold-500/20 hover:border-gold-400 hover:text-gold-200 shadow-[0_0_25px_rgba(212,175,55,0.12)] hover:shadow-[0_0_35px_rgba(212,175,55,0.25)]"
+                onClick={handleContinueJourney}
+                disabled={checkingAuth}
+                className="group relative inline-flex items-center justify-center px-10 py-4 bg-gold-500/10 border border-gold-500/40 text-gold-300 text-[0.65rem] md:text-xs font-bold uppercase tracking-[0.3em] rounded-sm transition-all duration-300 hover:bg-gold-500/20 hover:border-gold-400 hover:text-gold-200 shadow-[0_0_25px_rgba(212,175,55,0.12)] hover:shadow-[0_0_35px_rgba(212,175,55,0.25)] disabled:opacity-60 disabled:cursor-wait"
               >
-                Continue Journey
-                <ChevronRight className="w-4 h-4 ml-3 group-hover:translate-x-1 transition-transform" />
+                {checkingAuth ? (
+                  <><div className="w-3.5 h-3.5 border-2 border-current border-t-transparent rounded-full animate-spin mr-2" />Checking...</>
+                ) : (
+                  <>Continue Journey<ChevronRight className="w-4 h-4 ml-3 group-hover:translate-x-1 transition-transform" /></>
+                )}
               </button>
 
               {/* SECONDARY: Explore the Index */}

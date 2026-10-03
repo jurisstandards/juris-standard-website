@@ -1,50 +1,71 @@
-import { Landmark } from "lucide-react";
-import { CrystalIcon } from "./CrystalIcon";
+import { Landmark, Shield, Sparkles } from "lucide-react";
 
 export function EditorialPhilosophy() {
   return (
-    <section id="philosophy" className="py-10 px-8 md:px-16 lg:px-24 xl:px-32 relative z-10 scroll-mt-24">
-      <div className="w-full max-w-[1400px] mx-auto">
-        <div className="bg-[#111111]/90 backdrop-blur-3xl border border-white/10 shadow-[0_0_40px_rgba(255,255,255,0.03)] rounded-2xl p-6 lg:p-8 xl:p-10 relative overflow-hidden group">
-          {/* Subtle top glow */}
-          <div className="absolute top-0 inset-x-0 h-[1px] bg-gradient-to-r from-transparent via-gold-500/30 to-transparent group-hover:via-gold-400/60 transition-colors duration-500 shadow-[0_0_20px_rgba(212,175,55,0.3)]" />
-          
-          <div className="flex flex-col w-full">
-            {/* Top Premium Header */}
-            <div className="flex flex-col items-start mb-6 border-b border-white/5 pb-6">
-              <div className="flex items-center space-x-3 mb-3">
-                <div className="flex items-center justify-center w-6 h-6 rounded bg-gradient-to-br from-gold-500/20 to-gold-600/5 border border-gold-500/50 shadow-[0_0_10px_rgba(212,175,55,0.2)]">
-                  <span className="text-gold-400 font-serif text-sm font-bold">1</span>
-                </div>
-                <span className="text-gold-500 text-xs font-bold uppercase tracking-[0.3em] drop-shadow-sm">Section 1</span>
-              </div>
-              <h2 className="text-4xl md:text-5xl font-serif text-white font-light tracking-tight leading-tight">Editorial Philosophy</h2>
+    <section id="philosophy" className="relative z-10 scroll-mt-28">
+      {/* Connected Section Container */}
+      <div className="bg-[#090806]/90 backdrop-blur-2xl border border-white/[0.08] border-t-[#CBAA69]/30 rounded-[4px] p-6 sm:p-8 lg:p-10 relative overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.8)]">
+        {/* Subtle gold aura */}
+        <div className="absolute top-0 right-0 w-[400px] h-[300px] bg-[#CBAA69]/5 blur-[100px] pointer-events-none" />
+        
+        {/* Section Header */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-6 mb-8 border-b border-white/[0.06] gap-4">
+          <div>
+            <div className="flex items-center space-x-3 mb-2">
+              <span className="px-2 py-0.5 text-[0.6rem] font-bold tracking-[0.2em] uppercase bg-[#CBAA69]/10 text-[#CBAA69] border border-[#CBAA69]/25 rounded-[2px]">
+                01
+              </span>
+              <span className="text-[0.6rem] uppercase tracking-[0.3em] text-[#CBAA69]/80 font-medium">
+                SECTION 01 • FOUNDATIONAL MANDATE
+              </span>
             </div>
-            
-            {/* Full-Width Content Column */}
-            <div className="w-full space-y-4">
-
-          <div className="space-y-3 text-neutral-300 font-light leading-relaxed md:text-[1.05rem] mb-6">
-            <p>
-              Juris Standard was established with a singular objective: to recognise excellence across the legal profession through an independent editorial framework.
-            </p>
-            <p>
-              Recognition should reflect sustained professional achievement, leadership, expertise and contribution rather than commercial visibility or promotional activity.
-            </p>
-            <p>
-              The Juris Standard Index seeks to preserve the credibility of professional recognition by applying consistent editorial standards across every programme and every submission.
-            </p>
-            <p>
-              Recognition within the Index is intended to acknowledge professional distinction and institutional excellence. It is not a certification, licence or regulatory approval.
-            </p>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-serif text-white font-light tracking-wide">
+              Editorial Philosophy
+            </h2>
           </div>
-
-          <div className="relative border-l-[3px] border-gold-500/60 pl-6 py-3 mt-6 group-hover:border-gold-400 transition-colors duration-500 bg-gradient-to-r from-gold-500/10 to-transparent rounded-r-lg">
-            <p className="font-serif text-xl md:text-2xl text-transparent bg-clip-text bg-gradient-to-br from-white to-neutral-400 italic leading-snug drop-shadow-sm">
-              "Recognition founded on merit. Preserved with integrity."
-            </p>
+          <div className="hidden md:flex items-center gap-2 px-3 py-1.5 border border-white/[0.08] bg-black/40 rounded-[2px] self-start sm:self-auto">
+            <Shield className="w-3.5 h-3.5 text-[#CBAA69]" />
+            <span className="text-[0.55rem] uppercase tracking-[0.2em] text-white/50 font-medium">
+              Independent Standard
+            </span>
           </div>
         </div>
+
+        {/* Content: Compact 2-Column Editorial Presentation */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+          {/* Left Column: Core Statements */}
+          <div className="lg:col-span-7 space-y-3.5 text-neutral-300 text-sm md:text-[0.92rem] leading-relaxed font-light">
+            <p className="border-l border-[#CBAA69]/40 pl-4 py-0.5 text-white/90">
+              Juris Standard was established with a singular objective: to recognise excellence across the legal profession through an independent, rigorous editorial framework.
+            </p>
+            <p>
+              Recognition reflects sustained professional achievement, leadership, technical expertise and institutional contribution rather than commercial visibility or promotional expenditure.
+            </p>
+            <p>
+              The Juris Standard Index preserves the credibility of professional honours by applying unwavering, consistent editorial criteria across every category and submission.
+            </p>
+            <p className="text-white/50 text-xs">
+              * Recognition acknowledges peer distinction and institutional merit; it does not constitute certification, licence or statutory endorsement.
+            </p>
+          </div>
+
+          {/* Right Column: Compact Luxury Quote Plaque */}
+          <div className="lg:col-span-5">
+            <div className="relative p-6 sm:p-7 bg-gradient-to-br from-[#120f0a] to-[#050505] border border-[#CBAA69]/25 rounded-[3px] shadow-[0_10px_30px_rgba(0,0,0,0.6)] group">
+              <div className="absolute top-0 right-0 w-24 h-24 bg-[#CBAA69]/10 rounded-full blur-2xl pointer-events-none" />
+              <div className="flex items-center gap-2 mb-3">
+                <Sparkles className="w-3.5 h-3.5 text-[#CBAA69]" />
+                <span className="text-[0.55rem] uppercase tracking-[0.25em] text-[#CBAA69] font-semibold">
+                  Core Axiom
+                </span>
+              </div>
+              <blockquote className="font-serif text-lg sm:text-xl text-white font-light italic leading-snug mb-3">
+                &ldquo;Recognition founded on merit. Preserved with integrity.&rdquo;
+              </blockquote>
+              <p className="text-[0.6rem] uppercase tracking-[0.2em] text-white/40">
+                The Juris Standard Editorial Board
+              </p>
+            </div>
           </div>
         </div>
       </div>

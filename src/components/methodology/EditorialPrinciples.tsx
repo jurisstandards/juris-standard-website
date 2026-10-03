@@ -1,76 +1,94 @@
 import { Scale, Award, Shield, BookOpen } from "lucide-react";
-import { CrystalIcon } from "./CrystalIcon";
 
 const principles = [
   {
     title: "Independence",
     icon: Scale,
-    content: "Editorial decisions are made independently and remain free from commercial influence, advertising relationships, sponsorships or external pressure. Every submission is assessed according to the same published editorial framework."
+    tag: "AUTONOMOUS",
+    content: "Editorial decisions remain strictly independent, immune to advertising relationships, commercial visibility, sponsorships or external influence."
   },
   {
     title: "Merit",
     icon: Award,
-    content: "Recognition reflects demonstrated professional achievement, legal expertise, leadership, innovation and meaningful contribution to the legal profession. No single factor determines recognition."
+    tag: "EXCELLENCE",
+    content: "Recognition reflects demonstrable professional competence, landmark casework, strategic expertise, innovation and peer contribution."
   },
   {
     title: "Integrity",
     icon: Shield,
-    content: "Every editorial decision is approached with consistency, fairness and institutional responsibility. Information is reviewed objectively using established editorial standards."
+    tag: "CONSISTENCY",
+    content: "Every candidate profile is assessed with institutional fairness, rigorous objectivity, and identical published editorial metrics."
   },
   {
     title: "Transparency",
     icon: BookOpen,
-    content: "Juris Standard publishes its editorial principles, methodology and recognition framework to encourage transparency and confidence in its editorial process."
+    tag: "ACCESSIBILITY",
+    content: "Juris Standard openly publishes its methodology, evaluation stages, and governance charter to maintain absolute professional trust."
   }
 ];
 
 export function EditorialPrinciples() {
   return (
-    <section id="principles" className="py-10 px-8 md:px-16 lg:px-24 xl:px-32 relative z-10 scroll-mt-24">
-      <div className="w-full max-w-[1400px] mx-auto">
-        <div className="bg-[#111111]/90 backdrop-blur-3xl border border-white/10 shadow-[0_0_40px_rgba(255,255,255,0.03)] rounded-2xl p-6 lg:p-8 xl:p-10 relative overflow-hidden group">
-          <div className="absolute top-0 inset-x-0 h-[1px] bg-gradient-to-r from-transparent via-gold-500/30 to-transparent group-hover:via-gold-400/60 transition-colors duration-500 shadow-[0_0_20px_rgba(212,175,55,0.3)]" />
-          
-          <div className="flex flex-col w-full">
-            {/* Top Premium Header */}
-            <div className="flex flex-col items-start mb-6 border-b border-white/5 pb-6">
-              <div className="flex items-center space-x-3 mb-3">
-                <div className="flex items-center justify-center w-6 h-6 rounded bg-gradient-to-br from-gold-500/20 to-gold-600/5 border border-gold-500/50 shadow-[0_0_10px_rgba(212,175,55,0.2)]">
-                  <span className="text-gold-400 font-serif text-sm font-bold">2</span>
-                </div>
-                <span className="text-gold-500 text-xs font-bold uppercase tracking-[0.3em] drop-shadow-sm">Section 2</span>
-              </div>
-              <h2 className="text-4xl md:text-5xl font-serif text-white font-light tracking-tight leading-tight">Editorial Principles</h2>
+    <section id="principles" className="relative z-10 scroll-mt-28">
+      <div className="bg-[#090806]/90 backdrop-blur-2xl border border-white/[0.08] border-t-[#CBAA69]/30 rounded-[4px] p-6 sm:p-8 lg:p-10 relative overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.8)]">
+        {/* Subtle accent glow */}
+        <div className="absolute top-0 left-1/4 w-[350px] h-[250px] bg-[#CBAA69]/5 blur-[100px] pointer-events-none" />
+
+        {/* Section Header */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-6 mb-8 border-b border-white/[0.06] gap-4">
+          <div>
+            <div className="flex items-center space-x-3 mb-2">
+              <span className="px-2 py-0.5 text-[0.6rem] font-bold tracking-[0.2em] uppercase bg-[#CBAA69]/10 text-[#CBAA69] border border-[#CBAA69]/25 rounded-[2px]">
+                02
+              </span>
+              <span className="text-[0.6rem] uppercase tracking-[0.3em] text-[#CBAA69]/80 font-medium">
+                SECTION 02 • CORE PILLARS
+              </span>
             </div>
-            
-            {/* Full-Width Content Column */}
-            <div className="w-full space-y-4">
-          
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-serif text-white font-light tracking-wide">
+              Editorial Principles
+            </h2>
+          </div>
+          <p className="text-xs uppercase tracking-[0.15em] text-white/40 max-w-xs font-light leading-relaxed">
+            Four non-negotiable benchmarks governing every evaluation.
+          </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
-          {principles.map((principle, i) => (
+        {/* 4 Compact Horizontal / Grid Cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
+          {principles.map((p, i) => (
             <div
               key={i}
-              className="group relative bg-[#050505] border border-white/5 rounded-2xl p-6 flex flex-col hover:border-gold-500/40 hover:-translate-y-1 transition-all duration-500 shadow-xl hover:shadow-[0_10px_30px_rgba(212,175,55,0.1)]"
+              className="group relative bg-[#060504] border border-white/[0.07] hover:border-[#CBAA69]/40 rounded-[3px] p-5 flex flex-col justify-between transition-all duration-300 shadow-lg hover:shadow-[0_10px_25px_rgba(0,0,0,0.8)] overflow-hidden"
             >
-              {/* Top accent line */}
-              <div className="absolute top-0 inset-x-0 h-[1px] bg-gradient-to-r from-transparent via-gold-500/0 to-transparent group-hover:via-gold-400/50 transition-all duration-700" />
+              {/* Gold hairline indicator on hover */}
+              <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-[#CBAA69] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               
-              <div className="flex flex-row items-center space-x-4 mb-4">
-                <CrystalIcon icon={principle.icon} className="w-10 h-10 flex-shrink-0" />
-                <h3 className="text-xl md:text-2xl font-serif font-light text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-gold-200 transition-all duration-500 drop-shadow-sm">
-                {principle.title}
-              </h3>
+              <div>
+                <div className="flex items-center justify-between mb-4">
+                  <div className="w-9 h-9 rounded-[2px] bg-[#120f0a] border border-[#CBAA69]/20 flex items-center justify-center group-hover:border-[#CBAA69]/50 group-hover:bg-[#CBAA69]/10 transition-colors">
+                    <p.icon className="w-4 h-4 text-[#CBAA69]" strokeWidth={1.5} />
+                  </div>
+                  <span className="text-[0.5rem] uppercase tracking-[0.2em] text-[#CBAA69]/60 font-semibold">
+                    {p.tag}
+                  </span>
+                </div>
+                
+                <h3 className="text-lg font-serif text-white font-light mb-2 group-hover:text-[#CBAA69] transition-colors">
+                  {p.title}
+                </h3>
+                
+                <p className="text-neutral-400 text-xs sm:text-[0.82rem] font-light leading-relaxed">
+                  {p.content}
+                </p>
               </div>
-              
-              <p className="text-neutral-400 text-sm md:text-base font-light leading-relaxed group-hover:text-white/70 transition-colors duration-700">
-                {principle.content}
-              </p>
+
+              <div className="mt-4 pt-3 border-t border-white/[0.05] flex items-center justify-between text-[0.55rem] uppercase tracking-[0.2em] text-white/30">
+                <span>Pillar 0{i + 1}</span>
+                <span className="text-[#CBAA69]/50">• Verified</span>
+              </div>
             </div>
           ))}
-        </div>
-          </div>
         </div>
       </div>
     </section>

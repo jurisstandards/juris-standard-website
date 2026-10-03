@@ -1,98 +1,99 @@
-import { Building2, Mail, Users, Headphones, Briefcase, ChevronRight } from "lucide-react";
+import { Mail, Users, Headphones, Briefcase, ArrowRight, ShieldCheck } from "lucide-react";
 import Link from "next/link";
-import { CrystalIcon } from "./CrystalIcon";
 
 const contacts = [
-  { title: "Editorial Enquiries", icon: Mail, email: "editorial@jurisstandard.com" },
-  { title: "Profile Support", icon: Users, email: "support@jurisstandard.com" },
-  { title: "Technical Support", icon: Headphones, email: "tech@jurisstandard.com" },
-  { title: "Business Enquiries", icon: Briefcase, email: "partnerships@jurisstandard.com" }
+  { title: "Editorial Inquiries", role: "Assessment & Submissions", icon: Mail, email: "editorial@jurisstandard.com" },
+  { title: "Profile Services", role: "Vault Curation & Verification", icon: Users, email: "support@jurisstandard.com" },
+  { title: "Technical Support", role: "Portal & Account Access", icon: Headphones, email: "tech@jurisstandard.com" },
+  { title: "Institutional Desk", role: "Global Partnerships & Media", icon: Briefcase, email: "partnerships@jurisstandard.com" }
 ];
 
 export function EditorialOffice() {
   return (
-    <section id="office" className="py-10 px-8 md:px-16 lg:px-24 xl:px-32 relative z-10 scroll-mt-24">
-      <div className="w-full max-w-[1400px] mx-auto">
-        <div className="bg-[#111111]/90 backdrop-blur-3xl border border-white/10 shadow-[0_0_40px_rgba(255,255,255,0.03)] rounded-2xl p-6 lg:p-8 xl:p-10 relative overflow-hidden group">
-          <div className="absolute top-0 inset-x-0 h-[1px] bg-gradient-to-r from-transparent via-gold-500/30 to-transparent group-hover:via-gold-400/60 transition-colors duration-500 shadow-[0_0_20px_rgba(212,175,55,0.3)]" />
-          
-          
-          <div className="flex flex-col w-full">
-            {/* Top Premium Header */}
-            <div className="flex flex-col items-start mb-6 border-b border-white/5 pb-6">
-              <div className="flex items-center space-x-3 mb-3">
-                <div className="flex items-center justify-center w-6 h-6 rounded bg-gradient-to-br from-gold-500/20 to-gold-600/5 border border-gold-500/50 shadow-[0_0_10px_rgba(212,175,55,0.2)]">
-                  <span className="text-gold-400 font-serif text-sm font-bold">8</span>
-                </div>
-                <span className="text-gold-500 text-xs font-bold uppercase tracking-[0.3em] drop-shadow-sm">Section 8</span>
-              </div>
-              <h2 className="text-4xl md:text-5xl font-serif text-white font-light tracking-tight leading-tight">Editorial Office</h2>
+    <section id="office" className="relative z-10 scroll-mt-28">
+      <div className="bg-[#090806]/90 backdrop-blur-2xl border border-white/[0.08] border-t-[#CBAA69]/30 rounded-[4px] p-6 sm:p-8 lg:p-10 relative overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.8)]">
+        {/* Section Header */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-6 mb-8 border-b border-white/[0.06] gap-4">
+          <div>
+            <div className="flex items-center space-x-3 mb-2">
+              <span className="px-2 py-0.5 text-[0.6rem] font-bold tracking-[0.2em] uppercase bg-[#CBAA69]/10 text-[#CBAA69] border border-[#CBAA69]/25 rounded-[2px]">
+                08
+              </span>
+              <span className="text-[0.6rem] uppercase tracking-[0.3em] text-[#CBAA69]/80 font-medium">
+                SECTION 08 • EDITORIAL OFFICE
+              </span>
             </div>
-            
-            {/* Full-Width Content Column */}
-            <div className="w-full space-y-4">
-          <p className="text-neutral-300 font-light leading-relaxed md:text-[1.05rem] mb-6">
-            The Editorial Office manages the administration of the Juris Standard Editorial Process. It does not provide legal advice.
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-serif text-white font-light tracking-wide">
+              Editorial Office
+            </h2>
+          </div>
+          <p className="text-xs uppercase tracking-[0.15em] text-white/40 max-w-sm font-light leading-relaxed">
+            Direct channels for candidate inquiries, verification, and technical support.
           </p>
-          
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-32">
+        {/* 4 Compact Contact Cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-4 mb-8">
           {contacts.map((contact, index) => (
             <div
               key={index}
-              className="group bg-[#050505] border border-white/5 rounded-2xl p-6 hover:border-gold-500/40 hover:shadow-[0_10px_30px_rgba(212,175,55,0.1)] hover:-translate-y-1 transition-all duration-500 flex flex-col "
+              className="group bg-[#060504] border border-white/[0.07] hover:border-[#CBAA69]/40 rounded-[3px] p-4 sm:p-5 transition-all duration-300 flex flex-col justify-between hover:bg-[#080706]"
             >
-              <div className="w-12 h-12 rounded-xl bg-black border border-white/5 flex items-center justify-center shrink-0 mb-0 group-hover:border-gold-500/30 transition-colors duration-500">
-                <contact.icon className="w-5 h-5 text-white/40 group-hover:text-gold-400 transition-colors duration-500" />
+              <div>
+                <div className="w-8 h-8 rounded-[2px] bg-[#120f0a] border border-[#CBAA69]/20 flex items-center justify-center mb-3 group-hover:border-[#CBAA69]/50 transition-colors">
+                  <contact.icon className="w-3.5 h-3.5 text-[#CBAA69]" strokeWidth={1.5} />
+                </div>
+                <h3 className="text-sm font-serif text-white font-light mb-0.5 group-hover:text-[#CBAA69] transition-colors">
+                  {contact.title}
+                </h3>
+                <span className="text-[0.52rem] uppercase tracking-[0.15em] text-white/40 block mb-3 font-mono">
+                  {contact.role}
+                </span>
               </div>
-              <h3 className="font-serif text-white mb-2">{contact.title}</h3>
-              <a href={`mailto:${contact.email}`} className="text-xs text-neutral-400 hover:text-gold-300 transition-colors truncate block">
+              <a
+                href={`mailto:${contact.email}`}
+                className="text-xs text-[#CBAA69]/80 hover:text-white transition-colors truncate block pt-2 border-t border-white/[0.04] font-mono text-[0.68rem]"
+              >
                 {contact.email}
               </a>
             </div>
           ))}
         </div>
 
-        {/* Final CTA Panel (Ultra Compact Luxury) */}
-        <div
-          className="relative bg-[#050505] border border-white/10 rounded-2xl p-8 md:p-10 shadow-[0_20px_50px_rgba(0,0,0,0.8)] overflow-hidden flex flex-col md:flex-row items-center justify-between gap-8 group"
-        >
-          {/* Animated background elements */}
-          <div className="absolute top-0 inset-x-0 h-[1px] bg-gradient-to-r from-transparent via-gold-500/50 to-transparent group-hover:via-gold-400/80 transition-all duration-700 opacity-50" />
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_left,rgba(212,175,55,0.05)_0%,transparent_60%)] pointer-events-none" />
+        {/* Compact, Luxury Final Action Panel */}
+        <div className="relative p-6 sm:p-8 bg-gradient-to-r from-[#120f0a] via-[#090806] to-[#120f0a] border border-[#CBAA69]/30 rounded-[3px] overflow-hidden flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl">
+          <div className="absolute top-0 inset-x-0 h-[1px] bg-gradient-to-r from-transparent via-[#CBAA69]/60 to-transparent" />
           
-          <div className="flex-1">
-            <h2 className="text-3xl md:text-4xl font-serif text-white font-light tracking-tight mb-3 group-hover:text-gold-100 transition-colors">
+          <div className="flex-1 text-center md:text-left">
+            <div className="flex items-center justify-center md:justify-start gap-2 mb-2">
+              <ShieldCheck className="w-4 h-4 text-[#CBAA69]" />
+              <span className="text-[0.55rem] uppercase tracking-[0.25em] text-[#CBAA69] font-bold">
+                Candidacy Open
+              </span>
+            </div>
+            <h3 className="text-xl sm:text-2xl md:text-3xl font-serif text-white font-light mb-2">
               Begin Your Editorial Journey
-            </h2>
-            <p className="text-neutral-400 text-sm md:text-base font-light leading-relaxed max-w-lg">
-              If your professional work or institution reflects the standards described within the Juris Standard Editorial Methodology, you may begin your Editorial Submission.
+            </h3>
+            <p className="text-neutral-400 text-xs sm:text-sm font-light max-w-xl leading-relaxed">
+              If your institution or individual practice reflects the published criteria of the Juris Standard Index, proceed to formal profile submission.
             </p>
           </div>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-6 shrink-0 w-full md:w-auto mt-6 md:mt-0">
+          <div className="flex flex-col sm:flex-row items-center gap-3 shrink-0 w-full sm:w-auto">
             <Link
               href="/enter-the-index"
-              className="group/btn relative inline-flex items-center justify-center px-10 py-5 bg-transparent border border-gold-500/30 text-gold-400 text-[0.65rem] md:text-xs font-bold uppercase tracking-[0.2em] rounded-none hover:bg-gold-500/10 hover:border-gold-500 hover:text-gold-200 transition-all duration-500 w-full sm:w-auto"
+              className="w-full sm:w-auto px-7 py-3.5 bg-gradient-to-r from-[#CBAA69] to-[#B89552] text-[#050505] text-[0.65rem] font-bold uppercase tracking-[0.2em] hover:from-[#E8D099] hover:to-[#CBAA69] transition-all flex items-center justify-center gap-2 rounded-[2px] shadow-[0_0_20px_rgba(203,170,105,0.2)]"
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-gold-500/0 via-gold-500/10 to-gold-500/0 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-500" />
-              <span className="relative z-10 flex items-center">
-                Enter the Index
-                <ChevronRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
-              </span>
+              <span>Enter the Index</span>
+              <ArrowRight className="w-3.5 h-3.5" />
             </Link>
-            <button
-              onClick={() => {
-                document.getElementById('programmes')?.scrollIntoView({ behavior: 'smooth' });
-              }}
-              className="group/btn2 relative inline-flex items-center justify-center px-10 py-5 bg-[#0a0a0a] border border-white/10 text-white/70 text-[0.65rem] md:text-xs font-semibold uppercase tracking-[0.2em] rounded-none hover:border-white/30 hover:text-white transition-all duration-500 w-full sm:w-auto shadow-[inset_0_0_20px_rgba(0,0,0,0.8)]"
+
+            <Link
+              href="/juris-index"
+              className="w-full sm:w-auto px-6 py-3.5 bg-[#050504] border border-white/10 text-white/70 text-[0.65rem] font-medium uppercase tracking-[0.2em] hover:border-[#CBAA69]/50 hover:text-white transition-all text-center rounded-[2px]"
             >
-              <div className="absolute inset-0 bg-white/5 opacity-0 group-hover/btn2:opacity-100 transition-opacity duration-500" />
-              <span className="relative z-10">Explore Programmes</span>
-            </button>
-          </div>
-        </div>
+              Explore Index
+            </Link>
           </div>
         </div>
       </div>

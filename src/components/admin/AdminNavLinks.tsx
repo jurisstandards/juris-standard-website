@@ -29,22 +29,22 @@ export default function AdminNavLinks({ items }: { items: NavItem[] }) {
             key={item.href}
             href={item.href}
             className={cn(
-              "flex items-center gap-3 px-3 py-2.5 rounded-[4px] text-[0.65rem] uppercase tracking-[0.15em] font-medium transition-all duration-150 group relative",
+              "flex items-center gap-3 px-3.5 py-3 rounded-md text-[0.82rem] uppercase tracking-[0.1em] font-semibold transition-all duration-150 group relative",
               isActive
-                ? "bg-[#CBAA69]/10 text-[#CBAA69] border-l-2 border-[#CBAA69] pl-[10px]"
-                : "text-white/45 hover:text-white/80 hover:bg-white/5 border-l-2 border-transparent"
+                ? "bg-gradient-to-r from-[#CBAA69]/25 to-[#CBAA69]/5 text-[#F0D898] border-l-[3px] border-[#CBAA69] shadow-sm"
+                : "text-white/75 hover:text-white hover:bg-white/[0.08] border-l-[3px] border-transparent"
             )}
           >
             <Icon
               className={cn(
-                "w-4 h-4 flex-shrink-0 transition-colors",
-                isActive ? "text-[#CBAA69]" : "text-white/30 group-hover:text-white/60"
+                "w-[18px] h-[18px] flex-shrink-0 transition-colors",
+                isActive ? "text-[#F0D898]" : "text-white/65 group-hover:text-white"
               )}
-              strokeWidth={1.5}
+              strokeWidth={1.8}
             />
             <span>{item.label}</span>
             {item.badge !== undefined && item.badge > 0 && (
-              <span className="ml-auto w-5 h-5 rounded-full bg-amber-400 text-[#050505] text-[0.5rem] font-bold flex items-center justify-center">
+              <span className="ml-auto w-5 h-5 rounded-full bg-amber-400 text-[#101217] text-[0.72rem] font-bold flex items-center justify-center">
                 {item.badge > 99 ? "99+" : item.badge}
               </span>
             )}

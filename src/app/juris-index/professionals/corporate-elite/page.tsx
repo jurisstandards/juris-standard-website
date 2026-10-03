@@ -9,10 +9,12 @@ import {
   Users, Landmark, Star, User
 } from "lucide-react";
 import Link from "next/link";
+import { IndexSearchBar } from "@/components/ui/IndexSearchBar";
 import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabase";
 
+import ScrollRow from "@/components/ui/ScrollRow";
 export default function CorporateEliteTerminal() {
   const containerClasses = "w-full max-w-[2000px] mx-auto px-6 md:px-12 lg:px-24 xl:px-32";
   const router = useRouter();
@@ -29,7 +31,9 @@ export default function CorporateEliteTerminal() {
       const { data } = await supabase
         .from('juris_records')
         .select('*')
-        .eq('division', 'Corporate Elite™');
+        .eq('division', 'Corporate Elite™')
+        .eq('is_visible', true)
+        .order('sort_order', { ascending: true, nullsFirst: false });
       if (data) {
         setDynamicLawyers(data);
       }
@@ -97,51 +101,13 @@ export default function CorporateEliteTerminal() {
           </div>
           
           {/* Full-width horizontal search card */}
-          <div className="w-full bg-[#0a0a0a]/90 backdrop-blur-2xl border border-white/[0.07] border-t-[#CBAA69]/20 rounded-[2px] flex flex-col md:flex-row items-stretch shadow-2xl relative overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-r from-[#CBAA69]/5 via-transparent to-[#CBAA69]/5 pointer-events-none opacity-50" />
-            
-            {/* Stats */}
-            {[
-              { icon: Users, value: "1K+", label: "COUNSEL RANKED" },
-              { icon: Globe, value: "150+", label: "JURISDICTIONS" },
-              { icon: Scale, value: "50+", label: "PRACTICE AREAS" },
-              { icon: Star, value: "10M+", label: "DATA POINTS" },
-            ].map((stat, i) => (
-              <div key={i} className="flex items-center space-x-4 py-4 px-6 border-b md:border-b-0 md:border-r border-white/[0.05] relative z-10 hover:bg-white/[0.02] transition-colors">
-                <stat.icon className="w-4 h-4 text-[#CBAA69] flex-shrink-0 stroke-[1px]" />
-                <div className="flex flex-col">
-                  <span className="font-serif text-[1.15rem] text-white leading-none mb-1 tracking-tight">{stat.value}</span>
-                  <span className="text-[0.45rem] uppercase tracking-[0.2em] text-[#CBAA69]/70 font-semibold leading-none">{stat.label}</span>
-                </div>
-              </div>
-            ))}
-
-            {/* Divider label */}
-            <div className="hidden lg:flex items-center px-6 border-l border-white/[0.05] relative z-10">
-              <span className="text-[0.45rem] uppercase tracking-[0.3em] text-white/20 font-medium whitespace-nowrap">FIND A RECORD</span>
-            </div>
-
-            {/* Search input */}
-            <div className="flex items-center gap-3 px-6 py-4 flex-1 relative z-10 border-t md:border-t-0 md:border-l border-white/[0.05] min-w-0">
-              <Search className="w-4 h-4 text-[#CBAA69]/50 flex-shrink-0" />
-              <input 
-                type="text"
-                value={searchQuery}
-                onChange={e => setSearchQuery(e.target.value)}
-                onKeyDown={e => e.key === "Enter" && handleSearch()}
-                placeholder="Search by name, city or Record ID..."
-                className="w-full bg-transparent border-none text-[0.7rem] text-white placeholder:text-white/25 focus:outline-none"
-              />
-              <button 
-                onClick={handleSearch} 
-                className="shrink-0 px-5 py-2 bg-[#CBAA69]/10 border border-[#CBAA69]/30 text-[0.55rem] uppercase tracking-[0.2em] text-[#CBAA69] hover:bg-[#CBAA69] hover:text-black transition-all font-medium whitespace-nowrap rounded-[2px]"
-              >
-                SEARCH
-              </button>
-            </div>
+          <div className="w-full mt-2 relative z-10 shadow-2xl">
+            <IndexSearchBar 
+              searchQuery={searchQuery} 
+              setSearchQuery={setSearchQuery} 
+              onSearch={handleSearch} 
+            />
           </div>
-
-
         </div>
       </section>
 
@@ -213,6 +179,15 @@ export default function CorporateEliteTerminal() {
                badge: `${l.year || '2027'} - RECOGNISED`
             }));
           mergedLawyers = [...dbLawyersForBand, ...mergedLawyers];
+          
+          if (searchQuery) {
+            const q = searchQuery.toLowerCase();
+            mergedLawyers = mergedLawyers.filter(l =>
+              l.name.toLowerCase().includes(q) ||
+              ((l as any).id && String((l as any).id).toLowerCase().includes(q)) ||
+              (l.firmName && l.firmName.toLowerCase().includes(q))
+            );
+          }
 
           return (
           <div key={idx} className="w-full border-b border-white/[0.06] last:border-0 relative">
@@ -240,8 +215,12 @@ export default function CorporateEliteTerminal() {
 
               {/* Lawyer Cards row */}
               <div className="relative">
-                <div className="overflow-x-auto pb-4 pt-1 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-                  <div className="flex items-stretch gap-4 min-w-max pr-12">
+                <ScrollRow trackClassName="flex items-stretch gap-4 min-w-max pr-12">
+                    {mergedLawyers.length === 0 && (
+                      <div className="flex items-center justify-center text-white/20 text-xs py-8 px-6 italic w-full">
+                        No records match your search.
+                      </div>
+                    )}
                     {mergedLawyers.map((lawyer, fIdx) => (
                       <Link key={fIdx} href={`/juris-index/professionals/corporate-elite/${(lawyer as any).id || lawyer.name.toLowerCase().replaceAll(' ', '-')}`} className="w-[200px] sm:w-[220px] h-[300px] flex flex-col border border-[#1a1a1a] bg-[#080808] hover:border-[#CBAA69]/40 transition-colors duration-200 relative cursor-pointer group/card overflow-hidden">
                         
@@ -271,10 +250,7 @@ export default function CorporateEliteTerminal() {
                         </div>
                       </Link>
                     ))}
-                  </div>
-                </div>
-                {/* Right fade — scroll hint */}
-                <div className="absolute top-0 right-0 bottom-1 w-20 bg-gradient-to-l from-[#000000] to-transparent pointer-events-none" />
+                </ScrollRow>
               </div>
               
               {/* View All button — below cards, right-aligned */}

@@ -33,6 +33,27 @@ export async function POST(req: NextRequest) {
   }
 }
 
+export async function PATCH(req: NextRequest) {
+  try {
+    const { getServiceRoleClient } = await import("@/lib/supabase");
+    const body = await req.json();
+    const { id, sort_order, is_visible, status } = body;
+    if (!id) return NextResponse.json({ error: "id required" }, { status: 400 });
+
+    const db = getServiceRoleClient();
+    const updatePayload: Record<string, unknown> = {};
+    if (sort_order !== undefined) updatePayload.sort_order = sort_order === "" ? null : Number(sort_order);
+    if (is_visible !== undefined) updatePayload.is_visible = Boolean(is_visible);
+    if (status !== undefined) updatePayload.status = status;
+
+    const { error } = await db.from("juris_records").update(updatePayload).eq("id", id);
+    if (error) throw error;
+    return NextResponse.json({ success: true });
+  } catch (err: any) {
+    return NextResponse.json({ error: err.message }, { status: 500 });
+  }
+}
+
 export async function DELETE(req: NextRequest) {
   try {
     const { searchParams } = new URL(req.url);

@@ -104,7 +104,7 @@ export default function MyJurisOverviewPage() {
           ) : applications.length === 0 ? (
             <div className="text-center py-8 flex flex-col items-center gap-3">
               <p className="text-[0.65rem] uppercase tracking-[0.1em] text-white/40">No applications submitted yet.</p>
-              <Link href="/juris-index/enter-index" className="text-[0.6rem] uppercase tracking-[0.2em] text-[#CBAA69] hover:text-[#CBAA69]/80 transition-colors border-b border-[#CBAA69]/30 pb-0.5">
+              <Link href="/enter-the-index" className="text-[0.6rem] uppercase tracking-[0.2em] text-[#CBAA69] hover:text-[#CBAA69]/80 transition-colors border-b border-[#CBAA69]/30 pb-0.5">
                 Apply for The Juris Standard
               </Link>
             </div>
