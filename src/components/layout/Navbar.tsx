@@ -9,7 +9,6 @@ import { supabase } from "@/lib/supabase";
 import { User, LogOut, Shield, LayoutDashboard } from "lucide-react";
 
 const navLinks = [
-  { name: "Home", href: "/" },
   { name: "The Index", href: "/enter-the-index" },
   { name: "Intelligence", href: "/intelligence" },
   { name: "Network", href: "/network" },
@@ -84,7 +83,7 @@ export function Navbar() {
           ? "w-full px-6 lg:pl-[80px] xl:pl-[95px] lg:pr-12" 
           : "w-full px-6 md:px-12 lg:px-24 xl:px-32"
       )}>
-        <Link href="/" className="flex items-center group relative">
+        <Link href="/" className="flex items-center group relative flex-shrink-0">
           <div className="h-[46px] md:h-[52px] w-auto relative flex-shrink-0 transition-transform duration-500 group-hover:scale-105">
             <img 
               src="/logo/logo-horizontal-stacked.png" 
@@ -110,9 +109,9 @@ export function Navbar() {
           </div>
         </Link>
 
-        <div className="hidden lg:flex items-center space-x-12">
+        <div className="hidden lg:flex items-center space-x-6 xl:space-x-12">
           {/* Navigation Links */}
-          <div className="flex items-center space-x-5 xl:space-x-7">
+          <div className="flex items-center space-x-4 xl:space-x-7">
             {navLinks.map((link) => {
               const isIndexLink = link.href === "/enter-the-index";
               const onIndexPage = pathname === "/enter-the-index";
