@@ -163,7 +163,7 @@ export function Navbar() {
                   onClick={() => setShowDropdown(!showDropdown)}
                   className="group flex items-center gap-3 px-1 py-1 transition-all duration-300"
                 >
-                  <div className="flex flex-col items-end hidden sm:flex">
+                  <div className="flex-col items-end hidden lg:flex">
                     <span className="text-[0.55rem] uppercase tracking-widest text-white/40 group-hover:text-white/70 transition-colors">
                       My Profile
                     </span>
