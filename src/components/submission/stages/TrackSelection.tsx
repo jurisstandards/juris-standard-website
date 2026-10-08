@@ -56,7 +56,7 @@ export function TrackSelection() {
   };
 
   return (
-    <div className="flex flex-col justify-center min-h-[85vh] py-8 px-6 lg:px-12 relative z-10 w-full max-w-[1400px] mx-auto">
+    <div className="flex flex-col justify-center min-h-[85vh] pt-32 pb-8 px-6 lg:px-12 relative z-10 w-full max-w-[1400px] mx-auto">
       <motion.div
         initial={isNavigatingBack ? false : { opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
