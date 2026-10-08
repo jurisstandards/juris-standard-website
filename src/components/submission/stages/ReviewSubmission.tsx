@@ -110,14 +110,14 @@ export function ReviewSubmission() {
         title: "Recognition Track & Programme",
         icon: Folder,
         content: (
-          <div className="space-y-4">
+          <div className="space-y-3">
             <div>
-              <span className="text-[0.6rem] uppercase tracking-widest text-white/40 block mb-1">Track</span>
-              <span className="text-white text-sm font-medium">{getTrackName()}</span>
+              <span className="text-[0.55rem] uppercase tracking-widest text-white/40 block mb-1">Track</span>
+              <span className="text-white text-xs font-medium">{getTrackName()}</span>
             </div>
             <div>
-              <span className="text-[0.6rem] uppercase tracking-widest text-white/40 block mb-1">Programme</span>
-              <span className="text-white text-sm capitalize font-medium">{selectedProgramme?.replace(/_/g, ' ') || 'None'}</span>
+              <span className="text-[0.55rem] uppercase tracking-widest text-white/40 block mb-1">Programme</span>
+              <span className="text-white text-xs capitalize font-medium">{selectedProgramme?.replace(/_/g, ' ') || 'None'}</span>
             </div>
           </div>
         )
@@ -131,22 +131,22 @@ export function ReviewSubmission() {
           title: "Firm Identity",
           icon: Folder,
           content: (
-            <div className="grid grid-cols-2 gap-y-6 gap-x-4">
+            <div className="grid grid-cols-2 gap-y-3 gap-x-4">
               <div>
-                <span className="text-[0.6rem] uppercase tracking-widest text-white/40 block mb-1">Firm Name</span>
-                <span className="text-white text-sm font-medium">{profileData.identity.firmName || "—"}</span>
+                <span className="text-[0.55rem] uppercase tracking-widest text-white/40 block mb-1">Firm Name</span>
+                <span className="text-white text-xs font-medium">{profileData.identity.firmName || "—"}</span>
               </div>
               <div>
-                <span className="text-[0.6rem] uppercase tracking-widest text-white/40 block mb-1">Managing Partner</span>
-                <span className="text-white text-sm font-medium">{profileData.identity.managingPartner || "—"}</span>
+                <span className="text-[0.55rem] uppercase tracking-widest text-white/40 block mb-1">Managing Partner</span>
+                <span className="text-white text-xs font-medium">{profileData.identity.managingPartner || "—"}</span>
               </div>
               <div>
-                <span className="text-[0.6rem] uppercase tracking-widest text-white/40 block mb-1">Year Established</span>
-                <span className="text-white text-sm font-medium">{profileData.identity.yearEstablished || "—"}</span>
+                <span className="text-[0.55rem] uppercase tracking-widest text-white/40 block mb-1">Year Established</span>
+                <span className="text-white text-xs font-medium">{profileData.identity.yearEstablished || "—"}</span>
               </div>
               <div>
-                <span className="text-[0.6rem] uppercase tracking-widest text-white/40 block mb-1">Headquarters</span>
-                <span className="text-white text-sm font-medium">{profileData.identity.hqCity ? `${profileData.identity.hqCity}, ${profileData.identity.country}` : "—"}</span>
+                <span className="text-[0.55rem] uppercase tracking-widest text-white/40 block mb-1">Headquarters</span>
+                <span className="text-white text-xs font-medium">{profileData.identity.hqCity ? `${profileData.identity.hqCity}, ${profileData.identity.country}` : "—"}</span>
               </div>
             </div>
           )
@@ -155,18 +155,18 @@ export function ReviewSubmission() {
           title: "Practice Areas",
           icon: Folder,
           content: (
-            <div className="grid grid-cols-2 gap-y-6 gap-x-4">
+            <div className="grid grid-cols-2 gap-y-3 gap-x-4">
               <div className="col-span-2">
-                <span className="text-[0.6rem] uppercase tracking-widest text-white/40 block mb-1">Primary Areas</span>
-                <span className="text-white text-sm font-medium">{profileData.practice.primaryPracticeAreas || "—"}</span>
+                <span className="text-[0.55rem] uppercase tracking-widest text-white/40 block mb-1">Primary Areas</span>
+                <span className="text-white text-xs font-medium">{profileData.practice.primaryPracticeAreas || "—"}</span>
               </div>
               <div>
-                <span className="text-[0.6rem] uppercase tracking-widest text-white/40 block mb-1">Firm Size</span>
-                <span className="text-white text-sm font-medium">{profileData.practice.firmSize || "—"}</span>
+                <span className="text-[0.55rem] uppercase tracking-widest text-white/40 block mb-1">Firm Size</span>
+                <span className="text-white text-xs font-medium">{profileData.practice.firmSize || "—"}</span>
               </div>
               <div>
-                <span className="text-[0.6rem] uppercase tracking-widest text-white/40 block mb-1">Office Locations</span>
-                <span className="text-white text-sm font-medium">{profileData.practice.officeLocations || "—"}</span>
+                <span className="text-[0.55rem] uppercase tracking-widest text-white/40 block mb-1">Office Locations</span>
+                <span className="text-white text-xs font-medium">{profileData.practice.officeLocations || "—"}</span>
               </div>
             </div>
           )
@@ -181,18 +181,18 @@ export function ReviewSubmission() {
           title: "Organisation Identity",
           icon: Folder,
           content: (
-            <div className="grid grid-cols-2 gap-y-6 gap-x-4">
+            <div className="grid grid-cols-2 gap-y-3 gap-x-4">
               <div>
-                <span className="text-[0.6rem] uppercase tracking-widest text-white/40 block mb-1">Organisation Name</span>
-                <span className="text-white text-sm font-medium">{profileData.identity.orgName || "—"}</span>
+                <span className="text-[0.55rem] uppercase tracking-widest text-white/40 block mb-1">Organisation Name</span>
+                <span className="text-white text-xs font-medium">{profileData.identity.orgName || "—"}</span>
               </div>
               <div>
-                <span className="text-[0.6rem] uppercase tracking-widest text-white/40 block mb-1">Founder / CEO</span>
-                <span className="text-white text-sm font-medium">{profileData.identity.founderCeo || "—"}</span>
+                <span className="text-[0.55rem] uppercase tracking-widest text-white/40 block mb-1">Founder / CEO</span>
+                <span className="text-white text-xs font-medium">{profileData.identity.founderCeo || "—"}</span>
               </div>
               <div className="col-span-2">
-                <span className="text-[0.6rem] uppercase tracking-widest text-white/40 block mb-1">Location</span>
-                <span className="text-white text-sm font-medium">{profileData.identity.city ? `${profileData.identity.city}, ${profileData.identity.country}` : "—"}</span>
+                <span className="text-[0.55rem] uppercase tracking-widest text-white/40 block mb-1">Location</span>
+                <span className="text-white text-xs font-medium">{profileData.identity.city ? `${profileData.identity.city}, ${profileData.identity.country}` : "—"}</span>
               </div>
             </div>
           )
@@ -201,18 +201,18 @@ export function ReviewSubmission() {
           title: "Innovation Profile",
           icon: Folder,
           content: (
-            <div className="grid grid-cols-2 gap-y-6 gap-x-4">
+            <div className="grid grid-cols-2 gap-y-3 gap-x-4">
               <div className="col-span-2">
-                <span className="text-[0.6rem] uppercase tracking-widest text-white/40 block mb-1">Primary Innovation Area</span>
-                <span className="text-white text-sm font-medium">{profileData.practice.primaryInnovationArea || "—"}</span>
+                <span className="text-[0.55rem] uppercase tracking-widest text-white/40 block mb-1">Primary Innovation Area</span>
+                <span className="text-white text-xs font-medium">{profileData.practice.primaryInnovationArea || "—"}</span>
               </div>
               <div>
-                <span className="text-[0.6rem] uppercase tracking-widest text-white/40 block mb-1">Organisation Size</span>
-                <span className="text-white text-sm font-medium">{profileData.practice.orgSize || "—"}</span>
+                <span className="text-[0.55rem] uppercase tracking-widest text-white/40 block mb-1">Organisation Size</span>
+                <span className="text-white text-xs font-medium">{profileData.practice.orgSize || "—"}</span>
               </div>
               <div>
-                <span className="text-[0.6rem] uppercase tracking-widest text-white/40 block mb-1">Product Category</span>
-                <span className="text-white text-sm font-medium">{profileData.practice.productCategory || "—"}</span>
+                <span className="text-[0.55rem] uppercase tracking-widest text-white/40 block mb-1">Product Category</span>
+                <span className="text-white text-xs font-medium">{profileData.practice.productCategory || "—"}</span>
               </div>
             </div>
           )
@@ -227,26 +227,26 @@ export function ReviewSubmission() {
         title: "Professional Identity",
         icon: Folder,
         content: (
-          <div className="grid grid-cols-2 gap-y-6 gap-x-4">
+          <div className="grid grid-cols-2 gap-y-3 gap-x-4">
             <div className="col-span-2">
-              <span className="text-[0.6rem] uppercase tracking-widest text-white/40 block mb-1">Full Name</span>
-              <span className="text-white text-sm font-medium">{profileData.identity.fullName || "—"}</span>
+              <span className="text-[0.55rem] uppercase tracking-widest text-white/40 block mb-1">Full Name</span>
+              <span className="text-white text-xs font-medium">{profileData.identity.fullName || "—"}</span>
             </div>
             <div>
-              <span className="text-[0.6rem] uppercase tracking-widest text-white/40 block mb-1">Designation</span>
-              <span className="text-white text-sm font-medium">{profileData.identity.designation || "—"}</span>
+              <span className="text-[0.55rem] uppercase tracking-widest text-white/40 block mb-1">Designation</span>
+              <span className="text-white text-xs font-medium">{profileData.identity.designation || "—"}</span>
             </div>
             <div>
-              <span className="text-[0.6rem] uppercase tracking-widest text-white/40 block mb-1">Location</span>
-              <span className="text-white text-sm font-medium">{profileData.identity.city ? `${profileData.identity.city}, ${profileData.identity.country}` : "—"}</span>
+              <span className="text-[0.55rem] uppercase tracking-widest text-white/40 block mb-1">Location</span>
+              <span className="text-white text-xs font-medium">{profileData.identity.city ? `${profileData.identity.city}, ${profileData.identity.country}` : "—"}</span>
             </div>
             <div>
-              <span className="text-[0.6rem] uppercase tracking-widest text-white/40 block mb-1">Email</span>
-              <span className="text-white text-sm font-medium">{profileData.identity.email || "—"}</span>
+              <span className="text-[0.55rem] uppercase tracking-widest text-white/40 block mb-1">Email</span>
+              <span className="text-white text-xs font-medium">{profileData.identity.email || "—"}</span>
             </div>
             <div>
-              <span className="text-[0.6rem] uppercase tracking-widest text-white/40 block mb-1">Mobile</span>
-              <span className="text-white text-sm font-medium">{profileData.identity.mobile || "—"}</span>
+              <span className="text-[0.55rem] uppercase tracking-widest text-white/40 block mb-1">Mobile</span>
+              <span className="text-white text-xs font-medium">{profileData.identity.mobile || "—"}</span>
             </div>
           </div>
         )
@@ -255,14 +255,14 @@ export function ReviewSubmission() {
         title: "Professional Practice",
         icon: Folder,
         content: (
-          <div className="grid grid-cols-2 gap-y-6 gap-x-4">
+          <div className="grid grid-cols-2 gap-y-3 gap-x-4">
             <div className="col-span-2">
-              <span className="text-[0.6rem] uppercase tracking-widest text-white/40 block mb-1">Primary Practice Area</span>
-              <span className="text-white text-sm font-medium">{profileData.practice.primaryPracticeAreas || "—"}</span>
+              <span className="text-[0.55rem] uppercase tracking-widest text-white/40 block mb-1">Primary Practice Area</span>
+              <span className="text-white text-xs font-medium">{profileData.practice.primaryPracticeAreas || "—"}</span>
             </div>
             <div>
-              <span className="text-[0.6rem] uppercase tracking-widest text-white/40 block mb-1">Years of Practice</span>
-              <span className="text-white text-sm font-medium">{profileData.practice.yearsOfPractice || "—"}</span>
+              <span className="text-[0.55rem] uppercase tracking-widest text-white/40 block mb-1">Years of Practice</span>
+              <span className="text-white text-xs font-medium">{profileData.practice.yearsOfPractice || "—"}</span>
             </div>
           </div>
         )
@@ -273,46 +273,45 @@ export function ReviewSubmission() {
   const folders = getDynamicFolders(selectedTrack);
 
   return (
-    <div className="min-h-screen pt-32 pb-24 px-6 lg:px-12 relative z-10 flex flex-col w-full max-w-7xl mx-auto">
-      {/* Header spanning full width for perfect symmetry */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+    <div className="min-h-screen pt-32 pb-8 px-6 lg:px-12 relative z-10 flex flex-col w-full max-w-7xl mx-auto">
+      {/* Header */}
+      <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-6">
         <div>
-          <span className="text-gold-500 text-[0.65rem] font-bold uppercase tracking-[0.3em] block mb-4">
-            Step 4 of 4
-          </span>
-          <h2 className="text-4xl md:text-5xl font-serif text-white uppercase tracking-wide font-light drop-shadow-sm">
-            Review & Submit
-          </h2>
+          <div className="flex items-center gap-3 mb-3">
+            <div className="w-4 h-[1px] bg-gold-500/60" />
+            <span className="text-gold-500 text-[0.6rem] font-semibold uppercase tracking-[0.3em]">Step 4 of 4</span>
+          </div>
+          <h2 className="text-2xl md:text-3xl font-serif text-white uppercase tracking-wide font-light drop-shadow-md mb-2">Review & Submit</h2>
+          <p className="text-neutral-400 text-xs md:text-[0.8rem] max-w-2xl leading-relaxed">
+            Please review the details of your editorial submission before finalising. Ensure all information is accurate and reflects your professional standing.
+          </p>
         </div>
         
         <button
           onClick={() => setStage('editorial_profile')}
-          className="group inline-flex items-center text-neutral-400 hover:text-white transition-colors text-xs uppercase tracking-widest font-semibold pb-1"
+          className="group inline-flex items-center text-neutral-500 hover:text-gold-400 transition-colors text-[0.65rem] uppercase tracking-widest font-semibold pb-1"
         >
-          <ChevronLeft className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform" />
+          <ChevronLeft className="w-3.5 h-3.5 mr-2 group-hover:-translate-x-1 transition-transform" />
           Edit Profile
         </button>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         
-        <div className="lg:col-span-2 space-y-6">
-          <p className="text-white/40 text-sm font-light mb-6">
-            Please review the details of your editorial submission before finalising. Ensure all information is accurate and reflects your professional standing.
-          </p>
-          
-          <div className="bg-[#111]/40 border border-white/10 rounded-2xl p-8 backdrop-blur-sm shadow-[0_20px_50px_rgba(0,0,0,0.4)]">
-            <h3 className="text-gold-500 text-[0.65rem] uppercase tracking-[0.25em] font-bold mb-8 flex items-center">
+        <div className="lg:col-span-2">
+          <div className="bg-gradient-to-b from-[#141414] to-[#0a0a0a] border border-white/[0.06] rounded-xl p-5 shadow-[0_20px_50px_rgba(0,0,0,0.4)] hover:shadow-[0_0_30px_rgba(212,175,55,0.03)] transition-all">
+            <h3 className="text-gold-500 text-[0.65rem] uppercase tracking-[0.25em] font-bold mb-6 flex items-center">
               <ShieldCheck className="w-4 h-4 mr-2" />
               Submission Details
             </h3>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {folders.map((folder, idx) => (
-                <div key={idx} className="bg-white/[0.02] border border-white/5 rounded-xl p-6 hover:bg-white/[0.04] transition-colors">
-                  <div className="flex items-center mb-6 border-b border-white/5 pb-4">
-                    <folder.icon className="w-4 h-4 text-gold-400 mr-3 opacity-70" />
-                    <h4 className="text-sm font-serif text-white/90">{folder.title}</h4>
+                <div key={idx} className="bg-white/[0.02] border border-white/5 rounded-xl p-4 hover:bg-white/[0.04] transition-colors relative overflow-hidden">
+                  <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                  <div className="flex items-center mb-4 border-b border-white/5 pb-3">
+                    <folder.icon className="w-3.5 h-3.5 text-gold-400 mr-2 opacity-70" />
+                    <h4 className="text-xs font-serif text-white/90">{folder.title}</h4>
                   </div>
                   {folder.content}
                 </div>
@@ -320,12 +319,12 @@ export function ReviewSubmission() {
             </div>
 
             {/* Document Preview Section */}
-            <div className="mt-8 border-t border-white/10 pt-8">
-              <h3 className="text-gold-500 text-[0.65rem] uppercase tracking-[0.25em] font-bold mb-6 flex items-center">
+            <div className="mt-6 border-t border-white/10 pt-6">
+              <h3 className="text-gold-500 text-[0.65rem] uppercase tracking-[0.25em] font-bold mb-4 flex items-center">
                 <FileText className="w-4 h-4 mr-2" />
                 Uploaded Documents
               </h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
                 <DocStatus label="Professional Photograph" uploaded={profileData.documents.photoUploaded} required />
                 <DocStatus label="Curriculum Vitae" uploaded={profileData.documents.cvUploaded} required />
                 <DocStatus label="Representative Work" uploaded={profileData.documents.workUploaded} />
@@ -337,10 +336,10 @@ export function ReviewSubmission() {
 
         {/* Action Panel */}
         <div className="lg:col-span-1">
-          <div className="sticky top-32 bg-gradient-to-b from-[#1a1a1a] to-[#0a0a0a] border border-gold-500/20 rounded-2xl p-8 shadow-[0_30px_60px_rgba(0,0,0,0.6)]">
-            <h3 className="text-xl font-serif text-white mb-6">Finalise Submission</h3>
+          <div className="sticky top-32 bg-gradient-to-b from-[#141414] to-[#0a0a0a] border border-white/[0.06] rounded-xl p-5 shadow-[0_20px_50px_rgba(0,0,0,0.4)] hover:shadow-[0_0_30px_rgba(212,175,55,0.03)] transition-all">
+            <h3 className="text-lg font-serif text-white mb-4">Finalise Submission</h3>
             
-            <label className="flex items-start space-x-3 cursor-pointer group mb-10">
+            <label className="flex items-start space-x-3 cursor-pointer group mb-6">
               <div className="relative flex-shrink-0 mt-0.5">
                 <input 
                   type="checkbox"
@@ -348,11 +347,11 @@ export function ReviewSubmission() {
                   onChange={(e) => setDeclarationAccepted(e.target.checked)}
                   className="peer sr-only"
                 />
-                <div className="w-5 h-5 border border-white/20 rounded bg-[#111] peer-checked:bg-gold-500/20 peer-checked:border-gold-500 transition-colors flex items-center justify-center">
-                  <CheckCircle className={`w-3.5 h-3.5 text-gold-400 transition-opacity ${declarationAccepted ? 'opacity-100' : 'opacity-0'}`} />
+                <div className="w-4 h-4 border border-white/20 rounded bg-[#111] peer-checked:bg-gold-500/20 peer-checked:border-gold-500 transition-colors flex items-center justify-center">
+                  <CheckCircle className={`w-3 h-3 text-gold-400 transition-opacity ${declarationAccepted ? 'opacity-100' : 'opacity-0'}`} />
                 </div>
               </div>
-              <span className="text-[0.7rem] text-white/50 leading-relaxed group-hover:text-white/70 transition-colors">
+              <span className="text-[0.65rem] text-white/50 leading-relaxed group-hover:text-white/70 transition-colors">
                 I declare that the information provided is accurate and I authorise its review for the Juris Standard Index. I accept the <a href="#" className="text-gold-500/70 hover:text-gold-400 underline decoration-gold-500/30 underline-offset-2">Terms of Submission</a>.
               </span>
             </label>
@@ -360,7 +359,7 @@ export function ReviewSubmission() {
             <button
               onClick={handleSubmit}
               disabled={!declarationAccepted || isSubmitting}
-              className={`w-full group relative flex items-center justify-center py-4 rounded-md overflow-hidden transition-all duration-500 ${
+              className={`w-full group relative flex items-center justify-center py-3 rounded-md overflow-hidden transition-all duration-500 ${
                 declarationAccepted && !isSubmitting
                   ? "bg-gradient-to-r from-gold-600 to-gold-400 shadow-[0_0_30px_rgba(212,175,55,0.4)] hover:shadow-[0_0_50px_rgba(212,175,55,0.6)] border-none" 
                   : "bg-white/5 border border-white/10 opacity-50 cursor-not-allowed"
@@ -368,26 +367,26 @@ export function ReviewSubmission() {
             >
               <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out" />
               <span className={cn(
-                "relative z-10 flex items-center text-sm uppercase tracking-[0.25em] font-bold",
+                "relative z-10 flex items-center text-[0.7rem] uppercase tracking-[0.25em] font-bold",
                 declarationAccepted && !isSubmitting ? "text-black" : "text-white/40"
               )}>
                 {isSubmitting ? (
                   <>
-                    <div className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin mr-3" />
+                    <div className="w-3.5 h-3.5 border-2 border-current border-t-transparent rounded-full animate-spin mr-2" />
                     Processing...
                   </>
                 ) : (
                   <>
-                    Submit Editorial Profile
-                    <ChevronRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                    Submit Profile
+                    <ChevronRight className="w-3.5 h-3.5 ml-2 group-hover:translate-x-1 transition-transform" />
                   </>
                 )}
               </span>
             </button>
 
             {submitError && (
-              <div className="mt-4 p-3 bg-red-500/10 border border-red-500/30 rounded-lg">
-                <p className="text-red-400 text-xs leading-relaxed">{submitError}</p>
+              <div className="mt-3 p-2.5 bg-red-500/10 border border-red-500/30 rounded-lg">
+                <p className="text-red-400 text-[0.65rem] leading-relaxed">{submitError}</p>
               </div>
             )}
           </div>
@@ -400,22 +399,22 @@ export function ReviewSubmission() {
 
 function DocStatus({ label, uploaded, required }: { label: string, uploaded: boolean, required?: boolean }) {
   return (
-    <div className={`p-4 rounded-xl border flex flex-col items-center justify-center text-center transition-all ${
+    <div className={`p-3 rounded-xl border flex flex-col items-center justify-center text-center transition-all ${
       uploaded 
         ? 'bg-gold-500/10 border-gold-500/30 shadow-[0_0_15px_rgba(212,175,55,0.1)]' 
         : 'bg-white/[0.02] border-white/10 opacity-60'
     }`}>
       {uploaded ? (
-        <CheckCircle2 className="w-6 h-6 text-gold-400 mb-2" />
+        <CheckCircle2 className="w-5 h-5 text-gold-400 mb-1.5" />
       ) : (
-        <XCircle className="w-6 h-6 text-white/20 mb-2" />
+        <XCircle className="w-5 h-5 text-white/20 mb-1.5" />
       )}
-      <span className={`text-[0.6rem] uppercase tracking-widest mb-1 ${uploaded ? 'text-gold-300 font-bold' : 'text-white/40'}`}>
+      <span className={`text-[0.55rem] uppercase tracking-widest mb-1 ${uploaded ? 'text-gold-300 font-bold' : 'text-white/40'}`}>
         {uploaded ? 'Uploaded' : 'Pending'}
       </span>
-      <span className="text-xs text-white/80 font-medium">{label}</span>
+      <span className="text-[0.65rem] text-white/80 font-medium">{label}</span>
       {required && !uploaded && (
-        <span className="text-[0.55rem] text-red-400/80 uppercase tracking-wider mt-2">* Required</span>
+        <span className="text-[0.5rem] text-red-400/80 uppercase tracking-wider mt-1.5">* Required</span>
       )}
     </div>
   );

@@ -93,25 +93,25 @@ export function ProgrammeSelection() {
     <div 
       key={label}
       onClick={onClick}
-      className={`group flex items-center p-3 rounded-lg border cursor-pointer transition-all duration-200 ${
+      className={`group flex items-center p-2.5 rounded-lg border cursor-pointer transition-all duration-200 ${
         isSelected 
           ? 'bg-gold-500/10 border-gold-500/50' 
           : 'bg-[#111] border-white/5 hover:border-white/20 hover:bg-[#161616]'
       }`}
     >
-      <div className={`w-5 h-5 rounded-[4px] border flex items-center justify-center mr-3 transition-colors ${
+      <div className={`w-4 h-4 rounded-[3px] border flex items-center justify-center mr-3 transition-colors ${
         isSelected ? 'bg-gold-500 border-gold-500' : 'border-white/20 group-hover:border-white/40 bg-black/50'
       }`}>
-        {isSelected && <Check className="w-3.5 h-3.5 text-black" strokeWidth={3} />}
+        {isSelected && <Check className="w-3 h-3 text-black" strokeWidth={3} />}
       </div>
-      <span className={`text-sm ${isSelected ? 'text-gold-100 font-medium' : 'text-neutral-300'}`}>
+      <span className={`text-xs ${isSelected ? 'text-gold-100 font-medium' : 'text-neutral-300'}`}>
         {label}
       </span>
     </div>
   );
 
   return (
-    <div className="flex flex-col justify-center min-h-screen pt-32 pb-24 px-6 lg:px-12 relative z-10 w-full">
+    <div className="flex flex-col justify-center min-h-screen pt-32 pb-8 px-6 lg:px-12 max-w-[1400px] mx-auto relative z-10 w-full">
       <div className="w-full flex flex-col">
         <motion.div
           initial={isNavigatingBack ? false : { opacity: 0, y: -10 }}
@@ -119,14 +119,17 @@ export function ProgrammeSelection() {
           transition={{ duration: 0.2 }}
           className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6"
         >
-          <div>
-            <span className="text-gold-500 text-[0.65rem] font-bold uppercase tracking-[0.3em] block mb-4">
-              Step 2 of 4
-            </span>
-            <h2 className="text-4xl md:text-5xl font-serif text-white uppercase tracking-wide font-light drop-shadow-sm mb-4">
+          <div className="space-y-4 max-w-3xl">
+            <div className="flex items-center gap-3 mb-2">
+              <div className="w-4 h-[1px] bg-gold-500/60"></div>
+              <span className="text-gold-500 text-[0.6rem] font-semibold uppercase tracking-[0.3em]">
+                Step 2 of 4
+              </span>
+            </div>
+            <h2 className="text-2xl md:text-3xl font-serif text-white uppercase tracking-wide font-light">
               Select Practice Areas
             </h2>
-            <p className="text-neutral-400 text-sm md:text-base font-light leading-relaxed max-w-2xl mb-2">
+            <p className="text-neutral-400 text-xs md:text-[0.8rem] leading-relaxed mb-2">
               {['corporate_elite', 'litigation_masters', 'women_leaders', 'future_leaders'].includes(selectedTrack as string) ? "Select your areas of practice. You may choose multiple, but you must designate one as your Primary Practice Area." :
                selectedTrack === 'law_firm_excellence' ? "Highlight your firm's strongest practice areas." : 
                "Choose the categories that best represent your expertise."}
@@ -135,7 +138,7 @@ export function ProgrammeSelection() {
           
           <button
             onClick={() => setStage('track_selection')}
-            className="group inline-flex items-center text-neutral-400 hover:text-white transition-colors text-xs uppercase tracking-widest font-semibold pb-1"
+            className="group inline-flex items-center text-neutral-500 hover:text-gold-400 transition-colors text-[0.65rem] uppercase tracking-widest pb-1"
           >
             <ChevronLeft className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform" />
             Go Back
@@ -150,14 +153,16 @@ export function ProgrammeSelection() {
           >
             {/* INDIVIDUAL TRACKS */}
             {['corporate_elite', 'litigation_masters', 'women_leaders', 'future_leaders'].includes(selectedTrack as string) && (
-              <div className="space-y-12">
-                <div className="columns-1 md:columns-2 lg:columns-3 gap-8 space-y-8">
+              <div className="space-y-8">
+                <div className="columns-1 md:columns-2 lg:columns-3 gap-4 space-y-4">
                   {LEGAL_PROFESSIONAL_PRACTICES
                     .filter(group => !(selectedTrack === 'corporate_elite' && group.category === 'Litigation'))
                     .map((group) => (
-                    <div key={group.category} className="break-inside-avoid bg-[#0a0a0a] border border-white/5 rounded-xl p-5">
-                      <h3 className="text-gold-400/80 font-serif text-lg mb-4">{group.category}</h3>
-                      <div className="flex flex-col space-y-2">
+                    <div key={group.category} className="group/card relative break-inside-avoid bg-gradient-to-b from-[#141414] to-[#0a0a0a] border border-white/[0.06] rounded-xl p-4 overflow-hidden">
+                      <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
+                      <div className="absolute inset-0 bg-gold-500/5 opacity-0 group-hover/card:opacity-100 transition-opacity duration-500 rounded-xl blur-xl"></div>
+                      <h3 className="text-gold-400/80 font-serif text-sm mb-3 relative z-10">{group.category}</h3>
+                      <div className="flex flex-col space-y-1.5 relative z-10">
                         {group.items.map(item => renderCheckboxItem(
                           item, 
                           selectedPracticeAreas.includes(item), 
@@ -166,18 +171,22 @@ export function ProgrammeSelection() {
                       </div>
                     </div>
                   ))}
-                  <div className="break-inside-avoid bg-[#0a0a0a] border border-white/5 rounded-xl p-5">
-                    <h3 className="text-gold-400/80 font-serif text-lg mb-4">Other</h3>
-                    {renderCheckboxItem("Other (Specify)", selectedPracticeAreas.includes("Other"), handleToggleOther)}
-                    {selectedPracticeAreas.includes("Other") && (
-                      <input
-                        type="text"
-                        value={otherPracticeArea}
-                        onChange={(e) => setOtherPracticeArea(e.target.value)}
-                        placeholder="Please specify..."
-                        className="mt-3 w-full bg-[#111] border border-white/10 rounded-md p-3 text-sm text-white focus:outline-none focus:border-gold-500/50"
-                      />
-                    )}
+                  <div className="group/card relative break-inside-avoid bg-gradient-to-b from-[#141414] to-[#0a0a0a] border border-white/[0.06] rounded-xl p-4 overflow-hidden">
+                    <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
+                    <div className="absolute inset-0 bg-gold-500/5 opacity-0 group-hover/card:opacity-100 transition-opacity duration-500 rounded-xl blur-xl"></div>
+                    <h3 className="text-gold-400/80 font-serif text-sm mb-3 relative z-10">Other</h3>
+                    <div className="relative z-10">
+                      {renderCheckboxItem("Other (Specify)", selectedPracticeAreas.includes("Other"), handleToggleOther)}
+                      {selectedPracticeAreas.includes("Other") && (
+                        <input
+                          type="text"
+                          value={otherPracticeArea}
+                          onChange={(e) => setOtherPracticeArea(e.target.value)}
+                          placeholder="Please specify..."
+                          className="mt-3 w-full bg-[#111] border border-white/10 rounded-md p-3 text-xs text-white focus:outline-none focus:border-gold-500/50"
+                        />
+                      )}
+                    </div>
                   </div>
                 </div>
   
@@ -202,7 +211,7 @@ export function ProgrammeSelection() {
   
             {/* FIRM TRACK */}
             {selectedTrack === 'law_firm_excellence' && (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
                 {LAW_FIRM_PRACTICES.map(item => renderCheckboxItem(
                   item, 
                   selectedPracticeAreas.includes(item), 
@@ -225,7 +234,7 @@ export function ProgrammeSelection() {
   
             {/* INNOVATION TRACK */}
             {selectedTrack === 'legal_innovation' && (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
                 {LEGAL_TECH_PRACTICES.map(item => renderCheckboxItem(
                   item, 
                   selectedPracticeAreas.includes(item), 

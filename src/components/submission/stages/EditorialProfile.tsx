@@ -282,24 +282,24 @@ export function EditorialProfile() {
   };
 
   const ContinueButton = ({ onClick, text = "Continue Editorial Journey" }: { onClick: () => void, text?: string }) => (
-    <div className="flex flex-col items-end mt-12 w-full">
+    <div className="flex flex-col items-end mt-8 w-full">
       {error && (
         <motion.div 
           initial={{ opacity: 0, y: -10 }} 
           animate={{ opacity: 1, y: 0 }} 
-          className="flex items-center space-x-2 text-red-500/90 text-sm mb-4"
+          className="flex items-center space-x-2 text-red-500/90 text-xs mb-3"
         >
-          <AlertCircle className="w-4 h-4" />
+          <AlertCircle className="w-3.5 h-3.5" />
           <span>{error}</span>
         </motion.div>
       )}
       <button 
         onClick={onClick}
-        className="group relative inline-flex items-center justify-center px-8 py-3.5 bg-transparent border border-gold-500/30 text-white text-[0.65rem] md:text-xs font-semibold uppercase tracking-[0.25em] rounded-sm overflow-hidden transition-colors duration-300 hover:border-gold-400 hover:bg-gold-500/5 shadow-[0_0_15px_rgba(212,175,55,0.05)] hover:shadow-[0_0_25px_rgba(212,175,55,0.15)]"
+        className="group relative inline-flex items-center justify-center px-6 py-3 bg-transparent border border-gold-500/30 text-white text-[0.6rem] md:text-[0.65rem] font-semibold uppercase tracking-[0.25em] rounded-sm overflow-hidden transition-colors duration-300 hover:border-gold-400 hover:bg-gold-500/5 shadow-[0_0_15px_rgba(212,175,55,0.05)] hover:shadow-[0_0_25px_rgba(212,175,55,0.15)]"
       >
         <span className="relative z-10 flex items-center">
           {text}
-          <ChevronRight className="w-4 h-4 ml-3 group-hover:translate-x-1 transition-transform" />
+          <ChevronRight className="w-3.5 h-3.5 ml-2 group-hover:translate-x-1 transition-transform" />
         </span>
       </button>
     </div>
@@ -312,7 +312,7 @@ export function EditorialProfile() {
           const hqCities = getCityOptions(profileData.identity.country);
           return (
             <div className="space-y-6">
-              <p className="text-white/40 text-sm font-light mb-8">Tell us about your law firm.</p>
+              <p className="text-white/40 text-xs font-light mb-4">Tell us about your law firm.</p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <Input label="Firm Name" value={profileData.identity.firmName} onChange={(val) => updateProfileData('identity', { firmName: val })} required />
                 <Input label="Managing Partner" value={profileData.identity.managingPartner} onChange={(val) => updateProfileData('identity', { managingPartner: val })} required />
@@ -344,7 +344,7 @@ export function EditorialProfile() {
           const cities = getCityOptions(profileData.identity.country);
           return (
             <div className="space-y-6">
-              <p className="text-white/40 text-sm font-light mb-8">Tell us about your organisation.</p>
+              <p className="text-white/40 text-xs font-light mb-4">Tell us about your organisation.</p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <Input label="Organisation Name" value={profileData.identity.orgName} onChange={(val) => updateProfileData('identity', { orgName: val })} required />
                 <Input label="Founder / CEO / Primary Contact" value={profileData.identity.founderCeo} onChange={(val) => updateProfileData('identity', { founderCeo: val })} required />
@@ -374,7 +374,7 @@ export function EditorialProfile() {
         const cities = getCityOptions(profileData.identity.country);
         return (
           <div className="space-y-6">
-            <p className="text-white/40 text-sm font-light mb-8">Tell us how you are professionally known.</p>
+            <p className="text-white/40 text-xs font-light mb-4">Tell us how you are professionally known.</p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <Input label="Full Name" value={profileData.identity.fullName} onChange={(val) => updateProfileData('identity', { fullName: val })} required />
               <Input label="Current Designation" value={profileData.identity.designation} onChange={(val) => updateProfileData('identity', { designation: val })} required />
@@ -405,7 +405,7 @@ export function EditorialProfile() {
         if (selectedTrack === 'law_firm_excellence') {
           return (
             <div className="space-y-6">
-              <p className="text-white/40 text-sm font-light mb-8">Help us understand the nature of your firm's practice.</p>
+              <p className="text-white/40 text-xs font-light mb-4">Help us understand the nature of your firm's practice.</p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <Input label="Primary Practice Areas" value={profileData.practice.primaryPracticeAreas} onChange={(val) => updateProfileData('practice', { primaryPracticeAreas: val })} required />
                 <Input label="Secondary Practice Areas" value={profileData.practice.secondaryPracticeAreas} onChange={(val) => updateProfileData('practice', { secondaryPracticeAreas: val })} />
@@ -427,7 +427,7 @@ export function EditorialProfile() {
         if (selectedTrack === 'legal_innovation') {
           return (
             <div className="space-y-6">
-              <p className="text-white/40 text-sm font-light mb-8">Detail your organisation's innovation profile.</p>
+              <p className="text-white/40 text-xs font-light mb-4">Detail your organisation's innovation profile.</p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <Input label="Primary Innovation Area" value={profileData.practice.primaryInnovationArea} onChange={(val) => updateProfileData('practice', { primaryInnovationArea: val })} required />
                 <Input label="Product / Service Category" value={profileData.practice.productCategory} onChange={(val) => updateProfileData('practice', { productCategory: val })} required />
@@ -449,7 +449,7 @@ export function EditorialProfile() {
 
         return (
           <div className="space-y-6">
-            <p className="text-white/40 text-sm font-light mb-8">Help us understand the nature of your professional practice.</p>
+            <p className="text-white/40 text-xs font-light mb-4">Help us understand the nature of your professional practice.</p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <Input label="Primary Practice Area" value={profileData.practice.primaryPracticeAreas} onChange={(val) => updateProfileData('practice', { primaryPracticeAreas: val })} required />
               <Input label="Secondary Practice Areas" value={profileData.practice.secondaryPracticeAreas} onChange={(val) => updateProfileData('practice', { secondaryPracticeAreas: val })} />
@@ -462,7 +462,7 @@ export function EditorialProfile() {
       case 'biography':
         return (
           <div className="space-y-6">
-            <p className="text-white/40 text-sm font-light mb-8">Describe your professional journey, areas of expertise and significant contributions to the legal profession.</p>
+            <p className="text-white/40 text-xs font-light mb-4">Describe your professional journey, areas of expertise and significant contributions to the legal profession.</p>
             <TextArea 
               label="Biography" 
               value={profileData.biography.bio} 
@@ -475,7 +475,7 @@ export function EditorialProfile() {
       case 'presence':
         return (
           <div className="space-y-6">
-            <p className="text-white/40 text-sm font-light mb-8">Provide links to your official professional presence.</p>
+            <p className="text-white/40 text-xs font-light mb-4">Provide links to your official professional presence.</p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <Input label="Official Website" value={profileData.presence.website} onChange={(val) => updateProfileData('presence', { website: val })} />
               <Input label="LinkedIn" value={profileData.presence.linkedin} onChange={(val) => updateProfileData('presence', { linkedin: val })} />
@@ -489,7 +489,7 @@ export function EditorialProfile() {
         if (selectedTrack === 'law_firm_excellence') {
           return (
             <div className="space-y-6">
-              <p className="text-white/40 text-sm font-light mb-8">Upload supporting documentation for your firm's submission.</p>
+              <p className="text-white/40 text-xs font-light mb-4">Upload supporting documentation for your firm's submission.</p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <FileUpload label="Firm Logo / Photograph" onUpload={() => updateProfileData('documents', { photoUploaded: true })} uploaded={profileData.documents.photoUploaded} required />
                 <FileUpload label="Representative Work" onUpload={() => updateProfileData('documents', { workUploaded: true })} uploaded={profileData.documents.workUploaded} />
@@ -502,7 +502,7 @@ export function EditorialProfile() {
 
         return (
           <div className="space-y-6">
-            <p className="text-white/40 text-sm font-light mb-8">Upload supporting documentation for your submission.</p>
+            <p className="text-white/40 text-xs font-light mb-4">Upload supporting documentation for your submission.</p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <FileUpload label="Professional Photograph" onUpload={() => updateProfileData('documents', { photoUploaded: true })} uploaded={profileData.documents.photoUploaded} required />
               <FileUpload label="Curriculum Vitae" onUpload={() => updateProfileData('documents', { cvUploaded: true })} uploaded={profileData.documents.cvUploaded} required />
@@ -517,32 +517,38 @@ export function EditorialProfile() {
   };
 
   return (
-    <div className="min-h-screen pt-32 pb-24 px-6 lg:px-12 relative z-10 flex flex-col w-full">
-      {/* Header spanning full width for perfect symmetry */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+    <div className="min-h-screen pt-32 pb-8 px-6 lg:px-12 relative z-10 flex flex-col w-full max-w-[1400px] mx-auto">
+      {/* Header */}
+      <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
         <div>
-          <span className="text-gold-500 text-[0.65rem] font-bold uppercase tracking-[0.3em] block mb-4">
-            Step 3 of 4
-          </span>
-          <h2 className="text-4xl md:text-5xl font-serif text-white uppercase tracking-wide font-light drop-shadow-sm">
+          <div className="flex items-center gap-3 mb-3">
+            <div className="w-4 h-[1px] bg-gold-500/60" />
+            <span className="text-gold-500 text-[0.6rem] font-semibold uppercase tracking-[0.3em]">
+              Step 3 of 4
+            </span>
+          </div>
+          <h2 className="text-2xl md:text-3xl font-serif text-white uppercase tracking-wide font-light drop-shadow-md mb-2">
             Editorial Profile
           </h2>
+          <p className="text-neutral-400 text-xs md:text-[0.8rem] font-light leading-relaxed max-w-xl">
+            Complete your editorial submission profile across the sections below.
+          </p>
         </div>
         
         <button
           onClick={() => setStage('programme_selection')}
-          className="group inline-flex items-center text-neutral-400 hover:text-white transition-colors text-xs uppercase tracking-widest font-semibold pb-1"
+          className="group inline-flex items-center text-neutral-500 hover:text-gold-400 transition-colors text-[0.65rem] uppercase tracking-widest font-semibold pb-1"
         >
-          <ChevronLeft className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform" />
+          <ChevronLeft className="w-3.5 h-3.5 mr-1.5 group-hover:-translate-x-1 transition-transform" />
           Go Back
         </button>
       </div>
 
-      <div className="flex flex-col lg:flex-row gap-12 w-full">
+      <div className="flex flex-col w-full">
         {/* Main Content Area */}
-        <div className="flex-1 max-w-4xl">
+        <div className="w-full">
           {/* Stepper / Progress Tabs */}
-          <div className="flex space-x-3 mb-12">
+          <div className="flex space-x-2 mb-8">
             {sections.map((section, idx) => {
               const isActive = activeSection === section.id;
               const isCompleted = completedSections.includes(section.id as SectionKey);
@@ -551,19 +557,19 @@ export function EditorialProfile() {
               return (
                 <div 
                   key={section.id} 
-                  className={`flex-1 flex flex-col gap-3 ${isCompleted || isPast ? 'cursor-pointer group' : ''}`}
+                  className={`flex-1 flex flex-col gap-2 ${isCompleted || isPast ? 'cursor-pointer group' : ''}`}
                   onClick={() => (isCompleted || isPast) && setActiveSection(section.id as SectionKey)}
                 >
-                  <div className="relative h-[6px] w-full rounded-full bg-white/5 overflow-hidden border border-white/5">
+                  <div className="relative h-[3px] w-full rounded-full bg-white/5 overflow-hidden">
                     <div className={`absolute inset-0 h-full rounded-full transition-all duration-700 ease-out ${
-                      isActive ? 'bg-gradient-to-r from-gold-600 to-gold-400 shadow-[0_0_15px_rgba(212,175,55,0.8)]' : 
+                      isActive ? 'bg-gradient-to-r from-gold-600 to-gold-400 shadow-[0_0_10px_rgba(212,175,55,0.6)]' : 
                       isCompleted || isPast ? 'bg-gold-500/40 group-hover:bg-gold-500/60' : 
                       'bg-transparent'
                     }`} />
                   </div>
                   <div className="flex flex-col pr-2">
-                    <div className="flex items-center space-x-2 mb-1">
-                      <span className={`text-[0.55rem] uppercase tracking-[0.2em] font-bold transition-colors duration-500 ${
+                    <div className="flex items-center space-x-1.5 mb-0.5">
+                      <span className={`text-[0.5rem] uppercase tracking-[0.2em] font-bold transition-colors duration-500 ${
                         isActive ? 'text-gold-500' : 
                         isCompleted || isPast ? 'text-gold-500/60' : 
                         'text-white/20'
@@ -571,10 +577,10 @@ export function EditorialProfile() {
                         {section.title}
                       </span>
                       {(isCompleted || isPast) && !isActive && (
-                        <CheckCircle2 className="w-3 h-3 text-gold-500/50 group-hover:text-gold-500/80 transition-colors duration-300" />
+                        <CheckCircle2 className="w-2.5 h-2.5 text-gold-500/50 group-hover:text-gold-500/80 transition-colors duration-300" />
                       )}
                     </div>
-                    <span className={`text-xs sm:text-sm font-medium tracking-wide transition-colors duration-500 ${
+                    <span className={`text-[0.7rem] font-medium tracking-wide transition-colors duration-500 ${
                       isActive ? 'text-white drop-shadow-md' : 
                       isCompleted || isPast ? 'text-white/70 group-hover:text-white' : 
                       'text-white/30'
@@ -587,8 +593,8 @@ export function EditorialProfile() {
             })}
           </div>
           {/* Active Section Box */}
-          <div className="bg-gradient-to-b from-[#1a1a1a] to-[#0a0a0a] border border-t-white/10 border-x-white/[0.03] border-b-black rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.6)] p-8 lg:p-10 relative">
-            <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold-500/20 to-transparent" />
+          <div className="bg-gradient-to-b from-[#141414] to-[#0a0a0a] border border-white/[0.06] rounded-xl shadow-sm p-6 lg:p-8 relative overflow-hidden">
+            <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-gold-500/30 to-transparent" />
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeSection}
@@ -597,60 +603,17 @@ export function EditorialProfile() {
                 exit={{ opacity: 0, y: -10 }}
                 transition={{ duration: 0.3 }}
               >
-                <div className="mb-8 border-b border-white/5 pb-6">
-                  <span className="text-[0.6rem] uppercase tracking-[0.2em] text-gold-500/70 block mb-2">
+                <div className="mb-6 border-b border-white/5 pb-4">
+                  <span className="text-[0.55rem] uppercase tracking-[0.2em] text-gold-500/70 block mb-1.5">
                     {sections.find(s => s.id === activeSection)?.title}
                   </span>
-                  <h3 className="text-3xl font-serif text-white drop-shadow-sm">
+                  <h3 className="text-xl font-serif text-white drop-shadow-sm">
                     {sections.find(s => s.id === activeSection)?.subtitle}
                   </h3>
                 </div>
                 {renderSectionContent(activeSection)}
               </motion.div>
             </AnimatePresence>
-          </div>
-        </div>
-
-        {/* Right Side Progress Panel - Made perfectly aligned and styled */}
-        <div className="hidden lg:flex w-80 flex-col space-y-6 pt-1">
-          <div className="sticky top-32">
-            <h4 className="text-gold-500 text-[0.65rem] font-bold uppercase tracking-[0.25em] mb-6 drop-shadow-sm">
-              Submission Progress
-            </h4>
-            <div className="bg-gradient-to-br from-[#161616] to-[#0d0d0d] border border-white/10 rounded-xl p-6 shadow-xl relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-gold-500/5 blur-3xl rounded-full" />
-              <div className="space-y-5 relative z-10">
-                {sections.map((section, idx) => {
-                  const isCompleted = completedSections.includes(section.id as SectionKey) || sections.findIndex(s => s.id === activeSection) > idx;
-                  const isActive = activeSection === section.id;
-                  
-                  return (
-                    <div key={section.id} className="flex items-center">
-                      <div className={`w-6 h-6 rounded-full flex items-center justify-center border transition-all duration-500 ${
-                        isActive ? 'border-gold-500 bg-gold-500/10 shadow-[0_0_10px_rgba(212,175,55,0.3)]' : 
-                        isCompleted ? 'border-gold-500/40 bg-gold-500/5' : 
-                        'border-white/10 bg-transparent'
-                      }`}>
-                        {isCompleted && !isActive ? (
-                          <CheckCircle2 className="w-3.5 h-3.5 text-gold-500" />
-                        ) : (
-                          <span className={`text-[0.6rem] font-bold ${isActive ? 'text-gold-400' : 'text-white/30'}`}>
-                            {idx + 1}
-                          </span>
-                        )}
-                      </div>
-                      <span className={`ml-4 text-xs tracking-wider transition-colors duration-500 ${
-                        isActive ? 'text-white font-semibold' : 
-                        isCompleted ? 'text-white/60' : 
-                        'text-white/30'
-                      }`}>
-                        {section.subtitle}
-                      </span>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
           </div>
         </div>
       </div>
@@ -680,7 +643,7 @@ function Input({ label, value, onChange, required }: { label: string, value: str
         type="text" 
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="bg-[#111]/80 backdrop-blur-md border border-white/10 rounded-md px-4 py-3 text-white text-sm focus:outline-none focus:border-gold-500/60 focus:ring-1 focus:ring-gold-500/20 transition-all duration-300 shadow-inner"
+        className="bg-[#111]/80 backdrop-blur-md border border-white/10 rounded-md px-3 py-2.5 text-white text-sm focus:outline-none focus:border-gold-500/60 focus:ring-1 focus:ring-gold-500/20 transition-all duration-300 shadow-inner"
       />
     </div>
   );
@@ -722,7 +685,7 @@ function SelectInput({ label, value, onChange, options, required, placeholder }:
             setTimeout(() => setIsOpen(false), 200);
           }}
           placeholder={placeholder || `Search or type ${label}...`}
-          className="w-full bg-[#111]/80 backdrop-blur-md border border-white/10 rounded-md px-4 py-3 pr-10 text-white text-sm focus:outline-none focus:border-gold-500/60 focus:ring-1 focus:ring-gold-500/20 transition-all duration-300 shadow-inner"
+          className="w-full bg-[#111]/80 backdrop-blur-md border border-white/10 rounded-md px-3 py-2.5 pr-10 text-white text-sm focus:outline-none focus:border-gold-500/60 focus:ring-1 focus:ring-gold-500/20 transition-all duration-300 shadow-inner"
         />
 
         <div className="absolute inset-y-0 right-0 flex items-center px-4 pointer-events-none">
@@ -741,7 +704,7 @@ function SelectInput({ label, value, onChange, options, required, placeholder }:
             {filteredOptions.map((opt, idx) => (
               <div 
                 key={idx}
-                className="px-4 py-3 text-sm text-white/80 hover:bg-gold-500/20 hover:text-white cursor-pointer transition-colors border-b border-white/5 last:border-none"
+                className="px-3 py-2.5 text-sm text-white/80 hover:bg-gold-500/20 hover:text-white cursor-pointer transition-colors border-b border-white/5 last:border-none"
                 onClick={() => handleSelect(opt)}
               >
                 {opt}
@@ -774,7 +737,7 @@ function TextArea({ label, value, onChange, required }: { label: string, value: 
         <textarea 
           value={value}
           onChange={handleChange}
-          rows={10}
+          rows={5}
           className="w-full bg-[#111]/80 backdrop-blur-md border border-white/10 rounded-lg p-6 text-white text-sm focus:outline-none focus:border-gold-500/60 focus:ring-1 focus:ring-gold-500/20 transition-all duration-300 resize-none shadow-inner"
         />
         <div className="absolute bottom-4 left-6 flex items-center text-[0.65rem] text-white/30">
@@ -802,7 +765,7 @@ function FileUpload({ label, onUpload, uploaded, required }: { label: string, on
       <Label label={label} required={required} />
       <div 
         onClick={onUpload}
-        className={`mt-1 border border-dashed rounded-lg p-8 flex flex-col items-center justify-center cursor-pointer transition-all duration-300 ${
+        className={`mt-1 border border-dashed rounded-lg p-5 flex flex-col items-center justify-center cursor-pointer transition-all duration-300 ${
           uploaded 
             ? 'border-gold-500/40 bg-gold-500/5 hover:bg-gold-500/10' 
             : 'border-white/10 bg-[#111]/40 hover:border-white/30 hover:bg-[#111]/80'
