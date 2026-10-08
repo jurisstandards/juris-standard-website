@@ -220,7 +220,7 @@ export function ReviewSubmission() {
       ];
     }
 
-    // Default Professional (Corporate Elite, Litigation Masters, Women Leaders, Future Leaders)
+    // Default Professional (Corporate EliteLitigation MastersWomen LeadersFuture Leaders
     return [
       ...baseFolders,
       {

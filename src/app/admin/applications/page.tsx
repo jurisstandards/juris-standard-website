@@ -1,4 +1,5 @@
 "use client";
+import { authFetch } from "@/lib/authFetch";
 
 import { DIVISIONS, CATEGORIES, normalizeDivision, stripTM } from "@/lib/adminConstants";
 
@@ -50,7 +51,7 @@ export default function AdminApplicationsPage() {
   const fetchApplications = useCallback(async () => {
     setLoading(true);
     try {
-      const res = await fetch("/api/admin/applications");
+      const res = await authFetch("/api/admin/applications");
       const data = await res.json();
       setApplications(Array.isArray(data) ? data : []);
     } catch (e) { console.error(e); }
@@ -72,7 +73,7 @@ export default function AdminApplicationsPage() {
     if (!approveModal) return;
     setApproving(true);
     try {
-      const res = await fetch("/api/admin/applications/approve", {
+      const res = await authFetch("/api/admin/applications/approve", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -94,7 +95,7 @@ export default function AdminApplicationsPage() {
     if (!rejectModal) return;
     setRejecting(true);
     try {
-      await fetch("/api/admin/applications", {
+      await authFetch("/api/admin/applications", {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ id: rejectModal.id, status: "rejected", admin_note: rejectNote }),
@@ -106,7 +107,7 @@ export default function AdminApplicationsPage() {
   };
 
   const handleHold = async (app: Application) => {
-    await fetch("/api/admin/applications", {
+    await authFetch("/api/admin/applications", {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ id: app.id, status: "on_hold" }),
@@ -116,7 +117,7 @@ export default function AdminApplicationsPage() {
 
   const handleDelete = async (id: string) => {
     if (!confirm("Delete this application permanently?")) return;
-    await fetch(`/api/admin/applications?id=${id}`, { method: "DELETE" });
+    await authFetch(`/api/admin/applications?id=${id}`, { method: "DELETE" });
     fetchApplications();
   };
 

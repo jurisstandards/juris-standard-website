@@ -1,4 +1,5 @@
 "use client";
+import { authFetch } from "@/lib/authFetch";
 
 export const dynamic = "force-dynamic";
 
@@ -58,7 +59,7 @@ export default function AdminDashboardPage() {
     try {
       const [recordsRes, appsRes] = await Promise.all([
         fetch("/api/admin/records"),
-        fetch("/api/admin/applications"),
+        authFetch("/api/admin/applications"),
       ]);
       const records: RecentRecord[] = await recordsRes.json();
       const apps: RecentApp[] = await appsRes.json();
