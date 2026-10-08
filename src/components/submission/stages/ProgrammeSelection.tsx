@@ -152,7 +152,9 @@ export function ProgrammeSelection() {
             {['corporate_elite', 'litigation_masters', 'women_leaders', 'future_leaders'].includes(selectedTrack as string) && (
               <div className="space-y-12">
                 <div className="columns-1 md:columns-2 lg:columns-3 gap-8 space-y-8">
-                  {LEGAL_PROFESSIONAL_PRACTICES.map((group) => (
+                  {LEGAL_PROFESSIONAL_PRACTICES
+                    .filter(group => !(selectedTrack === 'corporate_elite' && group.category === 'Litigation'))
+                    .map((group) => (
                     <div key={group.category} className="break-inside-avoid bg-[#0a0a0a] border border-white/5 rounded-xl p-5">
                       <h3 className="text-gold-400/80 font-serif text-lg mb-4">{group.category}</h3>
                       <div className="flex flex-col space-y-2">
