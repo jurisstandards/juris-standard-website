@@ -296,50 +296,49 @@ export function ReviewSubmission() {
         </button>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="flex flex-col gap-6 max-w-4xl w-full">
         
-        <div className="lg:col-span-2">
-          <div className="bg-gradient-to-b from-[#141414] to-[#0a0a0a] border border-white/[0.06] rounded-xl p-5 shadow-[0_20px_50px_rgba(0,0,0,0.4)] hover:shadow-[0_0_30px_rgba(212,175,55,0.03)] transition-all">
-            <h3 className="text-gold-500 text-[0.65rem] uppercase tracking-[0.25em] font-bold mb-6 flex items-center">
-              <ShieldCheck className="w-4 h-4 mr-2" />
-              Submission Details
-            </h3>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {folders.map((folder, idx) => (
-                <div key={idx} className="bg-white/[0.02] border border-white/5 rounded-xl p-4 hover:bg-white/[0.04] transition-colors relative overflow-hidden">
-                  <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                  <div className="flex items-center mb-4 border-b border-white/5 pb-3">
-                    <folder.icon className="w-3.5 h-3.5 text-gold-400 mr-2 opacity-70" />
-                    <h4 className="text-xs font-serif text-white/90">{folder.title}</h4>
-                  </div>
-                  {folder.content}
+        {/* Submission Details Panel */}
+        <div className="bg-gradient-to-b from-[#141414] to-[#0a0a0a] border border-white/[0.06] rounded-xl p-6 lg:p-8 shadow-[0_20px_50px_rgba(0,0,0,0.4)] hover:shadow-[0_0_30px_rgba(212,175,55,0.03)] transition-all">
+          <h3 className="text-gold-500 text-[0.65rem] uppercase tracking-[0.25em] font-bold mb-6 flex items-center">
+            <ShieldCheck className="w-4 h-4 mr-2" />
+            Submission Details
+          </h3>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {folders.map((folder, idx) => (
+              <div key={idx} className="bg-white/[0.02] border border-white/5 rounded-xl p-5 hover:bg-white/[0.04] transition-colors relative overflow-hidden">
+                <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                <div className="flex items-center mb-4 border-b border-white/5 pb-3">
+                  <folder.icon className="w-3.5 h-3.5 text-gold-400 mr-2 opacity-70" />
+                  <h4 className="text-[0.8rem] font-serif text-white/90">{folder.title}</h4>
                 </div>
-              ))}
-            </div>
-
-            {/* Document Preview Section */}
-            <div className="mt-6 border-t border-white/10 pt-6">
-              <h3 className="text-gold-500 text-[0.65rem] uppercase tracking-[0.25em] font-bold mb-4 flex items-center">
-                <FileText className="w-4 h-4 mr-2" />
-                Uploaded Documents
-              </h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-                <DocStatus label="Professional Photograph" uploaded={profileData.documents.photoUploaded} required />
-                <DocStatus label="Curriculum Vitae" uploaded={profileData.documents.cvUploaded} required />
-                <DocStatus label="Representative Work" uploaded={profileData.documents.workUploaded} />
-                <DocStatus label="Supporting Documents" uploaded={profileData.documents.suppUploaded} />
+                {folder.content}
               </div>
+            ))}
+          </div>
+
+          {/* Document Preview Section */}
+          <div className="mt-8 border-t border-white/10 pt-8">
+            <h3 className="text-gold-500 text-[0.65rem] uppercase tracking-[0.25em] font-bold mb-5 flex items-center">
+              <FileText className="w-4 h-4 mr-2" />
+              Uploaded Documents
+            </h3>
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+              <DocStatus label="Professional Photograph" uploaded={profileData.documents.photoUploaded} required />
+              <DocStatus label="Curriculum Vitae" uploaded={profileData.documents.cvUploaded} required />
+              <DocStatus label="Representative Work" uploaded={profileData.documents.workUploaded} />
+              <DocStatus label="Supporting Documents" uploaded={profileData.documents.suppUploaded} />
             </div>
           </div>
         </div>
 
-        {/* Action Panel */}
-        <div className="lg:col-span-1">
-          <div className="sticky top-32 bg-gradient-to-b from-[#141414] to-[#0a0a0a] border border-white/[0.06] rounded-xl p-5 shadow-[0_20px_50px_rgba(0,0,0,0.4)] hover:shadow-[0_0_30px_rgba(212,175,55,0.03)] transition-all">
-            <h3 className="text-lg font-serif text-white mb-4">Finalise Submission</h3>
-            
-            <label className="flex items-start space-x-3 cursor-pointer group mb-6">
+        {/* Action Panel (Moved to Bottom) */}
+        <div className="bg-gradient-to-b from-[#141414] to-[#0a0a0a] border border-white/[0.06] rounded-xl p-6 lg:p-8 shadow-[0_20px_50px_rgba(0,0,0,0.4)] hover:shadow-[0_0_30px_rgba(212,175,55,0.03)] transition-all flex flex-col md:flex-row md:items-center justify-between gap-6">
+          
+          <div className="flex-1">
+            <h3 className="text-xl font-serif text-white mb-3">Finalise Submission</h3>
+            <label className="flex items-start space-x-3 cursor-pointer group max-w-lg">
               <div className="relative flex-shrink-0 mt-0.5">
                 <input 
                   type="checkbox"
@@ -355,11 +354,13 @@ export function ReviewSubmission() {
                 I declare that the information provided is accurate and I authorise its review for the Juris Standard Index. I accept the <a href="#" className="text-gold-500/70 hover:text-gold-400 underline decoration-gold-500/30 underline-offset-2">Terms of Submission</a>.
               </span>
             </label>
+          </div>
 
+          <div className="flex-shrink-0 w-full md:w-auto flex flex-col items-end">
             <button
               onClick={handleSubmit}
               disabled={!declarationAccepted || isSubmitting}
-              className={`w-full group relative flex items-center justify-center py-3 rounded-md overflow-hidden transition-all duration-500 ${
+              className={`w-full md:w-64 group relative flex items-center justify-center py-3.5 rounded-md overflow-hidden transition-all duration-500 ${
                 declarationAccepted && !isSubmitting
                   ? "bg-gradient-to-r from-gold-600 to-gold-400 shadow-[0_0_30px_rgba(212,175,55,0.4)] hover:shadow-[0_0_50px_rgba(212,175,55,0.6)] border-none" 
                   : "bg-white/5 border border-white/10 opacity-50 cursor-not-allowed"
@@ -383,9 +384,8 @@ export function ReviewSubmission() {
                 )}
               </span>
             </button>
-
             {submitError && (
-              <div className="mt-3 p-2.5 bg-red-500/10 border border-red-500/30 rounded-lg">
+              <div className="mt-3 p-2.5 bg-red-500/10 border border-red-500/30 rounded-lg w-full md:w-64 text-center">
                 <p className="text-red-400 text-[0.65rem] leading-relaxed">{submitError}</p>
               </div>
             )}
