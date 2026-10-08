@@ -35,7 +35,7 @@ export function IntelligenceCard({ category, value, subtitle, className }: Intel
                 {value}
               </span>
               <span className="text-[0.6rem] font-semibold uppercase tracking-wider text-green-400 bg-green-400/10 px-1.5 py-0.5 rounded-sm">
-                + Trend
+                Trending
               </span>
             </div>
             <p className="text-white/40 text-[0.65rem] tracking-wide uppercase font-medium mt-2">

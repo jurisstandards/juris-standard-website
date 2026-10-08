@@ -126,7 +126,7 @@ export default function Home() {
                   </span>
                 </div>
                 
-                {/* Stats Bar */}
+                {/* Core Pillars Bar (Replaced Fake Stats) */}
                 <div className="w-full max-w-5xl bg-gradient-to-b from-[#161616]/90 to-[#0a0a0a]/95 backdrop-blur-2xl border border-white/5 border-t-white/10 rounded-2xl flex flex-col md:flex-row items-center justify-between p-3 shadow-[0_20px_50px_rgba(0,0,0,0.5)] relative mb-8 overflow-hidden group">
                   <div className="absolute inset-0 bg-gradient-to-r from-gold-500/5 via-transparent to-gold-500/5 pointer-events-none opacity-50" />
                   
@@ -134,20 +134,19 @@ export default function Home() {
                   <div className="absolute inset-0 -translate-x-full group-hover:animate-shimmer bg-gradient-to-r from-transparent via-white/[0.04] to-transparent pointer-events-none" />
 
                   {[
-                    { icon: Users, value: "20K+", label: "LAWYERS EVALUATED" },
-                    { icon: Landmark, value: "5K+", label: "LAW FIRMS RANKED" },
-                    { icon: Globe, value: "150+", label: "JURISDICTIONS" },
-                    { icon: Scale, value: "100+", label: "PRACTICE AREAS" },
-                    { icon: Star, value: "50M+", label: "DATA POINTS" },
-                  ].map((stat, i) => (
-                    <div key={i} className="flex items-center space-x-4 py-4 md:py-3 px-4 flex-1 border-b md:border-b-0 md:border-r border-white/5 last:border-0 relative z-10 transition-colors duration-300 hover:bg-white/[0.02] rounded-xl cursor-default">
-                      <div className="relative flex-shrink-0">
+                    { icon: Scale, title: "INDEPENDENT", desc: "Unbiased Evaluation" },
+                    { icon: Award, title: "MERIT-BASED", desc: "Excellence Driven" },
+                    { icon: Globe, title: "GLOBAL REACH", desc: "Cross-Border Perspective" },
+                    { icon: Users, title: "PEER VALIDATED", desc: "Professional Consensus" },
+                  ].map((pillar, i) => (
+                    <div key={i} className="flex flex-col md:flex-row items-center md:items-start text-center md:text-left space-y-3 md:space-y-0 md:space-x-4 py-5 md:py-4 px-6 flex-1 border-b md:border-b-0 md:border-r border-white/5 last:border-0 relative z-10 transition-colors duration-300 hover:bg-white/[0.02] rounded-xl cursor-default">
+                      <div className="relative flex-shrink-0 mt-0.5">
                         <div className="absolute inset-0 bg-gold-500/20 blur-md rounded-full" />
-                        <stat.icon className="w-5 h-5 md:w-6 md:h-6 text-gold-400 relative z-10 stroke-[1.5px]" />
+                        <pillar.icon className="w-5 h-5 text-gold-400 relative z-10 stroke-[1.5px]" />
                       </div>
                       <div className="flex flex-col">
-                        <span className="font-serif text-[1.3rem] md:text-[1.45rem] bg-gradient-to-br from-white to-white/60 bg-clip-text text-transparent leading-none mb-1.5 tracking-tight drop-shadow-sm">{stat.value}</span>
-                        <span className="text-[0.45rem] md:text-[0.55rem] uppercase tracking-[0.2em] text-gold-500/70 font-semibold leading-none">{stat.label}</span>
+                        <span className="font-serif text-[1rem] md:text-[1.1rem] text-white/95 tracking-wide mb-1 leading-tight drop-shadow-sm">{pillar.title}</span>
+                        <span className="text-[0.55rem] md:text-[0.6rem] uppercase tracking-[0.2em] text-gold-500/70 font-medium leading-relaxed">{pillar.desc}</span>
                       </div>
                     </div>
                   ))}
@@ -308,10 +307,10 @@ export default function Home() {
             </div>
             
             <div className="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-6">
-              <IntelligenceCard category="M&A Legal Advisory" value="12.4%" subtitle="YoY Growth" />
-              <IntelligenceCard category="Dispute Resolution" value="9.1%" subtitle="YoY Growth" />
-              <IntelligenceCard category="Cross-Border Deals" value="18.7%" subtitle="YoY Growth" />
-              <IntelligenceCard category="Legal Innovation" value="34.2%" subtitle="AI Adoption Increase" />
+              <IntelligenceCard category="M&A Legal Advisory" value="Report" subtitle="Q3 Market Analysis" />
+              <IntelligenceCard category="Dispute Resolution" value="Brief" subtitle="Global Trends" />
+              <IntelligenceCard category="Cross-Border Deals" value="Insights" subtitle="Regulatory Shift" />
+              <IntelligenceCard category="Legal Innovation" value="Analysis" subtitle="AI Adoption Trends" />
             </div>
           </div>
         </div>
@@ -338,20 +337,20 @@ export default function Home() {
                 </p>
                 <div className="grid grid-cols-2 gap-y-6 gap-x-6 mb-8">
                   <div>
-                    <div className="font-serif text-2xl md:text-3xl text-gold-400 mb-1 drop-shadow-[0_0_10px_rgba(197,160,89,0.3)]">20K+</div>
-                    <div className="text-[0.6rem] uppercase tracking-widest text-white/50">Verified Lawyers</div>
+                    <div className="font-serif text-xl md:text-2xl text-gold-400 mb-1 drop-shadow-[0_0_10px_rgba(197,160,89,0.3)]">Verified</div>
+                    <div className="text-[0.6rem] uppercase tracking-widest text-white/50">Legal Professionals</div>
                   </div>
                   <div>
-                    <div className="font-serif text-2xl md:text-3xl text-gold-400 mb-1 drop-shadow-[0_0_10px_rgba(197,160,89,0.3)]">5K+</div>
-                    <div className="text-[0.6rem] uppercase tracking-widest text-white/50">Law Firms</div>
+                    <div className="font-serif text-xl md:text-2xl text-gold-400 mb-1 drop-shadow-[0_0_10px_rgba(197,160,89,0.3)]">Curated</div>
+                    <div className="text-[0.6rem] uppercase tracking-widest text-white/50">Top-Tier Law Firms</div>
                   </div>
                   <div>
-                    <div className="font-serif text-2xl md:text-3xl text-gold-400 mb-1 drop-shadow-[0_0_10px_rgba(197,160,89,0.3)]">3K+</div>
+                    <div className="font-serif text-xl md:text-2xl text-gold-400 mb-1 drop-shadow-[0_0_10px_rgba(197,160,89,0.3)]">Exclusive</div>
                     <div className="text-[0.6rem] uppercase tracking-widest text-white/50">General Counsel</div>
                   </div>
                   <div>
-                    <div className="font-serif text-2xl md:text-3xl text-gold-400 mb-1 drop-shadow-[0_0_10px_rgba(197,160,89,0.3)]">150+</div>
-                    <div className="text-[0.6rem] uppercase tracking-widest text-white/50">Countries</div>
+                    <div className="font-serif text-xl md:text-2xl text-gold-400 mb-1 drop-shadow-[0_0_10px_rgba(197,160,89,0.3)]">Global</div>
+                    <div className="text-[0.6rem] uppercase tracking-widest text-white/50">Cross-Border Reach</div>
                   </div>
                 </div>
               </div>

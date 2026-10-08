@@ -9,6 +9,7 @@ import { supabase } from "@/lib/supabase";
 import { User, LogOut, Shield, LayoutDashboard } from "lucide-react";
 
 const navLinks = [
+  { name: "Home", href: "/" },
   { name: "The Index", href: "/enter-the-index" },
   { name: "Intelligence", href: "/intelligence" },
   { name: "Network", href: "/network" },
