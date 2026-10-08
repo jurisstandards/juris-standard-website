@@ -37,12 +37,13 @@ export function EditorialJourney() {
 
   useEffect(() => {
     // If they come back and were previously on the confirmation screen, start fresh
-    if (isLoggedIn && currentStage === 'confirmation') {
+    // Read the currentStage ONCE on mount so it doesn't trigger when transitioning to confirmation.
+    if (isLoggedIn && useSubmissionStore.getState().currentStage === 'confirmation') {
       useSubmissionStore.persist.clearStorage();
       reset();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isLoggedIn, currentStage]);
+  }, [isLoggedIn]);
 
   const showSidebar = currentStage !== 'welcome' && currentStage !== 'confirmation';
 
