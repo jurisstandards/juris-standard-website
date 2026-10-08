@@ -14,6 +14,7 @@ const navItems = [
   { href: "/admin/records", label: "Records", icon: FileText },
   { href: "/admin/applications", label: "Applications", icon: ClipboardList },
   { href: "/admin/users", label: "Users", icon: Users },
+  { href: "/admin/magazine", label: "Magazine", icon: FileText },
 ];
 
 const ADMIN_EMAILS = ["jurisstandard@gmail.com"];

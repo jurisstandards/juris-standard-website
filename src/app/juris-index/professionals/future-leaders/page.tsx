@@ -12,12 +12,14 @@ import Link from "next/link";
 import { IndexSearchBar } from "@/components/ui/IndexSearchBar";
 import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useCountryStore } from "@/lib/countryStore";
 import { supabase } from "@/lib/supabase";
 
 import ScrollRow from "@/components/ui/ScrollRow";
 export default function FutureLeadersTerminal() {
   const containerClasses = "w-full max-w-[2000px] mx-auto px-6 md:px-12 lg:px-24 xl:px-32";
   const router = useRouter();
+  const { selectedCountry } = useCountryStore();
   const [searchQuery, setSearchQuery] = useState("");
   const lawyersRef = useRef<HTMLDivElement>(null);
   
@@ -152,9 +154,14 @@ export default function FutureLeadersTerminal() {
                type: l.firmInfo?.designation || l.type || 'Partner',
                firmName: l.firmInfo?.firm_name || l.name,
                loc: l.location || l.headquarters_city || '',
+               jurisdiction: l.jurisdiction || 'India',
                badge: `${l.year || '2027'} - RECOGNISED`
             }));
           mergedLawyers = [...dbLawyersForBand, ...mergedLawyers];
+          
+          if (selectedCountry !== 'Global') {
+            mergedLawyers = mergedLawyers.filter((l: any) => (l.jurisdiction || 'India') === selectedCountry);
+          }
           
           if (searchQuery) {
             const q = searchQuery.toLowerCase();

@@ -180,37 +180,37 @@ export default function Home() {
               topLabel="LAW FIRM"
               mainLabel="EXCELLENCE™"
               href="/juris-index/law-firms"
-              imageSrc="/collections/icon_law_firm.jpg"
+              imageSrc="/images/trophy_law_firm.jpg"
             />
             <PremiumIndexCard 
               topLabel="CORPORATE"
               mainLabel="ELITE™"
               href="/juris-index/professionals/corporate-elite"
-              imageSrc="/collections/icon_corporate.jpg"
+              imageSrc="/images/trophy_corporate_elite.jpg"
             />
             <PremiumIndexCard 
               topLabel="LITIGATION"
               mainLabel="MASTER™"
               href="/juris-index/professionals/litigation-masters"
-              imageSrc="/collections/icon_litigation.jpg"
+              imageSrc="/images/trophy_litigation_master.jpg"
             />
             <PremiumIndexCard 
               topLabel="WOMEN"
               mainLabel="LEADERS™"
               href="/juris-index/professionals/women-leaders"
-              imageSrc="/collections/icon_women.jpg"
+              imageSrc="/images/trophy_women_leaders.jpg"
             />
             <PremiumIndexCard 
               topLabel="FUTURE"
               mainLabel="LEADERS™"
               href="/juris-index/professionals/future-leaders"
-              imageSrc="/collections/icon_future.jpg"
+              imageSrc="/images/trophy_future_leaders.jpg"
             />
             <PremiumIndexCard
               topLabel="LEGAL"
-              mainLabel="INNOVATION EXCELLENCE™"
+              mainLabel="INNOVATORS™"
               href="/juris-index/legal-innovation"
-              imageSrc="/collections/icon_innovators.jpg"
+              imageSrc="/images/trophy_legal_innovators.jpg"
             />
           </div>
 

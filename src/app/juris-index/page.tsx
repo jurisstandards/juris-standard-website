@@ -246,7 +246,7 @@ export default function ExploreIndexPage() {
               <h4 className="font-serif text-2xl text-white/95 mb-4 leading-tight">The New Era of<br/>Cross-Border Legal Excellence</h4>
               <p className="text-xs text-neutral-400 leading-relaxed mb-6 md:mb-0">How leading law firms are shaping the future of global commerce.</p>
             </div>
-            <Link href="#" className="relative z-10 text-[0.65rem] uppercase tracking-[0.2em] text-gold-400 hover:text-white transition-colors border border-gold-500/30 px-6 py-3 rounded-sm hover:bg-gold-500/10 whitespace-nowrap">
+            <Link href="/magazine" className="relative z-10 text-[0.65rem] uppercase tracking-[0.2em] text-gold-400 hover:text-white transition-colors border border-gold-500/30 px-6 py-3 rounded-sm hover:bg-gold-500/10 whitespace-nowrap">
               READ MAGAZINE →
             </Link>
           </div>

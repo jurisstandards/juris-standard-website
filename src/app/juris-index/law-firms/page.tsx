@@ -12,11 +12,13 @@ import Link from "next/link";
 import { IndexSearchBar } from "@/components/ui/IndexSearchBar";
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
+import { useCountryStore } from "@/lib/countryStore";
 
 import ScrollRow from "@/components/ui/ScrollRow";
 export default function LawFirmExcellenceTerminal() {
   const containerClasses = "w-full max-w-[2000px] mx-auto px-6 md:px-12 lg:px-24 xl:px-32";
   const router = useRouter();
+  const { selectedCountry } = useCountryStore();
 
   const [searchQuery, setSearchQuery] = useState("");
   const [practiceArea, setPracticeArea] = useState("");
@@ -71,7 +73,8 @@ export default function LawFirmExcellenceTerminal() {
           badge: f.badge || "RECOGNISED - " + (f.year || "2027"),
           logoType: f.logoType || "text",
           tier: f.tier || "01",
-          originalName: f.name
+          originalName: f.name,
+            jurisdiction: f.jurisdiction || "India"
         }));
         
         setAllFirms(mapped);
@@ -97,6 +100,7 @@ export default function LawFirmExcellenceTerminal() {
 
   const filteredFirms = allFirms.filter(firm => {
     const q = searchQuery.toLowerCase();
+    if (selectedCountry !== 'Global' && firm.jurisdiction !== selectedCountry) return false;
     const nameMatch = !q || (firm.originalName || firm.name).toLowerCase().includes(q) || firm.type.toLowerCase().includes(q) || firm.loc.toLowerCase().includes(q) || (firm.id && firm.id.toLowerCase().includes(q));
     const locMatch = !location || firm.loc.toLowerCase().includes(location.toLowerCase()) || firm.type.toLowerCase().includes(location.toLowerCase());
     return nameMatch && locMatch;
