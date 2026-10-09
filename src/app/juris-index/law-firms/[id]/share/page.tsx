@@ -2,12 +2,9 @@
 
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import Link from "next/link";
-import { 
-  ArrowLeft, Download, Link as LinkIcon, Image as ImageIcon, 
-  Briefcase, AtSign, Camera, Phone, Mail, MoreHorizontal, Search
-} from "lucide-react";
+import { ArrowLeft, Download, Briefcase, AtSign, Camera, Phone, Search, Loader2, Link as LinkIcon } from "lucide-react";
 import { supabase } from "@/lib/supabase";
+import { cn } from "@/lib/utils";
 
 const FORMATS = [
   { id: 'linkedin', label: 'LinkedIn Post', resolution: '1200 x 628', aspect: '1200/628', icon: Briefcase },
@@ -15,10 +12,20 @@ const FORMATS = [
   { id: 'ig_post', label: 'Instagram Post', resolution: '1080 x 1080', aspect: '1/1', icon: Camera },
   { id: 'ig_story', label: 'Instagram Story', resolution: '1080 x 1920', aspect: '9/16', icon: Camera },
   { id: 'whatsapp', label: 'WhatsApp / Email', resolution: '1080 x 1350', aspect: '4/5', icon: Phone },
-  { id: 'custom', label: 'Custom Size', resolution: 'Generate your own', aspect: 'auto', icon: ImageIcon },
 ];
 
-export default function ShareCardPage() {
+const getTrophyImage = (division: string) => {
+  if (!division) return "/images/trophy_law_firm.jpg";
+  const lower = division.toLowerCase();
+  if (lower.includes("corporate elite")) return "/images/trophy_corporate_elite.jpg";
+  if (lower.includes("litigation")) return "/images/trophy_litigation_master.jpg";
+  if (lower.includes("women")) return "/images/trophy_women_leaders.jpg";
+  if (lower.includes("future")) return "/images/trophy_future_leaders.jpg";
+  if (lower.includes("innovation")) return "/images/trophy_legal_innovators.jpg";
+  return "/images/trophy_law_firm.jpg";
+};
+
+export default function PremiumShareCardPage() {
   const { id } = useParams() as { id: string };
   const router = useRouter();
   const [firm, setFirm] = useState<any>(null);
@@ -28,7 +35,7 @@ export default function ShareCardPage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { data, error } = await supabase
+        const { data } = await supabase
           .from("juris_records")
           .select("*")
           .eq("id", id)
@@ -38,9 +45,8 @@ export default function ShareCardPage() {
           setFirm({
             name: data.name,
             division: data.division,
-            year: data.year,
-            recognitionId: data.recognitionId || `JS-${data.division?.replace(/[^A-Z]/g, '')}-${data.year}-001`,
-            status: data.status || "Active"
+            year: data.year || new Date().getFullYear().toString(),
+            recognitionId: data.recognitionId || `JS-${data.division?.replace(/[^A-Z]/g, '')}-${data.year || '2026'}-001`,
           });
         }
       } catch (e) {
@@ -48,14 +54,13 @@ export default function ShareCardPage() {
       }
       setLoading(false);
     };
-
     fetchData();
   }, [id]);
 
   if (loading) {
     return (
       <div className="min-h-screen bg-[#050505] flex items-center justify-center">
-        <div className="w-8 h-8 border border-[#CBAA69] border-t-transparent rounded-full animate-spin"></div>
+        <Loader2 className="w-8 h-8 text-[#CBAA69] animate-spin" />
       </div>
     );
   }
@@ -70,254 +75,165 @@ export default function ShareCardPage() {
   }
 
   const activeFormatObj = FORMATS.find(f => f.id === selectedFormat) || FORMATS[0];
+  const trophySrc = getTrophyImage(firm.division);
 
   return (
-    <main className="h-screen bg-[#050505] font-sans flex flex-col selection:bg-[#CBAA69]/30 text-white overflow-hidden">
+    <main className="min-h-screen bg-[#0a0a0a] font-sans flex flex-col text-white overflow-hidden">
       
-      {/* Top Navbar */}
-      <div className="flex items-center justify-between px-8 py-4 border-b border-[#222] bg-[#050505] z-50 shrink-0 h-[60px]">
+      {/* Premium Navbar */}
+      <div className="flex items-center justify-between px-8 py-5 border-b border-white/5 bg-[#050505] z-50 shrink-0">
         <div className="flex flex-col items-start">
           <h1 className="font-serif text-[0.7rem] text-white tracking-widest uppercase">The Juris Standard™</h1>
-          <span className="text-[0.35rem] text-white/40 tracking-[0.2em] uppercase mt-0.5">People &nbsp;|&nbsp; Firms &nbsp;|&nbsp; Ideas &nbsp;|&nbsp; Impact</span>
+          <span className="text-[0.35rem] text-white/40 tracking-[0.2em] uppercase mt-1">People &nbsp;|&nbsp; Firms &nbsp;|&nbsp; Ideas &nbsp;|&nbsp; Impact</span>
         </div>
         <div className="flex items-center gap-8">
-          <span className="text-[0.45rem] text-white/40 tracking-[0.2em] uppercase">A STRONGER LEGAL WORLD. ALWAYS.</span>
-          <div className="flex items-center gap-4">
-            <Search className="w-3.5 h-3.5 text-white/50" />
-            <span className="text-[0.5rem] uppercase tracking-widest text-white/80 border-l border-white/20 pl-4">MY JURIS™</span>
+          <span className="hidden md:inline-block text-[0.45rem] text-white/40 tracking-[0.2em] uppercase">A STRONGER LEGAL WORLD. ALWAYS.</span>
+          <div className="flex items-center gap-4 border-l border-white/10 pl-6">
+            <Search className="w-4 h-4 text-white/50" />
+            <span className="text-[0.5rem] uppercase tracking-widest text-white/80">MY JURIS™</span>
             <div className="w-6 h-6 rounded-full bg-[#E8D099] flex items-center justify-center text-black font-serif text-[0.6rem]">AB</div>
           </div>
         </div>
       </div>
 
-      {/* Main Layout Container */}
-      <div className="flex-1 flex flex-col lg:flex-row w-full h-[calc(100vh-60px)] overflow-hidden">
+      {/* Main Builder Area */}
+      <div className="flex-1 flex flex-col lg:flex-row w-full h-[calc(100vh-73px)]">
         
-        {/* LEFT COLUMN */}
-        <div className="w-full lg:w-[260px] shrink-0 border-b lg:border-b-0 lg:border-r border-[#222] flex flex-col px-6 py-6 overflow-hidden bg-[#050505]">
+        {/* LEFT COLUMN: Navigation & Details */}
+        <div className="w-full lg:w-[280px] shrink-0 border-b lg:border-b-0 lg:border-r border-white/5 flex flex-col px-8 py-8 bg-[#050505]">
           <button 
             onClick={() => router.back()}
-            className="flex items-center gap-2 text-[0.5rem] uppercase tracking-widest text-[#CBAA69]/80 hover:text-[#CBAA69] transition-colors mb-8"
+            className="flex items-center gap-2 text-[0.55rem] uppercase tracking-widest text-[#CBAA69]/80 hover:text-[#CBAA69] transition-colors mb-12"
           >
-            <ArrowLeft className="w-3 h-3" />
-            Back to Recognition Vault™
+            <ArrowLeft className="w-3.5 h-3.5" /> Back to Vault
           </button>
 
-          <h2 className="text-[0.55rem] font-bold tracking-[0.2em] uppercase text-white/90 leading-[1.6] mb-6">
-            RECOGNITION<br/>SHARE CARD™
-          </h2>
-          
-          <div className="w-6 h-[1px] bg-white/20 mb-6" />
-
-          <p className="text-[0.55rem] text-white/60 leading-[1.8] font-light mb-auto">
-            Share your recognition<br/>with the world.<br/>
-            Every share links back<br/>to the official Juris Standard™<br/>record for verification.
-          </p>
-
-          <div className="mt-8">
-            <p className="font-serif italic text-white/80 text-lg leading-snug mb-4">
-              "A stronger<br/>legal world.<br/>Always."
-            </p>
-            <span className="text-[0.45rem] tracking-[0.2em] uppercase text-white/40">
-              THE JURIS STANDARD™
-            </span>
+          <div className="mb-12">
+            <h2 className="text-[0.55rem] tracking-[0.3em] uppercase text-white/40 mb-2">Configure</h2>
+            <h1 className="font-serif text-xl text-white tracking-wide leading-tight">
+              Recognition<br/>Share Card
+            </h1>
           </div>
+          
+          <p className="text-xs text-white/40 leading-relaxed font-light mt-auto">
+            Share your official recognition directly to your professional network. This minimalist premium format is optimized for social platforms.
+          </p>
         </div>
 
-        {/* CENTER COLUMN (Main Preview Area) */}
-        <div className="flex-1 flex flex-col overflow-hidden bg-[#0a0a0a]">
+        {/* MIDDLE COLUMN: Canvas Preview */}
+        <div className="flex-1 bg-[#0a0a0a] relative flex flex-col items-center justify-center p-4 lg:p-12 overflow-y-auto">
           
-          {/* Top Preview Canvas */}
-          <div className="flex-1 flex flex-col p-6 lg:p-8 border-b border-[#222] relative min-h-0 items-center justify-center">
-            <h3 className="text-[0.5rem] tracking-[0.2em] uppercase text-white/50 mb-4 w-full text-left shrink-0">
-              PREVIEW — {activeFormatObj.label.toUpperCase()} ({activeFormatObj.resolution})
-            </h3>
+          {/* Subtle background glow behind the card */}
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(203,170,105,0.05)_0%,transparent_60%)] pointer-events-none" />
+
+          {/* THE CARD ITSELF */}
+          <div 
+            id="share-card-preview"
+            className="relative bg-[#050505] flex flex-col justify-center items-center text-center overflow-hidden border border-white/10 shadow-2xl transition-all duration-500"
+            style={{ 
+              aspectRatio: activeFormatObj.aspect, 
+              width: '100%', 
+              maxWidth: activeFormatObj.id === 'ig_story' ? '400px' : '800px',
+              maxHeight: '100%' 
+            }}
+          >
+            <div className="absolute top-0 inset-x-0 h-[1px] bg-gradient-to-r from-transparent via-[#CBAA69]/40 to-transparent" />
             
-            <div className="flex-1 flex items-center justify-center w-full relative">
-              {/* Dynamic Aspect Ratio Preview Box */}
-              <div 
-                className="w-full max-h-full flex relative overflow-hidden bg-[#111] shadow-2xl border border-white/5"
-                style={{ aspectRatio: activeFormatObj.aspect === 'auto' ? '1200/628' : activeFormatObj.aspect }}
-              >
-                {/* Image Background */}
-                <img 
-                  src="/logo/certificate_bg.png" 
-                  alt="Background" 
-                  className="absolute inset-0 w-full h-full object-cover sepia-[0.4] hue-rotate-[-10deg] opacity-70"
-                  style={{ objectPosition: '70% center' }}
-                />
-                <div className="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-transparent w-[80%]" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/30" />
-                <div className="absolute inset-0 bg-gradient-to-l from-black/40 via-transparent to-transparent w-[30%] right-0" />
+            <img 
+              src={trophySrc} 
+              alt="Trophy" 
+              className={cn(
+                "object-contain mix-blend-screen filter drop-shadow-[0_0_30px_rgba(203,170,105,0.15)]",
+                activeFormatObj.id === 'linkedin' || activeFormatObj.id === 'twitter' ? 'w-32 h-32 mb-6' : 'w-48 h-48 mb-10'
+              )}
+            />
 
-                {/* Content Overlay */}
-                <div className="relative z-10 w-full h-full flex flex-col justify-between p-6 sm:p-10 md:p-14 lg:p-16">
-                  
-                  {/* Top Left */}
-                  <div className="flex flex-col">
-                    <h4 className="font-serif text-[1rem] lg:text-[1.2rem] text-white tracking-[0.25em] uppercase mb-1">
-                      The Juris Standard™
-                    </h4>
-                    <span className="text-[0.35rem] lg:text-[0.45rem] text-white/40 tracking-[0.4em] uppercase">
-                      People &nbsp;|&nbsp; Firms &nbsp;|&nbsp; Ideas &nbsp;|&nbsp; Impact
-                    </span>
-                  </div>
+            <h2 className={cn(
+              "uppercase tracking-[0.4em] text-[#CBAA69] font-medium mb-3",
+              activeFormatObj.id === 'linkedin' || activeFormatObj.id === 'twitter' ? 'text-[0.55rem]' : 'text-[0.7rem]'
+            )}>
+              {firm.division}
+            </h2>
+            
+            <h1 className={cn(
+              "font-serif text-white tracking-wide px-12 leading-tight",
+              activeFormatObj.id === 'linkedin' || activeFormatObj.id === 'twitter' ? 'text-3xl mb-5' : 'text-5xl mb-8'
+            )}>
+              {firm.name}
+            </h1>
 
-                  <div className="flex-1 flex flex-col justify-center">
-                    {/* Line */}
-                    <div className="w-12 h-[1px] bg-[#CBAA69]/50 mb-6"></div>
-                    
-                    <h5 className="font-serif text-[0.8rem] lg:text-[1rem] text-white/90 tracking-[0.2em] uppercase mb-4 font-light">
-                      {firm.division?.replace('™', '')}™ &nbsp;·&nbsp; {firm.year}
-                    </h5>
-                    
-                    <h2 className="font-serif text-[2.5rem] lg:text-[4.5rem] text-white uppercase tracking-wider mb-8 font-medium leading-none drop-shadow-lg">
-                      {firm.name}
-                    </h2>
+            <div className="w-12 h-[1px] bg-[#CBAA69]/40 mb-5" />
 
-                    <p className="font-serif text-lg lg:text-2xl text-white/80 italic leading-snug">
-                      Excellence recognised.<br/>
-                      A stronger legal world. Always.
-                    </p>
-                  </div>
-
-                  {/* Bottom Left */}
-                  <div className="flex items-center gap-4 text-[0.4rem] lg:text-[0.5rem] tracking-[0.25em] uppercase text-white/40">
-                    <span>RECORD ID: {firm.recognitionId}</span>
-                    <span className="w-[1px] h-3 bg-white/20"></span>
-                    <span>VERIFY AT THE JURIS STANDARD™</span>
-                  </div>
-                </div>
-
-                {/* Right Elements (Seal, QR, Vertical Text) */}
-                <div className="absolute top-0 right-0 bottom-0 w-[40%] flex flex-col items-end justify-between p-6 sm:p-10 md:p-16 z-20 pointer-events-none">
-                  <div className="flex flex-col gap-2 opacity-50 mt-12 hidden md:flex">
-                    {['TRUST.', 'CAPABILITY.', 'INTEGRITY.', 'IMPACT.'].map(word => (
-                      <span key={word} className="text-[0.4rem] tracking-[0.3em] font-medium text-white/80 text-right">{word}</span>
-                    ))}
-                  </div>
-
-                  {/* Big Seal */}
-                  <div className="absolute right-[10%] top-1/2 -translate-y-1/2 w-[35%] aspect-square max-w-[280px]">
-                    <img 
-                      src="/logo/seal main.png" 
-                      alt="Juris Standard Seal" 
-                      className="w-full h-full object-contain drop-shadow-[0_20px_30px_rgba(0,0,0,0.8)]"
-                    />
-                  </div>
-
-                  {/* QR Code Block */}
-                  <div className="flex flex-col items-center bg-black/40 backdrop-blur-md p-3 border border-white/10 rounded-sm">
-                    <div className="w-16 h-16 bg-white p-1 mb-2">
-                      <img src={`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://jurisstandard.com/record/${firm.recognitionId}`} alt="QR Code" className="w-full h-full opacity-90" />
-                    </div>
-                    <span className="text-[0.35rem] tracking-[0.2em] uppercase text-white/80 text-center">
-                      SCAN TO VERIFY
-                    </span>
-                  </div>
-                </div>
-
+            <p className={cn(
+              "text-white/40 uppercase tracking-widest font-light",
+              activeFormatObj.id === 'linkedin' || activeFormatObj.id === 'twitter' ? 'text-[0.55rem]' : 'text-xs'
+            )}>
+              Official Recognition • {firm.year}
+            </p>
+            
+            {/* Bottom Footer on Card */}
+            <div className="absolute bottom-6 inset-x-0 px-8 lg:px-12 flex justify-between items-end opacity-40">
+              <div className="text-left">
+                <p className="text-[0.4rem] tracking-[0.3em] uppercase text-white mb-1">THE JURIS STANDARD™</p>
+                <p className="text-[0.35rem] tracking-[0.2em] text-white/60">A STRONGER LEGAL WORLD. ALWAYS.</p>
+              </div>
+              <div className="text-right hidden sm:block">
+                <p className="text-[0.35rem] tracking-[0.2em] text-white/60 mb-1">RECORD ID</p>
+                <p className="text-[0.4rem] tracking-[0.2em] text-white">{firm.recognitionId}</p>
               </div>
             </div>
           </div>
-
-          {/* Bottom Thumbnails Area */}
-          <div className="h-[200px] shrink-0 p-6 flex flex-col relative z-20 bg-[#070707] border-t border-[#222]">
-            <h3 className="text-[0.5rem] tracking-[0.2em] uppercase text-white/50 mb-4 shrink-0">
-              OTHER FORMATS (SAME JURIS STANDARD™ THEME)
-            </h3>
-            
-            <div className="flex-1 flex items-stretch gap-5 overflow-x-auto pb-2 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-              {FORMATS.filter(f => f.id !== selectedFormat && f.id !== 'custom').map(format => (
-                <div key={format.id} className="flex flex-col h-full shrink-0 group cursor-pointer" onClick={() => setSelectedFormat(format.id)}>
-                  <span className="text-[0.45rem] tracking-wider text-white/60 mb-2 group-hover:text-white transition-colors">
-                    {format.label} ({format.resolution})
-                  </span>
-                  <div 
-                    className="flex-1 relative bg-[#111] border border-white/10 group-hover:border-[#CBAA69]/50 transition-colors max-h-full"
-                    style={{ aspectRatio: format.aspect }}
-                  >
-                    {/* Tiny representation of the preview */}
-                    <img 
-                      src="/logo/certificate_bg.png" 
-                      alt="Bg" 
-                      className="absolute inset-0 w-full h-full object-cover sepia-[0.4] hue-rotate-[-10deg] opacity-70" 
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-transparent w-[80%]" />
-                    <div className="absolute inset-0 p-3 flex flex-col justify-between z-10">
-                      <div>
-                        <h4 className="font-serif text-[0.35rem] text-white uppercase mb-0.5">The Juris Standard™</h4>
-                        <div className="w-3 h-[1px] bg-[#CBAA69]/50 my-1"></div>
-                        <h2 className="font-serif text-[0.65rem] text-white uppercase font-medium leading-none">{firm.name}</h2>
-                      </div>
-                      <div className="absolute right-1 top-1/2 -translate-y-1/2 w-8 h-8">
-                        <img src="/logo/seal main.png" className="w-full h-full object-contain opacity-80" />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
         </div>
 
-        {/* RIGHT COLUMN (Format Selection) */}
-        <div className="w-full lg:w-[280px] shrink-0 border-t lg:border-t-0 lg:border-l border-[#222] bg-[#050505] flex flex-col p-6 overflow-hidden">
+        {/* RIGHT COLUMN: Controls & Download */}
+        <div className="w-full lg:w-[320px] shrink-0 bg-[#050505] border-t lg:border-t-0 lg:border-l border-white/5 flex flex-col h-full overflow-y-auto">
           
-          <h3 className="text-[0.5rem] tracking-[0.2em] uppercase text-white/50 mb-4 font-bold shrink-0">
-            SELECT FORMAT
-          </h3>
-          
-          <div className="flex flex-col gap-1.5 overflow-y-auto pr-2 mb-auto [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-[#333] [&::-webkit-scrollbar-thumb]:rounded-full">
-            {FORMATS.map(format => {
-              const isSelected = format.id === selectedFormat;
-              return (
-                <button
-                  key={format.id}
-                  onClick={() => setSelectedFormat(format.id)}
-                  className={`flex items-center gap-3 p-3 rounded-[2px] transition-all ${
-                    isSelected 
-                      ? 'bg-gradient-to-r from-[#2a1f11] to-[#0a0a0a] border border-[#CBAA69]/40' 
-                      : 'bg-transparent border border-transparent hover:bg-white/[0.02]'
-                  }`}
+          <div className="p-8 border-b border-white/5">
+            <h3 className="text-[0.65rem] uppercase tracking-widest text-white/50 font-medium mb-6">Select Format</h3>
+            <div className="flex flex-col gap-2">
+              {FORMATS.map(fmt => (
+                <button 
+                  key={fmt.id}
+                  onClick={() => setSelectedFormat(fmt.id)}
+                  className={cn(
+                    "flex items-center gap-4 p-4 border rounded-sm transition-all duration-300 text-left",
+                    selectedFormat === fmt.id 
+                      ? "border-[#CBAA69]/40 bg-[#CBAA69]/5" 
+                      : "border-white/5 hover:bg-white/5 hover:border-white/10"
+                  )}
                 >
-                  <div className={`w-8 h-8 flex items-center justify-center shrink-0 bg-[#111] border ${isSelected ? 'border-[#CBAA69]/30 text-[#CBAA69]' : 'border-white/10 text-white/60'} rounded-[2px]`}>
-                    <format.icon className="w-4 h-4" strokeWidth={1.5} />
+                  <div className={cn(
+                    "w-8 h-8 rounded-sm flex items-center justify-center border transition-colors",
+                    selectedFormat === fmt.id ? "bg-[#CBAA69]/10 border-[#CBAA69]/30 text-[#CBAA69]" : "bg-white/5 border-white/5 text-white/40"
+                  )}>
+                    <fmt.icon className="w-4 h-4" strokeWidth={1.5} />
                   </div>
-                  <div className="flex flex-col text-left">
-                    <span className={`text-[0.55rem] tracking-wider ${isSelected ? 'text-white' : 'text-white/80'}`}>{format.label}</span>
-                    <span className="text-[0.45rem] text-white/40">{format.resolution}</span>
+                  <div>
+                    <div className={cn(
+                      "text-xs font-medium mb-0.5 transition-colors",
+                      selectedFormat === fmt.id ? "text-white" : "text-white/60"
+                    )}>{fmt.label}</div>
+                    <div className="text-[0.55rem] text-white/30 tracking-widest uppercase">{fmt.resolution}</div>
                   </div>
-                </button>
-              );
-            })}
-          </div>
-
-          <div className="flex flex-col gap-2 mt-4 shrink-0">
-            <button className="w-full py-3 bg-gradient-to-r from-[#e6ce9a] to-[#CBAA69] hover:from-[#f0d8a5] hover:to-[#d8b877] text-black text-[0.6rem] uppercase tracking-widest font-bold flex items-center justify-center gap-2 rounded-[2px] transition-all shadow-[0_0_20px_rgba(203,170,105,0.15)]">
-              <Download className="w-3.5 h-3.5" /> Download Image
-            </button>
-            <button className="w-full py-3 bg-transparent border border-[#333] hover:border-white/40 text-white text-[0.6rem] uppercase tracking-widest font-medium flex items-center justify-center gap-2 rounded-[2px] transition-all">
-              <LinkIcon className="w-3 h-3" /> Copy Share Link
-            </button>
-          </div>
-
-          <div className="flex flex-col mt-6 shrink-0">
-            <span className="text-[0.5rem] text-white/50 mb-3">Share Directly</span>
-            <div className="flex items-center gap-2">
-              {[Briefcase, AtSign, Phone, Mail, MoreHorizontal].map((Icon, idx) => (
-                <button key={idx} className="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center hover:bg-white/10 transition-colors group">
-                  <Icon className="w-3.5 h-3.5 text-white/60 group-hover:text-white" strokeWidth={1.5} />
                 </button>
               ))}
             </div>
           </div>
 
+          <div className="p-8 mt-auto flex flex-col gap-3">
+            <button 
+              className="w-full flex items-center justify-center gap-3 py-4 bg-gradient-to-r from-[#CBAA69] to-[#E8D099] hover:from-[#e0c484] hover:to-[#f0e0b0] text-black font-bold text-[0.65rem] uppercase tracking-[0.2em] rounded-sm transition-all"
+            >
+              <Download className="w-4 h-4" /> Download Image
+            </button>
+            <button 
+              className="w-full flex items-center justify-center gap-3 py-4 bg-white/5 hover:bg-white/10 text-white font-medium text-[0.65rem] uppercase tracking-[0.2em] rounded-sm transition-all border border-white/5"
+            >
+              <LinkIcon className="w-3.5 h-3.5" /> Copy Share Link
+            </button>
+          </div>
         </div>
-
       </div>
-
     </main>
   );
 }

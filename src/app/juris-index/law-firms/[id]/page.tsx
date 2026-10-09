@@ -337,12 +337,11 @@ export default async function JurisStandardRecordPage({
                 </span>
               </div>
               
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 w-full relative z-10">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 w-full relative z-10">
                 {[
                   { Icon: Award, label: "Official Certificate", sub: "View / Download", href: `/juris-index/law-firms/${record.id}/certificate` },
                   { Icon: FileText, label: "Share Card", sub: "Create / Share", href: `/juris-index/law-firms/${record.id}/share` },
-                  { Icon: Code2, label: "Website Seal", sub: "Get / Install", href: "#" },
-                ].map(({ Icon, label, sub, href }) => (
+                  ].map(({ Icon, label, sub, href }) => (
                   <Link
                     key={label}
                     href={href}
